@@ -1,0 +1,56 @@
+@import "variable";
+$main-color: $primary-color; /* 蓝色 主色调 */
+
+.mint-header {
+  background-color: $main-color;
+}
+.mint-button:not(.is-disabled):active::after {
+  opacity: .2 /* .6 */
+}
+.mint-button--primary {
+  background-color: $main-color;
+}
+.mint-button--primary.is-plain {
+  border: 1px solid $main-color;
+  color: $main-color
+}
+.mint-badge.is-primary {
+  background-color: $main-color
+}
+.mint-switch-input:checked + .mint-switch-core {
+  border-color: $main-color;
+  background-color: $main-color;
+}
+.mint-navbar .mint-tab-item.is-selected {
+  border-bottom: 3px solid $main-color;
+  color: $main-color;
+}
+.mint-tabbar > .mint-tab-item.is-selected {
+  color: $main-color;
+}
+.mint-searchbar-cancel {
+  color: $main-color;
+}
+.mint-checkbox-input:checked + .mint-checkbox-core {
+  background-color: $main-color;
+  border-color: $main-color;
+}
+.mint-radio-input:checked + .mint-radio-core {
+  background-color: $main-color;
+  border-color: $main-color;
+}
+.mt-range-progress {
+  background-color: $main-color;
+}
+.mt-progress-progress {
+  background-color: $main-color;
+}
+.mint-msgbox-confirm {
+  color: $main-color;
+}
+.mint-msgbox-confirm:active {
+  color: $main-color;
+}
+.mint-datetime-action {
+  color: $main-color;
+}

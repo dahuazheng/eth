@@ -1,0 +1,45 @@
+/**
+ *  default: 默认主题
+ *  light: 亮色主题
+**/
+
+/* 颜色定义规范 */
+// 默认主题
+$default-color: #f3f3f3;
+$primary-color: #4B6FA2; //#26a2ff;
+$succeed-color: green;
+$danger-color: #ef4f4f;
+$border-color: #f0f0f0;
+
+$font-color: #333;
+$font-sub-color: #666;
+$font-third-color: #999;
+$font-comparison-color: #fff;
+$font-primary-color: $primary-color;
+
+// 暗色主题
+$primary-color-dark: #702cbd;
+$default-color-dark: #f6f8fa;
+$danger-color-dark: #ef4f4f;
+$border-color-dark: #ccc;
+
+$font-color-dark: #fff;
+$font-sub-color-dark: #666;
+$font-comparison-color-dark: #000;
+$font-primary-color-dark: $primary-color-dark;
+
+// 字体定义规范
+$font-little-s: 10px;
+$font-little: 12px;
+$font-medium-s: 14px;
+$font-medium: 16px;
+$font-large-s: 18px;
+$font-large: 20px;
+
+// 其他配置
+$font-sans-serif: PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, Arial, sans-serif;
+$space-width: 10px;
+$margin-width: 15px;
+$clear-color: #fff;
+$box-shadow: 0 0 5px rgba(0,0,0,0.2);
+$border-radius: 3px;

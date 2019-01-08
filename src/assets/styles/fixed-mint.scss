@@ -1,0 +1,6 @@
+@import "variable";
+@import "mixin";
+
+.picker-slot {
+    @include fontSize($font-medium-s)
+}
