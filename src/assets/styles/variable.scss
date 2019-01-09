@@ -6,7 +6,8 @@
 /* 颜色定义规范 */
 // 默认主题
 $default-color: #f3f3f3;
-$primary-color: #4B6FA2; //#26a2ff;
+$primary-color: #4b6fa2; //#26a2ff;
+$gold-color: #fffe08;
 $succeed-color: green;
 $danger-color: #ef4f4f;
 $border-color: #f0f0f0;
@@ -41,5 +42,8 @@ $font-sans-serif: PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micr
 $space-width: 10px;
 $margin-width: 15px;
 $clear-color: #fff;
-$box-shadow: 0 0 5px rgba(0,0,0,0.2);
+$box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 $border-radius: 3px;
+
+$color-from: #8a1eb2;
+$color-to: #430d75;

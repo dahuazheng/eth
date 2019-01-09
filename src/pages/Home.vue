@@ -1,49 +1,19 @@
 <template>
     <div class="home">
-        <div class="banner">
-            <div class="head">
-                <img class="trophy" src="../assets/images/home-trophy.png" alt="">
-                <img class="logo" src="../assets/images/home-logo.png" alt="">
-                <div class="input-box">
-                    <input type="text" placeholder="EHT地址/昵称查询">
-                </div>
-            </div>
-            <div class="jackpot">
-                <small>当前奖池</small>
-                <div class="price">3769.2</div>
-                <ul>
-                    <li>
-                        <label>累计参与额</label>
-                        <span>10470</span>
-                    </li>
-                    <li>
-                        <label>今日参与额</label>
-                        <span>10470</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="time">
-                02:45:00
-            </div>
-            <div class="notification">
-                <div class="message-box">
-                    <icon name="small-bell" class="icon"></icon>
-                    <span></span>
-                </div>
-            </div>
-        </div>
+        <Banner/>
+
 
     </div>
 </template>
 
 <script>
   // @ is an alias to /src
-  import HelloWorld from '@/components/HelloWorld.vue'
+  import Banner from '@/components/Banner.vue'
 
   export default {
     name: 'home',
     components: {
-      HelloWorld
+      Banner
     }
   }
 </script>
@@ -60,7 +30,7 @@
         box-sizing: border-box;
         width: 100%;
         padding-top: 20px;
-        background: #8c00af;
+        //background: #8c00af;
 
         .head {
             position: relative;
