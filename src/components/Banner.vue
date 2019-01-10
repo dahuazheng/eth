@@ -58,7 +58,7 @@
     @import "../assets/styles/mixin";
 
     .banner {
-        @include px2rem('height', 288);
+        @include px2rem('height', 292);
         @include background-gradient-diagonal($color-from, $color-to);
         position: relative;
         box-sizing: border-box;
@@ -131,12 +131,11 @@
 
             .price-box {
                 @include fontSize($font-little-s);
-                padding: 10px;
                 color: $default-color;
 
                 p {
                     @include fontSize($font-medium);
-                    margin: $margin-width 0;
+                    margin: $space-width 0;
                     color: $gold-color;
                 }
 
@@ -165,7 +164,6 @@
                         }
                     }
                 }
-
             }
 
             .time {

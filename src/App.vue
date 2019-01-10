@@ -10,7 +10,7 @@
 
     html {
         font-size: 75px;
-        @include bgColor($default-color)
+        @include bgColor($clear-color)
     }
 
     body {

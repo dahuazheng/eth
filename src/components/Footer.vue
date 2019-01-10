@@ -1,16 +1,19 @@
 <template>
     <div class="footer">
         <ul>
-            <li>
-                <img src="" alt="">
+            <li @click="handleTab('wallet')" :class="{active:action==='wallet'}">
+                <img v-if="action==='wallet'" src="../assets/images/wallet_press.png">
+                <img v-else src="../assets/images/wallet_nomal.png">
                 <span>钱包</span>
             </li>
-            <li>
-                <img src="" alt="">
-                <span>1ETH</span>
+            <li @click="handleTab('eth')" :class="{active:action==='eth'}">
+                <img v-if="action==='eth'" src="../assets/images/eth_press.png">
+                <img v-else src="../assets/images/eth_nomal.png">
+                <span>1 ETH</span>
             </li>
-            <li>
-                <img src="" alt="">
+            <li @click="handleTab('me')" :class="{active:action==='me'}">
+                <img v-if="action==='me'" src="../assets/images/me_press.png">
+                <img v-else src="../assets/images/me_nomal.png">
                 <span>我的</span>
             </li>
         </ul>
@@ -18,7 +21,19 @@
 </template>
 
 <script>
-
+  export default {
+    name: 'footer',
+    data() {
+      return {
+        action: 'wallet'
+      }
+    },
+    methods: {
+      handleTab(action) {
+        this.action = action
+      }
+    }
+  }
 </script>
 
 <style scoped lang="scss">
@@ -26,18 +41,35 @@
     @import "../assets/styles/mixin";
 
     .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-top: 1px solid $border-color;
+        background: $clear-color;
+
         ul {
             @include clearUl;
             @include px2rem('height', 56);
             display: flex;
             flex-direction: row;
+            justify-content: space-around;
             align-items: center;
 
             li {
+                @include fontSize($font-little);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
                 color: $font-third-color;
 
+                img {
+                    @include px2rem('width', 25);
+                    @include px2rem('height', 26);
+                }
+
                 &.active {
-                    @include fontSize($font-little);
                     color: $primary-color;
                 }
             }
