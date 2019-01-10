@@ -11,7 +11,36 @@
                 <img src="../assets/images/icon_eth_star.png" alt="">
             </div>
             <div class="price-box">
-
+                <label>当前奖池</label>
+                <p>769.2ETH / 2313503.2 INC</p>
+                <div class="row">
+                    <span>累计参与额</span>
+                    <span>
+                        10470
+                        <img class="icon-bet" src="../assets/images/icon_bet_eth.png">
+                    </span><span>
+                        10470
+                        <img class="icon-star" src="../assets/images/icon_bet_eth_star.png">
+                    </span>
+                </div>
+                <div class="row">
+                    <span>今日参与额</span>
+                    <span>
+                        10470
+                        <img class="icon-bet" src="../assets/images/icon_bet_eth.png">
+                    </span>
+                    <span>
+                        10470
+                        <img class="icon-star" src="../assets/images/icon_bet_eth_star.png">
+                    </span>
+                </div>
+            </div>
+            <div class="time">
+                02:45:00
+            </div>
+            <div class="message">
+                <icon name="small-bell" class="icon" ></icon>
+                <span></span>
             </div>
         </div>
     </div>
@@ -62,9 +91,10 @@
         }
 
         .content {
+            position: relative;
             height: 100%;
             background-image: url('../assets/images/bg_eth_title.png');
-            background-size: cover;
+            background-size: 100% 100%;
             text-align: center;
 
             .jackpot {
@@ -95,10 +125,77 @@
                     left: 6px;
                     margin: auto;
                     display: inline-block;
-                    color: $gold-color;
+                    color: #FFE500;
                 }
             }
 
+            .price-box {
+                @include fontSize($font-little-s);
+                padding: 10px;
+                color: $default-color;
+
+                p {
+                    @include fontSize($font-medium);
+                    margin: $margin-width 0;
+                    color: $gold-color;
+                }
+
+                .row {
+                    @include px2rem('height', 16);
+                    margin-bottom: $margin-width;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+
+                    span {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        margin: $space-width;
+
+                        img {
+                            margin-left: 5px;
+                            @include px2rem('width', 16);
+                            @include px2rem('height', 16);
+                        }
+
+                        .icon-star {
+                            @include px2rem('width', 13);
+                            @include px2rem('height', 15);
+                        }
+                    }
+                }
+
+            }
+
+            .time {
+                @include fontSize($font-medium);
+                color: #94D9FF;
+            }
+
+            .message {
+                @include px2rem('width', 272);
+                @include px2rem('height', 38);
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                margin: auto;
+                display: inline-block;
+                border: 1px solid $border-color;
+                border-radius: 19px;
+
+                .icon {
+                    @include px2rem('width', 22);
+                    @include px2rem('height', 22);
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 10px;
+                    margin: auto;
+                    color: $clear-color;
+                }
+            }
         }
     }
 </style>

@@ -3,9 +3,14 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './registerServiceWorker'
-import Icon from 'vue-svg-icon/Icon.vue'
 
-Vue.component('icon', Icon)
+import SvgIcon from 'vue-svgicon'
+import './assets/icons'
+
+Vue.use(SvgIcon, {
+  tagName: 'icon'
+})
+
 Vue.config.productionTip = false
 
 new Vue({
