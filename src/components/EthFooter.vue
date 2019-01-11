@@ -22,7 +22,7 @@
 
 <script>
   export default {
-    name: 'footer',
+    name: 'ethFooter',
     data() {
       return {
         action: 'wallet'

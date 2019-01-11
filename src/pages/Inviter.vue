@@ -2,11 +2,20 @@
     <div class="home">
         <Banner/>
         <main>
-            <p><label>请先登录</label></p>
             <p>
-                <button>登陆</button>
+                <label>必须绑定邀请人才能参与游戏！</label>
             </p>
-            <p><span>注册</span></p>
+            <p class="no-inviter">
+                <span>若无邀请人</span>
+                <img src="../assets/images/icon_helper.png">
+            </p>
+            <p>
+                <input type="text" placeholder="输入邀请人昵称">
+            </p>
+            <p>
+                <button>立即绑定</button>
+            </p>
+
         </main>
         <EthFooter/>
     </div>
@@ -33,14 +42,23 @@
         background: $clear-color;
 
         main {
+            padding-top: 10px;
+
             p {
                 @include fontSize($font-medium-s);
-                margin: 40px;
+                margin: 20px;
                 text-align: center;
 
                 label {
                     @include fontSize($font-medium);
                     @include fontSubColor($font-sub-color);
+                }
+
+                input{
+                    @include px2rem('width', 315);
+                    padding: 7px 0;
+                    border: none;
+                    border-bottom: 1px solid $border-color;
                 }
 
                 button {
@@ -54,8 +72,19 @@
                     border: none;
                 }
 
-                span {
-                    @include fontPrimaryColor($primary-color)
+                &.no-inviter {
+                    @include fontSubColor($font-sub-color);
+                    @include fontSize($font-little);
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+
+                    img {
+                        @include px2rem('width', 30);
+                        @include px2rem('height', 30);
+                        margin-left: 5px;
+                    }
                 }
             }
         }
