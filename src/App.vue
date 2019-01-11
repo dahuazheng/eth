@@ -4,6 +4,16 @@
     </div>
 </template>
 
+<script>
+  export default {
+    name: 'noteCodePopup',
+    props: ['show'],
+    methods: {
+
+    }
+  }
+</script>
+
 <style lang="scss">
     @import "./assets/styles/variable";
     @import "./assets/styles/mixin";
@@ -25,7 +35,8 @@
         @include fontColor($font-color);
     }
 
-    textarea {
+    input, textarea, button {
+        outline: none;
         font-family: $font-sans-serif;
     }
 

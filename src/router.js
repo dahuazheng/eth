@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './pages/Home.vue'
+import Login from './pages/Login.vue'
 import Inviter from './pages/Inviter.vue'
+import JoinHistory from './pages/JoinHistory.vue'
 
 Vue.use(Router)
 
@@ -13,10 +15,18 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
-    },{
+    }, {
+      path: '/login',
+      name: 'login',
+      component: Login
+    }, {
       path: '/inviter',
       name: 'inviter',
       component: Inviter
+    }, {
+      path: '/joinHistory',
+      name: 'joinHistory',
+      component: JoinHistory
     },
     {
       path: '/about',

@@ -12,7 +12,7 @@
             <p>
                 <input type="text" placeholder="输入邀请人昵称">
             </p>
-            <p>
+            <p class="btn-box">
                 <button>立即绑定</button>
             </p>
 
@@ -42,11 +42,11 @@
         background: $clear-color;
 
         main {
-            padding-top: 10px;
+            padding-top: 15px;
 
             p {
                 @include fontSize($font-medium-s);
-                margin: 20px;
+                margin: 15px;
                 text-align: center;
 
                 label {
@@ -54,22 +54,11 @@
                     @include fontSubColor($font-sub-color);
                 }
 
-                input{
+                input {
                     @include px2rem('width', 315);
                     padding: 7px 0;
                     border: none;
                     border-bottom: 1px solid $border-color;
-                }
-
-                button {
-                    @include px2rem('width', 148);
-                    @include px2rem('height', 42);
-                    @include px2rem('line-height', 42);
-                    @include background-gradient(#C037ED, #9712A3);
-                    @include fontSize($font-medium-s);
-                    color: $clear-color;
-                    border-radius: 5px;
-                    border: none;
                 }
 
                 &.no-inviter {
@@ -86,6 +75,22 @@
                         margin-left: 5px;
                     }
                 }
+
+                &.btn-box {
+                    margin-top: 40px;
+
+                    button {
+                        @include px2rem('width', 148);
+                        @include px2rem('height', 42);
+                        @include px2rem('line-height', 42);
+                        @include background-gradient(#C037ED, #9712A3);
+                        @include fontSize($font-medium-s);
+                        color: $clear-color;
+                        border-radius: 5px;
+                        border: none;
+                    }
+                }
+
             }
         }
     }
