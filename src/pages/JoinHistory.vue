@@ -1,6 +1,6 @@
 <template>
     <div class="join-history">
-        <PopupTitle title="短信验证" :back="close"/>
+        <PopupTitle title="参与历史" :back="close"/>
         <ul>
             <li>
                 <span>时间</span>
