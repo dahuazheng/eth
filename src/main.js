@@ -6,6 +6,7 @@ import './registerServiceWorker'
 
 import SvgIcon from 'vue-svgicon'
 import './assets/icons'
+import './assets/styles/common.scss'
 
 Vue.use(SvgIcon, {
   tagName: 'icon'
