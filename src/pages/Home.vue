@@ -52,6 +52,7 @@
                     @include fontSize($font-medium-s);
                     color: $clear-color;
                     border-radius: 5px;
+                    border: none;
                 }
 
                 span {
