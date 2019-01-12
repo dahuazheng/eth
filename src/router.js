@@ -5,6 +5,7 @@ import Login from './pages/Login.vue'
 import Inviter from './pages/Inviter.vue'
 import RankingList from './pages/RankingList.vue'
 import JoinHistory from './pages/JoinHistory.vue'
+import GuessResult from './pages/GuessResult.vue'
 
 Vue.use(Router)
 
@@ -25,17 +26,17 @@ export default new Router({
       name: 'inviter',
       component: Inviter
     }, {
-      path: '/joinHistory',
+      path: '/join-history',
       name: 'joinHistory',
       component: JoinHistory
+    }, {
+      path: '/guess-result',
+      name: 'guessResult',
+      component: GuessResult
     },
     {
       path: '/ranking-list',
       name: 'rankingName',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      //component: () => import(/* webpackChunkName: "about" */ './pages/About.vue')
       component: RankingList
     }
   ]

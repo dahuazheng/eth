@@ -8,6 +8,7 @@
     "svg": "vsvg -s ./src/assets/svg -t ./src/assets/icons"
   },
   "dependencies": {
+    "mint-ui": "^2.2.13",
     "register-service-worker": "^1.5.2",
     "vue": "^2.5.21",
     "vue-router": "^3.0.1",

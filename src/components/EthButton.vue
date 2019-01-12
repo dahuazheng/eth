@@ -26,9 +26,11 @@
             @include px2rem('line-height', 42);
             @include background-gradient(#C037ED, #9712A3);
             @include fontSize($font-medium-s);
+            box-sizing: border-box;
+            display: inline-block;
             color: $clear-color;
             border-radius: $space-width;
-            border: none;
+            border: 1px solid #fff;
         }
     }
 </style>
