@@ -14,8 +14,10 @@
                     <td>奖励总额</td>
                     <td>直推个数/展开</td>
                 </tr>
-                <tr>
-                    <td>1</td>
+                <tr v-for="">
+                    <td>
+                        <span :class="['rank-icon', 'icon-'+rankNum]"/>
+                    </td>
                     <td>2</td>
                     <td>3</td>
                     <td>4</td>
@@ -29,7 +31,12 @@
 
 <script>
     export default {
-      name: 'rank-tab'
+      name: 'rank-tab',
+      data() {
+        return {
+           rankNum: '1'
+        }
+      }
     }
 </script>
 
@@ -90,6 +97,33 @@
 
                         &:last-child {
                             padding-right: 17px;
+                        }
+
+                        .rank-icon {
+                            display: inline-block;
+                            @include px2rem('width', 30);
+                            @include px2rem('height', 30);
+                            background-size: 100% 100%;
+
+                            &.icon-1 {
+                                background-image: url('../assets/images/icon_one.png');
+                            }
+
+                            &.icon-2 {
+                                background-image: url('../assets/images/icon_two.png');
+                            }
+
+                            &.icon-3 {
+                                background-image: url('../assets/images/icon_three.png');
+                            }
+
+                            &.icon-4 {
+                                background-image: url('../assets/images/icon_four.png');
+                            }
+
+                            &.icon-5 {
+                                background-image: url('../assets/images/icon_five.png');
+                            }
                         }
                     }
                 }
