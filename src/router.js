@@ -7,6 +7,7 @@ import RankingList from './pages/RankingList.vue'
 import JoinHistory from './pages/JoinHistory.vue'
 import GuessResult from './pages/GuessResult.vue'
 import UserCenter from './pages/UserCenter.vue'
+import UserOption from './pages/UserOption.vue'
 import CommonProblem from './pages/CommonProblem.vue'
 import SelectLang from './pages/SelectLang.vue'
 import GameIntro from './pages/GameIntro.vue'
@@ -38,6 +39,10 @@ export default new Router({
       path: '/guess-result',
       name: 'guessResult',
       component: GuessResult
+    }, {
+      path: '/user-center',
+      name: 'userCenter',
+      component: UserCenter
     },
     {
       path: '/ranking-list',
@@ -45,9 +50,9 @@ export default new Router({
       component: RankingList
     },
     {
-      path: '/user-center',
-      name: 'userCenter',
-      component: UserCenter
+      path: '/user-option',
+      name: 'userOption',
+      component: UserOption
     },
     {
       path: '/common-problem',
