@@ -66,10 +66,13 @@
                 border-collapse: collapse;
 
                 tr {
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: space-between;
                     border-bottom: 1px solid $border-bottom-color;
+                    padding: 5px 10px;
 
                     &:first-child {
-                        padding: 5px 10px;
                         background-color: #f5f5f5;
                         color: #b1b2b0;
                         border-bottom-color: transparent;
