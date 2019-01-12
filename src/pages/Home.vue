@@ -22,6 +22,9 @@
                         <small>钱包余额：0 ETH</small>
                     </p>
                 </li>
+                <li v-show="tabAction==='guess'">
+                    <DayGuess/>
+                </li>
             </ul>
         </main>
         <EthFooter/>
@@ -33,12 +36,13 @@
   import Banner from '@/components/Banner.vue'
   import EthFooter from '@/components/EthFooter.vue'
   import NoteCodePopup from '@/components/NoteCodePopup.vue'
+  import DayGuess from '@/components/DayGuess.vue'
   import {joinMixin} from '../mixins'
 
   export default {
     name: 'home',
     components: {
-      Banner, EthFooter, NoteCodePopup
+      Banner, EthFooter, NoteCodePopup, DayGuess
     },
     mixins: [joinMixin],
     data() {
