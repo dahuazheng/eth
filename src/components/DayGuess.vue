@@ -10,7 +10,9 @@
             <EthButton name="现在参与" :click="joinNow"/>
         </div>
         <div class="in-join" v-show="joinAction==='in'">
-            <input type="number" v-model="guessValue" placeholder="明天参与游戏的单日ETH总个数是多少？">
+            <input type="number"
+                   v-model="guessValue"
+                   placeholder="明天参与游戏的单日ETH总个数是多少？">
             <EthButton name="提交" borderRadios="21px" :click="submitGuess"/>
         </div>
         <div class="end-join" v-show="joinAction==='end'">
@@ -23,7 +25,7 @@
 </template>
 
 <script>
-  import { Toast } from 'mint-ui'
+  import {Toast} from 'mint-ui'
   import EthButton from './EthButton'
 
   export default {
@@ -40,7 +42,7 @@
         this.joinAction = 'in'
       },
       submitGuess() {
-        if(!this.guessValue){
+        if (!this.guessValue) {
           Toast('请填写表单')
           return
         }
