@@ -18,7 +18,6 @@
   @include fontDpr($size);
 }
 
-
 // 设置字体颜色
 @mixin fontColor($color) {
   color: $color;
@@ -177,17 +176,22 @@
   transform: rotate($deg);
 }
 
-@mixin clearBack(){
+@mixin clearBack() {
   margin: 0;
   padding: 0;
 }
 
-@mixin clearUl(){
+@mixin clearUl() {
   @include clearBack;
   list-style: none;
 }
 
-@mixin background-gradient ($color-from, $color-to) {
+@mixin background-image() {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+@mixin background-gradient($color-from, $color-to) {
   background: $color-from;
   background: -moz-linear-gradient(left, $color-from 0%, $color-to 100%);
   background: -webkit-gradient(left top, right top, color-stop(0%, $color-from), color-stop(100%, $color-to));
@@ -200,7 +204,7 @@
   /* stylelint-enable function-name-case */
 }
 
-@mixin background-gradient-vertical ($color-from, $color-to) {
+@mixin background-gradient-vertical($color-from, $color-to) {
   background: $color-from;
   background: -moz-linear-gradient(top, $color-from 0%, $color-to 100%);
   background: -webkit-gradient(left top, left bottom, color-stop(0%, $color-from), color-stop(100%, $color-to));
@@ -213,7 +217,7 @@
   /* stylelint-enable function-name-case */
 }
 
-@mixin background-gradient-diagonal ($color-from, $color-to) {
+@mixin background-gradient-diagonal($color-from, $color-to) {
   background: $color-from;
   background: -moz-linear-gradient(left top, $color-from 0%, $color-to 100%);
   background: -webkit-gradient(left top, right bottom, color-stop(0%, $color-from), color-stop(100%, $color-to));

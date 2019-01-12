@@ -14,24 +14,24 @@
                     <td>奖励总额</td>
                     <td>直推个数/展开</td>
                 </tr>
-                <tr v-for="liveList in liveLists" :key="liveList.rankNum">
+                <tr v-for="live in liveList" :key="live.rankNum">
                     <td>
-                        <span :class="['rank-icon', 'icon-'+ liveList.rankNum]"/>
+                        <span :class="['rank-icon', 'icon-'+ live.rankNum]"/>
                     </td>
-                    <td :class="['rank-color','color-' + liveList.rankNum]">{{ liveList.name }} <br> {{ liveList.address }}</td>
-                    <td :class="['rank-color','color-' + liveList.rankNum]">{{ liveList.ethTotal }} <br> {{ liveList.incTotal }}</td>
-                    <td :class="['rank-color','color-' + liveList.rankNum]">{{ liveList.rankNum }}</td>
+                    <td :class="['rank-color','color-' + live.rankNum]">{{ live.name }} <br> {{ live.address }}</td>
+                    <td :class="['rank-color','color-' + live.rankNum]">{{ live.ethTotal }} <br> {{ live.incTotal }}</td>
+                    <td :class="['rank-color','color-' + live.rankNum]">{{ live.rankNum }}</td>
                 </tr>
             </table>
             <ul class="history" v-show="currTab === 'history'">
                 <li>
-                    <span class="date">日期</span>
+                    <span>日期</span>
                     <span>奖项</span>
                     <span>获奖玩家</span>
                     <span>直推个数</span>
                     <span>金额（eth/inc）</span>
                 </li>
-                <li v-for="history in historyLists" :key="history.contents">
+                <li v-for="history in historyList" :key="history.contents">
                     <span class="date">{{ history.date }}</span>
 
                     <div class="row-content">
@@ -39,12 +39,23 @@
                             <span>{{content.award}}</span>
                             <span>{{content.player}}</span>
                             <span>{{content.number}}</span>
-                            <span>{{content.ethAmount}}</span>
+                            <span class='text-green'>{{content.ethAmount}} <br> {{ content.incAmount }}</span>
                         </div>
                     </div>
                 </li>
             </ul>
-            <table class="my-rank" v-show="currTab === 'my-rank'"></table>
+            <table class="my-rank" v-show="currTab === 'my-rank'">
+                <tr>
+                    <td>日期</td>
+                    <td>直推个数</td>
+                    <td>结果</td>
+                </tr>
+                <tr v-for="myRank in myRankList" :key="myRank.rankNum">
+                    <td>{{ myRank.date }}</td>
+                    <td>{{ myRank.number }}</td>
+                    <td>{{ myRank.result }}</td>
+                </tr>
+            </table>
         </div>
     </div>
 </template>
@@ -55,7 +66,7 @@
       data() {
         return {
           currTab: 'live',
-          liveLists: [
+          liveList: [
             {
               rankNum: 1,
               name: 'maizi123',
@@ -88,7 +99,7 @@
               incTotal: '0.54 INC'
             }
           ],
-          historyLists: [
+          historyList: [
             {
               date: '2019-02-10',
               contents: [
@@ -120,7 +131,7 @@
             },
             {
               date: '2019-01-07',
-              content: [
+              contents: [
                 {
                   award: '一等奖',
                   player: '1395673975',
@@ -148,6 +159,23 @@
                 }]
             }
           ],
+          myRankList: [
+            {
+              date: '2019-4-30',
+              number: 2,
+              redult: '第一名'
+            },
+            {
+              date: '2019-4-30',
+              number: 2,
+              redult: '第一名'
+            },
+            {
+              date: '2019-4-30',
+              number: 2,
+              redult: '第一名'
+            }
+          ]
         }
       },
       methods: {
@@ -281,53 +309,61 @@
                     }
                 }
 
-                &.history {
-                    tr {
-                         &:first-child {
-                             font-size: $font-little-s;
-                             border-bottom: 2px solid $border-bottom-color;
-                         }
+                &.my-rank {
+                   tr {
+                       &:first-child {
+                           border-bottom: 2px solid $border-bottom-color;
 
-                         td {
-                             padding-top: 13px;
-                             padding-bottom: 13px;
+                           td {
+                               font-size: $font-little-s;
 
-                             &:first-child {
-                                 padding-left: 20px;
-                             }
+                               &:first-child {
+                                   width: 30%;
+                               }
+                           }
+                       }
 
-                             &:last-child {
-                                 padding-right: 20px;
-                             }
+                       td {
+                           text-align: center;
+                           padding-top: 5px;
+                           padding-bottom: 5px;
+                           color: $color-black;
 
-                             ul.content-list {
-                                 display: flex;
-                                 flex-direction: row;
-                                 width: 100%;
-                             }
-                         }
-                     }
+                           &:first-child {
+                               padding-left: 20px;
+                           }
+
+                           &:last-child {
+                               padding-right: 20px;
+                           }
+                       }
+                   }
                 }
             }
+
             .history {
                 padding: 0 20px;
 
                 li {
                     display: flex;
                     justify-content: space-around;
-                    
+
                     &:first-child {
                         text-align: center;
                         font-size: $font-little-s;
+                        padding-bottom: 13px;
                         border-bottom: 2px solid $border-bottom-color;
                     }
 
                     span {
                         font-size: $font-little-s + 1;
-                        padding-top: 13px;
-                        padding-bottom: 13px;
-                        
+                        padding-top: 3px;
+                        padding-bottom: 3px;
+                        color: $color-black;
+                        font-weight: 500;
+
                         &.date {
+                            padding-top: 10px;
                             text-align: center;
                             font-size: $font-little-s;
                         }
@@ -337,11 +373,17 @@
                         display: flex;
                         flex-direction: column;
                         width: 100%;
-                        
+
                         .row {
                             display: flex;
                             justify-content: space-around;
+                            align-items: center;;
                             width: 100%;
+                            border-bottom: 2px solid $border-bottom-color;
+
+                            .text-green {
+                                color: #75c09f;
+                            }
                         }
                     }
                 }
