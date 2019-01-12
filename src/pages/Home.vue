@@ -47,7 +47,7 @@
     mixins: [joinMixin],
     data() {
       return {
-        tabAction: 'join',
+        tabAction: 'guess',
         tabs: [
           {
             label: '立即参与',

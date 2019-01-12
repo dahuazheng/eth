@@ -6,15 +6,27 @@
             <span>我的竞猜</span>
         </div>
         <div class="un-join">
-            <label>您尚未参与解锁竞猜权益！</label>
-            <button>现在参与</button>
+            <label>您尚未参与，请立即参与解锁竞猜权益！</label>
+            <EthButton name="现在参与" :click="joinNow"/>
+        </div>
+        <div class="in-join">
+            <input type="text" placeholder="明天参与游戏的单日ETH总个数是多少？">
+            <EthButton name="现在参与" :click="joinNow"/>
         </div>
     </div>
 </template>
 
 <script>
+  import EthButton from './EthButton'
+
   export default {
-    name: 'dayGuess'
+    name: 'dayGuess',
+    components: {EthButton},
+    methods: {
+      joinNow() {
+
+      }
+    }
   }
 </script>
 
@@ -36,5 +48,22 @@
                 @include fontPrimaryColor($primary-color)
             }
         }
+
+        .un-join {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 0;
+
+            label {
+                margin-bottom: $space-width;
+            }
+        }
+
+        .in-join{
+            input{}
+
+        }
+
     }
 </style>
