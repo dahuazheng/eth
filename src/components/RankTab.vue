@@ -1,30 +1,50 @@
 <template>
     <div id='rank-tab'>
         <div class="rank-tab__header">
-            <span>24H 直推龙虎榜</span>
-            <span class='active'>龙虎榜历史</span>
-            <span>我的龙虎榜</span>
+            <span :class="currTab === 'live' && 'active'" @click="checkTab('live')">24H 直推龙虎榜</span>
+            <span :class="currTab === 'history' && 'active'" @click="checkTab('history')">龙虎榜历史</span>
+            <span :class="currTab === 'my-rank' && 'active'" @click="checkTab('my-rank')">我的龙虎榜</span>
         </div>
 
         <div class="rank-tab__body">
-            <table class="live">
+            <table class="live" v-show="currTab === 'live'">
                 <tr>
                     <td>名次</td>
                     <td>昵称/地址</td>
                     <td>奖励总额</td>
                     <td>直推个数/展开</td>
                 </tr>
-                <tr v-for="rankList in rankLists">
+                <tr v-for="liveList in liveLists" :key="liveList.rankNum">
                     <td>
-                        <span :class="['rank-icon', 'icon-'+ rankList.rankNum]"/>
+                        <span :class="['rank-icon', 'icon-'+ liveList.rankNum]"/>
                     </td>
-                    <td :class="['rank-color','color-' + rankList.rankNum]">{{ rankList.name }} <br> {{ rankList.address }}</td>
-                    <td :class="['rank-color','color-' + rankList.rankNum]">{{ rankList.ethTotal }} <br> {{ rankList.incTotal }}</td>
-                    <td :class="['rank-color','color-' + rankList.rankNum]">{{ rankList.rankNum }}</td>
+                    <td :class="['rank-color','color-' + liveList.rankNum]">{{ liveList.name }} <br> {{ liveList.address }}</td>
+                    <td :class="['rank-color','color-' + liveList.rankNum]">{{ liveList.ethTotal }} <br> {{ liveList.incTotal }}</td>
+                    <td :class="['rank-color','color-' + liveList.rankNum]">{{ liveList.rankNum }}</td>
                 </tr>
             </table>
-            <table class="history"></table>
-            <table class="my-list"></table>
+            <ul class="history" v-show="currTab === 'history'">
+                <li>
+                    <span class="date">日期</span>
+                    <span>奖项</span>
+                    <span>获奖玩家</span>
+                    <span>直推个数</span>
+                    <span>金额（eth/inc）</span>
+                </li>
+                <li v-for="history in historyLists" :key="history.contents">
+                    <span class="date">{{ history.date }}</span>
+
+                    <div class="row-content">
+                        <div class="row" v-for="content in history.contents">
+                            <span>{{content.award}}</span>
+                            <span>{{content.player}}</span>
+                            <span>{{content.number}}</span>
+                            <span>{{content.ethAmount}}</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <table class="my-rank" v-show="currTab === 'my-rank'"></table>
         </div>
     </div>
 </template>
@@ -34,8 +54,8 @@
       name: 'rank-tab',
       data() {
         return {
-          rankNum: '1',
-          rankLists: [
+          currTab: 'live',
+          liveLists: [
             {
               rankNum: 1,
               name: 'maizi123',
@@ -68,7 +88,71 @@
               incTotal: '0.54 INC'
             }
           ],
-
+          historyLists: [
+            {
+              date: '2019-02-10',
+              contents: [
+                {
+                  award: '一等奖',
+                  player: '1395673975',
+                  number: 4,
+                  ethAmount: 0.65,
+                  incAmount: 0.65
+                }, {
+                  award: '二等奖',
+                  player: '1395673975',
+                  number: 7,
+                  ethAmount: 0.65,
+                  incAmount: 0.65,
+                }, {
+                  award: '三等奖',
+                  player: '1395673975',
+                  number: 1,
+                  ethAmount: 0.65,
+                  incAmount: 0.65,
+                }, {
+                  award: '四等奖',
+                  player: '1395673975',
+                  number: 3,
+                  ethAmount: 0.65,
+                  incAmount: 0.65,
+                }]
+            },
+            {
+              date: '2019-01-07',
+              content: [
+                {
+                  award: '一等奖',
+                  player: '1395673975',
+                  number: 8,
+                  ethAmount: 0.65,
+                  incAmount: 0.65
+                }, {
+                  award: '二等奖',
+                  player: '1395673975',
+                  number: 7,
+                  ethAmount: 0.65,
+                  incAmount: 0.65,
+                }, {
+                  award: '三等奖',
+                  player: '1395673975',
+                  number: 1,
+                  ethAmount: 0.65,
+                  incAmount: 0.65,
+                }, {
+                  award: '四等奖',
+                  player: '1395673975',
+                  number: 3,
+                  ethAmount: 0.65,
+                  incAmount: 0.65,
+                }]
+            }
+          ],
+        }
+      },
+      methods: {
+        checkTab(val) {
+          this.currTab = val
         }
       }
     }
@@ -79,6 +163,12 @@
     @import "../assets/styles/mixin";
 
     #rank-tab {
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
         .rank-tab__header {
             display: flex;
             justify-content: space-between;
@@ -92,9 +182,9 @@
                 color: #9e9f9d;
                 
                 &.active {
+                    @include px2rem('width', 116);
                     @include background-gradient(#af24d4, #7312b9);
                     color: $color-white;
-                    @include px2rem('width', 116);
                     padding: 10px 0;
                     border-radius: 18px;
                 }
@@ -106,81 +196,152 @@
                 width: 100%;
                 border-collapse: collapse;
 
-                tr {
-                   // display: flex;
-                    //align-items: flex-start;
-                    //justify-content: space-between;
-                    border-bottom: 1px solid $border-bottom-color;
-                    padding: 5px 10px;
+                &.live {
+                    tr {
+                        border-bottom: 2px solid $border-bottom-color;
+                        padding: 5px 10px;
 
-                    &:first-child {
-                        background-color: #f5f5f5;
-                        color: #b1b2b0;
-                        border-bottom-color: transparent;
-                    }
-                    
-                    td {
-                        font-size: $font-little;
-                        padding: 7px 0;
-                        text-align: left;
-                        
                         &:first-child {
-                            padding-left: 17px;
-                        }
+                            background-color: #f5f5f5;
+                            color: #b1b2b0;
+                            border-bottom-color: transparent;
 
-                        &:last-child {
-                            padding-right: 17px;
-                        }
-
-                        .rank-icon {
-                            display: inline-block;
-                            @include px2rem('width', 30);
-                            @include px2rem('height', 30);
-                            background-size: 100% 100%;
-
-                            &.icon-1 {
-                                background-image: url('../assets/images/icon_one.png');
-                            }
-
-                            &.icon-2 {
-                                background-image: url('../assets/images/icon_two.png');
-                            }
-
-                            &.icon-3 {
-                                background-image: url('../assets/images/icon_three.png');
-                            }
-
-                            &.icon-4 {
-                                background-image: url('../assets/images/icon_four.png');
-                            }
-
-                            &.icon-5 {
-                                background-image: url('../assets/images/icon_five.png');
+                            td:nth-child(3) {
+                                text-align: center;
                             }
                         }
+
+                        td {
+                            font-size: $font-little;
+                            padding: 8px 0;
+
+                            &:first-child {
+                                @include px2rem('width', 55);
+                                padding-left: 17px;
+                            }
+
+                            &:nth-child(3) {
+                                text-align: right;
+                            }
+
+                            &:last-child {
+                                text-align: center;
+                                padding-right: 17px;
+                            }
+
+                            .rank-icon {
+                                display: inline-block;
+                                @include px2rem('width', 30);
+                                @include px2rem('height', 30);
+                                background-size: 100% 100%;
+
+                                &.icon-1 {
+                                    background-image: url('../assets/images/icon_one.png');
+                                }
+
+                                &.icon-2 {
+                                    background-image: url('../assets/images/icon_two.png');
+                                }
+
+                                &.icon-3 {
+                                    background-image: url('../assets/images/icon_three.png');
+                                }
+
+                                &.icon-4 {
+                                    background-image: url('../assets/images/icon_four.png');
+                                }
+
+                                &.icon-5 {
+                                    background-image: url('../assets/images/icon_five.png');
+                                }
+                            }
+
+                            &.rank-color {
+                                &.color-1 {
+                                    color: #daa032;
+                                }
+
+                                &.color-2 {
+                                    color: #b6babd;
+                                }
+
+                                &.color-3 {
+                                    color: #c59567;
+                                }
+
+                                &.color-4 {
+                                    color: #d0b791;
+                                }
+
+                                &.color-5 {
+                                    color: #d0b791;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.history {
+                    tr {
+                         &:first-child {
+                             font-size: $font-little-s;
+                             border-bottom: 2px solid $border-bottom-color;
+                         }
+
+                         td {
+                             padding-top: 13px;
+                             padding-bottom: 13px;
+
+                             &:first-child {
+                                 padding-left: 20px;
+                             }
+
+                             &:last-child {
+                                 padding-right: 20px;
+                             }
+
+                             ul.content-list {
+                                 display: flex;
+                                 flex-direction: row;
+                                 width: 100%;
+                             }
+                         }
+                     }
+                }
+            }
+            .history {
+                padding: 0 20px;
+
+                li {
+                    display: flex;
+                    justify-content: space-around;
+                    
+                    &:first-child {
+                        text-align: center;
+                        font-size: $font-little-s;
+                        border-bottom: 2px solid $border-bottom-color;
+                    }
+
+                    span {
+                        font-size: $font-little-s + 1;
+                        padding-top: 13px;
+                        padding-bottom: 13px;
                         
-                        &.rank-color {
-                            display: inline-block;
-                            
-                            &.color-1 {
-                                color: #daa032;
-                            }
+                        &.date {
+                            text-align: center;
+                            font-size: $font-little-s;
+                        }
+                    }
 
-                            &.color-2 {
-                                color: #b6babd;
-                            }
-
-                            &.color-3 {
-                                color: #c59567;
-                            }
-
-                            &.color-4 {
-                                color: #d0b791;
-                            }
-                            
-                            &.color-5 {
-                                color: #d0b791;
-                            }
+                    .row-content {
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+                        
+                        .row {
+                            display: flex;
+                            justify-content: space-around;
+                            width: 100%;
                         }
                     }
                 }
