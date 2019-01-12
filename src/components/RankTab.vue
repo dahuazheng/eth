@@ -14,13 +14,13 @@
                     <td>奖励总额</td>
                     <td>直推个数/展开</td>
                 </tr>
-                <tr v-for="">
+                <tr v-for="rankList in rankLists">
                     <td>
-                        <span :class="['rank-icon', 'icon-'+rankNum]"/>
+                        <span :class="['rank-icon', 'icon-'+ rankList.rankNum]"/>
                     </td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
+                    <td :class="['rank-color','color-' + rankList.rankNum]">{{ rankList.name }} <br> {{ rankList.address }}</td>
+                    <td :class="['rank-color','color-' + rankList.rankNum]">{{ rankList.ethTotal }} <br> {{ rankList.incTotal }}</td>
+                    <td :class="['rank-color','color-' + rankList.rankNum]">{{ rankList.rankNum }}</td>
                 </tr>
             </table>
             <table class="history"></table>
@@ -34,7 +34,41 @@
       name: 'rank-tab',
       data() {
         return {
-           rankNum: '1'
+          rankNum: '1',
+          rankLists: [
+            {
+              rankNum: 1,
+              name: 'maizi123',
+              address: '0xff89…ff60',
+              ethTotal: '0.345 ETH',
+              incTotal: '0.54 INC'
+            }, {
+              rankNum: 2,
+              name: 'maizi123',
+              address: '0xff89…ff60',
+              ethTotal: '0.345 ETH',
+              incTotal: '0.54 INC'
+            }, {
+              rankNum: 3,
+              name: 'maizi123',
+              address: '0xff89…ff60',
+              ethTotal: '0.345 ETH',
+              incTotal: '0.54 INC'
+            }, {
+              rankNum: 4,
+              name: 'maizi123',
+              address: '0xff89…ff60',
+              ethTotal: '0.345 ETH',
+              incTotal: '0.54 INC'
+            }, {
+              rankNum: 5,
+              name: 'maizi123',
+              address: '0xff89…ff60',
+              ethTotal: '0.345 ETH',
+              incTotal: '0.54 INC'
+            }
+          ],
+
         }
       }
     }
@@ -73,9 +107,9 @@
                 border-collapse: collapse;
 
                 tr {
-                    display: flex;
-                    align-items: flex-start;
-                    justify-content: space-between;
+                   // display: flex;
+                    //align-items: flex-start;
+                    //justify-content: space-between;
                     border-bottom: 1px solid $border-bottom-color;
                     padding: 5px 10px;
 
@@ -87,11 +121,10 @@
                     
                     td {
                         font-size: $font-little;
-                        padding: 10px 0;
-                        text-align: center;
+                        padding: 7px 0;
+                        text-align: left;
                         
                         &:first-child {
-                            text-align: left;
                             padding-left: 17px;
                         }
 
@@ -123,6 +156,30 @@
 
                             &.icon-5 {
                                 background-image: url('../assets/images/icon_five.png');
+                            }
+                        }
+                        
+                        &.rank-color {
+                            display: inline-block;
+                            
+                            &.color-1 {
+                                color: #daa032;
+                            }
+
+                            &.color-2 {
+                                color: #b6babd;
+                            }
+
+                            &.color-3 {
+                                color: #c59567;
+                            }
+
+                            &.color-4 {
+                                color: #d0b791;
+                            }
+                            
+                            &.color-5 {
+                                color: #d0b791;
                             }
                         }
                     }

@@ -5,7 +5,7 @@
             <ul class="tabs">
                 <li v-for="tab in tabs"
                     :key="tab.value"
-                    :class="{active:tab.value===tabAction}"
+                    :class="{active:tab.value === tabAction}"
                     @click="changeTab(tab.value)">
                     <span>{{tab.label}}</span>
                 </li>
