@@ -6,13 +6,13 @@
                 <img v-else src="../assets/images/wallet_nomal.png">
                 <span>钱包</span>
             </li>
-            <li @click="handleTab('eth')" :class="{active:action==='eth'}">
-                <img v-if="action==='eth'" src="../assets/images/eth_press.png">
+            <li @click="handleTab('home')" :class="{active:action==='eth'}">
+                <img v-if="action==='home'" src="../assets/images/eth_press.png">
                 <img v-else src="../assets/images/eth_nomal.png">
                 <span>1 ETH</span>
             </li>
-            <li @click="handleTab('me')" :class="{active:action==='me'}">
-                <img v-if="action==='me'" src="../assets/images/me_press.png">
+            <li @click="handleTab('userOption')" :class="{active:action==='me'}">
+                <img v-if="action==='userOption'" src="../assets/images/me_press.png">
                 <img v-else src="../assets/images/me_nomal.png">
                 <span>我的</span>
             </li>
@@ -23,14 +23,15 @@
 <script>
   export default {
     name: 'ethFooter',
+    props: ['action'],
     data() {
       return {
-        action: 'wallet'
+        // action: 'home'
       }
     },
     methods: {
       handleTab(action) {
-        this.action = action
+        this.$router.push({name: action})
       }
     }
   }

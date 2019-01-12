@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './pages/Home.vue'
+import Wallet from './pages/Wallet.vue'
 import Login from './pages/Login.vue'
 import Inviter from './pages/Inviter.vue'
 import RankingList from './pages/RankingList.vue'
@@ -23,6 +24,10 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    }, {
+      path: '/wallet',
+      name: 'wallet',
+      component: Wallet
     }, {
       path: '/login',
       name: 'login',

@@ -33,7 +33,7 @@
                 </li>
             </ul>
         </main>
-        <EthFooter/>
+        <EthFooter action="home"/>
         <NoteCodePopup :show="noteCodePopupShow" :close="closeNoteCodePopup"/>
     </div>
 </template>
