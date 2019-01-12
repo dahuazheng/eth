@@ -1,6 +1,8 @@
 <template>
     <div class="eth-button">
-        <button @click="click" :style="{borderRadius:borderRadios}">
+        <button :class="type"
+                :style="{borderRadius:borderRadios,border}"
+                @click="click">
             {{name}}
         </button>
     </div>
@@ -9,7 +11,7 @@
 <script>
   export default {
     name: 'ethButton',
-    props: ['name', 'click', 'borderRadios']
+    props: ['name', 'type','border', 'click', 'borderRadios']
   }
 </script>
 
@@ -31,6 +33,12 @@
             color: $clear-color;
             border-radius: $space-width;
             border: 1px solid #fff;
+
+            &.white {
+                color: $primary-color;
+                background: $clear-color;
+                border: 1px solid $primary-color;
+            }
         }
     }
 </style>

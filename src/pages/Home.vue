@@ -25,6 +25,12 @@
                 <li v-show="tabAction==='guess'">
                     <DayGuess/>
                 </li>
+                <li v-show="tabAction==='award'">
+                    <MyAward/>
+                </li>
+                <li v-show="tabAction==='invite'">
+                    <InvitePlayer/>
+                </li>
             </ul>
         </main>
         <EthFooter/>
@@ -37,17 +43,19 @@
   import EthFooter from '@/components/EthFooter.vue'
   import NoteCodePopup from '@/components/NoteCodePopup.vue'
   import DayGuess from '@/components/DayGuess.vue'
+  import MyAward from '@/components/MyAward.vue'
+  import InvitePlayer from '@/components/InvitePlayer.vue'
   import {joinMixin} from '../mixins'
 
   export default {
     name: 'home',
     components: {
-      Banner, EthFooter, NoteCodePopup, DayGuess
+      Banner, EthFooter, NoteCodePopup, DayGuess, MyAward, InvitePlayer
     },
     mixins: [joinMixin],
     data() {
       return {
-        tabAction: 'guess',
+        tabAction: 'invite',
         tabs: [
           {
             label: '立即参与',

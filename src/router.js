@@ -6,6 +6,7 @@ import Inviter from './pages/Inviter.vue'
 import RankingList from './pages/RankingList.vue'
 import JoinHistory from './pages/JoinHistory.vue'
 import GuessResult from './pages/GuessResult.vue'
+import UserCenter from './pages/UserCenter.vue'
 
 Vue.use(Router)
 
@@ -33,6 +34,10 @@ export default new Router({
       path: '/guess-result',
       name: 'guessResult',
       component: GuessResult
+    }, {
+      path: '/user-center',
+      name: 'userCenter',
+      component: UserCenter
     },
     {
       path: '/ranking-list',
