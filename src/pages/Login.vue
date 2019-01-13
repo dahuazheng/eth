@@ -4,7 +4,7 @@
         <main>
             <p><label>请先登录</label></p>
             <p>
-                <button>登陆</button>
+                <button @click="login">登陆</button>
             </p>
         </main>
         <EthFooter/>
@@ -15,10 +15,20 @@
   import Banner from '@/components/Banner.vue'
   import EthFooter from '@/components/EthFooter.vue'
 
+  import {UserApi} from '@/api'
+
   export default {
     name: 'login',
     components: {
       Banner, EthFooter
+    },
+    data() {
+
+    },
+    methods: {
+      login() {
+        UserApi.login()
+      }
     }
   }
 </script>

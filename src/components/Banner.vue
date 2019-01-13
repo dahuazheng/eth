@@ -1,6 +1,6 @@
 <template>
     <div class="banner">
-        <div class="cup">
+        <div class="cup" @click="">
             <img src="../assets/images/icon_cup.png" alt="">
             <span>龙虎榜</span>
         </div>
@@ -46,6 +46,8 @@
     </div>
 </template>
 <script>
+  import {UserApi} from '@/api'
+
   export default {
     name: 'banner',
     data() {
