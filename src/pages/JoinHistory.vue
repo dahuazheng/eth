@@ -36,7 +36,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../assets/styles/variable";
     @import "../assets/styles/mixin";
 
     .join-history {
