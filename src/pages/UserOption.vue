@@ -10,13 +10,13 @@
 
         <div class="user-center__options">
             <ul class="options">
-                <li>
+                <!--<li>
                     <router-link to="/select-lang">
                         <span class='check-option__language'> 选择语言</span>
                         <span class="lang-tip">简体中文</span>
                         <span class='check-arrow'></span>
                     </router-link>
-                </li>
+                </li>-->
                 <li>
                     <router-link to="/game-intro">
                         <span class="check-option__game">游戏说明</span>
@@ -31,6 +31,12 @@
                 <li>
                     <router-link to="/contact-us">
                         <span class="check-option__contact"> 联系我们</span> <span class='check-arrow'/>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link to="/login">
+                        <span class="check-option__out"> 退出登录</span>
+                        <span class='check-arrow'/>
                     </router-link>
                 </li>
             </ul>
@@ -166,6 +172,16 @@
                             @include px2rem('height', 30);
                             @include background-image();
                             background-image: url('../assets/images/icon_commite_us.png');
+                        }
+
+                        &.check-option__out::before {
+                            content: '';
+                            display: inline-block;
+                            margin-right: 10px;
+                            @include px2rem('width', 30);
+                            @include px2rem('height', 30);
+                            @include background-image();
+                            background-image: url('../assets/images/icon_sign_out.png');
                         }
 
                         &.check-arrow {
