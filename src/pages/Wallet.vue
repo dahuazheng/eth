@@ -21,7 +21,7 @@
                 <img src="../assets/images/collection.png">
                 充值
             </button>
-            <button>
+            <button @click="chargeMoney">
                 <img src="../assets/images/transfer.png">
                 提现
             </button>
@@ -39,14 +39,27 @@
             </div>
         </div>
         <EthFooter action="wallet"/>
+        <ChargeMoney :show="chargeMoneyShow" :back="chargeMoneyShow=false"/>
     </div>
 </template>
 
 <script>
   import EthFooter from '@/components/EthFooter.vue'
+  import ChargeMoney from '@/components/ChargeMoney.vue'
+  import Withdraw from '@/components/Withdraw.vue'
 
   export default {
-    components: {EthFooter}
+    components: {EthFooter, ChargeMoney,Withdraw},
+    data() {
+      return {
+        chargeMoneyShow: false
+      }
+    },
+    methods: {
+      chargeMoney() {
+        this.chargeMoneyShow = true
+      }
+    }
   }
 
 </script>
@@ -56,6 +69,10 @@
     @import "../assets/styles/mixin";
 
     .wallet {
+        ul {
+            @include clearUl;
+        }
+
         .banner {
             @include px2rem('height', 146);
             background: url('../assets/images/bg_wallet.png') bottom center;
@@ -77,7 +94,6 @@
             align-items: center;
 
             ul {
-                @include clearUl;
                 @include px2rem('width', 305);
                 @include px2rem('height', 122);
                 display: flex;
@@ -114,15 +130,15 @@
         }
 
         .btn-box {
-            margin: 30px;
+            margin: 25px;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
 
-            button{
+            button {
                 @include px2rem('width', 134);
                 @include px2rem('height', 42);
-                @include fontPrimaryColor(#662A90);
+                @include fontPrimaryColor(#662a90);
                 @include fontSize($font-medium-s);
                 display: flex;
                 flex-direction: row;
@@ -132,18 +148,42 @@
                 border: 1px solid #662A90;
                 background: #f8edfB;
 
-                img{
+                img {
                     @include px2rem('width', 21);
                     @include px2rem('height', 21);
                     margin-right: 25px;
                 }
 
-                &:last-child{
+                &:last-child {
                     @include px2rem('width', 136);
                     @include px2rem('height', 44);
                     @include background-gradient(#C037ED, #9712A3);
                     border: 1px solid $clear-color;
                     color: $clear-color;
+                }
+            }
+        }
+
+        .records {
+            margin: 0 25px;
+
+            .tabs {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                span:last-child {
+                    @include fontPrimaryColor(#662a90);
+                }
+            }
+
+            .list {
+                text-align: center;
+
+                img {
+                    margin-top: 30px;
+                    @include px2rem('width', 151);
+                    @include px2rem('height', 151);
                 }
             }
 
