@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 
 import SvgIcon from 'vue-svgicon'
+import 'animate.css'
 import 'mint-ui/lib/style.css'
 import './assets/icons'
 import './assets/styles/common.scss'
