@@ -10,15 +10,15 @@
             <table class="live" v-show="currTab === 'live'">
                 <tr>
                     <td>名次</td>
-                    <td>昵称/地址</td>
+                    <td>昵称</td>
                     <td>奖励总额</td>
                     <td>直推个数/展开</td>
                 </tr>
-                <tr v-for="live in liveList" :key="live.rankNum">
+                <tr v-for="live in liveList.slice(0, 5)" :key="live.rankNum">
                     <td>
                         <span :class="['rank-icon', 'icon-'+ live.rankNum]"/>
                     </td>
-                    <td :class="['rank-color','color-' + live.rankNum]">{{ live.name }} <br> {{ live.address }}</td>
+                    <td :class="['rank-color','color-' + live.rankNum]">{{ live.name }}</td>
                     <td :class="['rank-color','color-' + live.rankNum]">{{ live.ethTotal }} <br> {{ live.incTotal }}</td>
                     <td :class="['rank-color','color-' + live.rankNum]">{{ live.rankNum }}</td>
                 </tr>
@@ -66,35 +66,64 @@
       data() {
         return {
           currTab: 'live',
+          liveLists: [
+            {
+              number: 1,
+              list: [{
+                  name: '154360898',
+                  ethTotal: '0.345 ETH',
+                  incTotal: '0.54 INC'
+                }]
+            },
+            {
+              number: 2,
+              list: [{
+                  name: '2221254360898',
+                  ethTotal: '0.345 ETH',
+                  incTotal: '0.54 INC'
+                },{
+                  name: '2154360898',
+                  ethTotal: '0.345 ETH',
+                  incTotal: '0.54 INC'
+                },{
+                  name: '4154360898',
+                  ethTotal: '0.345 ETH',
+                  incTotal: '0.54 INC'
+                }]
+            },
+            {
+              number: 3,
+              list: [{
+                name: '0154360898',
+                ethTotal: '0.345 ETH',
+                incTotal: '0.54 INC'
+              }]
+            }
+          ],
           liveList: [
             {
               rankNum: 1,
-              name: 'maizi123',
-              address: '0xff89…ff60',
+              name: '154360898',
               ethTotal: '0.345 ETH',
               incTotal: '0.54 INC'
             }, {
               rankNum: 2,
-              name: 'maizi123',
-              address: '0xff89…ff60',
+              name: '1354360898',
               ethTotal: '0.345 ETH',
               incTotal: '0.54 INC'
             }, {
               rankNum: 3,
-              name: 'maizi123',
-              address: '0xff89…ff60',
+              name: '1154360898',
               ethTotal: '0.345 ETH',
               incTotal: '0.54 INC'
             }, {
               rankNum: 4,
-              name: 'maizi123',
-              address: '0xff89…ff60',
+              name: '1954360898',
               ethTotal: '0.345 ETH',
               incTotal: '0.54 INC'
             }, {
               rankNum: 5,
-              name: 'maizi123',
-              address: '0xff89…ff60',
+              name: '1054360898',
               ethTotal: '0.345 ETH',
               incTotal: '0.54 INC'
             }
@@ -138,22 +167,32 @@
                   number: 8,
                   ethAmount: 0.65,
                   incAmount: 0.65
-                }, {
+                },
+                {
                   award: '二等奖',
                   player: '1395673975',
                   number: 7,
                   ethAmount: 0.65,
                   incAmount: 0.65,
-                }, {
+                },
+                {
                   award: '三等奖',
                   player: '1395673975',
                   number: 1,
                   ethAmount: 0.65,
                   incAmount: 0.65,
-                }, {
+                },
+                {
                   award: '四等奖',
                   player: '1395673975',
                   number: 3,
+                  ethAmount: 0.65,
+                  incAmount: 0.65,
+                },
+                {
+                  award: '五等奖',
+                  player: '71395673975',
+                  number: 5,
                   ethAmount: 0.65,
                   incAmount: 0.65,
                 }]
