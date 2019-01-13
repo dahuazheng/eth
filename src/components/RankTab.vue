@@ -11,22 +11,25 @@
                 </li>
                 <!--以下 同一名次对应多个用户-->
                 <li v-for="live in liveLists.slice(0, 5)" :key="live.rankNum">
-                    <div class="listContainer" v-if="live.list.length > 1">
+                    <div class="listContainer" v-for="(list, index) in (live.list)" :key='list.id' v-show="index===0 || list.isDrop">
                         <span class="num">
                             <span :class="['rank-icon', 'icon-'+ live.rankNum]"/>
                         </span>
-                        <span :class="['name', 'rank-color','color-' + live.rankNum]">{{ live.list[0].name }}</span>
-                        <span :class="['account', 'rank-color','color-' + live.rankNum]">{{ live.list[0].ethTotal }} <br> {{ live.incTotal }}</span>
-                        <span :class="['per', 'rank-color','color-' + live.rankNum]">{{ live.list[0].number }}</span>
+                        <span :class="['name', 'rank-color','color-' + live.rankNum]">{{ list.name }}</span>
+                        <span :class="['account', 'rank-color','color-' + live.rankNum]">{{ list.ethTotal }} <br> {{ live.incTotal }}</span>
+                        <span :class="['per', 'rank-color','color-' + live.rankNum]">
+                            <span>{{ list.number }}</span>
+                            <i v-show="live.list.length > 1" class="toggle-arrow" @click="dropList()"/>
+                        </span>
                     </div>
-                    <div class="listContainer" v-else="live.list.length === 1" v-for="list in (live.list)" :key="list.id">
+                    <!--<div class="listContainer" v-else="live.list.length && live.list.length === 1" v-for="list in (live.list)" :key="list.id">
                         <span class="num">
                             <span :class="['rank-icon', 'icon-'+ live.rankNum]"/>
                         </span>
                         <span :class="['name', 'rank-color','color-' + live.rankNum]">{{ list.name }}</span>
                         <span :class="['account', 'rank-color','color-' + live.rankNum]">{{ list.ethTotal }} <br> {{ live.incTotal }}</span>
                         <span :class="['per', 'rank-color','color-' + live.rankNum]">{{ list.number }}</span>
-                    </div>
+                    </div>-->
 
                 </li>
                 <!--以上 同一名次对应多个用户-->
@@ -70,50 +73,56 @@
 </template>
 
 <script>
-  export default {
+    const data = [
+      {
+        rankNum: 1,
+        list: [{
+          name: '154360898',
+          ethTotal: '0.345 ETH',
+          incTotal: '0.54 INC',
+          number: 4
+        }]
+      },
+      {
+        rankNum: 2,
+        list: [{
+          name: '2221254360898',
+          ethTotal: '0.345 ETH',
+          incTotal: '0.54 INC',
+          number: 9
+        }, {
+          name: '2154360898',
+          ethTotal: '0.345 ETH',
+          incTotal: '0.54 INC',
+          number: 7
+        }, {
+          name: '4154360898',
+          ethTotal: '0.345 ETH',
+          incTotal: '0.54 INC',
+          number: 8
+        }]
+      },
+      {
+        rankNum: 3,
+        list: [{
+          name: '0154360898',
+          ethTotal: '0.345 ETH',
+          incTotal: '0.54 INC',
+          number: 2
+        }]
+      }
+    ]
+    const newData = data.map(item=>{
+      item.isDrop = false
+      return item
+    })
+
+    export default {
     name: 'rank-tab',
     data() {
       return {
         currTab: 'live',
-        liveLists: [
-          {
-            rankNum: 1,
-            list: [{
-              name: '154360898',
-              ethTotal: '0.345 ETH',
-              incTotal: '0.54 INC',
-              number: 4
-            }]
-          },
-          {
-            rankNum: 2,
-            list: [{
-              name: '2221254360898',
-              ethTotal: '0.345 ETH',
-              incTotal: '0.54 INC',
-              number: 9
-            }, {
-              name: '2154360898',
-              ethTotal: '0.345 ETH',
-              incTotal: '0.54 INC',
-              number: 7
-            }, {
-              name: '4154360898',
-              ethTotal: '0.345 ETH',
-              incTotal: '0.54 INC',
-              number: 8
-            }]
-          },
-          {
-            rankNum: 3,
-            list: [{
-              name: '0154360898',
-              ethTotal: '0.345 ETH',
-              incTotal: '0.54 INC',
-              number: 2
-            }]
-          }
-        ],
+        liveLists: newData,
         liveList: [
           {
             rankNum: 1,
@@ -234,6 +243,10 @@
     methods: {
       checkTab(val) {
         this.currTab = val
+      },
+
+      dropList() {
+
       }
     }
   }
@@ -281,6 +294,7 @@
                         display: flex;
                         align-items: center;
                         flex-direction: column;
+                        @include px2rem('height', 50);
 
                         &:first-child {
                             flex-direction: row;
@@ -300,10 +314,15 @@
                             padding: 8px 0;
                             border-bottom: 2px solid $border-bottom-color;
 
-                           &:nth-child(1),
-                           &:nth-child(2) {
-                               
-                           }
+                            /*.toggle-arrow {
+                                position: relative;
+                                //right: 20px;
+                                top: 26px;                                         //display: inline-block;
+                                border-top: 10px solid #ccc;
+                                border-bottom: 10px solid transparent;
+                                border-left: 9px solid transparent;
+                                border-right: 9px solid transparent;
+                            }*/
                         }
 
                         span {
@@ -330,18 +349,27 @@
                             }
 
                             &.per {
+                                display: inline-flex;
+                                flex-direction: column;
+                                align-items: center;
                                 width: 26%;
 
-                                &::after {
-                                    content: '';
+                                span {
+                                    padding: 0;
+                                }
+                                
+                                .toggle-arrow {
+                                    //position: relative;
+                                    //right: 20px;
+                                    //top: 26px;
                                     display: inline-block;
-                                    border-top: 5px solid #ccc;
-                                    border-bottom: 5px solid transparent;
-                                    border-left: 5px solid transparent;
-                                    border-right: 5px solid transparent;
+                                    border-top: 10px solid #ccc;
+                                    border-bottom: 10px solid transparent;
+                                    border-left: 9px solid transparent;
+                                    border-right: 9px solid transparent;
                                 }
                             }
-
+                            
                             .rank-icon {
                                 // display: inline-block;
                                 @include px2rem('width', 30);
