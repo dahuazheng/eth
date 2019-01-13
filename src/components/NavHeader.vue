@@ -19,10 +19,7 @@
     .nav-header {
         display: flex;
         justify-content: space-between;
-        padding-top: 36px;
-        padding-bottom: 20px;
-        padding-left: 12px;
-        padding-right: 12px;
+        padding: 20px 12px;
 
         .nav-back {
             @include px2rem('width', 20);

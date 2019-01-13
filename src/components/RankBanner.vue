@@ -1,6 +1,6 @@
 <template>
     <div id='rank-banner'>
-        <div class='rank-content__arrow'>
+        <div class='rank-content__arrow' @click="() =>{ this.$router.go(-1) }">
             <img src='../assets/images/icon_back_white.png' alt=''>
         </div>
 
