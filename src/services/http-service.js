@@ -4,7 +4,7 @@ import { Indicator } from 'mint-ui';
 import Cookies from 'js-cookie'
 
 let defaults = {
-    baseUrl: '/',
+    // baseUrl: '/',
     headers: {
         'X-Requested-With': 'XMLHttpRequest',
         'Content-Type': 'application/json; charset=UTF-8',

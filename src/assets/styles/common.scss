@@ -88,3 +88,8 @@ input, textarea, button {
 .animated {
   transition-duration: 0.25s;
 }
+
+// fixed mint-ui
+.picker-slot {
+    @include fontSize($font-medium-s)
+}
