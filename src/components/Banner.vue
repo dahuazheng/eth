@@ -1,11 +1,11 @@
 <template>
     <div class="banner">
-        <div class="cup" @click="">
-            <img src="../assets/images/icon_cup.png" alt="">
-            <span>龙虎榜</span>
-        </div>
         <div class="content">
-            <div class="jackpot">
+            <router-link class="cup" to="/ranking-list">
+                <img src="../assets/images/icon_cup.png" alt="">
+                <span>龙虎榜</span>
+            </router-link>
+            <div class="jackpot" @click="() => {console.log('32423')}">
                 <img class="logo" src="../assets/images/icon_eth_download.png" alt="">
                 <span>x</span>
                 <img src="../assets/images/icon_eth_star.png" alt="">
@@ -72,6 +72,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            z-index: 2;
 
             img {
                 @include px2rem('width', 35);
@@ -97,6 +98,7 @@
             background-image: url('../assets/images/bg_eth_title.png');
             background-size: 100% 100%;
             text-align: center;
+            pointer-events: all;
 
             .jackpot {
                 position: relative;
@@ -104,6 +106,7 @@
                 flex-direction: row;
                 justify-content: center;
                 align-items: center;
+                pointer-events: all;
 
                 img {
                     @include px2rem('height', 46);

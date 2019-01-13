@@ -2,7 +2,7 @@
     <div id="common-problem">
         <NavHeader title="常见问题"/>
         <ul class="common-problem__content">
-            <li v-for="item in problemList">
+            <li v-for="item in problemList" :key="item.title">
                 <p @click="item.status = !item.status">{{ item.title}}</p>
                 <transition>
                     <div class="content" v-show="item.status">{{ item.content }}</div>

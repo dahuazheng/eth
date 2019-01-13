@@ -37,6 +37,7 @@
         bottom: 0;
         left: 0;
         background: $popup-shade;
+        z-index: 999;
     }
 
     .popup {
