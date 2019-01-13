@@ -84,3 +84,7 @@ input, textarea, button {
   user-select: none;
   outline: none;
 }
+
+.animated {
+  transition-duration: 0.25s;
+}

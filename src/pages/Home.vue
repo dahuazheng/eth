@@ -45,7 +45,10 @@
   import DayGuess from '@/components/DayGuess.vue'
   import MyAward from '@/components/MyAward.vue'
   import InvitePlayer from '@/components/InvitePlayer.vue'
+
   import {joinMixin} from '../mixins'
+  import {UserApi} from '@/api'
+
 
   export default {
     name: 'home',
@@ -57,19 +60,10 @@
       return {
         tabAction: 'join',
         tabs: [
-          {
-            label: '立即参与',
-            value: 'join'
-          }, {
-            label: '每日竞猜',
-            value: 'guess'
-          }, {
-            label: '我的奖励',
-            value: 'award'
-          }, {
-            label: '邀请玩家',
-            value: 'invite'
-          },
+          {label: '立即参与', value: 'join'},
+          {label: '每日竞猜', value: 'guess'},
+          {label: '我的奖励', value: 'award'},
+          {label: '邀请玩家', value: 'invite'}
         ]
       }
     },
@@ -77,9 +71,18 @@
       changeTab(value) {
         this.tabAction = value
       },
+      init() {
+        if (!UserApi.isOnline()) {
+          this.$router.push({name: 'login'})
+        }
+      }
+    },
+    mounted() {
+      this.init()
     }
   }
 </script>
+
 <style lang="scss" scoped>
     @import "../assets/styles/mixin";
 

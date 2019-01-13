@@ -8,7 +8,7 @@
             </p>
         </main>
         <EthFooter action="home"/>
-        <LoginPopup/>
+        <LoginPopup :show="loginPopupShow"/>
     </div>
 </template>
 
@@ -24,11 +24,14 @@
       Banner, EthFooter, LoginPopup
     },
     data() {
-      return {}
+      return {
+        loginPopupShow: false
+      }
     },
     methods: {
       toLogin() {
-        UserApi.login()
+        this.loginPopupShow = true
+        //UserApi.login()
       }
     }
   }
@@ -37,8 +40,11 @@
     @import "../assets/styles/mixin";
 
     .login {
-        position: relative;
-        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
         background: $clear-color;
 
         main {
