@@ -5,7 +5,7 @@
             <ul class="tabs">
                 <li v-for="tab in tabs"
                     :key="tab.value"
-                    :class="{active:tab.value === tabAction}"
+                    :class="{active:tab.value===tabAction}"
                     @click="changeTab(tab.value)">
                     <span>{{tab.label}}</span>
                 </li>
@@ -25,12 +25,6 @@
                 <li v-show="tabAction==='guess'">
                     <DayGuess/>
                 </li>
-                <li v-show="tabAction==='award'">
-                    <MyAward/>
-                </li>
-                <li v-show="tabAction==='invite'">
-                    <InvitePlayer/>
-                </li>
             </ul>
         </main>
         <EthFooter action="home"/>
@@ -43,19 +37,17 @@
   import EthFooter from '@/components/EthFooter.vue'
   import NoteCodePopup from '@/components/NoteCodePopup.vue'
   import DayGuess from '@/components/DayGuess.vue'
-  import MyAward from '@/components/MyAward.vue'
-  import InvitePlayer from '@/components/InvitePlayer.vue'
   import {joinMixin} from '../mixins'
 
   export default {
     name: 'home',
     components: {
-      Banner, EthFooter, NoteCodePopup, DayGuess, MyAward, InvitePlayer
+      Banner, EthFooter, NoteCodePopup, DayGuess
     },
     mixins: [joinMixin],
     data() {
       return {
-        tabAction: 'invite',
+        tabAction: 'join',
         tabs: [
           {
             label: '立即参与',
