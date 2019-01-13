@@ -1,6 +1,6 @@
 <template>
     <div class="nav-header">
-        <router-link to="/user-option" class="nav-back"/>
+        <span class="nav-back" @click="back"></span>
         <span class="nav-title">{{ title }}</span>
         <span></span>
     </div>
@@ -8,8 +8,14 @@
 
 <script>
     export default {
-      name: 'navHeader',
-      props: ['title']
+        name: 'navHeader',
+        props: ['title'],
+        methods: {
+            back() {
+                const {name} = this.$route.query
+                this.$router.push({name: name || 'userOption'})
+            }
+        }
     }
 </script>
 

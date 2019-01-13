@@ -1,41 +1,48 @@
 <template>
-    <div class="home">
+    <div class="inviter">
         <Banner/>
         <main>
             <p>
                 <label>必须绑定邀请人才能参与游戏！</label>
             </p>
             <p class="no-inviter">
-                <span>若无邀请人</span>
-                <img src="../assets/images/icon_helper.png">
+                <router-link to="/common-problem?name=inviter">
+                    <span>若无邀请人</span>
+                    <img src="../assets/images/icon_helper.png">
+                </router-link>
             </p>
             <p>
-                <input type="text" placeholder="输入邀请人昵称">
+                <input type="text" v-model.trim="inviter" placeholder="输入邀请人昵称">
             </p>
             <p class="btn-box">
-                <button>立即绑定</button>
+                <button @click="bindInviter">立即绑定</button>
             </p>
-
         </main>
-        <EthFooter/>
+        <EthFooter action="home"/>
     </div>
 </template>
 
 <script>
-  import Banner from '@/components/Banner.vue'
-  import EthFooter from '@/components/EthFooter.vue'
+    import Banner from '@/components/Banner.vue'
+    import EthFooter from '@/components/EthFooter.vue'
 
-  export default {
-    name: 'home',
-    components: {
-      Banner, EthFooter
+    export default {
+        name: 'home',
+        components: {
+            Banner, EthFooter
+        },
+        data(){
+            return {
+                inviter: ''
+            }
+        }
     }
-  }
 </script>
-<style lang="scss" scoped>
+
+<style scoped lang="scss">
     @import "../assets/styles/mixin";
 
-    .home {
+    .inviter {
         position: relative;
         height: 100%;
         background: $clear-color;
@@ -55,18 +62,20 @@
 
                 input {
                     @include px2rem('width', 315);
+                    @include fontSize($font-medium-s);
                     padding: 7px 0;
                     border: none;
                     border-bottom: 1px solid $border-color;
                 }
 
-                &.no-inviter {
+                &.no-inviter a {
                     @include fontSubColor($font-sub-color);
-                    @include fontSize($font-little);
+                    @include fontSize($font-medium-s);
                     display: flex;
                     flex-direction: row;
                     justify-content: center;
                     align-items: center;
+                    text-decoration: none;
 
                     img {
                         @include px2rem('width', 30);

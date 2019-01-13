@@ -39,48 +39,51 @@
 </template>
 
 <script>
-  import Banner from '@/components/Banner.vue'
-  import EthFooter from '@/components/EthFooter.vue'
-  import NoteCodePopup from '@/components/NoteCodePopup.vue'
-  import DayGuess from '@/components/DayGuess.vue'
-  import MyAward from '@/components/MyAward.vue'
-  import InvitePlayer from '@/components/InvitePlayer.vue'
+    import Banner from '@/components/Banner.vue'
+    import EthFooter from '@/components/EthFooter.vue'
+    import NoteCodePopup from '@/components/NoteCodePopup.vue'
+    import DayGuess from '@/components/DayGuess.vue'
+    import MyAward from '@/components/MyAward.vue'
+    import InvitePlayer from '@/components/InvitePlayer.vue'
 
-  import {joinMixin} from '../mixins'
-  import {UserApi} from '@/api'
+    import {joinMixin} from '../mixins'
+    import {UserApi} from '@/api'
 
 
-  export default {
-    name: 'home',
-    components: {
-      Banner, EthFooter, NoteCodePopup, DayGuess, MyAward, InvitePlayer
-    },
-    mixins: [joinMixin],
-    data() {
-      return {
-        tabAction: 'join',
-        tabs: [
-          {label: '立即参与', value: 'join'},
-          {label: '每日竞猜', value: 'guess'},
-          {label: '我的奖励', value: 'award'},
-          {label: '邀请玩家', value: 'invite'}
-        ]
-      }
-    },
-    methods: {
-      changeTab(value) {
-        this.tabAction = value
-      },
-      init() {
-        if (!UserApi.isOnline()) {
-          this.$router.push({name: 'login'})
+    export default {
+        name: 'home',
+        components: {
+            Banner, EthFooter, NoteCodePopup, DayGuess, MyAward, InvitePlayer
+        },
+        mixins: [joinMixin],
+        data() {
+            return {
+                tabAction: 'join',
+                tabs: [
+                    {label: '立即参与', value: 'join'},
+                    {label: '每日竞猜', value: 'guess'},
+                    {label: '我的奖励', value: 'award'},
+                    {label: '邀请玩家', value: 'invite'}
+                ]
+            }
+        },
+        methods: {
+            changeTab(value) {
+                this.tabAction = value
+            },
+            init() {
+                if (!UserApi.isOnline()) {
+                    this.$router.push({name: 'login'})
+                }
+                if (!UserApi.isBindInviter()) {
+                    this.$router.push({name: 'inviter'})
+                }
+            }
+        },
+        mounted() {
+            this.init()
         }
-      }
-    },
-    mounted() {
-      this.init()
     }
-  }
 </script>
 
 <style lang="scss" scoped>

@@ -2,7 +2,8 @@ import Cookies from 'js-cookie'
 import httpService from '@/services/http-service'
 
 class UserApi {
-    constructor(){}
+    constructor() {
+    }
 
     // 登陆
     static login(query) {
@@ -36,6 +37,11 @@ class UserApi {
     // 判断是否已登录
     static isOnline() {
         return !!Cookies.get('ETH.token') && !!Cookies.get('ETH.token_password')
+    }
+
+    // 判断是否绑定邀请人
+    static isBindInviter() {
+        return !!Cookies.get('ETH.invite_code')
     }
 }
 
