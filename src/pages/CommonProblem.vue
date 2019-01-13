@@ -1,10 +1,6 @@
 <template>
     <div id="common-problem">
-        <div class="common-problem__nav">
-            <router-link to="/user-center" class="nav-back"/>
-            <span class="nav-title">常见问题</span> <span/>
-        </div>
-
+        <NavHeader title="常见问题"/>
         <ul class="common-problem__content">
             <li>
                 <p>Q：如何创建“1ETH”账户？</p>
@@ -20,9 +16,11 @@
 </template>
 
 <script>
+  import NavHeader from '../components/NavHeader'
+
   export default {
     name: 'commonProblem',
-
+    components: { NavHeader }
   }
 </script>
 
@@ -30,26 +28,6 @@
     @import "../assets/styles/mixin";
 
     #common-problem {
-        .common-problem__nav {
-            display: flex;
-            justify-content: space-between;
-            padding: 36px 12px;
-
-            .nav-back {
-                @include px2rem('width', 20);
-                @include px2rem('height', 20);
-                @include background-image;
-                text-decoration: none;
-                background-image: url('../assets/images/icon_back_black.png');
-            }
-
-            .nav-title {
-                font-size: $font-medium-s + 4;
-                font-weight: 600;
-                color: #000;
-            }
-        }
-
         .common-problem__content {
             @include clearUl;
 
