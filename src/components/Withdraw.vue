@@ -31,11 +31,26 @@
                     --ETH
                 </span>
             </div>
+            <div class="btn-box">
+                <EthButton name="下一步" :click="next"/>
+            </div>
+
         </div>
     </div>
 </template>
 
 <script>
+  import EthButton from '@/components/EthButton.vue'
+
+  export default {
+    name: 'withdraw',
+    components: {EthButton},
+    methods:{
+      next(){
+
+      }
+    }
+  }
 
 </script>
 
@@ -60,13 +75,51 @@
             height: 40px;
             padding: 0 $margin-width;
 
-            .svg-icon{
+            .svg-icon {
                 width: 20px;
                 height: 20px;
             }
 
-            .scan{
+            .scan {
                 @include fontPrimaryColor($primary-color)
+            }
+        }
+
+        .form {
+            padding: 30px 20px;
+
+            .row {
+                position: relative;
+                margin: 25px 0 15px;
+
+                input {
+                    @include fontSize($font-medium-s);
+                    width: 100%;
+                    padding: 7px 0;
+                    border: none;
+                    border-bottom: 1px solid $border-color;
+                }
+
+                span {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    margin: auto;
+                    padding: 7px 0;
+                }
+
+                small {
+                    @include fontSize($font-little);
+                    position: absolute;
+                    right: 0;
+                    bottom: -20px;
+                }
+            }
+
+            .btn-box{
+                margin-top: 120px;
+                text-align: center;
             }
         }
     }
