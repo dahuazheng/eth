@@ -1,45 +1,54 @@
 <template>
     <div id='rank-tab'>
         <div class="rank-tab__header">
-            <span :class="currTab === 'live' && 'active'" @click="checkTab('live')">24H 直推龙虎榜</span>
-            <span :class="currTab === 'history' && 'active'" @click="checkTab('history')">龙虎榜历史</span>
-            <span :class="currTab === 'my-rank' && 'active'" @click="checkTab('my-rank')">我的龙虎榜</span>
+            <span :class="currTab === 'live' && 'active'" @click="checkTab('live')">24H 直推龙虎榜</span> <span :class="currTab === 'history' && 'active'" @click="checkTab('history')">龙虎榜历史</span> <span :class="currTab === 'my-rank' && 'active'" @click="checkTab('my-rank')">我的龙虎榜</span>
         </div>
 
         <div class="rank-tab__body">
-            <table class="live" v-show="currTab === 'live'">
-                <tr>
-                    <td>名次</td>
-                    <td>昵称</td>
-                    <td>奖励总额</td>
-                    <td>直推个数/展开</td>
-                </tr>
-                <tr v-for="live in liveList.slice(0, 5)" :key="live.rankNum">
-                    <td>
+            <ul class="live" v-show="currTab === 'live'">
+                <li>
+                    <span class="num">名次</span> <span class="name">昵称</span> <span class="account">奖励总额</span> <span class="per">直推个数/展开</span>
+                </li>
+                <!--以下 同一名次对应多个用户-->
+                <li v-for="live in liveLists.slice(0, 5)" :key="live.rankNum">
+                    <div class="listContainer" v-if="live.list.length > 1">
+                        <span class="num">
+                            <span :class="['rank-icon', 'icon-'+ live.rankNum]"/>
+                        </span>
+                        <span :class="['name', 'rank-color','color-' + live.rankNum]">{{ live.list[0].name }}</span>
+                        <span :class="['account', 'rank-color','color-' + live.rankNum]">{{ live.list[0].ethTotal }} <br> {{ live.incTotal }}</span>
+                        <span :class="['per', 'rank-color','color-' + live.rankNum]">{{ live.list[0].number }}</span>
+                    </div>
+                    <div class="listContainer" v-else="live.list.length === 1" v-for="list in (live.list)" :key="list.id">
+                        <span class="num">
+                            <span :class="['rank-icon', 'icon-'+ live.rankNum]"/>
+                        </span>
+                        <span :class="['name', 'rank-color','color-' + live.rankNum]">{{ list.name }}</span>
+                        <span :class="['account', 'rank-color','color-' + live.rankNum]">{{ list.ethTotal }} <br> {{ live.incTotal }}</span>
+                        <span :class="['per', 'rank-color','color-' + live.rankNum]">{{ list.number }}</span>
+                    </div>
+
+                </li>
+                <!--以上 同一名次对应多个用户-->
+                <!--<li v-for="live in liveList.slice(0, 5)" :key="live.rankNum">
+                    <span class="num">
                         <span :class="['rank-icon', 'icon-'+ live.rankNum]"/>
-                    </td>
-                    <td :class="['rank-color','color-' + live.rankNum]">{{ live.name }}</td>
-                    <td :class="['rank-color','color-' + live.rankNum]">{{ live.ethTotal }} <br> {{ live.incTotal }}</td>
-                    <td :class="['rank-color','color-' + live.rankNum]">{{ live.rankNum }}</td>
-                </tr>
-            </table>
+                    </span>
+                    <span :class="['name', 'rank-color','color-' + live.rankNum]">{{ live.name }}</span>
+                    <span :class="['account', 'rank-color','color-' + live.rankNum]">{{ live.ethTotal }} <br> {{ live.incTotal }}</span>
+                    <span :class="['per', 'rank-color','color-' + live.rankNum]">{{ live.rankNum }}</span>
+                </li>-->
+            </ul>
             <ul class="history" v-show="currTab === 'history'">
                 <li>
-                    <span>日期</span>
-                    <span>奖项</span>
-                    <span>获奖玩家</span>
-                    <span>直推个数</span>
-                    <span>金额（eth/inc）</span>
+                    <span>日期</span> <span>奖项</span> <span>获奖玩家</span> <span>直推个数</span> <span>金额（eth/inc）</span>
                 </li>
-                <li v-for="history in historyList" :key="history.contents">
+                <li v-for="history in historyList" :key="history.id">
                     <span class="date">{{ history.date }}</span>
 
                     <div class="row-content">
-                        <div class="row" v-for="content in history.contents">
-                            <span>{{content.award}}</span>
-                            <span>{{content.player}}</span>
-                            <span>{{content.number}}</span>
-                            <span class='text-green'>{{content.ethAmount}} <br> {{ content.incAmount }}</span>
+                        <div class="row" v-for="content in history.id">
+                            <span>{{content.award}}</span> <span>{{content.player}}</span> <span>{{content.number}}</span> <span class='text-green'>{{content.ethAmount}} <br> {{ content.incAmount }}</span>
                         </div>
                     </div>
                 </li>
@@ -61,168 +70,173 @@
 </template>
 
 <script>
-    export default {
-      name: 'rank-tab',
-      data() {
-        return {
-          currTab: 'live',
-          liveLists: [
-            {
-              number: 1,
-              list: [{
-                  name: '154360898',
-                  ethTotal: '0.345 ETH',
-                  incTotal: '0.54 INC'
-                }]
-            },
-            {
-              number: 2,
-              list: [{
-                  name: '2221254360898',
-                  ethTotal: '0.345 ETH',
-                  incTotal: '0.54 INC'
-                },{
-                  name: '2154360898',
-                  ethTotal: '0.345 ETH',
-                  incTotal: '0.54 INC'
-                },{
-                  name: '4154360898',
-                  ethTotal: '0.345 ETH',
-                  incTotal: '0.54 INC'
-                }]
-            },
-            {
-              number: 3,
-              list: [{
-                name: '0154360898',
-                ethTotal: '0.345 ETH',
-                incTotal: '0.54 INC'
-              }]
-            }
-          ],
-          liveList: [
-            {
-              rankNum: 1,
+  export default {
+    name: 'rank-tab',
+    data() {
+      return {
+        currTab: 'live',
+        liveLists: [
+          {
+            rankNum: 1,
+            list: [{
               name: '154360898',
               ethTotal: '0.345 ETH',
-              incTotal: '0.54 INC'
-            }, {
-              rankNum: 2,
-              name: '1354360898',
+              incTotal: '0.54 INC',
+              number: 4
+            }]
+          },
+          {
+            rankNum: 2,
+            list: [{
+              name: '2221254360898',
               ethTotal: '0.345 ETH',
-              incTotal: '0.54 INC'
+              incTotal: '0.54 INC',
+              number: 9
             }, {
-              rankNum: 3,
-              name: '1154360898',
+              name: '2154360898',
               ethTotal: '0.345 ETH',
-              incTotal: '0.54 INC'
+              incTotal: '0.54 INC',
+              number: 7
             }, {
-              rankNum: 4,
-              name: '1954360898',
+              name: '4154360898',
               ethTotal: '0.345 ETH',
-              incTotal: '0.54 INC'
-            }, {
-              rankNum: 5,
-              name: '1054360898',
+              incTotal: '0.54 INC',
+              number: 8
+            }]
+          },
+          {
+            rankNum: 3,
+            list: [{
+              name: '0154360898',
               ethTotal: '0.345 ETH',
-              incTotal: '0.54 INC'
-            }
-          ],
-          historyList: [
-            {
-              date: '2019-02-10',
-              contents: [
-                {
-                  award: '一等奖',
-                  player: '1395673975',
-                  number: 4,
-                  ethAmount: 0.65,
-                  incAmount: 0.65
-                }, {
-                  award: '二等奖',
-                  player: '1395673975',
-                  number: 7,
-                  ethAmount: 0.65,
-                  incAmount: 0.65,
-                }, {
-                  award: '三等奖',
-                  player: '1395673975',
-                  number: 1,
-                  ethAmount: 0.65,
-                  incAmount: 0.65,
-                }, {
-                  award: '四等奖',
-                  player: '1395673975',
-                  number: 3,
-                  ethAmount: 0.65,
-                  incAmount: 0.65,
-                }]
-            },
-            {
-              date: '2019-01-07',
-              contents: [
-                {
-                  award: '一等奖',
-                  player: '1395673975',
-                  number: 8,
-                  ethAmount: 0.65,
-                  incAmount: 0.65
-                },
-                {
-                  award: '二等奖',
-                  player: '1395673975',
-                  number: 7,
-                  ethAmount: 0.65,
-                  incAmount: 0.65,
-                },
-                {
-                  award: '三等奖',
-                  player: '1395673975',
-                  number: 1,
-                  ethAmount: 0.65,
-                  incAmount: 0.65,
-                },
-                {
-                  award: '四等奖',
-                  player: '1395673975',
-                  number: 3,
-                  ethAmount: 0.65,
-                  incAmount: 0.65,
-                },
-                {
-                  award: '五等奖',
-                  player: '71395673975',
-                  number: 5,
-                  ethAmount: 0.65,
-                  incAmount: 0.65,
-                }]
-            }
-          ],
-          myRankList: [
-            {
-              date: '2019-4-30',
-              number: 2,
-              redult: '第一名'
-            },
-            {
-              date: '2019-4-30',
-              number: 2,
-              redult: '第一名'
-            },
-            {
-              date: '2019-4-30',
-              number: 2,
-              redult: '第一名'
-            }
-          ]
-        }
-      },
-      methods: {
-        checkTab(val) {
-          this.currTab = val
-        }
+              incTotal: '0.54 INC',
+              number: 2
+            }]
+          }
+        ],
+        liveList: [
+          {
+            rankNum: 1,
+            name: '154360898',
+            ethTotal: '0.345 ETH',
+            incTotal: '0.54 INC'
+          }, {
+            rankNum: 2,
+            name: '1354360898',
+            ethTotal: '0.345 ETH',
+            incTotal: '0.54 INC'
+          }, {
+            rankNum: 3,
+            name: '1154360898',
+            ethTotal: '0.345 ETH',
+            incTotal: '0.54 INC'
+          }, {
+            rankNum: 4,
+            name: '1954360898',
+            ethTotal: '0.345 ETH',
+            incTotal: '0.54 INC'
+          }, {
+            rankNum: 5,
+            name: '1054360898',
+            ethTotal: '0.345 ETH',
+            incTotal: '0.54 INC'
+          }
+        ],
+        historyList: [
+          {
+            date: '2019-02-10',
+            contents: [
+              {
+                award: '一等奖',
+                player: '1395673975',
+                number: 4,
+                ethAmount: 0.65,
+                incAmount: 0.65
+              }, {
+                award: '二等奖',
+                player: '1395673975',
+                number: 7,
+                ethAmount: 0.65,
+                incAmount: 0.65,
+              }, {
+                award: '三等奖',
+                player: '1395673975',
+                number: 1,
+                ethAmount: 0.65,
+                incAmount: 0.65,
+              }, {
+                award: '四等奖',
+                player: '1395673975',
+                number: 3,
+                ethAmount: 0.65,
+                incAmount: 0.65,
+              }]
+          },
+          {
+            date: '2019-01-07',
+            contents: [
+              {
+                award: '一等奖',
+                player: '1395673975',
+                number: 8,
+                ethAmount: 0.65,
+                incAmount: 0.65
+              },
+              {
+                award: '二等奖',
+                player: '1395673975',
+                number: 7,
+                ethAmount: 0.65,
+                incAmount: 0.65,
+              },
+              {
+                award: '三等奖',
+                player: '1395673975',
+                number: 1,
+                ethAmount: 0.65,
+                incAmount: 0.65,
+              },
+              {
+                award: '四等奖',
+                player: '1395673975',
+                number: 3,
+                ethAmount: 0.65,
+                incAmount: 0.65,
+              },
+              {
+                award: '五等奖',
+                player: '71395673975',
+                number: 5,
+                ethAmount: 0.65,
+                incAmount: 0.65,
+              }]
+          }
+        ],
+        myRankList: [
+          {
+            date: '2019-4-30',
+            number: 2,
+            redult: '第一名'
+          },
+          {
+            date: '2019-4-30',
+            number: 2,
+            redult: '第一名'
+          },
+          {
+            date: '2019-4-30',
+            number: 2,
+            redult: '第一名'
+          }
+        ]
+      }
+    },
+    methods: {
+      checkTab(val) {
+        this.currTab = val
       }
     }
+  }
 </script>
 
 <style lang='scss' scoped>
@@ -241,12 +255,12 @@
             align-items: center;
             padding: 17px;
             font-size: $font-medium-s;
-            
+
             span {
                 display: inline-block;
                 text-align: center;
                 color: #9e9f9d;
-                
+
                 &.active {
                     @include px2rem('width', 116);
                     @include background-gradient(#af24d4, #7312b9);
@@ -258,26 +272,41 @@
         }
 
         .rank-tab__body {
-            table {
+            ul {
                 width: 100%;
                 border-collapse: collapse;
 
                 &.live {
-                    tr {
-                        border-bottom: 2px solid $border-bottom-color;
-                        padding: 5px 10px;
+                    li {
+                        display: flex;
+                        align-items: center;
+                        flex-direction: column;
 
                         &:first-child {
+                            flex-direction: row;
                             background-color: #f5f5f5;
                             color: #b1b2b0;
                             border-bottom-color: transparent;
 
-                            td:nth-child(3) {
+                            span:nth-child(3) {
                                 text-align: center;
                             }
                         }
 
-                        td {
+                        .listContainer {
+                            display: flex;
+                            flex-direction: row;
+                            width: 100%;
+                            padding: 8px 0;
+                            border-bottom: 2px solid $border-bottom-color;
+
+                           &:nth-child(1),
+                           &:nth-child(2) {
+                               
+                           }
+                        }
+
+                        span {
                             font-size: $font-little;
                             padding: 8px 0;
 
@@ -295,8 +324,26 @@
                                 padding-right: 17px;
                             }
 
+                            &.name,
+                            &.account {
+                                width: 25%;
+                            }
+
+                            &.per {
+                                width: 26%;
+
+                                &::after {
+                                    content: '';
+                                    display: inline-block;
+                                    border-top: 5px solid #ccc;
+                                    border-bottom: 5px solid transparent;
+                                    border-left: 5px solid transparent;
+                                    border-right: 5px solid transparent;
+                                }
+                            }
+
                             .rank-icon {
-                                display: inline-block;
+                                // display: inline-block;
                                 @include px2rem('width', 30);
                                 @include px2rem('height', 30);
                                 background-size: 100% 100%;
@@ -348,34 +395,34 @@
                 }
 
                 &.my-rank {
-                   tr {
-                       &:first-child {
-                           border-bottom: 2px solid $border-bottom-color;
+                    tr {
+                        &:first-child {
+                            border-bottom: 2px solid $border-bottom-color;
 
-                           td {
-                               font-size: $font-little-s;
+                            td {
+                                font-size: $font-little-s;
 
-                               &:first-child {
-                                   width: 30%;
-                               }
-                           }
-                       }
+                                &:first-child {
+                                    width: 30%;
+                                }
+                            }
+                        }
 
-                       td {
-                           text-align: center;
-                           padding-top: 5px;
-                           padding-bottom: 5px;
-                           color: $color-black;
+                        td {
+                            text-align: center;
+                            padding-top: 5px;
+                            padding-bottom: 5px;
+                            color: $color-black;
 
-                           &:first-child {
-                               padding-left: 20px;
-                           }
+                            &:first-child {
+                                padding-left: 20px;
+                            }
 
-                           &:last-child {
-                               padding-right: 20px;
-                           }
-                       }
-                   }
+                            &:last-child {
+                                padding-right: 20px;
+                            }
+                        }
+                    }
                 }
             }
 
