@@ -1,49 +1,140 @@
 <template>
-
     <div class="login-popup animated fadeInRight" v-show="show">
         <h1>
-            您好，<br>
+            您好，
+            <br>
             <small>欢迎来到1 ETH，首次登陆即注册</small>
         </h1>
         <div class="row phone-box">
-            <label>
-                +86
+            <label @click="prefixShow=true">
+                +{{prefix}}
                 <icon name="down"></icon>
             </label>
-            <input type="text">
-            <span class="delete">×</span>
+            <input type="text" v-model.trim="phone">
+            <span class="delete" @click="phone=''">×</span>
         </div>
         <div class="row">
-            <input type="text" placeholder="验证码">
-            <span @click="getSmsCode">获取验证码</span>
+            <input type="number" v-model.trim="code" placeholder="验证码">
+            <button :disabled="count < 15" @click="getSmsCode">{{smsLabel}}</button>
         </div>
         <div class="btn-box">
-            <button>登陆</button>
+            <button @click="login">登陆</button>
         </div>
+
+        <PickerPopup
+            title="选择区号"
+            :show="prefixShow"
+            :slots="prefixSlots"
+            :cancel="cancelSelectPrefix"
+            :confirm="confirmSelectPrefix"/>
     </div>
 </template>
 
 <script>
-  import EthButton from '@/components/EthButton.vue'
+    import EthButton from '@/components/EthButton.vue'
+    import PickerPopup from '@/components/PickerPopup.vue'
+    import Cookies from 'js-cookie'
+    import {Toast} from 'mint-ui'
+    import {UserApi, COUNTRIES} from '@/api'
 
-  export default {
-    name: 'loginPopup',
-    components: {EthButton},
-    props: ['show'],
-    data() {
-      return {
-        phone: ''
-      }
-    },
-    methods: {
-      getSmsCode() {
+    export default {
+        name: 'loginPopup',
+        components: {EthButton, PickerPopup},
+        props: ['show'],
+        data() {
+            return {
+                prefix: '86',
+                prefixShow: false,
+                phone: '',
+                code: '',
+                count: 15,
+                smsLabel: '获取验证码',
+                prefixSlots: [
+                    {
+                        flex: 1,
+                        values: [],
+                        className: 'slot1',
+                        textAlign: 'center'
+                    }
+                ],
+            }
+        },
+        methods: {
+            cancelSelectPrefix() {
+                this.prefixShow = false
+            },
+            confirmSelectPrefix(value) {
+                let prefix = value.split(':')[1]
+                this.prefix = prefix.replace(/^\s+|\s+$/g, '')
+                this.prefixShow = false
+            },
+            getSmsCode() {
+                if (!this.phone) {
+                    return Toast('请输入手机号码')
+                }
+                if (this.phone.length < 7 || this.phone.length > 16) {
+                    return Toast('请输入正确的手机号')
+                }
 
-      },
-      login() {
-      }
+                this.countDown()
+                UserApi.sendSms({
+                    phone: this.phone,
+                    phone_prefix: this.prefix,
+                    type: 'login',
+                    validate: ''
+                }).then(res => {
+                    console.log(res)
+                    this.code = res
+                })
+            },
+            countDown() {
+                setTimeout(() => {
+                    this.smsLabel = this.count + ' S'
 
+                    if (this.count >= 0) {
+                        this.count -= 1
+                        this.countDown()
+                    } else {
+                        this.count = 15
+                        this.smsLabel = '重新获取'
+                    }
+                }, 1000)
+            },
+            login() {
+                if (!this.phone) {
+                    return Toast('请输入手机号码')
+                }
+                if (this.phone.length < 7 || this.phone.length > 16) {
+                    return Toast('请输入正确的手机号')
+                }
+                if (!this.code) {
+                    return Toast('请输入验证码')
+                }
+                if (String(this.code).length !== 6) {
+                    return Toast('验证码错误')
+                }
+
+                UserApi.login({
+                    phone: this.phone,
+                    phone_code: this.code,
+                    invite_code: ''
+                }).then(res => {
+                    Cookies.set('ETH.token', res.token, {expires: 1})
+                    Cookies.set('ETH.token_password', res.token_password, {expires: 1})
+                    this.$router.push({name: 'home'})
+                })
+            },
+            init() {
+                this.prefixSlots[0].values = COUNTRIES.map(country => {
+                    const {nameEN, nameCN, code} = country
+                    return nameEN + ' ' + nameCN + ' : ' + code
+                })
+            }
+        },
+        mounted() {
+            this.init()
+        }
     }
-  }
 
 </script>
 
@@ -102,7 +193,9 @@
                 border-bottom: 1px solid $border-color;
             }
 
-            span {
+            span, button {
+                @include fontPrimaryColor(#aa1bc0);
+                @include fontSize($font-medium-s);
                 position: absolute;
                 right: 0;
                 top: 0;
@@ -110,7 +203,6 @@
                 margin: auto;
                 box-sizing: border-box;
                 padding: 7px 0;
-                @include fontPrimaryColor(#aa1bc0);
             }
 
             &.phone-box {
@@ -147,7 +239,5 @@
                 border: 1px solid #fff;
             }
         }
-
     }
-
 </style>
