@@ -40,6 +40,7 @@
         </div>
         <EthFooter action="wallet"/>
         <ChargeMoney :show="chargeMoneyShow" :back="chargeMoneyShow=false"/>
+        <Withdraw/>
     </div>
 </template>
 
