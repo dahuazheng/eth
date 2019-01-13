@@ -1,32 +1,33 @@
 <template>
-    <div class="home">
+    <div class="login">
         <Banner/>
         <main>
             <p><label>请先登录</label></p>
             <p>
-                <button @click="login">登陆</button>
+                <button @click="toLogin">登陆</button>
             </p>
         </main>
-        <EthFooter/>
+        <EthFooter action="home"/>
+        <LoginPopup/>
     </div>
 </template>
 
 <script>
   import Banner from '@/components/Banner.vue'
   import EthFooter from '@/components/EthFooter.vue'
-
+  import LoginPopup from '@/components/LoginPopup.vue'
   import {UserApi} from '@/api'
 
   export default {
     name: 'login',
     components: {
-      Banner, EthFooter
+      Banner, EthFooter, LoginPopup
     },
     data() {
-
+      return {}
     },
     methods: {
-      login() {
+      toLogin() {
         UserApi.login()
       }
     }
@@ -35,7 +36,7 @@
 <style lang="scss" scoped>
     @import "../assets/styles/mixin";
 
-    .home {
+    .login {
         position: relative;
         height: 100%;
         background: $clear-color;

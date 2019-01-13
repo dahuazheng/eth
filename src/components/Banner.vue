@@ -1,6 +1,6 @@
 <template>
     <div class="banner">
-        <div class="cup" @click="">
+        <div class="cup" @click="toRankingList">
             <img src="../assets/images/icon_cup.png" alt="">
             <span>龙虎榜</span>
         </div>
@@ -39,19 +39,29 @@
                 02:45:00
             </div>
             <div class="message">
-                <icon name="small-bell" class="icon" ></icon>
+                <icon name="small-bell" class="icon"></icon>
                 <span></span>
             </div>
         </div>
     </div>
 </template>
 <script>
+  import {Toast} from 'mint-ui'
   import {UserApi} from '@/api'
 
   export default {
     name: 'banner',
     data() {
       return {}
+    },
+    methods: {
+      toRankingList() {
+        if (!UserApi.isOnline()) {
+          return Toast('请先登录')
+        }
+
+        this.$router.push({name: 'rankingName'})
+      }
     }
   }
 </script>
@@ -72,6 +82,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            z-index: 1;
 
             img {
                 @include px2rem('width', 35);

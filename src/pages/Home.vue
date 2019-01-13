@@ -51,7 +51,6 @@
     name: 'home',
     components: {
       Banner, EthFooter, NoteCodePopup, DayGuess, MyAward, InvitePlayer
-
     },
     mixins: [joinMixin],
     data() {

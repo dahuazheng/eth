@@ -1,17 +1,17 @@
 <template>
     <div class="footer">
         <ul>
-            <li @click="handleTab('wallet')" :class="{active:action==='wallet'}">
+            <li @click="handleTab('wallet')" :class="{active: action==='wallet'}">
                 <img v-if="action==='wallet'" src="../assets/images/wallet_press.png">
                 <img v-else src="../assets/images/wallet_nomal.png">
                 <span>钱包</span>
             </li>
-            <li @click="handleTab('home')" :class="{active:action==='eth'}">
+            <li @click="handleTab('home')" :class="{active: action==='home'}">
                 <img v-if="action==='home'" src="../assets/images/eth_press.png">
                 <img v-else src="../assets/images/eth_nomal.png">
                 <span>1 ETH</span>
             </li>
-            <li @click="handleTab('userOption')" :class="{active:action==='me'}">
+            <li @click="handleTab('userOption')" :class="{active: action==='userOption'}">
                 <img v-if="action==='userOption'" src="../assets/images/me_press.png">
                 <img v-else src="../assets/images/me_nomal.png">
                 <span>我的</span>
@@ -21,6 +21,9 @@
 </template>
 
 <script>
+  import {Toast} from 'mint-ui'
+  import {UserApi} from '@/api'
+
   export default {
     name: 'ethFooter',
     props: ['action'],
@@ -31,6 +34,13 @@
     },
     methods: {
       handleTab(action) {
+        if (!UserApi.isOnline()) {
+          if (action === 'home') {
+            return
+          }
+          return Toast('请先登陆')
+        }
+
         this.$router.push({name: action})
       }
     }

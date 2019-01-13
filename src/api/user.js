@@ -3,7 +3,8 @@ import Cookies from 'js-cookie'
 class UserApi {
 
   static login(){
-    console.log(222)
+    Cookies.set('ETH.token', 'kevin123', { expires: 1 });
+    Cookies.set('ETH.token_password', 'kevin123', { expires: 1 });
   }
 
   // 判断是否已登录
