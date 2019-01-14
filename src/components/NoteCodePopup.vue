@@ -3,28 +3,74 @@
         <div class="popup" @click.stop>
             <PopupTitle title="短信验证" :back="close"/>
             <div class="input-box">
-                <input type="text" placeholder="请输入验证码">
-                <span>获取验证码</span>
+                <input type="number" placeholder="请输入验证码" v-model.trim="code">
+                <button :disabled="count < 15" @click="getSmsCode">{{smsLabel}}</button>
             </div>
             <div class="btn-box">
-                <button @click="toJoinHistory">确认</button>
+                <button @click="submit">确认</button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-  import PopupTitle from './PopupTitle'
+    import PopupTitle from './PopupTitle'
+    import {Toast} from 'mint-ui'
+    import {UserApi} from '@/api'
 
-  export default {
-    components: {PopupTitle},
-    props: ['show', 'close'],
-    methods: {
-      toJoinHistory() {
-        this.$router.push({name: 'joinHistory'})
-      }
+    export default {
+        components: {PopupTitle},
+        props: ['show', 'close'],
+        data() {
+            return {
+                smsLabel: '获取验证码',
+                count: 15,
+                phone: '18368095040',
+                code: null,
+            }
+        },
+        methods: {
+            countDown() {
+                setTimeout(() => {
+                    this.smsLabel = this.count + ' S'
+
+                    if (this.count > 0) {
+                        this.count -= 1
+                        this.countDown()
+                    } else {
+                        this.count = 15
+                        this.smsLabel = '重新获取'
+                    }
+                }, 1000)
+            },
+            getSmsCode() {
+
+                this.countDown()
+                UserApi.sendUserSms({
+                    phone: this.phone,
+                    phone_prefix: this.prefix,
+                    type: 'login',
+                    validate: ''
+                }).then(res => {
+                    console.log(res)
+                    this.code = res
+                })
+            },
+            handleBalance() {
+                // 处理事件
+
+            },
+            submit() {
+                if (!this.code) {
+                    return Toast('请输入验证码')
+                }
+                if (String(this.code).length !== 6) {
+                    return Toast('验证码错误')
+                }
+                this.handleBalance()
+            }
+        }
     }
-  }
 </script>
 
 <style scoped lang="scss">
@@ -60,14 +106,15 @@
                 padding: 7px 0;
             }
 
-            span {
-                @include fontPrimaryColor($primary-color);
+            button {
+                @include fontPrimaryColor(#aa1bc0);
+                @include fontSize($font-medium-s);
                 position: absolute;
-                top: 0;
                 right: 0;
+                top: 0;
                 bottom: 0;
                 margin: auto;
-                display: inline-block;
+                box-sizing: border-box;
                 padding: 7px 0;
             }
         }
