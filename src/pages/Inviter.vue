@@ -15,7 +15,7 @@
                 <input type="text" v-model.trim="inviter" placeholder="输入邀请人昵称">
             </p>
             <p class="btn-box">
-                <button @click="bindInviter">立即绑定</button>
+                <button @click="submit">立即绑定</button>
             </p>
         </main>
         <EthFooter action="home"/>
@@ -25,8 +25,9 @@
 <script>
     import Banner from '@/components/Banner.vue'
     import EthFooter from '@/components/EthFooter.vue'
+    import Cookies from 'js-cookie'
     import {Toast} from 'mint-ui'
-    import {UserApi, COUNTRIES} from '@/api'
+    import {UserApi} from '@/api'
 
     export default {
         name: 'home',
@@ -36,27 +37,29 @@
         data() {
             return {
                 inviter: '',
-                inviterCode: ''
             }
         },
         methods: {
-            bindInviter() {
+            submit() {
                 if (!this.inviter) {
                     return Toast('请输入邀请人昵称')
                 }
-                if (this.value !== 'kevin') {
+                if (this.inviter !== 'kevin') {
                     return Toast('输入的邀请人昵称不存在')
                 }
-                UserApi.getInviteCode().then(res => {
-                    if (res.status === 1) {
-                        this.inviterCode = res.data.inviter_code
+
+                UserApi.bindInviteCode({inviter_code: this.inviter}).then(res => {
+                    if (Number(res.status) === 1) {
+                        console.log(res)
+                        Cookies.set('ETH.invite_code', res.token, {expires: 1})
+                        Toast('绑定成功')
+                        setTimeout(() => {
+                            this.$router.push({name: 'home'})
+                        }, 2000)
+                    } else {
+                        Toast('输入的邀请人昵称不存在')
                     }
                 })
-                const inviterCode = '1111'
-                if (!inviterCode) {
-                    return Toast('若用户没有邀请码，输入“666666”选择系统')
-                }
-
             }
         }
     }
@@ -121,7 +124,6 @@
                         border: none;
                     }
                 }
-
             }
         }
     }

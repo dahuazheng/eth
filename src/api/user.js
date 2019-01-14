@@ -34,6 +34,19 @@ class UserApi {
         return httpService.get('http://47.75.115.65:5802/api/invite_code')
     }
 
+    static bindInviteCode(query) {
+        // invite_code 666666
+        const res =  {
+            "status": "1",
+            "msg": "",
+            "data": {
+                "invite_code": "qNUKNTh6"
+            }
+        }
+        return Promise.resolve(res)
+        return httpService.post('http://47.75.115.65:5802/api/bind_invite_code', query)
+    }
+
     // 判断是否已登录
     static isOnline() {
         return !!Cookies.get('ETH.token') && !!Cookies.get('ETH.token_password')

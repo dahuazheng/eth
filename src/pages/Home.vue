@@ -73,10 +73,10 @@
             },
             init() {
                 if (!UserApi.isOnline()) {
-                    this.$router.push({name: 'login'})
+                    return this.$router.push({name: 'login'})
                 }
                 if (!UserApi.isBindInviter()) {
-                    this.$router.push({name: 'inviter'})
+                    return this.$router.push({name: 'inviter'})
                 }
             }
         },
