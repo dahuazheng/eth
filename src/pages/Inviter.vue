@@ -25,15 +25,38 @@
 <script>
     import Banner from '@/components/Banner.vue'
     import EthFooter from '@/components/EthFooter.vue'
+    import {Toast} from 'mint-ui'
+    import {UserApi, COUNTRIES} from '@/api'
 
     export default {
         name: 'home',
         components: {
             Banner, EthFooter
         },
-        data(){
+        data() {
             return {
-                inviter: ''
+                inviter: '',
+                inviterCode: ''
+            }
+        },
+        methods: {
+            bindInviter() {
+                if (!this.inviter) {
+                    return Toast('请输入邀请人昵称')
+                }
+                if (this.value !== 'kevin') {
+                    return Toast('输入的邀请人昵称不存在')
+                }
+                UserApi.getInviteCode().then(res => {
+                    if (res.status === 1) {
+                        this.inviterCode = res.data.inviter_code
+                    }
+                })
+                const inviterCode = '1111'
+                if (!inviterCode) {
+                    return Toast('若用户没有邀请码，输入“666666”选择系统')
+                }
+
             }
         }
     }

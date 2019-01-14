@@ -39,15 +39,21 @@
             </ul>
             <ul class="history" v-show="currTab === 'history'">
                 <li>
-                    <span>日期</span> <span>奖项</span> <span>获奖玩家</span> <span>直推个数</span> <span>金额（eth/inc）</span>
+                    <span class="date">日期</span>
+                    <span class="award">奖项</span>
+                    <span class="player">获奖玩家</span>
+                    <span class="num">直推个数</span>
+                    <span class="amount">金额（eth/inc）</span>
                 </li>
                 <li v-for="history in historyList" :key="history.id">
-                    <span class="date">{{ history.date }}</span>
+                    <span class="date date-top">{{ history.date }}</span>
 
                     <div class="row-content">
-                        <div class="row" v-for="content in history.id">
-                            <span>{{content.award}}</span> <span>{{content.player}}</span>
-                            <span>{{content.number}}</span> <span class='text-green'>{{content.ethAmount}} <br> {{ content.incAmount }}</span>
+                        <div class="row" v-for="content in history.contents" :key="content.id">
+                            <span class="award">{{content.award}}</span>
+                            <span class="player">{{content.player}}</span>
+                            <span class="num">{{content.number}}</span>
+                            <span class='amount text-green'>{{content.ethAmount}} <br> {{ content.incAmount }}</span>
                         </div>
                     </div>
                 </li>
@@ -58,7 +64,7 @@
                     <td>直推个数</td>
                     <td>结果</td>
                 </tr>
-                <tr v-for="myRank in myRankList" :key="myRank.rankNum">
+                <tr v-for="myRank in myRankList" :key="myRank.id">
                     <td>{{ myRank.date }}</td>
                     <td>{{ myRank.number }}</td>
                     <td>{{ myRank.result }}</td>
@@ -221,17 +227,17 @@
                     {
                         date: '2019-4-30',
                         number: 2,
-                        redult: '第一名'
+                        result: '第一名'
                     },
                     {
                         date: '2019-4-30',
                         number: 2,
-                        redult: '第一名'
+                        result: '第一名'
                     },
                     {
                         date: '2019-4-30',
                         number: 2,
-                        redult: '第一名'
+                        result: '第一名'
                     }
                 ]
             }
@@ -285,14 +291,12 @@
         .rank-tab__body {
             ul {
                 width: 100%;
-                border-collapse: collapse;
 
                 &.live {
                     li {
                         display: flex;
                         align-items: center;
                         flex-direction: column;
-                        //@include px2rem('height', 50);
 
                         &:first-child {
                             flex-direction: row;
@@ -311,19 +315,10 @@
                             width: 100%;
                             padding: 8px 0;
                             border-bottom: 2px solid $border-bottom-color;
-
-                            /*.toggle-arrow {
-                                position: relative;
-                                //right: 20px;
-                                top: 26px;                                         //display: inline-block;
-                                border-top: 10px solid #ccc;
-                                border-bottom: 10px solid transparent;
-                                border-left: 9px solid transparent;
-                                border-right: 9px solid transparent;
-                            }*/
                         }
 
                         span {
+                            position: relative;
                             font-size: $font-little;
                             padding: 8px 0;
 
@@ -357,9 +352,8 @@
                                 }
 
                                 .toggle-arrow {
-                                    //position: relative;
-                                    //right: 20px;
-                                    //top: 26px;
+                                    position: absolute;
+                                    bottom: -12px;
                                     display: inline-block;
                                     border-top: 10px solid #ccc;
                                     border-bottom: 10px solid transparent;
@@ -420,81 +414,106 @@
                     }
                 }
 
-                &.my-rank {
-                    tr {
+                &.history {
+                    li {
+                        display: flex;
+                        justify-content: space-around;
+                        border-bottom: 2px solid $border-bottom-color;
+
                         &:first-child {
+                            text-align: center;
+                            font-size: $font-little-s;
+                            padding-bottom: 13px;
                             border-bottom: 2px solid $border-bottom-color;
 
-                            td {
+                            span {
+                                padding-top: 0;
+                            }
+                        }
+
+                        span {
+                            display: flex;
+                            align-items: flex-start;
+                            font-size: $font-little-s + 1;
+                            padding-top: 3px;
+                            padding-bottom: 3px;
+                            color: $color-black;
+                            font-weight: 500;
+                            text-align: center;
+
+                            &.date,
+                            &.player {
+                                display: inline;
+                                width: 20%;
+                            }
+
+                            &.award,
+                            &.num {
+                                width: 13%;
+                            }
+
+                            &.date {
+                                padding-left: 15px;
+                                text-align: center;
                                 font-size: $font-little-s;
 
-                                &:first-child {
-                                    width: 30%;
+                                &.date-top {
+                                    padding-top: 10px;
                                 }
                             }
                         }
 
-                        td {
-                            text-align: center;
-                            padding-top: 5px;
-                            padding-bottom: 5px;
-                            color: $color-black;
+                        .row-content {
+                            display: flex;
+                            flex-direction: column;
+                            width: 100%;
 
-                            &:first-child {
-                                padding-left: 20px;
-                            }
+                            .row {
+                                display: flex;
+                                justify-content: space-around;
+                                align-items: center;
+                                width: 100%;
+                                border-bottom: 2px solid $border-bottom-color;
 
-                            &:last-child {
-                                padding-right: 20px;
+                                .text-green {
+                                    color: #75c09f;
+                                }
+
+                                &:last-child {
+                                   border-bottom-color: transparent;
+                                }
                             }
                         }
                     }
                 }
             }
 
-            .history {
-                padding: 0 20px;
-
-                li {
-                    display: flex;
-                    justify-content: space-around;
-
+            .my-rank {
+                tr {
                     &:first-child {
-                        text-align: center;
-                        font-size: $font-little-s;
-                        padding-bottom: 13px;
                         border-bottom: 2px solid $border-bottom-color;
-                    }
 
-                    span {
-                        font-size: $font-little-s + 1;
-                        padding-top: 3px;
-                        padding-bottom: 3px;
-                        color: $color-black;
-                        font-weight: 500;
-
-                        &.date {
-                            padding-top: 10px;
-                            text-align: center;
+                        td {
                             font-size: $font-little-s;
+
+                            &:first-child {
+                                width: 30%;
+                            }
                         }
                     }
 
-                    .row-content {
-                        display: flex;
-                        flex-direction: column;
-                        width: 100%;
+                    td {
+                        text-align: center;
+                        padding-top: 5px;
+                        padding-bottom: 5px;
+                        color: $color-black;
 
-                        .row {
-                            display: flex;
-                            justify-content: space-around;
-                            align-items: center;;
-                            width: 100%;
-                            border-bottom: 2px solid $border-bottom-color;
+                        &:first-child {
+                            padding-left: 20px;
+                        }
 
-                            .text-green {
-                                color: #75c09f;
-                            }
+                        &:last-child {
+                            padding-right: 20px;
                         }
                     }
                 }

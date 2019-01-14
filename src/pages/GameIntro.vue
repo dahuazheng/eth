@@ -19,7 +19,7 @@
                                 awardDesc.status = !awardDesc.status
                    }">{{ awardDesc.title }}</span>
                         <transition name="fade">
-                            <p class="text" v-if="awardDesc.status"> {{ awardDesc.text }}</p>
+                            <p v-if="awardDesc.status"> {{ awardDesc.text }}</p>
                         </transition>
                     </div>
                 </div>
@@ -117,7 +117,8 @@
                     }
 
                     &.text {
-                        // transition: all 0.4s;
+                        padding-left: 30px;
+                        margin-top: 0;
                     }
                 }
                 div.group {
