@@ -23,17 +23,9 @@
                         <span :class="['account', 'rank-color','color-' + live.rankNum]">{{ list.ethTotal }} <br> {{ live.incTotal }}</span>
                         <span :class="['per', 'rank-color','color-' + live.rankNum]">
                             <span>{{ list.number }}</span>
-                            <i v-show="live.list.length > 1 && index===0" class="toggle-arrow" @click="dropList(liveKey)"></i>
+                            <i v-show="live.list.length > 1 && index === 0" class="toggle-arrow" @click="dropList(liveKey)"></i>
                         </span>
                     </div>
-                    <!--<div class="listContainer" v-else="live.list.length && live.list.length === 1" v-for="list in (live.list)" :key="list.id">
-                        <span class="num">
-                            <span :class="['rank-icon', 'icon-'+ live.rankNum]"/>
-                        </span>
-                        <span :class="['name', 'rank-color','color-' + live.rankNum]">{{ list.name }}</span>
-                        <span :class="['account', 'rank-color','color-' + live.rankNum]">{{ list.ethTotal }} <br> {{ live.incTotal }}</span>
-                        <span :class="['per', 'rank-color','color-' + live.rankNum]">{{ list.number }}</span>
-                    </div>-->
 
                 </li>
             </ul>
@@ -270,19 +262,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 17px;
+            padding: 15px;
             font-size: $font-medium-s;
 
             span {
                 display: inline-block;
+                padding: 10px;
                 text-align: center;
                 color: #9e9f9d;
 
                 &.active {
-                    @include px2rem('width', 116);
                     @include background-gradient(#af24d4, #7312b9);
                     color: $color-white;
-                    padding: 10px 0;
                     border-radius: 18px;
                 }
             }
@@ -488,10 +479,14 @@
                 }
             }
 
-            .my-rank {
+            table.my-rank {
+                width: 100%;
+                border-collapse: collapse;
+
                 tr {
+                    border-bottom: 2px solid $border-bottom-color;
+
                     &:first-child {
-                        border-bottom: 2px solid $border-bottom-color;
 
                         td {
                             font-size: $font-little-s;
@@ -504,8 +499,8 @@
 
                     td {
                         text-align: center;
-                        padding-top: 5px;
-                        padding-bottom: 5px;
+                        padding-top: 10px;
+                        padding-bottom: 10px;
                         color: $color-black;
 
                         &:first-child {
