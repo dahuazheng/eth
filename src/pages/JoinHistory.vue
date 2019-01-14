@@ -6,33 +6,39 @@
                 <span>时间</span>
                 <span>序列</span>
             </li>
-            <li>
-                <span>2019-01-07 12:30:20</span>
-                <span>1</span>
-            </li>
-            <li>
-                <span>2019-01-07 12:30:20</span>
-                <span>2</span>
-            </li>
-            <li>
-                <span>2019-01-07 12:30:20</span>
-                <span>3</span>
+            <li v-for="item in list" :key="item.number">
+                <span>{{item.time}}</span>
+                <span>{{item.number}}</span>
             </li>
         </ul>
     </div>
 </template>
 
 <script>
-  import PopupTitle from '../components/PopupTitle'
+    import PopupTitle from '../components/PopupTitle'
 
-  export default {
-    components: {PopupTitle},
-    methods: {
-      close() {
-        this.$router.push({name: 'home'})
-      }
+    export default {
+        components: {PopupTitle},
+        data() {
+            return {
+                list: [{
+                    time: '2019-01-07 12:30:20',
+                    number: 1
+                }, {
+                    time: '2019-01-07 12:30:20',
+                    number: 2
+                }, {
+                    time: '2019-01-07 12:30:20',
+                    number: 3
+                }]
+            }
+        },
+        methods: {
+            close() {
+                this.$router.push({name: 'home'})
+            }
+        }
     }
-  }
 </script>
 
 <style scoped lang="scss">

@@ -1,4 +1,5 @@
 import UserApi from './user'
-import COUNTRIES from './constants'
+import BalanceApi from './balance'
+import COUNTRIES from './country'
 
-export {UserApi, COUNTRIES}
+export {UserApi, BalanceApi, COUNTRIES}

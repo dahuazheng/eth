@@ -1,12 +1,16 @@
 import Cookies from 'js-cookie'
 import httpService from '@/services/http-service'
 
-class UserApi {
-    constructor() {
-        this.year = 2018
+class BalanceApi {
+
+    static getBalance() {
+        return Promise.resolve({
+            ETH: 769.2,
+            INC: 2313503.2
+        })
     }
 
-    // 登录
+    // 登陆
     static login(query) {
         // phone: 18368095040
         // phone_code: 123456
@@ -20,20 +24,13 @@ class UserApi {
         return httpService.post('http://47.75.115.65:5802/api/login', query)
     }
 
-    // 获取登录验证码
+    // 获取登陆验证码
     static sendSms(query) {
         // phone_prefix: +86
         // phone: 18368095040
         // type: login
         // validate: dW5kZWZpbmVk
         return Promise.resolve(666666)
-        return httpService.post('http://localhost:8080/api/send_user_sms', query)
-    }
-
-    // 投注、提现
-    static sendUserSms(query){
-        // phone: 18368095040
-        return Promise.resolve(123456)
         return httpService.post('http://localhost:8080/api/send_user_sms', query)
     }
 
@@ -44,7 +41,7 @@ class UserApi {
 
     static bindInviteCode(query) {
         // invite_code 666666
-        const res =  {
+        const res = {
             "status": "1",
             "msg": "",
             "data": {
@@ -54,16 +51,6 @@ class UserApi {
         return Promise.resolve(res)
         return httpService.post('http://47.75.115.65:5802/api/bind_invite_code', query)
     }
-
-    // 判断是否已登录
-    static isOnline() {
-        return !!Cookies.get('ETH.token') && !!Cookies.get('ETH.token_password')
-    }
-
-    // 判断是否绑定邀请人
-    static isBindInviter() {
-        return !!Cookies.get('ETH.invite_code')
-    }
 }
 
-export default UserApi
+export default BalanceApi

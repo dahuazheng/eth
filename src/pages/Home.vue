@@ -11,16 +11,8 @@
                 </li>
             </ul>
             <ul class="items">
-                <li class="join" v-show="tabAction==='join'">
-                    <div class="btn-box" @click="openNoteCodePopup">
-                        <img src="../assets/images/bg_eth.png">
-                        立即参与 1 EHT
-                    </div>
-                    <p>
-                        参与历史
-                        <small>我的累积参与：0次</small>
-                        <small>钱包余额：0 ETH</small>
-                    </p>
+                <li v-show="tabAction==='join'">
+                    <JoinNow :balance="balance" :open="openNoteCodePopup"/>
                 </li>
                 <li v-show="tabAction==='guess'">
                     <DayGuess/>
@@ -42,22 +34,23 @@
     import Banner from '@/components/Banner.vue'
     import EthFooter from '@/components/EthFooter.vue'
     import NoteCodePopup from '@/components/NoteCodePopup.vue'
+    import JoinNow from '@/components/JoinNow.vue'
     import DayGuess from '@/components/DayGuess.vue'
     import MyAward from '@/components/MyAward.vue'
     import InvitePlayer from '@/components/InvitePlayer.vue'
 
-    import {joinMixin} from '../mixins'
     import {UserApi} from '@/api'
+    import {mapState} from 'vuex'
 
 
     export default {
         name: 'home',
         components: {
-            Banner, EthFooter, NoteCodePopup, DayGuess, MyAward, InvitePlayer
+            Banner, EthFooter, NoteCodePopup, JoinNow, DayGuess, MyAward, InvitePlayer
         },
-        mixins: [joinMixin],
         data() {
             return {
+                noteCodePopupShow: false,
                 tabAction: 'join',
                 tabs: [
                     {label: '立即参与', value: 'join'},
@@ -67,16 +60,29 @@
                 ]
             }
         },
+        computed: {
+            ...mapState({
+                balance: state => state.balance,
+            })
+        },
         methods: {
+            openNoteCodePopup() {
+                this.noteCodePopupShow = true
+            },
+            closeNoteCodePopup() {
+                this.noteCodePopupShow = false
+            },
             changeTab(value) {
                 this.tabAction = value
             },
             init() {
+                this.$store.dispatch('balance/getBalance')
                 if (!UserApi.isOnline()) {
-                    return this.$router.push({name: 'login'})
+                    this.$router.push({name: 'login'})
+                    return
                 }
                 if (!UserApi.isBindInviter()) {
-                    return this.$router.push({name: 'inviter'})
+                    this.$router.push({name: 'inviter'})
                 }
             }
         },
@@ -122,49 +128,6 @@
 
                         span {
                             border-bottom: 2px solid $primary-color;
-                        }
-                    }
-                }
-            }
-
-            .items {
-                .join {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    text-align: center;
-
-                    .btn-box {
-                        @include px2rem('width', 237);
-                        @include px2rem('height', 84);
-                        @include fontColor(#FEDF9A);
-                        position: relative;
-                        box-sizing: border-box;
-                        margin-top: 70px;
-                        padding-top: 32px;
-                        background-image: url('../assets/images/bg_bet.png');
-                        background-size: cover;
-
-                        img {
-                            @include px2rem('width', 74);
-                            @include px2rem('height', 74);
-                            position: absolute;
-                            top: -37px;
-                            left: 0;
-                            right: 0;
-                            margin: auto;
-                        }
-                    }
-
-                    p {
-                        @include fontColor($primary-color);
-                        display: flex;
-                        flex-direction: column;
-                        margin-top: -10px;
-                        line-height: 1.6;
-
-                        small {
-                            @include fontSubColor($font-sub-color);
                         }
                     }
                 }
