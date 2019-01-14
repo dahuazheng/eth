@@ -6,7 +6,7 @@ class UserApi {
         this.year = 2018
     }
 
-    // 登陆
+    // 登录
     static login(query) {
         // phone: 18368095040
         // phone_code: 123456
@@ -20,7 +20,7 @@ class UserApi {
         return httpService.post('http://47.75.115.65:5802/api/login', query)
     }
 
-    // 获取登陆验证码
+    // 获取登录验证码
     static sendSms(query) {
         // phone_prefix: +86
         // phone: 18368095040

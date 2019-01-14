@@ -3,7 +3,7 @@
         <h1>
             您好，
             <br>
-            <small>欢迎来到1 ETH，首次登陆即注册</small>
+            <small>欢迎来到1 ETH，首次登录即注册</small>
         </h1>
         <div class="row phone-box">
             <label @click="prefixShow=true">
@@ -18,7 +18,7 @@
             <button :disabled="count < 15" @click="getSmsCode">{{smsLabel}}</button>
         </div>
         <div class="btn-box">
-            <button @click="login">登陆</button>
+            <button @click="login">登录</button>
         </div>
 
         <PickerPopup
@@ -35,7 +35,8 @@
     import PickerPopup from '@/components/PickerPopup.vue'
     import Cookies from 'js-cookie'
     import {Toast} from 'mint-ui'
-    import {UserApi, COUNTRIES} from '@/api'
+    import { COUNTRIES } from '../api/constants'
+    import { UserApi } from '../api/user'
 
     export default {
         name: 'loginPopup',

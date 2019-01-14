@@ -4,7 +4,7 @@
         <main>
             <p><label>请先登录</label></p>
             <p>
-                <button @click="toLogin">登陆</button>
+                <button @click="toLogin">登录</button>
             </p>
         </main>
         <EthFooter action="home"/>
@@ -16,7 +16,7 @@
   import Banner from '@/components/Banner.vue'
   import EthFooter from '@/components/EthFooter.vue'
   import LoginPopup from '@/components/LoginPopup.vue'
-  import {UserApi} from '@/api'
+  import { UserApi } from '../api/user'
 
   export default {
     name: 'login',

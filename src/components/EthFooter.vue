@@ -38,7 +38,7 @@
           if (action === 'home') {
             return
           }
-          return Toast('请先登陆')
+          return Toast('请先登录')
         }
 
         this.$router.push({name: action})
