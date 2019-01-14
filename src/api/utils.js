@@ -65,11 +65,11 @@ export const isValidETHWallet = (str = '') => REG.ETH_WALLET.test(str)
 export const isIP = (str = '') => REG.IP.test(str)
 
 /**
- * @description 验证 Google 验证码
+ * @description 验证 短信 验证码
  * @param {string} str 待验证的字符串
  * @returns {boolean} true 为真，false 为假
  */
-export const isValidGoogleAuthCode = (str = '') => REG.GOOGLE_AUTH.test(str)
+export const isValidMessageAuthCode = (str = '') => REG.GOOGLE_AUTH.test(str)
 
 /**
  * @description 把时间戳转为 PHP 时间戳（秒，10位）

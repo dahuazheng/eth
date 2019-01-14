@@ -35,8 +35,8 @@
     import PickerPopup from '@/components/PickerPopup.vue'
     import Cookies from 'js-cookie'
     import {Toast} from 'mint-ui'
-    import { COUNTRIES } from '../api/constants'
-    import { UserApi } from '../api/user'
+    import { COUNTRIES, CAPTCHA_COUNTDOWN_DEFAULT } from '../api/constants'
+    import { UserApi, isMobile, isValidMessageAuthCode } from '../api/user'
 
     export default {
         name: 'loginPopup',
@@ -84,7 +84,6 @@
                     type: 'login',
                     validate: ''
                 }).then(res => {
-                    console.log(res)
                     this.code = res
                 })
             },
@@ -97,6 +96,7 @@
                         this.countDown()
                     } else {
                         this.count = 15
+                        // this.count = CAPTCHA_COUNTDOWN_DEFAULT
                         this.smsLabel = '重新获取'
                     }
                 }, 1000)
@@ -105,13 +105,13 @@
                 if (!this.phone) {
                     return Toast('请输入手机号码')
                 }
-                if (this.phone.length < 7 || this.phone.length > 16) {
+                if (!isMobile(this.phone)) {
                     return Toast('请输入正确的手机号')
                 }
                 if (!this.code) {
                     return Toast('请输入验证码')
                 }
-                if (String(this.code).length !== 6) {
+                if (!isValidMessageAuthCode(this.code)) {
                     return Toast('验证码错误')
                 }
 
