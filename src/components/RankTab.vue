@@ -1,32 +1,24 @@
 <template>
     <div id='rank-tab'>
         <div class="rank-tab__header">
-            <span :class="currTab === 'live' && 'active'" @click="checkTab('live')">24H 直推龙虎榜</span> <span
-            :class="currTab === 'history' && 'active'" @click="checkTab('history')">龙虎榜历史</span> <span
-            :class="currTab === 'my-rank' && 'active'" @click="checkTab('my-rank')">我的龙虎榜</span>
+            <span :class="currTab === 'live' && 'active'" @click="checkTab('live')">24H 直推龙虎榜</span> <span :class="currTab === 'history' && 'active'" @click="checkTab('history')">龙虎榜历史</span> <span :class="currTab === 'my-rank' && 'active'" @click="checkTab('my-rank')">我的龙虎榜</span>
         </div>
 
         <div class="rank-tab__body">
             <ul class="live" v-show="currTab === 'live'">
                 <li>
-                    <span class="num">名次</span> <span class="name">昵称</span> <span class="account">奖励总额</span> <span
-                    class="per">直推个数/展开</span>
+                    <span class="num">名次</span> <span class="name">昵称</span> <span class="account">奖励总额</span> <span class="per">直推个数/展开</span>
                 </li>
                 <!--以下 同一名次对应多个用户-->
-                <li v-for="(live,liveKey) in liveLists.slice(0, 5)" :key="live.rankNum">
-                    <div class="listContainer" v-for="(list, index) in (live.list)" :key='list.id'
-                         v-show="index===0 || live.isDrop">
+                <li v-for="(live, liveKey) in liveList.slice(0, 5)" :key="live.rankNum">
+                    <div class="listContainer" v-for="(list, index) in (live.list)" :key='list.id' v-show="index===0 || live.isDrop">
                         <span class="num">
                             <span :class="['rank-icon', 'icon-'+ live.rankNum]"></span>
-                        </span>
-                        <span :class="['name', 'rank-color','color-' + live.rankNum]">{{ list.name }}</span>
-                        <span :class="['account', 'rank-color','color-' + live.rankNum]">{{ list.ethTotal }} <br> {{ live.incTotal }}</span>
-                        <span :class="['per', 'rank-color','color-' + live.rankNum]">
+                        </span> <span :class="['name', 'rank-color','color-' + live.rankNum]">{{ list.name }}</span> <span :class="['account', 'rank-color','color-' + live.rankNum]">{{ list.ethTotal }} <br> {{ live.incTotal }}</span> <span :class="['per', 'rank-color','color-' + live.rankNum]">
                             <span>{{ list.number }}</span>
                             <i v-show="live.list.length > 1 && index === 0" class="toggle-arrow" @click="dropList(liveKey)"></i>
                         </span>
                     </div>
-
                 </li>
             </ul>
             <ul class="history" v-show="currTab === 'history'">
@@ -38,14 +30,13 @@
                     <span class="amount">金额（eth/inc）</span>
                 </li>
                 <li v-for="history in historyList" :key="history.id">
-                    <span class="date date-top">{{ history.date }}</span>
+                    <span class="date date-top">{{ history.date | formatDate}}</span>
 
                     <div class="row-content">
                         <div class="row" v-for="content in history.contents" :key="content.id">
                             <span class="award">{{content.award}}</span>
-                            <span class="player">{{content.player}}</span>
-                            <span class="num">{{content.number}}</span>
-                            <span class='amount text-green'>{{content.ethAmount}} <br> {{ content.incAmount }}</span>
+                            <span class="player">{{content.player | formatPhoneNumber}}</span>
+                            <span class="num">{{content.number}}</span> <span class='amount text-green'>{{content.ethAmount}} <br> {{ content.incAmount }}</span>
                         </div>
                     </div>
                 </li>
@@ -57,7 +48,7 @@
                     <td>结果</td>
                 </tr>
                 <tr v-for="myRank in myRankList" :key="myRank.id">
-                    <td>{{ myRank.date }}</td>
+                    <td>{{ myRank.date | formatDate }}</td>
                     <td>{{ myRank.number }}</td>
                     <td>{{ myRank.result }}</td>
                 </tr>
@@ -67,7 +58,10 @@
 </template>
 
 <script>
-    const data = [
+    import moment from 'moment'
+    import {ensureMilliseconds, encodeMobile} from '../api/utils'
+
+    const liveRankData = [
         {
             rankNum: 1,
             list: [{
@@ -106,7 +100,7 @@
             }]
         }
     ]
-    const newData = data.map(item => {
+    const newData = liveRankData.map(item => {
         item.isDrop = false
         return item
     })
@@ -116,38 +110,10 @@
         data() {
             return {
                 currTab: 'live',
-                liveLists: newData,
-                liveList: [
-                    {
-                        rankNum: 1,
-                        name: '154360898',
-                        ethTotal: '0.345 ETH',
-                        incTotal: '0.54 INC'
-                    }, {
-                        rankNum: 2,
-                        name: '1354360898',
-                        ethTotal: '0.345 ETH',
-                        incTotal: '0.54 INC'
-                    }, {
-                        rankNum: 3,
-                        name: '1154360898',
-                        ethTotal: '0.345 ETH',
-                        incTotal: '0.54 INC'
-                    }, {
-                        rankNum: 4,
-                        name: '1954360898',
-                        ethTotal: '0.345 ETH',
-                        incTotal: '0.54 INC'
-                    }, {
-                        rankNum: 5,
-                        name: '1054360898',
-                        ethTotal: '0.345 ETH',
-                        incTotal: '0.54 INC'
-                    }
-                ],
+                liveList: newData,
                 historyList: [
                     {
-                        date: '2019-02-10',
+                        date: 1547478015,
                         contents: [
                             {
                                 award: '一等奖',
@@ -176,7 +142,7 @@
                             }]
                     },
                     {
-                        date: '2019-01-07',
+                        date: 1547478229,
                         contents: [
                             {
                                 award: '一等奖',
@@ -217,21 +183,33 @@
                 ],
                 myRankList: [
                     {
-                        date: '2019-4-30',
+                        date: 1547878015,
                         number: 2,
                         result: '第一名'
                     },
                     {
-                        date: '2019-4-30',
+                        date: 1547490015,
                         number: 2,
                         result: '第一名'
                     },
                     {
-                        date: '2019-4-30',
+                        date: 15474900150,
                         number: 2,
                         result: '第一名'
                     }
                 ]
+            }
+        },
+        filters: {
+            formatDate(value) {
+                if (!value) return
+                const formatDate = 'YYYY-M-DD'
+                return moment(ensureMilliseconds(value)).format(formatDate)
+            },
+
+            formatPhoneNumber(val) {
+                if (!val) return
+                return encodeMobile(val)
             }
         },
         methods: {
@@ -240,10 +218,11 @@
             },
 
             dropList(key) {
-                console.log(this.liveLists)
-                console.log(key)
-                this.liveLists[key].isDrop = !this.liveLists[key].isDrop
+                this.liveList[key].isDrop = !this.liveList[key].isDrop
             }
+        },
+        mounted() {
+
         }
     }
 </script>
@@ -471,7 +450,7 @@
                                 }
 
                                 &:last-child {
-                                   border-bottom-color: transparent;
+                                    border-bottom-color: transparent;
                                 }
                             }
                         }

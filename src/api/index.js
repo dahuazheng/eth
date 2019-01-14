@@ -1,4 +1,4 @@
 import UserApi from './user'
-import COUNTRIES from './country'
+import COUNTRIES from './constants'
 
 export {UserApi, COUNTRIES}
