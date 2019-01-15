@@ -73,12 +73,12 @@
             },
             changeTab(value) {
                 this.tabAction = value
+                this.$router.push({name: 'home', query: {tab: value}})
             },
         },
         mounted() {
             const {tab} = this.$route.query
             this.tabAction = tab || 'join'
-
         }
     }
 </script>
