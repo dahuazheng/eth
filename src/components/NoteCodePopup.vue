@@ -32,7 +32,7 @@
         methods: {
             countDown() {
                 setTimeout(() => {
-                    this.smsLabel = this.count + ' S'
+                    this.smsLabel = this.count + ' s'
 
                     if (this.count > 0) {
                         this.count -= 1
