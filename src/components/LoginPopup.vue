@@ -49,7 +49,7 @@
                 prefixShow: false,
                 phone: '',
                 code: '',
-                count: 15,
+                count: CAPTCHA_COUNTDOWN_DEFAULT,
                 smsLabel: '获取验证码',
                 imageCaptcha: '',
                 isCaptchaLocked: false,
