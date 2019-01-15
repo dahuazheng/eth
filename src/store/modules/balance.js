@@ -1,4 +1,4 @@
-import {BalanceApi} from '@/api'
+import BalanceApi from '@/api/balance'
 
 // initial state
 const state = {

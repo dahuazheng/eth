@@ -18,7 +18,7 @@
                     <td>1</td>
                     <td>二等奖</td>
                     <td>183****5040</td>
-                    <td>+0.65</td>
+                    <td class="text-green">+0.65<br> +0.65</td>
                 </tr>
                 <tr>
                     <td>
@@ -28,7 +28,7 @@
                     <td>1</td>
                     <td>二等奖</td>
                     <td>183****5040</td>
-                    <td>+0.65</td>
+                    <td class="text-green">+0.65<br> +0.65</td>
                 </tr>
                 <tr>
                     <td>
@@ -38,7 +38,7 @@
                     <td>1</td>
                     <td>二等奖</td>
                     <td>183****5040</td>
-                    <td>+0.65</td>
+                    <td class="text-green">+0.65<br> +0.65</td>
                 </tr>
             </table>
         </div>
@@ -79,6 +79,7 @@
             th, td {
                 padding: 5px 0;
                 text-align: center;
+                font-weight: 500;
 
                 &:first-child{
                     text-align: left;
@@ -86,6 +87,20 @@
 
                 &:last-child{
                     text-align: right;
+                }
+            }
+
+            th {
+                padding-bottom: 10px;
+
+                &:first-child{
+                    padding-left: 10px;
+                }
+            }
+
+            td {
+                &:last-child {
+                    padding-right: 10px;
                 }
             }
         }

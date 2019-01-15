@@ -22,7 +22,7 @@
 
 <script>
   import {Toast} from 'mint-ui'
-  import {UserApi} from '@/api'
+  import UserApi from '@/api/user'
 
   export default {
     name: 'ethFooter',

@@ -1,9 +1,9 @@
 <template>
     <div class="withdraw">
         <div class="title">
-            <icon name="arrow-left"></icon>
+            <icon name="arrow-left" @click="() => {this.$router.go(-1)}"></icon>
             提现
-            <icon name="scan-code" class="scan"></icon>
+            <icon name="scan-code" class="scan" @click="() => {this.$router.push('/scan-qrcode')}"></icon>
         </div>
         <div class="form">
             <div class="row">

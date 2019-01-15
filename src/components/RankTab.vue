@@ -36,7 +36,7 @@
                         <div class="row" v-for="content in history.contents" :key="content.id">
                             <span class="award">{{content.award}}</span>
                             <span class="player">{{content.player | formatPhoneNumber}}</span>
-                            <span class="num">{{content.number}}</span> <span class='amount text-green'>{{content.ethAmount}} <br> {{ content.incAmount }}</span>
+                            <span class="num">{{content.number}}</span> <span class='amount text-green'>{{content.ethAmount}}<br> {{ content.incAmount }}</span>
                         </div>
                     </div>
                 </li>
@@ -220,9 +220,6 @@
             dropList(key) {
                 this.liveList[key].isDrop = !this.liveList[key].isDrop
             }
-        },
-        mounted() {
-
         }
     }
 </script>
@@ -242,7 +239,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px;
-            font-size: $font-medium-s;
+            font-size: $font-little;
 
             span {
                 display: inline-block;
@@ -284,7 +281,7 @@
                             flex-direction: row;
                             width: 100%;
                             padding: 8px 0;
-                            border-bottom: 2px solid $border-bottom-color;
+                            border-bottom: 1px solid $border-bottom-color;
                         }
 
                         span {
@@ -294,7 +291,7 @@
 
                             &:first-child {
                                 @include px2rem('width', 55);
-                                padding-left: 17px;
+                                padding-left: $common-list-padding;
                             }
 
                             &:nth-child(3) {
@@ -303,7 +300,7 @@
 
                             &:last-child {
                                 text-align: center;
-                                padding-right: 17px;
+                                padding-right: $common-list-padding;
                             }
 
                             &.name,
@@ -388,13 +385,13 @@
                     li {
                         display: flex;
                         justify-content: space-around;
-                        border-bottom: 2px solid $border-bottom-color;
+                        border-bottom: 1px solid $border-bottom-color;
 
                         &:first-child {
                             text-align: center;
                             font-size: $font-little-s;
                             padding-bottom: 13px;
-                            border-bottom: 2px solid $border-bottom-color;
+                            border-bottom: 1px solid $border-bottom-color;
 
                             span {
                                 padding-top: 0;
@@ -424,7 +421,7 @@
 
                             &.date {
                                 padding-left: 15px;
-                                text-align: center;
+                                text-align: left;
                                 font-size: $font-little-s;
 
                                 &.date-top {
@@ -443,11 +440,7 @@
                                 justify-content: space-around;
                                 align-items: center;
                                 width: 100%;
-                                border-bottom: 2px solid $border-bottom-color;
-
-                                .text-green {
-                                    color: #75c09f;
-                                }
+                                border-bottom: 1px solid $border-bottom-color;
 
                                 &:last-child {
                                     border-bottom-color: transparent;
@@ -463,7 +456,9 @@
                 border-collapse: collapse;
 
                 tr {
-                    border-bottom: 2px solid $border-bottom-color;
+                    border-bottom: 1px solid $border-bottom-color;
+                    font-size: $font-little - 1;
+                    font-weight: 500;
 
                     &:first-child {
 
@@ -481,14 +476,6 @@
                         padding-top: 10px;
                         padding-bottom: 10px;
                         color: $color-black;
-
-                        &:first-child {
-                            padding-left: 20px;
-                        }
-
-                        &:last-child {
-                            padding-right: 20px;
-                        }
                     }
                 }
             }

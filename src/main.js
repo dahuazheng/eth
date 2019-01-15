@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import SvgIcon from 'vue-svgicon'
+import VueClipboard  from 'vue-clipboard2'
 import { Picker } from 'mint-ui'
 
 import 'animate.css'
@@ -13,6 +14,8 @@ import './assets/styles/common.scss'
 Vue.use(SvgIcon, {
   tagName: 'icon'
 })
+
+Vue.use(VueClipboard)
 
 Vue.component(Picker.name, Picker)
 

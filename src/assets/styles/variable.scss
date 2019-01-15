@@ -12,8 +12,12 @@ $succeed-color: green;
 $danger-color: #ef4f4f;
 $border-color: #f0f0f0;
 
+$common-list-padding: 17px;
+$common-font-weight: 500;
+
 $font-color: #333;
-$font-sub-color: #666;
+//$font-sub-color: #666;
+$font-sub-color: #9e9f9d;
 $font-third-color: #999;
 $font-comparison-color: #fff;
 $font-primary-color: $primary-color;
@@ -39,7 +43,7 @@ $font-large: 20px;
 
 // 其他配置
 $font-sans-serif: PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, Arial, sans-serif;
-$space-width: 10px;
+$space-width: 12px;
 $margin-width: 15px;
 $clear-color: #fff;
 $box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);

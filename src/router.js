@@ -10,9 +10,12 @@ import GuessResult from './pages/GuessResult.vue'
 import UserCenter from './pages/UserCenter.vue'
 import UserOption from './pages/UserOption.vue'
 import CommonProblem from './pages/CommonProblem.vue'
-import SelectLang from './pages/SelectLang.vue'
 import GameIntro from './pages/GameIntro.vue'
 import ContactUs from './pages/ContactUs.vue'
+import ChargeMoney from './pages/ChargeMoney.vue'
+import Withdraw from './pages/Withdraw.vue'
+import TransactionRecord from './pages/TransactionRecord.vue'
+import ScanQrcode from './pages/ScanQrcode.vue'
 
 Vue.use(Router)
 
@@ -65,11 +68,6 @@ export default new Router({
       component: CommonProblem
     },
     {
-      path: '/select-lang',
-      name: 'selectLang',
-      component: SelectLang
-    },
-    {
       path: '/game-intro',
       name: 'gameIntro',
       component: GameIntro
@@ -78,6 +76,27 @@ export default new Router({
       path: '/contact-us',
       name: 'contactUs',
       component: ContactUs
+    },
+    {
+      path: '/charge-money',
+      name: 'chargeMoney',
+      component: ChargeMoney
+    },
+    {
+      path: '/withdraw',
+      name: 'withdraw',
+      component: Withdraw
+    },
+      {
+      path: '/transaction-Record',
+      name: 'transactionRecord',
+      component: TransactionRecord
+    },
+      {
+      path: '/scan-qrcode',
+      name: 'scanQrcode',
+      component: ScanQrcode
     }
+
   ]
 })

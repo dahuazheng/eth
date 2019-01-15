@@ -1,4 +1,4 @@
-import { REG } from './constants'
+import { REG, CAPTCHA_ID } from './constants'
 import Cookies from 'js-cookie'
 
 /**
@@ -209,14 +209,13 @@ export const encodeMobile = str => `${str.substr(0, 3)}****${str.substr(-4)}`
  */
 export const initNECaptcha = (config = {}) => {
   if (!window.initNECaptcha) return
-
   window.initNECaptcha(
     {
       captchaId: config.captchaId || CAPTCHA_ID,
       element: config.element || '',
       mode: config.mode || 'popup',
       width: config.width || 280,
-      lang: config.lang === 'zh-CN' ? 'zh-CN' : 'en',
+      // lang: config.lang === 'zh-CN' ? 'zh-CN' : 'en',
       onReady: instance => {
         // 验证码一切准备就绪，此时可正常使用验证码的相关功能
         if (config.debug) {

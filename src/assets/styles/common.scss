@@ -93,3 +93,11 @@ input, textarea, button {
 .picker-slot {
     @include fontSize($font-medium-s)
 }
+
+.text-green {
+    color: #75c09f !important;
+}
+
+.text-red {
+    color: #d15757 !important;
+}

@@ -983,7 +983,6 @@ export const REG = {
   BTC_WALLET_3: /^3[0-9a-zA-Z]{33}$/
 }
 
-
 // 数字显示精度
 export const PRECISION = {
   PRICE: 8, // 价格相关
@@ -1014,3 +1013,14 @@ export const CAPTCHA_COUNTDOWN_DEFAULT = 60
 
 // LoadingTitle 默认延迟
 export const LOADING_DELAY_DEFAULT = 0
+
+// 交易状态
+export const TRADE_STATUS = {
+    success: 1,
+    pending: 0,
+    fail: -1
+}
+
+
+// 网易验证码 ID
+export const CAPTCHA_ID = '659ba10af0634d2d9451f90fdcadb336'

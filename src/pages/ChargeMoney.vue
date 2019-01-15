@@ -1,25 +1,48 @@
 <template>
     <div class="charge-money">
         <div class="title">
-            <icon name="arrow-left"></icon>
-            <icon name="article-share"></icon>
+            <icon name="arrow-left" @click="() => { this.$router.go(-1) }"></icon>
+            <!--<icon name="article-share"></icon>-->
         </div>
         <div class="box">
             <h2>
                 收款 <br>
                 <small>余额： 0 ETH</small>
             </h2>
-            <img src="../assets/images/demo_code.png">
-            <p class="code">0x8923kjKJhkjh9879827ufiywiyri2987yhiu</p>
-            <p>复制地址</p>
+            <QrcodeVue :value="wallatAddress" size="138" renderAs='svg'/>
+            <p class="code">{{ wallatAddress }}</p>
+            <p v-clipboard:copy="wallatAddress"
+               v-clipboard:success="onCopy"
+               v-clipboard:error="onError"
+            >复制地址</p>
         </div>
     </div>
-</template>
+</template>j
 
 <script>
-  export default {
-    props: ['show', 'back']
-  }
+    import QrcodeVue from 'qrcode.vue'
+    import { Toast } from 'mint-ui'
+
+    export default {
+        props: ['show', 'back'],
+        components: {
+            QrcodeVue
+        },
+        data() {
+            return {
+                wallatAddress: '0x8923kjKJhkjh9879827ufiywiyri2987yhiu',
+                message: 'Copy These Text'
+            }
+        },
+        methods: {
+            onCopy(e) {
+                return Toast('已复制')
+            },
+            onError() {
+                return Toast('请重新复制')
+            }
+        }
+    }
 </script>
 
 <style scoped lang="scss">
@@ -74,9 +97,13 @@
                 }
             }
 
-            img {
-                @include px2rem('width', 138);
-                @include px2rem('height', 138);
+            .qrcode {
+                /*flex-shrink: 0;*/
+                /*width: 144px;*/
+                /*height: 144px;*/
+                /*padding: 10px;*/
+                /*background: #fff;*/
+                /*border-radius: 4px;*/
             }
 
             p {

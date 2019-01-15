@@ -22,15 +22,13 @@
         display: inline-block;
 
         button {
-            @include px2rem('width', 148);
-            @include px2rem('height', 42);
-            @include px2rem('line-height', 42);
+            display: inline-block;
+            padding: 10px 45px;
             @include background-gradient(#C037ED, #9712A3);
             @include fontSize($font-medium-s);
             box-sizing: border-box;
-            display: inline-block;
             color: $clear-color;
-            border-radius: $space-width;
+            border-radius: 10px;
             border: 1px solid #fff;
 
             &.white {

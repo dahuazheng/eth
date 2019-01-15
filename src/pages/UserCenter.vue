@@ -1,9 +1,9 @@
 <template>
     <div class="user-center">
         <header>
-            <icon name="arrow-left"></icon>
+            <icon name="arrow-left" @click="() =>{ this.$router.go(-1) }"></icon>
             <span>个人中心</span>
-            <icon name="home" class="icon-home"></icon>
+            <icon name="home" @click="() =>{ this.$router.push('/') }" class="icon-home"></icon>
         </header>
         <div class="banner">
             <div class="user">
@@ -309,7 +309,7 @@
                     word-break: break-all;
 
                     &:nth-child(1) {
-                        padding-left: 10px;
+                        padding-left: $common-list-padding;
                     }
 
                     &:nth-child(2) {
@@ -317,7 +317,7 @@
                     }
 
                     &:last-child {
-                        padding-right: 10px;
+                        padding-right: $common-list-padding;
                         text-align: right;
                     }
                 }
@@ -333,7 +333,7 @@
 
                 tr {
                     @include fontSize($font-little);
-                    @include fontSubColor($font-sub-color);
+                    @include fontSubColor(#2d2d2d);
                     @include px2rem('height', 35);
                     border-bottom: 1px solid $border-color;
                 }
@@ -341,15 +341,16 @@
                 th, td {
                     text-align: center;
                     padding: 5px;
+                    font-weight: 500;
 
                     &:first-child {
                         text-align: left;
-                        padding-left: 10px;
+                        padding-left: $common-list-padding;
                     }
 
                     &:last-child {
                         text-align: right;
-                        padding-right: 10px;
+                        padding-right: $common-list-padding;
                     }
                 }
 

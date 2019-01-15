@@ -56,6 +56,7 @@
 
       },
       recommend() {
+          this.$router.push('/user-center')
       }
     }
   }

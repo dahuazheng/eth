@@ -27,7 +27,7 @@
     import EthFooter from '@/components/EthFooter.vue'
     import Cookies from 'js-cookie'
     import {Toast} from 'mint-ui'
-    import {UserApi} from '@/api'
+    import UserApi from '@/api/user'
 
     export default {
         name: 'home',

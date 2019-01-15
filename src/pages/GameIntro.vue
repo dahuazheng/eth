@@ -13,7 +13,7 @@
             </div>
             <div class="content reward-desc">
                 <p class="title">「 奖励说明 」</p>
-                <div class='group' v-for="awardDesc in awardDesclist" :key="awardDesc.title">
+                <div class='group' v-for="awardDesc in awardDesclist" :key="awardDesc.id">
                     <div class="group-item">
                         <span :class="['block-title', awardDesc.status ? ' up' : ' down']" @click="() => {
                                 awardDesc.status = !awardDesc.status

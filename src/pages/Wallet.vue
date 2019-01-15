@@ -17,11 +17,11 @@
             <p>0x8923kjKJhkjh9879827ufiywiyri2987yhiu</p>
         </div>
         <div class="btn-box">
-            <button>
+            <button @click="() => {this.$router.push('/charge-money')}">
                 <img src="../assets/images/collection.png">
                 充值
             </button>
-            <button @click="chargeMoney">
+            <button @click="() => {this.$router.push('/withdraw')}">
                 <img src="../assets/images/transfer.png">
                 提现
             </button>
@@ -29,7 +29,7 @@
         <div class="records">
             <div class="tabs">
                 <span>交易记录</span>
-                <span>查看所有</span>
+                <span @click="() => {this.$router.push('/transaction-record')}">查看所有</span>
             </div>
             <div class="list">
                 <ul>
@@ -39,30 +39,20 @@
             </div>
         </div>
         <EthFooter action="wallet"/>
-        <ChargeMoney :show="chargeMoneyShow" :back="chargeMoneyShow=false"/>
-        <Withdraw/>
     </div>
 </template>
 
 <script>
   import EthFooter from '@/components/EthFooter.vue'
-  import ChargeMoney from '@/components/ChargeMoney.vue'
-  import Withdraw from '@/components/Withdraw.vue'
 
   export default {
-    components: {EthFooter, ChargeMoney,Withdraw},
+    components: {EthFooter},
     data() {
       return {
         chargeMoneyShow: false
       }
-    },
-    methods: {
-      chargeMoney() {
-        this.chargeMoneyShow = true
-      }
     }
   }
-
 </script>
 
 <style scoped lang="scss">

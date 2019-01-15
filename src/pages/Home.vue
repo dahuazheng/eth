@@ -5,7 +5,7 @@
             <ul class="tabs">
                 <li v-for="tab in tabs"
                     :key="tab.value"
-                    :class="{active:tab.value===tabAction}"
+                    :class="{active:tab.value === tabAction}"
                     @click="changeTab(tab.value)">
                     <span>{{tab.label}}</span>
                 </li>
@@ -39,7 +39,7 @@
     import MyAward from '@/components/MyAward.vue'
     import InvitePlayer from '@/components/InvitePlayer.vue'
 
-    import {UserApi} from '@/api'
+    import UserApi from '@/api/user'
     import {mapState} from 'vuex'
 
 

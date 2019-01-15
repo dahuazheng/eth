@@ -15,7 +15,7 @@
         </div>
         <div class="row">
             <input type="number" v-model.trim="code" placeholder="验证码">
-            <button :disabled="count < 15" @click="getSmsCode">{{smsLabel}}</button>
+            <button id="btn-get-captcha" :disabled="count < 15" @click="onBtnCaptchaClick">{{smsLabel}}</button>
         </div>
         <div class="btn-box">
             <button @click="login">登录</button>
@@ -35,8 +35,9 @@
     import PickerPopup from '@/components/PickerPopup.vue'
     import Cookies from 'js-cookie'
     import {Toast} from 'mint-ui'
-    import { COUNTRIES, CAPTCHA_COUNTDOWN_DEFAULT } from '../api/constants'
-    import { UserApi, isMobile, isValidMessageAuthCode } from '../api/user'
+    import { COUNTRIES, CAPTCHA_COUNTDOWN_DEFAULT } from '@/api/constants'
+    import UserApi from '@/api/user'
+    import { isMobile, isValidMessageAuthCode, initNECaptcha } from '@/api/utils'
 
     export default {
         name: 'loginPopup',
@@ -50,6 +51,8 @@
                 code: '',
                 count: 15,
                 smsLabel: '获取验证码',
+                imageCaptcha: '',
+                isCaptchaLocked: false,
                 prefixSlots: [
                     {
                         flex: 1,
@@ -69,7 +72,9 @@
                 this.prefix = prefix.replace(/^\s+|\s+$/g, '')
                 this.prefixShow = false
             },
-            getSmsCode() {
+
+            // “获取验证码”按钮点击回调
+            onBtnCaptchaClick() {
                 if (!this.phone) {
                     return Toast('请输入手机号码')
                 }
@@ -77,23 +82,48 @@
                     return Toast('请输入正确的手机号')
                 }
 
-                this.countDown()
-                UserApi.sendSms({
-                    phone: this.phone,
-                    phone_prefix: this.prefix,
-                    type: 'login',
-                    validate: ''
-                }).then(res => {
-                    this.code = res
-                })
+                this.initNECaptcha()
+                // this.countDown()
+                // UserApi.sendSms({
+                //     phone: this.phone,
+                //     phone_prefix: this.prefix,
+                //     type: 'login',
+                //     validate: ''
+                // }).then(res => {
+                //     this.code = res
+                // })
             },
-            countDown() {
+
+            // 滑动验证码
+            initNECaptcha() {
+                if (this.isCaptchaLocked) return
+                this.isCaptchaLocked = true
+                initNECaptcha({
+                        element: '#btn-get-captcha',
+                        // lang: language,
+                        // debug: DEBUG_MODE,
+                        onReady: instance => {
+                            this.isCaptchaLocked = false
+                        },
+                        onVerify: (data) => {
+                            this.imageCaptcha = data.validate
+                            this.startCountDown()
+                            this.sendSms()
+                        },
+                        onError: () => {
+                            this.isCaptchaLocked = false
+                        }
+                    })
+            },
+
+            // 开始倒计时
+             startCountDown() {
                 setTimeout(() => {
                     this.smsLabel = this.count + ' S'
 
                     if (this.count >= 0) {
                         this.count -= 1
-                        this.countDown()
+                        this.startCountDown()
                     } else {
                         this.count = 15
                         // this.count = CAPTCHA_COUNTDOWN_DEFAULT
@@ -101,6 +131,32 @@
                     }
                 }, 1000)
             },
+
+            // 发送邮件
+            sendSms(){
+                UserApi.sendSms({
+                    phone: this.phone,
+                    phone_prefix: this.prefix,
+                    type: 'login',
+                    validate: this.imageCaptcha
+                    // type: EMAIL_PURPOSE.REGISTER,
+                    // email: email,
+                    // validate: imageCaptcha,
+                    // captchaId: CAPTCHA_ID
+                }).then(res => {
+                    if (res.status !== 1) {
+                        return
+                    }
+
+                    Toast('邮件已发送')
+                }).catch(e => {
+                    if (DEBUG_MODE) {
+                        console.error('Caught Error on UserApi.sendSms', e)
+                    }
+                    Toast('邮件发送出错')
+                })
+            },
+
             login() {
                 if (!this.phone) {
                     return Toast('请输入手机号码')
