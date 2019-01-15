@@ -55,7 +55,7 @@
 
                 label {
                     @include fontSize($font-medium);
-                    @include fontSubColor($font-sub-color);
+                    font-color: #474747;
                 }
 
                 button {

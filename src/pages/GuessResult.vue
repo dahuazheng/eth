@@ -10,35 +10,12 @@
                     <th>中奖玩家</th>
                     <th>奖金（eth/inc）</th>
                 </tr>
-                <tr>
-                    <td>
-                        2019-01-07 <br>
-                        12:30:20
-                    </td>
-                    <td>1</td>
-                    <td>二等奖</td>
-                    <td>183****5040</td>
-                    <td class="text-green">+0.65<br> +0.65</td>
-                </tr>
-                <tr>
-                    <td>
-                        2019-01-07 <br>
-                        12:30:20
-                    </td>
-                    <td>1</td>
-                    <td>二等奖</td>
-                    <td>183****5040</td>
-                    <td class="text-green">+0.65<br> +0.65</td>
-                </tr>
-                <tr>
-                    <td>
-                        2019-01-07 <br>
-                        12:30:20
-                    </td>
-                    <td>1</td>
-                    <td>二等奖</td>
-                    <td>183****5040</td>
-                    <td class="text-green">+0.65<br> +0.65</td>
+                <tr v-for="result in resultList" :key="result.id">
+                    <td>{{ result.time | formatDate}}</td>
+                    <td>{{ result.awardNumber }}</td>
+                    <td>{{ result.awardNo }}</td>
+                    <td>{{ result.playerPhone | formatPhoneNumber}}</td>
+                    <td class="text-green">+{{result.ethAmount}}<br> +{{ result.incAmount }}</td>
                 </tr>
             </table>
         </div>
@@ -47,9 +24,53 @@
 
 <script>
     import PopupTitle from '../components/PopupTitle'
+    import moment from 'moment'
+    import { ensureMilliseconds, encodeMobile } from "../api/utils"
 
     export default {
         components: {PopupTitle},
+        data() {
+             return {
+                 resultList: [
+                     {
+                         time: '21312342134',
+                         awardNumber: 2,
+                         awardNo: 1,
+                         playerPhone: '1827283000',
+                         ethAmount: 0.67,
+                         incAmount: 0.67
+                     },
+                     {
+                         time: '2131234234',
+                         awardNumber: 2,
+                         awardNo: 2,
+                         playerPhone: '1827283000',
+                         ethAmount: 0.67,
+                         incAmount: 0.67
+                     },
+                     {
+                         time: '21312342134',
+                         awardNumber: 2,
+                         awardNo: 3,
+                         playerPhone: '1827283000',
+                         ethAmount: 0.67,
+                         incAmount: 0.67
+                     }
+                 ]
+             }
+        },
+        filters: {
+            formatDate(value) {
+                if (!value) return
+                const formatDate = 'YYYY-MM-DD HH:mm:ss'
+                return moment(ensureMilliseconds(value)).format(formatDate)
+            },
+
+            formatPhoneNumber(val) {
+                if (!val) return
+                return encodeMobile(val)
+            }
+        },
         methods: {
             close() {
                 this.$router.push({name: 'home', query: {tab: 'guess'}})
@@ -82,6 +103,7 @@
                 font-weight: 500;
 
                 &:first-child {
+                    width: 20%;
                     text-align: left;
                 }
 

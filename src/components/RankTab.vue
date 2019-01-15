@@ -14,7 +14,7 @@
                     <div class="listContainer" v-for="(list, index) in (live.list)" :key='list.id' v-show="index===0 || live.isDrop">
                         <span class="num">
                             <span :class="['rank-icon', 'icon-'+ live.rankNum]"></span>
-                        </span> <span :class="['name', 'rank-color','color-' + live.rankNum]">{{ list.name }}</span> <span :class="['account', 'rank-color','color-' + live.rankNum]">{{ list.ethTotal }} <br> {{ live.incTotal }}</span> <span :class="['per', 'rank-color','color-' + live.rankNum]">
+                        </span> <span :class="['name', 'rank-color','color-' + live.rankNum]">{{ list.phoneNumber | formatPhoneNumber}}</span> <span :class="['account', 'rank-color','color-' + live.rankNum]">{{ list.ethTotal }} <br> {{ live.incTotal }}</span> <span :class="['per', 'rank-color','color-' + live.rankNum]">
                             <span>{{ list.number }}</span>
                             <i v-show="live.list.length > 1 && index === 0" class="toggle-arrow" @click="dropList(liveKey)"></i>
                         </span>
@@ -65,7 +65,7 @@
         {
             rankNum: 1,
             list: [{
-                name: '154360898',
+                phoneNumber: '154360898',
                 ethTotal: '0.345 ETH',
                 incTotal: '0.54 INC',
                 number: 4
@@ -74,17 +74,17 @@
         {
             rankNum: 2,
             list: [{
-                name: '2221254360898',
+                phoneNumber: '2221254360898',
                 ethTotal: '0.345 ETH',
                 incTotal: '0.54 INC',
                 number: 9
             }, {
-                name: '2154360898',
+                phoneNumber: '2154360898',
                 ethTotal: '0.345 ETH',
                 incTotal: '0.54 INC',
                 number: 7
             }, {
-                name: '4154360898',
+                phoneNumber: '4154360898',
                 ethTotal: '0.345 ETH',
                 incTotal: '0.54 INC',
                 number: 8
@@ -93,7 +93,7 @@
         {
             rankNum: 3,
             list: [{
-                name: '0154360898',
+                phoneNumber: '0154360898',
                 ethTotal: '0.345 ETH',
                 incTotal: '0.54 INC',
                 number: 2
