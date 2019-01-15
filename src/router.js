@@ -7,6 +7,7 @@ import Inviter from './pages/Inviter.vue'
 import RankingList from './pages/RankingList.vue'
 import JoinHistory from './pages/JoinHistory.vue'
 import GuessResult from './pages/GuessResult.vue'
+import MyGuess from './pages/MyGuess.vue'
 import UserCenter from './pages/UserCenter.vue'
 import UserOption from './pages/UserOption.vue'
 import CommonProblem from './pages/CommonProblem.vue'
@@ -47,6 +48,10 @@ export default new Router({
       path: '/guess-result',
       name: 'guessResult',
       component: GuessResult
+    }, {
+      path: '/my-guess',
+      name: 'myGuess',
+      component: MyGuess
     }, {
       path: '/user-center',
       name: 'userCenter',

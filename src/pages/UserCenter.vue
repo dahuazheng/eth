@@ -1,14 +1,15 @@
 <template>
     <div class="user-center">
         <header>
-            <icon name="arrow-left" @click="() =>{ this.$router.go(-1) }"></icon>
+            <icon name="arrow-left" @click="$router.go(-1)"></icon>
             <span>个人中心</span>
-            <icon name="home" @click="() =>{ this.$router.push('/') }" class="icon-home"></icon>
+            <icon name="home" @click="$router.push('/')" class="icon-home"></icon>
         </header>
         <div class="banner">
             <div class="user">
                 <div class="name">
                     <label>专属昵称</label>
+                    <span>999999</span>
                 </div>
                 <p>0x8923kjKJhkjh9879827ufiywiyri2987yhiu</p>
             </div>
@@ -139,24 +140,24 @@
 
 <script>
 
-  export default {
-    name: 'userCenter',
-    data() {
-      return {
-        action: 'push',
-        tabs: [
-          {label: '直推表', value: 'push'},
-          {label: '龙虎榜', value: 'winner'},
-          {label: '竞猜', value: 'guess'},
-        ]
-      }
-    },
-    methods: {
-      changeTab(value) {
-        this.action = value
-      }
+    export default {
+        name: 'userCenter',
+        data() {
+            return {
+                action: 'push',
+                tabs: [
+                    {label: '直推表', value: 'push'},
+                    {label: '龙虎榜', value: 'winner'},
+                    {label: '竞猜', value: 'guess'},
+                ]
+            }
+        },
+        methods: {
+            changeTab(value) {
+                this.action = value
+            }
+        }
     }
-  }
 </script>
 
 <style scoped lang="scss">
@@ -209,16 +210,27 @@
                 .name {
                     @include px2rem('width', 167);
                     @include px2rem('height', 58);
+                    position: relative;
                     box-sizing: border-box;
                     background-image: url('../assets/images/icon_user_nickname.png');
                     background-size: 100% 100%;
 
                     label {
-                        @include px2rem('margin-top', 20);
-                        @include px2rem('margin-left', 11);
+                        @include px2rem('top', 20);
+                        @include px2rem('left', 11);
                         @include fontSize($font-little-s);
-                        display: inline-block;
+                        position: absolute;
                         color: #865149;
+                    }
+
+                    span {
+                        @include px2rem('top', 28);
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        margin: auto;
+                        text-align: center;
+                        color: $primary-color;
                     }
                 }
 

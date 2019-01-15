@@ -1,13 +1,18 @@
 <template>
     <div class="day-guess">
         <div class="detail">
-            <span @click="toGuessResult">历史结果</span>
+            <span @click="toGuess('guessResult')">历史结果</span>
             <span>02:40:06</span>
-            <span>我的竞猜</span>
+            <span @click="toGuess('myGuess')">我的竞猜</span>
         </div>
         <div class="un-join" v-show="joinAction==='un'">
-            <label>您尚未参与，请立即参与解锁竞猜权益！</label>
-            <EthButton name="现在参与" :click="joinNow"/>
+            <div class="row" v-if="start">
+                <label>您尚未参与，请立即参与解锁竞猜权益！</label>
+                <EthButton name="现在参与" :click="joinNow"/>
+            </div>
+            <div class="row" v-else>
+                <label>等待游戏开始</label>
+            </div>
         </div>
         <div class="in-join" v-show="joinAction==='in'">
             <input type="number"
@@ -34,21 +39,26 @@
         data() {
             return {
                 joinAction: 'un',
-                guessValue: ''
+                guessValue: '',
+                start: true
             }
         },
         methods: {
-            toGuessResult() {
-                this.$router.push({name: 'guessResult'})
+            toGuess(name) {
+                this.$router.push({name})
             },
             joinNow() {
                 this.joinAction = 'in'
             },
+            handleGuess(){
+
+            },
             submitGuess() {
                 if (!this.guessValue) {
-                    Toast('请填写表单')
+                    Toast('请输入您的竞猜数额')
                     return
                 }
+                this.handleGuess()
                 this.joinAction = 'end'
             },
         }
@@ -73,7 +83,7 @@
             }
         }
 
-        .un-join {
+        .un-join .row{
             display: flex;
             flex-direction: column;
             align-items: center;

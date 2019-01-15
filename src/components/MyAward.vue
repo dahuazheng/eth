@@ -1,14 +1,14 @@
 <template>
     <div class="my-award">
         <div class="price-box">
-            <span>
+            <span @click.stop="showAwardDetail=true">
                 奖励总额：
                 <img src="../assets/images/icon_help.png">
             </span>
             <small>
                 0.000000 ETH / 0.000000 INC
             </small>
-            <div class="explain-box">
+            <div class="explain-box" v-show="showAwardDetail" @click.stop>
                 <ul>
                     <li>
                         <label>静态分红奖</label>
@@ -39,27 +39,33 @@
             </div>
         </div>
         <div class="btn-tabs">
-            <EthButton name="提现" border="1px solid #f1e2ff" :click="withdraw"/>
+            <!--<EthButton name="提现" border="1px solid #f1e2ff" :click="withdraw"/>-->
             <EthButton name="我的直推" type="white" :click="recommend"/>
         </div>
         <p>加油！推荐30自动成为经理，可以获得50代的推荐奖。</p>
+        <div class="shade" v-show="showAwardDetail" @click="showAwardDetail=false"></div>
     </div>
 </template>
 
 <script>
-  import EthButton from './EthButton'
+    import EthButton from './EthButton'
 
-  export default {
-    components: {EthButton},
-    methods: {
-      withdraw() {
+    export default {
+        components: {EthButton},
+        data() {
+            return {
+                showAwardDetail: false
+            }
+        },
+        methods: {
+            withdraw() {
 
-      },
-      recommend() {
-          this.$router.push('/user-center')
-      }
+            },
+            recommend() {
+                this.$router.push('/user-center')
+            }
+        }
     }
-  }
 </script>
 
 <style scoped lang="scss">
@@ -68,6 +74,14 @@
     .my-award {
         padding: 30px 20px;
         background: #f1e2ff;
+
+        .shade{
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
 
         .price-box {
             @include fontPrimaryColor($primary-color);
@@ -100,6 +114,7 @@
                 width: 100%;
                 background: url('../assets/images/bg_dialog_come.png') center;
                 background-size: 100% 100%;
+                z-index: 1;
 
                 ul {
                     @include clearUl;
@@ -133,7 +148,7 @@
         .btn-tabs {
             display: flex;
             flex-direction: row;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
         }
 
