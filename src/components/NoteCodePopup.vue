@@ -59,8 +59,10 @@
             handleBalance() {
                 // 处理事件
 
+
             },
             submit() {
+                console.log(222)
                 if (!this.code) {
                     return Toast('请输入验证码')
                 }
@@ -68,6 +70,7 @@
                     return Toast('验证码错误')
                 }
                 this.handleBalance()
+                this.close()
             }
         }
     }

@@ -27,7 +27,7 @@ class UserApi {
         // type: login
         // validate: dW5kZWZpbmVk
         return Promise.resolve(666666)
-        return httpService.post('http://localhost:8080/api/send_user_sms', query)
+        return httpService.post('http://47.75.115.65:5802/api/send_sms', query)
     }
 
     // 投注、提现
@@ -39,7 +39,7 @@ class UserApi {
 
     // 获取邀请码
     static getInviteCode() {
-        return httpService.get('http://47.75.115.65:5802/api/invite_code')
+        return httpService.get('http://47.75.115.65:5082/api/invite_code')
     }
 
     static bindInviteCode(query) {

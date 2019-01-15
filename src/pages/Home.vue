@@ -42,7 +42,6 @@
     import UserApi from '@/api/user'
     import {mapState} from 'vuex'
 
-
     export default {
         name: 'home',
         components: {
@@ -75,19 +74,11 @@
             changeTab(value) {
                 this.tabAction = value
             },
-            init() {
-                this.$store.dispatch('balance/getBalance')
-                if (!UserApi.isOnline()) {
-                    this.$router.push({name: 'login'})
-                    return
-                }
-                if (!UserApi.isBindInviter()) {
-                    this.$router.push({name: 'inviter'})
-                }
-            }
         },
         mounted() {
-            this.init()
+            const {tab} = this.$route.query
+            this.tabAction = tab || 'join'
+
         }
     }
 </script>

@@ -35,9 +35,9 @@
     import PickerPopup from '@/components/PickerPopup.vue'
     import Cookies from 'js-cookie'
     import {Toast} from 'mint-ui'
-    import { COUNTRIES, CAPTCHA_COUNTDOWN_DEFAULT } from '@/api/constants'
+    import {COUNTRIES, CAPTCHA_COUNTDOWN_DEFAULT} from '@/api/constants'
     import UserApi from '@/api/user'
-    import { isMobile, isValidMessageAuthCode, initNECaptcha } from '@/api/utils'
+    import {isMobile, isValidMessageAuthCode, initNECaptcha} from '@/api/utils'
 
     export default {
         name: 'loginPopup',
@@ -99,25 +99,25 @@
                 if (this.isCaptchaLocked) return
                 this.isCaptchaLocked = true
                 initNECaptcha({
-                        element: '#btn-get-captcha',
-                        // lang: language,
-                        // debug: DEBUG_MODE,
-                        onReady: instance => {
-                            this.isCaptchaLocked = false
-                        },
-                        onVerify: (data) => {
-                            this.imageCaptcha = data.validate
-                            this.startCountDown()
-                            this.sendSms()
-                        },
-                        onError: () => {
-                            this.isCaptchaLocked = false
-                        }
-                    })
+                    element: '#btn-get-captcha',
+                    // lang: language,
+                    // debug: DEBUG_MODE,
+                    onReady: instance => {
+                        this.isCaptchaLocked = false
+                    },
+                    onVerify: (data) => {
+                        this.imageCaptcha = data.validate
+                        this.startCountDown()
+                        this.sendSms()
+                    },
+                    onError: () => {
+                        this.isCaptchaLocked = false
+                    }
+                })
             },
 
             // 开始倒计时
-             startCountDown() {
+            startCountDown() {
                 setTimeout(() => {
                     this.smsLabel = this.count + ' s'
 
@@ -132,28 +132,23 @@
                 }, 1000)
             },
 
-            // 发送邮件
-            sendSms(){
+            // 发送验证码
+            sendSms() {
+                console.log('imageCaptcha', this.imageCaptcha)
                 UserApi.sendSms({
-                    phone: this.phone,
-                    phone_prefix: this.prefix,
+                    phone: '18368095040',//this.phone,
+                    phone_prefix: '+86',//'+' + this.prefix,
                     type: 'login',
                     validate: this.imageCaptcha
-                    // type: EMAIL_PURPOSE.REGISTER,
-                    // email: email,
-                    // validate: imageCaptcha,
-                    // captchaId: CAPTCHA_ID
                 }).then(res => {
+                    this.code = res
                     if (res.status !== 1) {
                         return
                     }
 
-                    Toast('邮件已发送')
-                }).catch(e => {
-                    if (DEBUG_MODE) {
-                        console.error('Caught Error on UserApi.sendSms', e)
-                    }
-                    Toast('邮件发送出错')
+                    Toast('验证码已发送')
+                }).catch(err => {
+                    console.log(err)
                 })
             },
 

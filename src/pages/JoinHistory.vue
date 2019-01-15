@@ -35,7 +35,7 @@
         },
         methods: {
             close() {
-                this.$router.push({name: 'home'})
+                this.$router.push({name: 'home', query: {tab: 'join'}})
             }
         }
     }

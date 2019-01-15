@@ -1,7 +1,7 @@
 <template>
     <div class="day-guess">
         <div class="detail">
-            <span>历史结果</span>
+            <span @click="toGuessResult">历史结果</span>
             <span>02:40:06</span>
             <span>我的竞猜</span>
         </div>
@@ -25,34 +25,34 @@
 </template>
 
 <script>
-  import {Toast} from 'mint-ui'
-  import EthButton from './EthButton'
+    import {Toast} from 'mint-ui'
+    import EthButton from './EthButton'
 
-  export default {
-    name: 'dayGuess',
-    components: {EthButton},
-    data() {
-      return {
-        joinAction: 'un',
-        guessValue: ''
-      }
-    },
-    methods: {
-      joinNow() {
-        this.joinAction = 'in'
-      },
-      submitGuess() {
-        if (!this.guessValue) {
-          Toast('请填写表单')
-          return
+    export default {
+        name: 'dayGuess',
+        components: {EthButton},
+        data() {
+            return {
+                joinAction: 'un',
+                guessValue: ''
+            }
+        },
+        methods: {
+            toGuessResult() {
+                this.$router.push({name: 'guessResult'})
+            },
+            joinNow() {
+                this.joinAction = 'in'
+            },
+            submitGuess() {
+                if (!this.guessValue) {
+                    Toast('请填写表单')
+                    return
+                }
+                this.joinAction = 'end'
+            },
         }
-        this.joinAction = 'end'
-      },
-      toGuessResult() {
-
-      }
     }
-  }
 </script>
 
 <style scoped lang="scss">

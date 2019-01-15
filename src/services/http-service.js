@@ -6,8 +6,8 @@ import Cookies from 'js-cookie'
 let defaults = {
     // baseUrl: '/',
     headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'Content-Type': 'application/json; charset=UTF-8',
+        //'X-Requested-With': 'XMLHttpRequest',
+        //'Content-Type': 'application/json; charset=UTF-8',
         // 'Authorization': 'Bearer ' + Cookies.get('client-token')
     },
     timeout: 100000

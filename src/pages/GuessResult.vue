@@ -46,23 +46,23 @@
 </template>
 
 <script>
-  import PopupTitle from '../components/PopupTitle'
+    import PopupTitle from '../components/PopupTitle'
 
-  export default {
-    components: {PopupTitle},
-    methods: {
-      close() {
-        this.$router.push({name: 'home'})
-      }
+    export default {
+        components: {PopupTitle},
+        methods: {
+            close() {
+                this.$router.push({name: 'home', query: {tab: 'guess'}})
+            }
+        }
     }
-  }
 </script>
 
 <style scoped lang="scss">
     @import "../assets/styles/mixin";
 
     .guess-result {
-        .list{
+        .list {
             margin-top: $margin-width;
             padding: 0 $space-width;
         }
@@ -81,11 +81,11 @@
                 text-align: center;
                 font-weight: 500;
 
-                &:first-child{
+                &:first-child {
                     text-align: left;
                 }
 
-                &:last-child{
+                &:last-child {
                     text-align: right;
                 }
             }
@@ -93,7 +93,7 @@
             th {
                 padding-bottom: 10px;
 
-                &:first-child{
+                &:first-child {
                     padding-left: 10px;
                 }
             }
