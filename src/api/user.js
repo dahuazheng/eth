@@ -1,23 +1,20 @@
 import Cookies from 'js-cookie'
 import httpService from '@/services/http-service'
+import Requester from "../services/requester";
 
 class UserApi {
-    constructor() {
-        this.year = 2018
-    }
 
     // 登录
     static login(query) {
         // phone: 18368095040
         // phone_code: 123456
-        // invite_code: kevinqwec456jdj
 
-        return Promise.resolve({
+        /*return Promise.resolve({
             token: 'token' + query.phone,
             token_password: 'token_password' + query.phone_code
-        })
+        })*/
 
-        return httpService.post('http://47.75.115.65:5802/api/login', query)
+        return Requester.post('http://47.75.115.65:5082/api/login', query)
     }
 
     // 获取登录验证码
@@ -26,12 +23,12 @@ class UserApi {
         // phone: 18368095040
         // type: login
         // validate: dW5kZWZpbmVk
-        return Promise.resolve(666666)
-        return httpService.post('http://47.75.115.65:5802/api/send_sms', query)
+        // return Promise.resolve(666666)
+        return Requester.post('http://47.75.115.65:5082/api/send_sms', query)
     }
 
     // 投注、提现
-    static sendUserSms(query){
+    static sendUserSms(query) {
         // phone: 18368095040
         return Promise.resolve(123456)
         return httpService.post('http://localhost:8080/api/send_user_sms', query)
@@ -44,20 +41,20 @@ class UserApi {
 
     static bindInviteCode(query) {
         // invite_code 666666
-        const res =  {
+        const res = {
             "status": "1",
             "msg": "",
             "data": {
                 "invite_code": "qNUKNTh6"
             }
         }
-        return Promise.resolve(res)
-        return httpService.post('http://47.75.115.65:5802/api/bind_invite_code', query)
+        // return Promise.resolve(res)
+        return httpService.post('http://47.75.115.65:5082/api/bind_invite_code', query)
     }
 
     // 判断是否已登录
     static isOnline() {
-        return !!Cookies.get('ETH.token') && !!Cookies.get('ETH.token_password')
+        return !!Cookies.get('ETH.online')
     }
 
     // 判断是否绑定邀请人

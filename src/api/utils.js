@@ -69,7 +69,7 @@ export const isIP = (str = '') => REG.IP.test(str)
  * @param {string} str 待验证的字符串
  * @returns {boolean} true 为真，false 为假
  */
-export const isValidMessageAuthCode = (str = '') => REG.GOOGLE_AUTH.test(str)
+export const isValidSmsAuthCode = (str = '') => REG.SMS_AUTH.test(str)
 
 /**
  * @description 把时间戳转为 PHP 时间戳（秒，10位）

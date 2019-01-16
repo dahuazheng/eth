@@ -44,9 +44,6 @@
                 if (!this.inviter) {
                     return Toast('请输入邀请人昵称')
                 }
-                if (this.inviter !== 'kevin') {
-                    return Toast('输入的邀请人昵称不存在')
-                }
 
                 UserApi.bindInviteCode({inviter_code: this.inviter}).then(res => {
                     if (Number(res.status) === 1) {

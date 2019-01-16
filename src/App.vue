@@ -30,7 +30,7 @@
             }
         },
         created() {
-            // this.test()
+             this.test()
             this.init()
         }
     }

@@ -976,7 +976,7 @@ export const REG = {
   IDCARD: /^[a-z0-9A-Z]+$/,
   URL: /^https?:\/\//,
   IP: /^([0-9]{1,3})(\.[0-9]{1,3}){3}$/,
-  GOOGLE_AUTH: /^[0-9]{6}$/,
+  SMS_AUTH: /^[0-9]{4}$/,
   WALLET: /^[a-zA-Z0-9]{20,100}$/,
   ETH_WALLET: /^0(x|X)[0-9a-fA-F]{40}$/,
   BTC_WALLET_1: /^1[0-9a-zA-Z]{25,33}$/,

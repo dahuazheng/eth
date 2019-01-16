@@ -37,7 +37,7 @@
     import {Toast} from 'mint-ui'
     import {COUNTRIES, CAPTCHA_COUNTDOWN_DEFAULT} from '@/api/constants'
     import UserApi from '@/api/user'
-    import {isMobile, isValidMessageAuthCode, initNECaptcha} from '@/api/utils'
+    import {isMobile, isValidSmsAuthCode, initNECaptcha} from '@/api/utils'
 
     export default {
         name: 'loginPopup',
@@ -83,15 +83,6 @@
                 }
 
                 this.initNECaptcha()
-                // this.countDown()
-                // UserApi.sendSms({
-                //     phone: this.phone,
-                //     phone_prefix: this.prefix,
-                //     type: 'login',
-                //     validate: ''
-                // }).then(res => {
-                //     this.code = res
-                // })
             },
 
             // 滑动验证码
@@ -126,7 +117,6 @@
                         this.startCountDown()
                     } else {
                         this.count = 15
-                        // this.count = CAPTCHA_COUNTDOWN_DEFAULT
                         this.smsLabel = '重新获取'
                     }
                 }, 1000)
@@ -136,8 +126,8 @@
             sendSms() {
                 console.log('imageCaptcha', this.imageCaptcha)
                 UserApi.sendSms({
-                    phone: '18368095040',//this.phone,
-                    phone_prefix: '+86',//'+' + this.prefix,
+                    phone: this.phone,
+                    phone_prefix: '+' + this.prefix,
                     type: 'login',
                     validate: this.imageCaptcha
                 }).then(res => {
@@ -162,18 +152,17 @@
                 if (!this.code) {
                     return Toast('请输入验证码')
                 }
-                if (!isValidMessageAuthCode(this.code)) {
+                if (!isValidSmsAuthCode(this.code)) {
                     return Toast('验证码错误')
                 }
 
                 UserApi.login({
                     phone: this.phone,
                     phone_code: this.code,
-                    invite_code: ''
                 }).then(res => {
-                    Cookies.set('ETH.token', res.token, {expires: 1})
-                    Cookies.set('ETH.token_password', res.token_password, {expires: 1})
-                    this.$router.push({name: 'home'})
+                    if (Number(res.status) !== 1) return
+                    Cookies.set('ETH.online', 'YES', {expires: 1 / 48})
+                    this.$router.push({name: 'home', query: {tab: 'join'}})
                 })
             },
             init() {
