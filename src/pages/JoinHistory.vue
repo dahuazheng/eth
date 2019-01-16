@@ -7,7 +7,7 @@
                 <span>序列</span>
             </li>
             <li v-for="item in list" :key="item.number">
-                <span>{{item.time}}</span>
+                <span>{{item.time | formatDate}}</span>
                 <span>{{item.number}}</span>
             </li>
         </ul>
@@ -16,21 +16,30 @@
 
 <script>
     import PopupTitle from '../components/PopupTitle'
+    import moment from 'moment'
+    import { ensureMilliseconds } from "../api/utils"
 
     export default {
         components: {PopupTitle},
         data() {
             return {
                 list: [{
-                    time: '2019-01-07 12:30:20',
+                    time: '343411234500',
                     number: 1
                 }, {
-                    time: '2019-01-07 12:30:20',
+                    time: '343411234500',
                     number: 2
                 }, {
-                    time: '2019-01-07 12:30:20',
+                    time: '343411234500',
                     number: 3
                 }]
+            }
+        },
+        filters: {
+            formatDate(value) {
+                if (!value) return
+                const formatDate = 'YYYY-MM-DD HH:mm:ss'
+                return moment(ensureMilliseconds(value)).format(formatDate)
             }
         },
         methods: {
