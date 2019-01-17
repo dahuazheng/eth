@@ -47,7 +47,7 @@
 
                 UserApi.bindInviteCode({invite_code: this.inviter}).then(res => {
                     if (Number(res.status) === 1) {
-                        console.log(res)
+                       // console.log(res)
                         Cookies.set('ETH.invite_code', this.inviter, {expires: 1 / 24})
                         Toast('绑定成功')
                         setTimeout(() => {
