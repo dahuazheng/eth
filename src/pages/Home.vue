@@ -39,7 +39,6 @@
     import MyAward from '@/components/MyAward.vue'
     import InvitePlayer from '@/components/InvitePlayer.vue'
 
-    import UserApi from '@/api/user'
     import {mapState} from 'vuex'
 
     export default {

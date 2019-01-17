@@ -161,7 +161,8 @@
                     phone_code: this.code,
                 }).then(res => {
                     if (Number(res.status) !== 1) return
-                    Cookies.set('ETH.online', 'YES', {expires: 1 / 48})
+                    Cookies.set('ETH.token', res.headers.token, { expires: 1 / 24 })
+                    this.$store.dispatch('user/getInviteCode')
                     this.$router.push({name: 'home', query: {tab: 'join'}})
                 })
             },

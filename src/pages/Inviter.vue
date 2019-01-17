@@ -45,10 +45,10 @@
                     return Toast('请输入邀请人昵称')
                 }
 
-                UserApi.bindInviteCode({inviter_code: this.inviter}).then(res => {
+                UserApi.bindInviteCode({invite_code: this.inviter}).then(res => {
                     if (Number(res.status) === 1) {
                         console.log(res)
-                        Cookies.set('ETH.invite_code', res.token, {expires: 1})
+                        Cookies.set('ETH.invite_code', this.inviter, {expires: 1 / 24})
                         Toast('绑定成功')
                         setTimeout(() => {
                             this.$router.push({name: 'home'})

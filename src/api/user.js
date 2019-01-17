@@ -36,7 +36,7 @@ class UserApi {
 
     // 获取邀请码
     static getInviteCode() {
-        return httpService.get('http://47.75.115.65:5082/api/invite_code')
+        return Requester.get('http://47.75.115.65:5082/api/invite_code')
     }
 
     static bindInviteCode(query) {
@@ -49,12 +49,12 @@ class UserApi {
             }
         }
         // return Promise.resolve(res)
-        return httpService.post('http://47.75.115.65:5082/api/bind_invite_code', query)
+        return Requester.post('http://47.75.115.65:5082/api/bind_invite_code', query)
     }
 
     // 判断是否已登录
     static isOnline() {
-        return !!Cookies.get('ETH.online')
+        return !!Cookies.get('ETH.token')
     }
 
     // 判断是否绑定邀请人

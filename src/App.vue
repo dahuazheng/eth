@@ -9,6 +9,13 @@
     import Cookies from 'js-cookie'
 
     export default {
+        watch: {
+            $route(to, from) {
+                // this.init()
+                this.$store.dispatch('user/getInviteCode')
+                console.log(333)
+            }
+        },
         methods: {
             test() {
                 // test
@@ -30,8 +37,8 @@
             }
         },
         created() {
-             this.test()
-            this.init()
+            //this.test()
+            //this.init()
         }
     }
 </script>
