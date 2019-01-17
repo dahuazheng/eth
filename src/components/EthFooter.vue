@@ -21,30 +21,30 @@
 </template>
 
 <script>
-  import {Toast} from 'mint-ui'
-  import UserApi from '@/api/user'
+    import {Toast} from 'mint-ui'
+    import UserApi from '@/api/user'
 
-  export default {
-    name: 'ethFooter',
-    props: ['action'],
-    data() {
-      return {
-        // action: 'home'
-      }
-    },
-    methods: {
-      handleTab(action) {
-        if (!UserApi.isOnline()) {
-          if (action === 'home') {
-            return
-          }
-          return Toast('请先登录')
+    export default {
+        name: 'ethFooter',
+        props: ['action'],
+        data() {
+            return {
+                // action: 'home'
+            }
+        },
+        methods: {
+            handleTab(action) {
+                if (!UserApi.isOnline()) {
+                    if (action === 'home') {
+                        return
+                    }
+                    this.$router.push({name: 'login'})
+                }
+
+                this.$router.push({name: action})
+            }
         }
-
-        this.$router.push({name: action})
-      }
     }
-  }
 </script>
 
 <style scoped lang="scss">

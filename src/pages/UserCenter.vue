@@ -9,7 +9,7 @@
             <div class="user">
                 <div class="name">
                     <label>专属昵称</label>
-                    <span>999999</span>
+                    <span>{{user.invite_code || ''}}</span>
                 </div>
                 <p>0x8923kjKJhkjh9879827ufiywiyri2987yhiu</p>
             </div>
@@ -139,6 +139,7 @@
 </template>
 
 <script>
+    import {mapState} from 'vuex'
 
     export default {
         name: 'userCenter',
@@ -151,6 +152,11 @@
                     {label: '竞猜', value: 'guess'},
                 ]
             }
+        },
+        computed: {
+            ...mapState({
+                user: state => state.user,
+            })
         },
         methods: {
             changeTab(value) {
