@@ -25,7 +25,7 @@
             },
             init() {
                 this.$store.dispatch('balance/getBalance')
-                return
+                // return
                 if (!UserApi.isOnline()) {
                     this.$router.push({name: 'login'})
                     return
