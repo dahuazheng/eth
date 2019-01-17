@@ -12,7 +12,7 @@
         methods: {
             test() {
                 // test
-                UserApi.getInviteCode().then(res => {
+                UserApi.getInviteCode().then(res => {ß
                     console.log(res)
                 })
             },
@@ -30,8 +30,8 @@
             }
         },
         created() {
-             this.test()
-            this.init()
+            //this.test()
+            //this.init()
         }
     }
 </script>
