@@ -7,21 +7,23 @@
         <div class="box">
             <h2>
                 收款 <br>
-                <small>余额： 0 ETH</small>
+                <small>余额： {{balance.ETH}} ETH / {{balance.INC}} INC</small>
             </h2>
-            <QrcodeVue :value="wallatAddress" size="138" renderAs='svg'/>
-            <p class="code">{{ wallatAddress }}</p>
-            <p v-clipboard:copy="wallatAddress"
+            <QrcodeVue :value="balance.address" size="138" renderAs='svg'/>
+            <p class="code">{{ balance.address }}</p>
+            <p v-clipboard:copy="balance.address"
                v-clipboard:success="onCopy"
                v-clipboard:error="onError"
             >复制地址</p>
         </div>
     </div>
-</template>j
+</template>
 
 <script>
     import QrcodeVue from 'qrcode.vue'
     import { Toast } from 'mint-ui'
+    import {mapState} from 'vuex'
+
 
     export default {
         props: ['show', 'back'],
@@ -30,9 +32,13 @@
         },
         data() {
             return {
-                wallatAddress: '0x8923kjKJhkjh9879827ufiywiyri2987yhiu',
                 message: 'Copy These Text'
             }
+        },
+        computed: {
+            ...mapState({
+                balance: state => state.balance,
+            })
         },
         methods: {
             onCopy(e) {

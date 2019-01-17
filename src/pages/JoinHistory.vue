@@ -17,7 +17,8 @@
 <script>
     import PopupTitle from '../components/PopupTitle'
     import moment from 'moment'
-    import { ensureMilliseconds } from "../api/utils"
+    import {MainApi} from "../api"
+    import {ensureMilliseconds} from "../api/utils"
 
     export default {
         components: {PopupTitle},
@@ -43,9 +44,17 @@
             }
         },
         methods: {
+            getOrderList() {
+                MainApi.getOrderList({page: '1', limit: '20'}).then(res => {
+                    console.log(res)
+                })
+            },
             close() {
                 this.$router.push({name: 'home', query: {tab: 'join'}})
             }
+        },
+        mounted() {
+            this.getOrderList()
         }
     }
 </script>

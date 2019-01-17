@@ -36,7 +36,7 @@
             handleTab(action) {
                 if (!UserApi.isOnline()) {
                     if (action === 'home') {
-                        return
+                        //return
                     }
                     this.$router.push({name: 'login'})
                 }

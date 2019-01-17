@@ -71,6 +71,7 @@ instance.interceptors.response.use(res => {
         })
     }*/
     // 把 headers 的内容写进响应里
+    console.log(headers)
     res.data.headers = {...headers}
 
     return res

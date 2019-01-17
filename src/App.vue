@@ -11,8 +11,8 @@
     export default {
         watch: {
             $route(to, from) {
-                // this.init()
-                this.$store.dispatch('user/getInviteCode')
+                this.init()
+                // this.$store.dispatch('user/getInviteCode')
                 console.log(333)
             }
         },
@@ -25,6 +25,7 @@
             },
             init() {
                 this.$store.dispatch('balance/getBalance')
+                return
                 if (!UserApi.isOnline()) {
                     this.$router.push({name: 'login'})
                     return

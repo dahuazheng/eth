@@ -3,7 +3,8 @@ import BalanceApi from '@/api/balance'
 // initial state
 const state = {
     ETH: 0,
-    INC: 0
+    INC: 0,
+    address: '0x8923kjKJhkjh9879827ufiywiyri2987yhiu'
 }
 
 // getters
