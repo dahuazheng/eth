@@ -125,7 +125,8 @@
         methods: {
             close() {
                 this.$router.push({name: 'home', query: {tab: 'guess'}})
-            }
+            },
+
         }
     }
 </script>
@@ -144,7 +145,6 @@
 
             li {
                 display: flex;
-                // justify-content: space-around;
                 border-bottom: 1px solid $border-bottom-color;
 
                 &:first-child {

@@ -61,6 +61,40 @@ class UserApi {
     static isBindInviter() {
         return !!Cookies.get('ETH.invite_code')
     }
+
+    // 我的竞猜
+    static getMyAward(query) {
+        return Requester.get('http://47.75.115.65:5082/api/guess_my', query)
+            .then(res => {
+                if(res.status !== 1) {
+                    return {}
+                }
+
+                const myAwardData = {
+                    addTime: res.data.add_time ||  '',   // 参与时间
+                    numGuess: res.data.num_guess ||  '', // 竞猜数字
+                    numTrue: res.data.num_true ||  '',   // 实际数字
+                    eth: res.data.eth ||  '',            // 奖励的eth
+                    inc: res.data.inc ||  '',            // 奖励的inc
+                    status: res.data.status ||  '',      // 中奖状态：0为未中奖,1-5为中奖等级
+                }
+
+                return myAwardData
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    }
+
+    // 提交竞猜数字( num_guess )
+    static sendGuessNum(query) {
+        return Requester.post('http://47.75.115.65:5082/api/guess_add', query)
+    }
+
+    // 获取竞猜状态
+    static getGuessStatus(query) {
+        return Requester.get('http://47.75.115.65:5082/api/guess_status', query)
+    }
 }
 
 export default UserApi
