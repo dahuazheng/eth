@@ -23,13 +23,17 @@
             </div>
             <div class="row">
                 <input type="text" placeholder="转账金额">
-                <span>获取验证码</span>
+                <span class="code">获取验证码</span>
             </div>
             <div class="row">
                 <label>到账数量</label>
                 <span>
                     --ETH
                 </span>
+            </div>
+
+            <div class="row">
+                <p class="tip">温馨提示：每人每日最高可提现1000ETH，单笔转出限额为100-1000ETH，手续费0.0001ETH。</p>
             </div>
             <div class="btn-box">
                 <EthButton name="下一步" :click="next"/>
@@ -113,7 +117,19 @@
                     @include fontSize($font-little);
                     position: absolute;
                     right: 0;
-                    bottom: -20px;
+                    bottom: -24px;
+                }
+
+                .code {
+                    font-weight: 500;
+                    color: #3f1964;
+                }
+
+                .tip {
+                    @include px2rem('font-size', 12);
+                    color: #a35a85;
+                    font-weight: 500;
+                    letter-spacing: 1px;
                 }
             }
 

@@ -38,7 +38,7 @@
             <div class="time">
                 02:45:00
             </div>
-            <div class="message">
+            <div class="message" v-show='false'>
                 <icon name="small-bell" class="icon"></icon>
                 <span></span>
             </div>

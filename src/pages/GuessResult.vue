@@ -2,22 +2,27 @@
     <div class="guess-result">
         <PopupTitle title="历史结果" :back="close"/>
         <div class="list">
-            <table>
-                <tr>
-                    <th>日期</th>
-                    <th>中奖数字</th>
-                    <th>奖项</th>
-                    <th>中奖玩家</th>
-                    <th>奖金（eth/inc）</th>
-                </tr>
-                <tr v-for="result in resultList" :key="result.id">
-                    <td>{{ result.time | formatDate}}</td>
-                    <td>{{ result.awardNumber }}</td>
-                    <td>{{ result.awardNo }}</td>
-                    <td>{{ result.playerPhone | formatPhoneNumber}}</td>
-                    <td class="text-green">+{{result.ethAmount}}<br> +{{ result.incAmount }}</td>
-                </tr>
-            </table>
+            <ul>
+                <li>
+                    <span class="date">日期</span>
+                    <span class="number">中奖数字</span>
+                    <span class="award">奖项</span>
+                    <span class="player">中奖玩家</span>
+                    <span class="amount">奖金（eth/inc）</span>
+                </li>
+                <li v-for="result in resultList" :key="result.id">
+                    <span class="date date-top">{{ result.time | formatDate}}</span>
+                    <span class="number date-top">{{ result.awardNumber }}</span>
+
+                    <div class="row-content">
+                        <div class="row" v-for="item in result.contents" :key="item.id">
+                            <span class="award">{{item.awardNo}}</span>
+                            <span class="player">{{item.playerPhone | formatPhoneNumber}}</span>
+                            <span class="amount text-green">+{{item.ethAmount}}<br> +{{ item.incAmount }}</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </template>
@@ -33,30 +38,76 @@
              return {
                  resultList: [
                      {
-                         time: '21312342134',
+                         time: 1547478015,
                          awardNumber: 2,
-                         awardNo: 1,
-                         playerPhone: '1827283000',
-                         ethAmount: 0.67,
-                         incAmount: 0.67
+                         contents: [
+                             {
+                                 awardNo: '一等奖',
+                                 playerPhone: '1395673975',
+                                 number: 4,
+                                 ethAmount: 0.65,
+                                 incAmount: 0.65
+                             }, {
+                                 awardNo: '二等奖',
+                                 playerPhone: '1395673975',
+                                 number: 7,
+                                 ethAmount: 0.65,
+                                 incAmount: 0.65,
+                             }, {
+                                 awardNo: '三等奖',
+                                 playerPhone: '1395673975',
+                                 number: 1,
+                                 ethAmount: 0.65,
+                                 incAmount: 0.65,
+                             }, {
+                                 awardNo: '四等奖',
+                                 player: '1395673975',
+                                 number: 3,
+                                 ethAmount: 0.65,
+                                 incAmount: 0.65,
+                             }]
                      },
                      {
-                         time: '2131234234',
-                         awardNumber: 2,
-                         awardNo: 2,
-                         playerPhone: '1827283000',
-                         ethAmount: 0.67,
-                         incAmount: 0.67
-                     },
-                     {
-                         time: '21312342134',
-                         awardNumber: 2,
-                         awardNo: 3,
-                         playerPhone: '1827283000',
-                         ethAmount: 0.67,
-                         incAmount: 0.67
+                         time: 1547478229,
+                         awardNumber: 3,
+                         contents: [
+                             {
+                                 awardNo: '一等奖',
+                                 playerPhone: '1395673975',
+                                 number: 8,
+                                 ethAmount: 0.65,
+                                 incAmount: 0.65
+                             },
+                             {
+                                 awardNo: '二等奖',
+                                 playerPhone: '1395673975',
+                                 number: 7,
+                                 ethAmount: 0.65,
+                                 incAmount: 0.65,
+                             },
+                             {
+                                 awardNo: '三等奖',
+                                 playerPhone: '1395673975',
+                                 number: 1,
+                                 ethAmount: 0.65,
+                                 incAmount: 0.65,
+                             },
+                             {
+                                 awardNo: '四等奖',
+                                 playerPhone: '1395673975',
+                                 number: 3,
+                                 ethAmount: 0.65,
+                                 incAmount: 0.65,
+                             },
+                             {
+                                 award: '五等奖',
+                                 playerPhone: '71395673975',
+                                 number: 5,
+                                 ethAmount: 0.65,
+                                 incAmount: 0.65,
+                             }]
                      }
-                 ]
+                 ],
              }
         },
         filters: {
@@ -85,44 +136,86 @@
     .guess-result {
         .list {
             margin-top: $margin-width;
-            padding: 0 $space-width;
         }
 
-        table {
+        ul{
+            @include clearUl();
             width: 100%;
-            border-collapse: collapse;
 
-            tr {
-                @include fontSize($font-little-s);
-                border-bottom: 1px solid $border-color;
-            }
-
-            th, td {
-                padding: 5px 0;
-                text-align: center;
-                font-weight: 500;
+            li {
+                display: flex;
+                // justify-content: space-around;
+                border-bottom: 1px solid $border-bottom-color;
 
                 &:first-child {
-                    width: 20%;
-                    text-align: left;
+                    text-align: center;
+                    font-size: $font-little-s;
+                    padding-bottom: 13px;
+                    border-bottom: 1px solid $border-bottom-color;
+
+                    span {
+                        padding-top: 0;
+                    }
                 }
 
-                &:last-child {
-                    text-align: right;
+                span {
+                    display: flex;
+                    align-items: flex-start;
+                    font-size: $font-little-s + 1;
+                    padding-top: 3px;
+                    padding-bottom: 3px;
+                    color: $color-black;
+                    font-weight: 500;
+                    text-align: center;
+
+                    &.date,
+                    &.number {
+                        display: inline;
+                        width: 17%;
+                        text-align: left;
+                        font-size: $font-little-s;
+
+                        &.date-top {
+                            text-align: center;
+                            padding-top: 10px;
+                        }
+                    }
+
+                    &.date {
+                        padding-left: 15px;
+                    }
+
+                    &.award,
+                    &.player {
+                        width: 16%;
+                    }
+
+                    &.player,
+                    &.number {
+                        transform: translateX(-10%);
+                    }
+
+                    &.amount {
+                        width: 20%;
+                    }
                 }
-            }
 
-            th {
-                padding-bottom: 10px;
+                .row-content {
+                    display: flex;
+                    flex-direction: column;
+                    width: 80%;
 
-                &:first-child {
-                    padding-left: 10px;
-                }
-            }
+                    .row {
+                        display: flex;
+                        justify-content: space-around;
+                        align-items: center;
+                        width: 100%;
+                        border-bottom: 1px solid $border-bottom-color;
 
-            td {
-                &:last-child {
-                    padding-right: 10px;
+                        &:last-child {
+                            border-bottom-color: transparent;
+                        }
+                    }
                 }
             }
         }

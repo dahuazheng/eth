@@ -1,15 +1,19 @@
 <template>
     <div class="my-award">
+        <p class='my-title'>
+            <i></i>
+            <span>我的头衔</span>：参与者
+        </p>
         <div class="price-box">
             <span @click.stop="showAwardDetail=true">
                 奖励总额：
                 <img src="../assets/images/icon_help.png">
             </span>
-            <small>
-                0.000000 ETH / 0.000000 INC
-            </small>
-            <div class="explain-box" v-show="showAwardDetail" @click.stop>
-                <ul>
+            <!--<small>-->
+                <!--0.000000 ETH / 0.000000 INC-->
+            <!--</small>-->
+            <div class="explain-box" @click="showAwardDetail=false" v-show="showAwardDetail" >
+                <ul @click.stop>
                     <li>
                         <label>静态分红奖</label>
                         <span>0.000000 ETH</span>
@@ -40,7 +44,7 @@
         </div>
         <div class="btn-tabs">
             <!--<EthButton name="提现" border="1px solid #f1e2ff" :click="withdraw"/>-->
-            <EthButton name="我的直推" type="white" :click="recommend"/>
+            <EthButton name="我的直推" type="#9712A3" :click="recommend"/>
         </div>
         <p>加油！推荐30自动成为经理，可以获得50代的推荐奖。</p>
         <div class="shade" v-show="showAwardDetail" @click="showAwardDetail=false"></div>
@@ -72,8 +76,28 @@
     @import "../assets/styles/mixin";
 
     .my-award {
-        padding: 30px 20px;
-        background: #f1e2ff;
+        position: relative;
+
+        .my-title {
+            width: 100%;
+            padding: 12px 0;
+            margin: 0;
+            color: #9e9f9d;
+
+            i {
+                display: inline-block;
+                margin-right: 10px;
+                @include px2rem('width', 20);
+                @include px2rem('height', 20);
+                @include background-image();
+                background-image: url('../assets/images/icon_work_leve.png');
+            }
+
+            span {
+                color: #9712A3;
+                font-weight: 500;
+            }
+        }
 
         .shade{
             position: fixed;
@@ -87,16 +111,18 @@
             @include fontPrimaryColor($primary-color);
             @include fontSize($font-medium-s);
             position: relative;
-            margin: 20px 0;
+            padding: 20px 0;
             font-weight: normal;
             text-align: center;
+            background: #f1e2ff;
 
             span {
                 display: flex;
                 flex-direction: row;
                 justify-content: center;
                 align-items: center;
-                color: #3F1964;
+                color: #3f1964;
+                font-weight: 500;
             }
 
             img {
@@ -150,12 +176,18 @@
             flex-direction: row;
             justify-content: center;
             align-items: center;
+            background: #f1e2ff;
+            padding-bottom: 20px;
         }
 
-        p {
-            @include fontPrimaryColor(#A35A85);
+        p{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            @include fontPrimaryColor(#a35a85);
             @include fontSize($font-little);
             margin-top: 30px;
+            font-weight: 500;
             text-align: center;
         }
     }
