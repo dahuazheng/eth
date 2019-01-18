@@ -17,6 +17,8 @@
     import PopupTitle from './PopupTitle'
     import {Toast} from 'mint-ui'
     import UserApi from '@/api/user'
+    import {isValidSmsAuthCode} from '@/api/utils'
+
 
     export default {
         components: {PopupTitle},
@@ -46,12 +48,7 @@
             getSmsCode() {
 
                 this.countDown()
-                UserApi.sendUserSms({
-                    phone: this.phone,
-                    phone_prefix: this.prefix,
-                    type: 'login',
-                    validate: ''
-                }).then(res => {
+                UserApi.sendUserSms().then(res => {
                     console.log(res)
                     this.code = res
                 })
@@ -62,11 +59,10 @@
 
             },
             submit() {
-                console.log(222)
                 if (!this.code) {
                     return Toast('请输入验证码')
                 }
-                if (String(this.code).length !== 6) {
+                if (!isValidSmsAuthCode(this.code)) {
                     return Toast('验证码错误')
                 }
                 this.handleBalance()

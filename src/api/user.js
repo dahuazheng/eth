@@ -24,14 +24,14 @@ class UserApi {
         // type: login
         // validate: dW5kZWZpbmVk
         // return Promise.resolve(666666)
+        Cookies.remove('ETH.token')
         return Requester.post('http://47.75.115.65:5082/api/send_sms', query)
     }
 
     // 投注、提现
-    static sendUserSms(query) {
-        // phone: 18368095040
-        return Promise.resolve(123456)
-        return httpService.post('http://localhost:8080/api/send_user_sms', query)
+    static sendUserSms() {
+        // return Promise.resolve(123456)
+        return Requester.post('http://47.75.115.65:5082/api/send_user_sms')
     }
 
     // 获取邀请码

@@ -6,15 +6,15 @@
         <div class="price-box">
             <ul>
                 <li>
-                    <span>0</span><br>
+                    <span>{{balance.ETH}}</span><br>
                     <label>ETH</label>
                 </li>
                 <li>
-                    <span>0</span><br>
+                    <span>{{balance.INC}}</span><br>
                     <label>INC</label>
                 </li>
             </ul>
-            <p>0x8923kjKJhkjh9879827ufiywiyri2987yhiu</p>
+            <p>{{balance.address}}</p>
         </div>
         <div class="btn-box">
             <button @click="() => {this.$router.push('/charge-money')}">
@@ -43,16 +43,22 @@
 </template>
 
 <script>
-  import EthFooter from '@/components/EthFooter.vue'
+    import EthFooter from '@/components/EthFooter.vue'
+    import {mapState} from 'vuex'
 
-  export default {
-    components: {EthFooter},
-    data() {
-      return {
-        chargeMoneyShow: false
-      }
+    export default {
+        components: {EthFooter},
+        data() {
+            return {
+                chargeMoneyShow: false
+            }
+        },
+        computed: {
+            ...mapState({
+                balance: state => state.balance,
+            })
+        },
     }
-  }
 </script>
 
 <style scoped lang="scss">
@@ -96,9 +102,10 @@
 
                 li {
                     @include fontPrimaryColor(#4a0a79);
+                    text-align: center;
 
                     span {
-                        @include fontSize(36px);
+                        @include fontSize(26px);
                         margin-bottom: $space-width;
                     }
 

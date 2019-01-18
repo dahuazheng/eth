@@ -17,7 +17,7 @@
                 <li>
                     <span>0.000 ETH</span>
                     <span>0.000 INC</span>
-                    <label>
+                    <label @click="showAwardDetail=true">
                         奖励总额
                         <img src="../assets/images/icon_total_eth.png">
                     </label>
@@ -48,26 +48,26 @@
             <li v-show="action==='push'">
                 <table class="push">
                     <tr>
-                        <th>昵称</th>
-                        <th>钱包地址</th>
+                        <th>头衔/手机号</th>
+                        <!--<th>钱包地址</th>-->
                         <th>参与次数</th>
                         <th>直推个数</th>
                     </tr>
                     <tr>
                         <td>aaa</td>
-                        <td>0x8923kjKJhkjh9879827ufiywiyri2987yhiu</td>
+                        <!--<td>0x8923kjKJhkjh9879827ufiywiyri2987yhiu</td>-->
                         <td>320</td>
                         <td>200</td>
                     </tr>
                     <tr>
                         <td>aaa</td>
-                        <td>0x8923kjKJhkjh9879827ufiywiyri2987yhiu</td>
+                        <!--<td>0x8923kjKJhkjh9879827ufiywiyri2987yhiu</td>-->
                         <td>320</td>
                         <td>200</td>
                     </tr>
                     <tr>
                         <td>aaa</td>
-                        <td>0x8923kjKJhkjh9879827ufiywiyri2987yhiu</td>
+                        <!--<td>0x8923kjKJhkjh9879827ufiywiyri2987yhiu</td>-->
                         <td>320</td>
                         <td>200</td>
                     </tr>
@@ -135,6 +135,41 @@
                 </table>
             </li>
         </ul>
+        <div class="award-detail"
+             v-show="showAwardDetail"
+             @click="showAwardDetail=false">
+
+            <div class="content" @click.stop>
+                <ul>
+                    <li>
+                        <label>静态分红奖</label>
+                        <span>0.000000 ETH</span>
+                        <span>0.000000 INC</span>
+                    </li>
+                    <li>
+                        <label>动态分红奖</label>
+                        <span>0.000000 ETH</span>
+                        <span>0.000000 INC</span>
+                    </li>
+                    <li>
+                        <label>高级经理奖</label>
+                        <span>0.000000 ETH</span>
+                        <span>0.000000 INC</span>
+                    </li>
+                    <li>
+                        <label>每日竞猜奖</label>
+                        <span>0.000000 ETH</span>
+                        <span>0.000000 INC</span>
+                    </li>
+                    <li>
+                        <label>24H 直推龙虎榜</label>
+                        <span>0.000000 ETH</span>
+                        <span>0.000000 INC</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -145,6 +180,7 @@
         name: 'userCenter',
         data() {
             return {
+                showAwardDetail: false,
                 action: 'push',
                 tabs: [
                     {label: '直推表', value: 'push'},
@@ -379,6 +415,57 @@
                 &.guess th, &.guess td {
                     box-sizing: border-box;
                     width: 25%;
+                }
+            }
+        }
+
+        .award-detail {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+
+            .content {
+                @include px2rem('height', 200);
+                position: absolute;
+                top: 30px;
+                bottom: 30px;
+                left: 0;
+                right: 0;
+                margin: auto;
+                width: 80%;
+                border-radius: 10px;
+                background: $clear-color;
+                background-size: 100% 100%;
+
+                ul {
+                    @include clearUl;
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: start;
+                    align-items: center;
+                    margin: $margin-width;
+
+                    > li {
+                        @include fontSize($font-little-s);
+                        @include px2rem('padding-top', 15);
+
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        width: 33.333%;
+                        line-height: 1.6;
+
+                        label {
+                            margin-bottom: 5px;
+                            @include fontColor($font-color)
+                        }
+                    }
                 }
             }
         }
