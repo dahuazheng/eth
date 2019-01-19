@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import httpService from '@/services/http-service'
+// import httpService from '@/services/http-service'
 import Requester from "../services/requester";
 
 class UserApi {

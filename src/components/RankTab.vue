@@ -59,7 +59,7 @@
 
 <script>
     import moment from 'moment'
-    import {ensureMilliseconds, encodeMobile} from '../api/utils'
+    import {ensureMilliseconds, encodeMobile} from '../utils'
 
     const liveRankData = [
         {

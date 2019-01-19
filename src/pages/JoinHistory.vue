@@ -18,7 +18,7 @@
     import PopupTitle from '../components/PopupTitle'
     import moment from 'moment'
     import {MainApi} from "../api"
-    import {ensureMilliseconds} from "../api/utils"
+    import {ensureMilliseconds} from "../utils"
 
     export default {
         components: {PopupTitle},
