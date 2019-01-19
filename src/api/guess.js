@@ -3,12 +3,23 @@ import config from './config'
 
 class GuessApi {
 
+    // 获取我的竞猜状态
+    static getGuessStatus(query) {
+        return Requester.get(config.apiDomain + 'guess_status', query)
+    }
+
+    // 参与竞猜
+    static joinGuess(query) {
+        // num_guess
+        return Requester.post(config.apiDomain + 'guess_add', query)
+    }
+
     // 我的竞猜
-    static getMyAward() {
+    static getMyGuessList() {
         return Requester.get(config.apiDomain + 'guess_my')
             .then(res => {
                 if (res.status < 1) {
-                    return {}
+                    return []
                 }
                 return res.data.map(n => ({
                     addTime: n.add_time || '',   // 参与时间
@@ -19,19 +30,7 @@ class GuessApi {
                     status: n.status || '',      // 中奖状态：0为未中奖,1-5为中奖等级
                 }))
             })
-            .catch(err => {
-                console.error(err)
-            })
-    }
-
-    // 提交我的竞猜数字( num_guess )
-    static sendGuessNum(query) {
-        return Requester.post(config.apiDomain + 'guess_add', query)
-    }
-
-    // 获取我的竞猜状态
-    static getGuessStatus(query) {
-        return Requester.get(config.apiDomain + 'guess_status', query)
+            .catch(err => console.error(err))
     }
 
     // 获取我的竞猜历史结果

@@ -52,23 +52,6 @@
                 this.guessStatus = 1
             },
 
-            // 提交竞猜数字
-            sendGuessNum() {
-                GuessApi.sendGuessNum({
-                    num_guess: this.guessValue
-                }).then(res => {
-                    if (res.status < 1) return
-
-                    if (res.status === 2) {
-                        Toast(res.msg)
-                    }
-
-                    this.guessStatus = res.status
-                }).catch(err => {
-                    console.error(err)
-                })
-            },
-
             // 获取竞猜状态
             getGuessStatus() {
                 GuessApi.getGuessStatus()
@@ -85,20 +68,29 @@
 
             // 获取本次竞猜数字
             getMyAward() {
-                GuessApi.getMyAward().then(res => {
-                    this.guessValue = res[res.length - 1].numTrue
+                GuessApi.getMyGuessList().then(res => {
+                    this.guessValue = res.length && res[res.length - 1].numTrue
                 }).catch(err => {
                     console.error(err)
                 })
             },
 
-            // 提交竞猜数字值后台
+            // 参与竞猜
             submitGuess() {
                 if (!this.guessValue) {
-                    Toast('请输入您的竞猜数额')
-                    return
+                    return Toast('请输入您的竞猜数额')
                 }
-                this.sendGuessNum()
+                GuessApi.joinGuess({
+                    num_guess: this.guessValue
+                }).then(res => {
+                    if (res.status < 1) return Toast(res.msg)
+
+                    if (res.status === 2) {
+                        Toast(res.msg)
+                    }
+
+                    this.guessStatus = res.status
+                }).catch(err => console.error(err))
             },
         },
         mounted() {

@@ -66,7 +66,7 @@
                 }
                 console.log(222)
 
-                OrderApi.createOrder({code: this.code}).then(res => {
+                OrderApi.createOrder({code: String(this.code)}).then(res => {
                     console.log(res)
                 })
                 //this.close()

@@ -28,7 +28,7 @@
 
 <script>
     import PopupTitle from '../components/PopupTitle'
-    import {UserApi} from '../api'
+    import {GuessApi} from '../api'
     // import Cookies from 'js-cookie'
     import moment from 'moment'
     import { ensureMilliseconds } from '../utils'
@@ -73,8 +73,8 @@
             },
 
             // 请求我的竞猜
-            getMyAward() {
-                UserApi.getMyAward().then(res => {
+            getMyGuessList() {
+                GuessApi.getMyGuessList().then(res => {
                     this.myAwardList = res
                 }).catch(err => {
                     console.error(err)
@@ -82,7 +82,7 @@
             }
         },
         mounted() {
-            this.getMyAward()
+            this.getMyGuessList()
         }
     }
 </script>
