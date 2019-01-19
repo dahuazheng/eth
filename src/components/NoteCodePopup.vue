@@ -66,7 +66,7 @@
                 }
                 console.log(222)
 
-                OrderApi.createOrder({code: String(this.code)}).then(res => {
+                OrderApi.createOrder({phone_code: String(this.code)}).then(res => {
                     console.log(res)
                 })
                 //this.close()
@@ -106,6 +106,7 @@
                 @include fontSize($font-medium-s);
                 width: 100%;
                 padding: 7px 0;
+                border: none;
             }
 
             button {
@@ -118,6 +119,8 @@
                 margin: auto;
                 box-sizing: border-box;
                 padding: 7px 0;
+                background: transparent;
+                border: none;
             }
         }
 

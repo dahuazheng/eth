@@ -10,12 +10,12 @@
                     <span class="player">中奖玩家</span>
                     <span class="amount">奖金（eth/inc）</span>
                 </li>
-                <li v-for="result in resultList" :key="result.id">
-                    <span class="date date-top">{{ result.addTime | formatDate}}</span>
-                    <span class="number date-top">{{ result.numGuess }}</span>
+                <li v-for="(history, hKey) in historyList" :key="hKey">
+                    <span class="date date-top">{{ history.add_time | formatDate}}</span>
+                    <span class="number date-top">{{ history.num_true }}</span>
 
                     <div class="row-content">
-                        <div class="row" v-for="item in result.contents" :key="item.id">
+                        <div class="row" v-for="(item, key) in history.list" :key="key">
                             <span class="award">{{item.status}}</span>
                             <span class="player">{{item.phone }}</span>
                             <span class="amount text-green">+{{item.eth}}<br> +{{ item.inc }}</span>
@@ -30,76 +30,77 @@
 <script>
     import PopupTitle from '../components/PopupTitle'
     import moment from 'moment'
-    import { ensureMilliseconds, encodeMobile } from "../utils"
+    import {GuessApi} from '../api'
+    import {ensureMilliseconds, encodeMobile} from "../utils"
 
     export default {
         components: {PopupTitle},
         data() {
-             return {
-                 resultList: [
-                     {
-                         time: 1547478015,
-                         awardNumber: 2,
-                         contents: [
-                             {
-                                 awardNo: '一等奖',
-                                 playerPhone: '1395673975',
-                                 ethAmount: 0.65,
-                                 incAmount: 0.65
-                             }, {
-                                 awardNo: '二等奖',
-                                 playerPhone: '1395673975',
-                                 ethAmount: 0.65,
-                                 incAmount: 0.65,
-                             }, {
-                                 awardNo: '三等奖',
-                                 playerPhone: '1395673975',
-                                 ethAmount: 0.65,
-                                 incAmount: 0.65,
-                             }, {
-                                 awardNo: '四等奖',
-                                 player: '1395673975',
-                                 ethAmount: 0.65,
-                                 incAmount: 0.65,
-                             }]
-                     },
-                     {
-                         time: 1547478229,
-                         awardNumber: 3,
-                         contents: [
-                             {
-                                 awardNo: '一等奖',
-                                 playerPhone: '1395673975',
-                                 ethAmount: 0.65,
-                                 incAmount: 0.65
-                             },
-                             {
-                                 awardNo: '二等奖',
-                                 playerPhone: '1395673975',
-                                 ethAmount: 0.65,
-                                 incAmount: 0.65,
-                             },
-                             {
-                                 awardNo: '三等奖',
-                                 playerPhone: '1395673975',
-                                 ethAmount: 0.65,
-                                 incAmount: 0.65,
-                             },
-                             {
-                                 awardNo: '四等奖',
-                                 playerPhone: '1395673975',
-                                 ethAmount: 0.65,
-                                 incAmount: 0.65,
-                             },
-                             {
-                                 award: '五等奖',
-                                 playerPhone: '71395673975',
-                                 ethAmount: 0.65,
-                                 incAmount: 0.65,
-                             }]
-                     }
-                 ],
-             }
+            return {
+                historyList: [
+                    {
+                        time: 1547478015,
+                        awardNumber: 2,
+                        contents: [
+                            {
+                                awardNo: '一等奖',
+                                playerPhone: '1395673975',
+                                ethAmount: 0.65,
+                                incAmount: 0.65
+                            }, {
+                                awardNo: '二等奖',
+                                playerPhone: '1395673975',
+                                ethAmount: 0.65,
+                                incAmount: 0.65,
+                            }, {
+                                awardNo: '三等奖',
+                                playerPhone: '1395673975',
+                                ethAmount: 0.65,
+                                incAmount: 0.65,
+                            }, {
+                                awardNo: '四等奖',
+                                player: '1395673975',
+                                ethAmount: 0.65,
+                                incAmount: 0.65,
+                            }]
+                    },
+                    {
+                        time: 1547478229,
+                        awardNumber: 3,
+                        contents: [
+                            {
+                                awardNo: '一等奖',
+                                playerPhone: '1395673975',
+                                ethAmount: 0.65,
+                                incAmount: 0.65
+                            },
+                            {
+                                awardNo: '二等奖',
+                                playerPhone: '1395673975',
+                                ethAmount: 0.65,
+                                incAmount: 0.65,
+                            },
+                            {
+                                awardNo: '三等奖',
+                                playerPhone: '1395673975',
+                                ethAmount: 0.65,
+                                incAmount: 0.65,
+                            },
+                            {
+                                awardNo: '四等奖',
+                                playerPhone: '1395673975',
+                                ethAmount: 0.65,
+                                incAmount: 0.65,
+                            },
+                            {
+                                award: '五等奖',
+                                playerPhone: '71395673975',
+                                ethAmount: 0.65,
+                                incAmount: 0.65,
+                            }]
+                    }
+                ],
+            }
         },
         filters: {
             formatDate(value) {
@@ -118,10 +119,10 @@
                 this.$router.push({name: 'home', query: {tab: 'guess'}})
             },
 
-            getHistoryList () {
-                UserApi.getGuessHistory({}).then(res => {
-                    this.resultList = res
-                    console.log(this.resultList)
+            getHistoryList() {
+                GuessApi.getGuessHistory({}).then(res => {
+                    this.historyList = res
+                    console.log(this.historyList)
                 }).catch(err => {
                     console.error(err)
                 })
@@ -141,7 +142,7 @@
             margin-top: $margin-width;
         }
 
-        ul{
+        ul {
             @include clearUl();
             width: 100%;
 
@@ -151,40 +152,41 @@
 
                 &:first-child {
                     text-align: center;
-                    font-size: $font-little-s;
-                    padding-bottom: 13px;
                     border-bottom: 1px solid $border-bottom-color;
 
                     span {
-                        padding-top: 0;
+                        font-size: $font-little-s;
+                        font-weight: 500;
                     }
                 }
 
                 span {
                     display: flex;
                     align-items: flex-start;
-                    font-size: $font-little-s + 1;
-                    padding-top: 3px;
-                    padding-bottom: 3px;
+                    font-size: $font-little-s;
+                    //padding-top: 3px;
+                    //padding-bottom: 3px;
                     color: $color-black;
-                    font-weight: 500;
+                    //font-weight: 500;
                     text-align: center;
+                    padding: 8px 0;
 
-                    &.date,
+                    &.date{
+                        width: 20%;
+                    }
                     &.number {
-                        display: inline;
                         width: 17%;
                         text-align: left;
                         font-size: $font-little-s;
 
                         &.date-top {
                             text-align: center;
-                            padding-top: 10px;
+                            //padding-top: 10px;
                         }
                     }
 
                     &.date {
-                        padding-left: 15px;
+                        padding-left: 10px;
                     }
 
                     &.award,
