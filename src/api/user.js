@@ -1,6 +1,9 @@
 import Cookies from 'js-cookie'
-// import httpService from '@/services/http-service'
-import Requester from "../services/requester"
+import Requester from '@/services/requester'
+import config from './config'
+
+// 测试token
+const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTAxMjQzIiwidG9rZW5fdmVyc2lvbiI6IlBKb3hPTDIxZGx4OW42VTQwOSIsImV4cCI6MTU0ODI0Nzk0N30.jkGqPaSGRNd_oKrvl5xLblD3S2pS6N4ODk9eeGC3BzY'
 
 class UserApi {
 
@@ -31,7 +34,7 @@ class UserApi {
     // 投注、提现
     static sendUserSms() {
         // return Promise.resolve(123456)
-        return Requester.post('http://47.75.115.65:5082/api/send_user_sms')
+        return Requester.post(config.apiDomain + 'send_user_sms')
     }
 
     // 获取邀请码
@@ -41,7 +44,7 @@ class UserApi {
 
     // 绑定邀请码
     static bindInviteCode(query) {
-        // invite_code 666666
+        // invite_code 66666666
         const res = {
             "status": "1",
             "msg": "",
@@ -50,7 +53,12 @@ class UserApi {
             }
         }
         // return Promise.resolve(res)
-        return Requester.post('http://47.75.115.65:5082/api/bind_invite_code', query)
+        return Requester.post(config.apiDomain + 'bind_invite_code', query)
+    }
+
+    // 查看是否绑定邀请码
+    static checkInviteBind() {
+        return Requester.get(config.apiDomain + 'check_invite_bind')
     }
 
     static getBalance() {
@@ -68,10 +76,8 @@ class UserApi {
 
     // 判断是否绑定邀请人
     static isBindInviter() {
-        return !!Cookies.get('ETH.invite_code')
+        return !!Cookies.get('ETH.bind_inviter')
     }
-
-
 
 
 }

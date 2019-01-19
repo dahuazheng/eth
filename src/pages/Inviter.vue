@@ -12,7 +12,7 @@
                 </router-link>
             </p>
             <p>
-                <input type="text" v-model.trim="inviter" placeholder="输入邀请人昵称">
+                <input type="text" v-model.trim="inviteCode" placeholder="输入邀请人昵称">
             </p>
             <p class="btn-box">
                 <button @click="submit">立即绑定</button>
@@ -27,7 +27,7 @@
     import EthFooter from '@/components/EthFooter.vue'
     import Cookies from 'js-cookie'
     import {Toast} from 'mint-ui'
-    import UserApi from '@/api/user'
+    import {UserApi} from '@/api'
 
     export default {
         name: 'home',
@@ -36,19 +36,19 @@
         },
         data() {
             return {
-                inviter: '',
+                inviteCode: '',
             }
         },
         methods: {
             submit() {
-                if (!this.inviter) {
+                if (!this.inviteCode) {
                     return Toast('请输入邀请人昵称')
                 }
 
-                UserApi.bindInviteCode({invite_code: this.inviter}).then(res => {
+                UserApi.bindInviteCode({invite_code: this.inviteCode}).then(res => {
                     if (Number(res.status) === 1) {
-                       // console.log(res)
-                        Cookies.set('ETH.invite_code', this.inviter, {expires: 1 / 24})
+                        console.log(res)
+                        Cookies.set('ETH.bind_inviter', 'true', {expires: 1 / 24})
                         Toast('绑定成功')
                         setTimeout(() => {
                             this.$router.push({name: 'home'})
@@ -57,7 +57,23 @@
                         Toast('输入的邀请人昵称不存在')
                     }
                 })
-            }
+            },
+
+            // 判断是否绑定邀请码
+            checkInviteBind() {
+                UserApi.checkInviteBind().then(res => {
+                    console.log(res)
+                    if (Number(res.status === 1) && Number(res.data.is_bind) === -1) {
+                        Cookies.set('ETH.bind_inviter', 'true', {expires: 1 / 24})
+                        this.$router.push({name: 'home', query: {tab: 'join'}})
+                    } else {
+                        Cookies.remove('ETH.bind_inviter')
+                    }
+                })
+            },
+        },
+        mounted() {
+            this.checkInviteBind()
         }
     }
 </script>

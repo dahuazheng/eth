@@ -12,7 +12,7 @@
             </ul>
             <ul class="items">
                 <li v-show="tabAction==='join'">
-                    <JoinNow :balance="balance" :open="openNoteCodePopup"/>
+                    <JoinNow :balance="user && user.balance" :open="openNoteCodePopup"/>
                 </li>
                 <li v-show="tabAction==='guess'">
                     <DayGuess/>
@@ -60,7 +60,7 @@
         },
         computed: {
             ...mapState({
-                balance: state => state.balance,
+                user: state => state.user,
             })
         },
         methods: {
