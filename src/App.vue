@@ -13,7 +13,6 @@
             $route(to, from) {
                 this.init()
                 // this.$store.dispatch('user/getInviteCode')
-                console.log(333)
             }
         },
         methods: {
