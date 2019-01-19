@@ -4,6 +4,8 @@ const initMixin = {
     },
     methods: {
         getInitData() {
+            this.$store.dispatch('user/getBalance')
+            this.$store.dispatch('user/getInviteCode')
 
         }
     }

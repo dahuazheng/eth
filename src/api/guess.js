@@ -1,10 +1,11 @@
-import Requester from "../services/requester";
+import Requester from "../services/requester"
+import config from './config'
 
 class GuessApi {
 
     // 我的竞猜
-    static getMyAward(query) {
-        return Requester.get('http://47.75.115.65:5082/api/guess_my', query)
+    static getMyAward() {
+        return Requester.get(config.apiDomain + 'guess_my')
             .then(res => {
                 if (res.status < 1) {
                     return {}

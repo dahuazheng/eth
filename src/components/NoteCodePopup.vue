@@ -16,7 +16,7 @@
 <script>
     import PopupTitle from './PopupTitle'
     import {Toast} from 'mint-ui'
-    import UserApi from '@/api/user'
+    import {UserApi} from '@/api'
     import {isValidSmsAuthCode} from '@/utils'
 
 

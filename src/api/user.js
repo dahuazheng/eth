@@ -17,7 +17,7 @@ class UserApi {
             token_password: 'token_password' + query.phone_code
         })*/
 
-        return Requester.post('http://47.75.115.65:5082/api/login', query)
+        return Requester.post(config.apiDomain + 'login', query)
     }
 
     // 获取登录验证码
@@ -27,8 +27,7 @@ class UserApi {
         // type: login
         // validate: dW5kZWZpbmVk
         // return Promise.resolve(666666)
-        Cookies.remove('ETH.token')
-        return Requester.post('http://47.75.115.65:5082/api/send_sms', query)
+        return Requester.post(config.apiDomain + 'send_sms', query)
     }
 
     // 投注、提现
@@ -39,7 +38,7 @@ class UserApi {
 
     // 获取邀请码
     static getInviteCode() {
-        return Requester.get('http://47.75.115.65:5082/api/invite_code')
+        return Requester.get(config.apiDomain + 'invite_code')
     }
 
     // 绑定邀请码
