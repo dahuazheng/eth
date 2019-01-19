@@ -45,35 +45,23 @@
             </li>
         </ul>
         <ul class="items">
-            <li v-show="action==='push'">
+            <li v-show="action === 'push'">
                 <table class="push">
                     <tr>
-                        <th>头衔/手机号</th>
+                        <th>昵称</th>
                         <!--<th>钱包地址</th>-->
                         <th>参与次数</th>
                         <th>直推个数</th>
                     </tr>
-                    <tr>
-                        <td>aaa</td>
+                    <tr v-for="item in pushList" :key="item.id">
+                        <td>{{ item.phone }}</td>
                         <!--<td>0x8923kjKJhkjh9879827ufiywiyri2987yhiu</td>-->
-                        <td>320</td>
-                        <td>200</td>
-                    </tr>
-                    <tr>
-                        <td>aaa</td>
-                        <!--<td>0x8923kjKJhkjh9879827ufiywiyri2987yhiu</td>-->
-                        <td>320</td>
-                        <td>200</td>
-                    </tr>
-                    <tr>
-                        <td>aaa</td>
-                        <!--<td>0x8923kjKJhkjh9879827ufiywiyri2987yhiu</td>-->
-                        <td>320</td>
-                        <td>200</td>
+                        <td>{{ item.orderCount }}</td>
+                        <td>{{ item.pushCount }}</td>
                     </tr>
                 </table>
             </li>
-            <li v-show="action==='winner'">
+            <li v-show="action === 'winner'">
                 <table class="winner">
                     <tr>
                         <th>日期</th>
@@ -83,21 +71,21 @@
                     <tr>
                         <td>2018-12-12</td>
                         <td>88</td>
-                        <td>108</td>
+                        <th><span>一等奖</span><br>+0.0002 ETH <br>+1000 INC</th>
                     </tr>
                     <tr>
                         <td>2018-12-12</td>
                         <td>88</td>
-                        <td>108</td>
+                        <th><span>一等奖</span><br>+0.0002 ETH <br>+1000 INC</th>
                     </tr>
                     <tr>
                         <td>2018-12-12</td>
                         <td>88</td>
-                        <td>108</td>
+                        <th><span>一等奖</span><br>+0.0002 ETH <br>+1000 INC</th>
                     </tr>
                 </table>
             </li>
-            <li v-show="action==='guess'">
+            <li v-show="action === 'guess'">
                 <table class="guess">
                     <tr>
                         <th>时间</th>
@@ -202,21 +190,67 @@
             changeTab(value) {
                 this.action = value
             },
+
+            // 状态值转换中奖等级
+            transformStatus(val) {
+                switch(val){
+                    case 0:
+                        return '未中奖';
+                    case 1:
+                        return '一等奖';
+                    case 2:
+                        return '二等奖';
+                    case 3:
+                        return '三等奖';
+                    case 4:
+                        return '四等奖';
+                    case 5:
+                        return '五等奖';
+                    default:
+                        return null
+                }
+            },
+
             // 获取直推表数据
             getPushList() {
                 RankApi.getPushList({
                     page: '1',
                     limit: '20'
                 }).then(res => {
-                    console.log(res, '==========')
                     this.pushList = res
+                }).catch(err => {
+                    console.error(err)
+                })
+            },
+
+            // 获取龙虎榜数据
+            getWinnerList() {
+                RankApi.getWinnerList({
+                    page: '1',
+                    limit: '20'
+                }).then(res => {
+                    this.winnerList = res
+                }).catch(err => {
+                    console.error(err)
+                })
+            },
+
+            // 获取竞猜数据
+            getGuessList() {
+                RankApi.getGuessList({
+                    page: '1',
+                    limit: '20'
+                }).then(res => {
+                    this.guessList = res
                 }).catch(err => {
                     console.error(err)
                 })
             }
         },
         mounted() {
-            this.getPushList()
+            this.action === 'push' && this.getPushList()
+            this.action === 'winner' && this.getWinnerList()
+            this.action === 'guess' && this.getGuessList()
         }
     }
 </script>
@@ -371,6 +405,7 @@
 
                     &:first-child {
                         background: #f5f5f5;
+                        border-bottom-color: transparent;
                     }
                 }
 
@@ -380,6 +415,7 @@
                     font-weight: normal;
                     word-wrap: break-word;
                     word-break: break-all;
+                    text-align: center;
 
                     &:nth-child(1) {
                         padding-left: $common-list-padding;
@@ -391,7 +427,6 @@
 
                     &:last-child {
                         padding-right: $common-list-padding;
-                        text-align: right;
                     }
                 }
 
@@ -417,12 +452,10 @@
                     font-weight: 500;
 
                     &:first-child {
-                        text-align: left;
                         padding-left: $common-list-padding;
                     }
 
                     &:last-child {
-                        text-align: right;
                         padding-right: $common-list-padding;
                     }
                 }
