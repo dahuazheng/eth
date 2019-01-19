@@ -47,6 +47,7 @@
             getOrderList() {
                 MainApi.getOrderList({page: '1', limit: '20'}).then(res => {
                     console.log(res, '======================')
+                    this.list = res.data
                 }).catch(err => {
                     console.error(err)
                 })

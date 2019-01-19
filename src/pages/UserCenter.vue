@@ -175,6 +175,7 @@
 
 <script>
     import {mapState} from 'vuex'
+    import RankApi from '../api/rank'
 
     export default {
         name: 'userCenter',
@@ -186,7 +187,10 @@
                     {label: '直推表', value: 'push'},
                     {label: '龙虎榜', value: 'winner'},
                     {label: '竞猜', value: 'guess'},
-                ]
+                ],
+                pushList: [],
+                winnerList: [],
+                guessList: []
             }
         },
         computed: {
@@ -197,7 +201,23 @@
         methods: {
             changeTab(value) {
                 this.action = value
+            },
+            // 获取直推表数据
+            getPushList() {
+                RankApi.getPushList({
+                    page: '1',
+                    limit: '20'
+                }).then(res => {
+                    console.log(res, '==========')
+                    if (res.status !== 1) return
+                    this.pushList = res.data
+                }).catch(err => {
+                    console.error(err)
+                })
             }
+        },
+        mounted() {
+            this.getPushList()
         }
     }
 </script>

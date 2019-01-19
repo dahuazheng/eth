@@ -33,10 +33,10 @@
                     return
                 }
                 console.log(UserApi.isBindInviter())
-                if (!UserApi.isBindInviter()) {
-                    this.$router.push({name: 'inviter'})
-                    return
-                }
+                // if (!UserApi.isBindInviter()) {
+                //     this.$router.push({name: 'inviter'})
+                //     return
+                // }
             }
         },
         created() {
