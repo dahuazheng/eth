@@ -46,7 +46,9 @@
         methods: {
             getOrderList() {
                 MainApi.getOrderList({page: '1', limit: '20'}).then(res => {
-                    console.log(res)
+                    console.log(res, '======================')
+                }).catch(err => {
+                    console.error(err)
                 })
             },
             close() {

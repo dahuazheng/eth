@@ -11,7 +11,7 @@
                 </tr>
                 <tr v-for="item in myAwardList" :key="item.id">
                     <td>
-                        {{ item.addTime | formatDate }}
+                        {{ item.addTime | formatDate}}
                     </td>
                     <td>{{ item.numGuess }}</td>
                     <td>{{ item.numTrue }}</td>
@@ -29,7 +29,7 @@
 <script>
     import PopupTitle from '../components/PopupTitle'
     import UserApi from '../api/user'
-    import Cookies from 'js-cookie'
+    // import Cookies from 'js-cookie'
     import moment from 'moment'
     import { ensureMilliseconds } from '../api/utils'
 
@@ -43,7 +43,7 @@
         filters: {
             formatDate(value) {
                 if (!value) return
-                const formatDate = 'YYYY-M-DD  HH:mm:ss'
+                const formatDate = 'YYYY-M-DD'
                 return moment(ensureMilliseconds(value)).format(formatDate)
             }
         },
@@ -74,9 +74,7 @@
 
             // 请求我的竞猜
             getMyAward() {
-                UserApi.getMyAward({
-                    token: Cookies.get('ETH.token')
-                }).then(res => {
+                UserApi.getMyAward().then(res => {
                     this.myAwardList = res
                 }).catch(err => {
                     console.error(err)

@@ -23,7 +23,7 @@
         <div class="end-join" v-show="guessStatus === 2">
             <div class="guess-value">
                 <img src="../assets/images/icon_king.png">
-                本次竞猜：{{guessValue}}
+                本次竞猜：{{ guessValue }}
             </div>
         </div>
     </div>
@@ -39,9 +39,9 @@
         components: {EthButton},
         data() {
             return {
-                guessValue: '',
+                guessValue: 0,  // 我的竞猜数字
                 start: true,
-                guessStatus: 0  // 竞猜状态
+                guessStatus: 0  // 竞猜状态  0未投注未竞猜，1已投注未竞猜，2已投注已竞猜
             }
         },
         methods: {
@@ -57,14 +57,13 @@
                 UserApi.sendGuessNum({
                     num_guess: this.guessValue
                 }).then(res => {
-                    if(res.status === 1) {
+                    if (res.status < 1) return
+
+                    if(res.status === 2) {
                         Toast(res.msg)
-                        this.guessStatus = 2
                     }
 
-                    if (res.status !== 1) {
-                        return Toast(res.msg)
-                    }
+                    this.guessStatus = res.status
                 }).catch(err => {
                     console.error(err)
                 })
@@ -74,12 +73,22 @@
             getGuessStatus() {
                 UserApi.getGuessStatus()
                     .then(res => {
-                       if (res.status !==0 || res.status !==1 || res.status !==2) return
-                       this.guessStatus = res.status
+                       if (res.status < 0)  return
+
+                        this.guessStatus = res.status
                     })
                     .catch(err => {
                       console.error(err)
                     })
+            },
+
+            // 获取本次竞猜数字
+            getMyAward() {
+                UserApi.getMyAward().then(res => {
+                    this.guessValue = res[res.length-1].numTrue
+                }).catch(err => {
+                    console.error(err)
+                })
             },
 
             // 提交竞猜数字值后台
@@ -93,6 +102,7 @@
         },
         mounted() {
             this.getGuessStatus()
+            this.getMyAward()
         }
     }
 </script>

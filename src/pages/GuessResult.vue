@@ -11,14 +11,14 @@
                     <span class="amount">奖金（eth/inc）</span>
                 </li>
                 <li v-for="result in resultList" :key="result.id">
-                    <span class="date date-top">{{ result.time | formatDate}}</span>
-                    <span class="number date-top">{{ result.awardNumber }}</span>
+                    <span class="date date-top">{{ result.addTime | formatDate}}</span>
+                    <span class="number date-top">{{ result.numGuess }}</span>
 
                     <div class="row-content">
                         <div class="row" v-for="item in result.contents" :key="item.id">
-                            <span class="award">{{item.awardNo}}</span>
-                            <span class="player">{{item.playerPhone | formatPhoneNumber}}</span>
-                            <span class="amount text-green">+{{item.ethAmount}}<br> +{{ item.incAmount }}</span>
+                            <span class="award">{{item.status}}</span>
+                            <span class="player">{{item.phone }}</span>
+                            <span class="amount text-green">+{{item.eth}}<br> +{{ item.inc }}</span>
                         </div>
                     </div>
                 </li>
@@ -31,6 +31,7 @@
     import PopupTitle from '../components/PopupTitle'
     import moment from 'moment'
     import { ensureMilliseconds, encodeMobile } from "../api/utils"
+    import  UserApi from '../api/user'
 
     export default {
         components: {PopupTitle},
@@ -44,25 +45,21 @@
                              {
                                  awardNo: '一等奖',
                                  playerPhone: '1395673975',
-                                 number: 4,
                                  ethAmount: 0.65,
                                  incAmount: 0.65
                              }, {
                                  awardNo: '二等奖',
                                  playerPhone: '1395673975',
-                                 number: 7,
                                  ethAmount: 0.65,
                                  incAmount: 0.65,
                              }, {
                                  awardNo: '三等奖',
                                  playerPhone: '1395673975',
-                                 number: 1,
                                  ethAmount: 0.65,
                                  incAmount: 0.65,
                              }, {
                                  awardNo: '四等奖',
                                  player: '1395673975',
-                                 number: 3,
                                  ethAmount: 0.65,
                                  incAmount: 0.65,
                              }]
@@ -74,35 +71,30 @@
                              {
                                  awardNo: '一等奖',
                                  playerPhone: '1395673975',
-                                 number: 8,
                                  ethAmount: 0.65,
                                  incAmount: 0.65
                              },
                              {
                                  awardNo: '二等奖',
                                  playerPhone: '1395673975',
-                                 number: 7,
                                  ethAmount: 0.65,
                                  incAmount: 0.65,
                              },
                              {
                                  awardNo: '三等奖',
                                  playerPhone: '1395673975',
-                                 number: 1,
                                  ethAmount: 0.65,
                                  incAmount: 0.65,
                              },
                              {
                                  awardNo: '四等奖',
                                  playerPhone: '1395673975',
-                                 number: 3,
                                  ethAmount: 0.65,
                                  incAmount: 0.65,
                              },
                              {
                                  award: '五等奖',
                                  playerPhone: '71395673975',
-                                 number: 5,
                                  ethAmount: 0.65,
                                  incAmount: 0.65,
                              }]
@@ -113,7 +105,7 @@
         filters: {
             formatDate(value) {
                 if (!value) return
-                const formatDate = 'YYYY-MM-DD HH:mm:ss'
+                const formatDate = 'YYYY-MM-DD'
                 return moment(ensureMilliseconds(value)).format(formatDate)
             },
 
@@ -127,6 +119,17 @@
                 this.$router.push({name: 'home', query: {tab: 'guess'}})
             },
 
+            getHistoryList () {
+                UserApi.getGuessHistory({}).then(res => {
+                    this.resultList = res
+                    console.log(this.resultList)
+                }).catch(err => {
+                    console.error(err)
+                })
+            }
+        },
+        mounted() {
+            this.getHistoryList()
         }
     }
 </script>
