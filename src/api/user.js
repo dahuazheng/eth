@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 // import httpService from '@/services/http-service'
-import Requester from "../services/requester";
+import Requester from "../services/requester"
 
 class UserApi {
 
@@ -39,6 +39,7 @@ class UserApi {
         return Requester.get('http://47.75.115.65:5082/api/invite_code')
     }
 
+    // 绑定邀请码
     static bindInviteCode(query) {
         // invite_code 666666
         const res = {
@@ -52,6 +53,14 @@ class UserApi {
         return Requester.post('http://47.75.115.65:5082/api/bind_invite_code', query)
     }
 
+    static getBalance() {
+        return Promise.resolve({
+            ETH: 769.2,
+            // ETH: 0,
+            INC: 2313503.2
+        })
+    }
+
     // 判断是否已登录
     static isOnline() {
         return !!Cookies.get('ETH.token')
@@ -62,61 +71,9 @@ class UserApi {
         return !!Cookies.get('ETH.invite_code')
     }
 
-    // 我的竞猜
-    static getMyAward(query) {
-        return Requester.get('http://47.75.115.65:5082/api/guess_my', query)
-            .then(res => {
-                if(res.status < 1) {
-                    return {}
-                }
-                const myAwardData = res.data.map(n => ({
-                    addTime: n.add_time || '',   // 参与时间
-                    numGuess: n.num_guess || '', // 竞猜数字
-                    numTrue: n.num_true || '',   // 实际数字
-                    eth: n.eth || '',            // 奖励的eth
-                    inc: n.inc || '',            // 奖励的inc
-                    status: n.status || '',      // 中奖状态：0为未中奖,1-5为中奖等级
-                }))
-                return myAwardData
-            })
-            .catch(err => {
-                console.error(err)
-            })
-    }
 
-    // 提交我的竞猜数字( num_guess )
-    static sendGuessNum(query) {
-        return Requester.post('http://47.75.115.65:5082/api/guess_add', query)
-    }
 
-    // 获取我的竞猜状态
-    static getGuessStatus(query) {
-        return Requester.get('http://47.75.115.65:5082/api/guess_status', query)
-    }
 
-    // 获取我的竞猜历史结果
-    static getGuessHistory(query) {
-        return Requester.get('http://47.75.115.65:5082/api/history', query)
-            .then(res => {
-                if (res.status !== 1) return  {}
-
-                const historyList = res.data.map(n => ({
-                    addTime: n.add_time || '',     // 参与时间戳
-                    numGuess: n.num_guess || '',   // 竞猜数字
-                    numTrue: n.num_true || '',     // 实际数字
-                    eth: n.eth || '',              // 奖励的eth
-                    inc: n.inc || '',              // 奖励的inc
-                    status: n.status || '',        // 中奖状态：0为未中奖,1-5为中奖等级
-                    date: n.date || '',            // 参与日期
-                    phone: n.phone || '',          // 手机号
-                }))
-
-                return historyList
-            })
-            .catch(err => {
-                console.error(err)
-            })
-    }
 }
 
 export default UserApi
