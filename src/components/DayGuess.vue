@@ -73,6 +73,7 @@
             getGuessStatus() {
                 GuessApi.getGuessStatus()
                     .then(res => {
+                        console.log(res)
                         if (res.status < 0) return
 
                         this.guessStatus = res.status

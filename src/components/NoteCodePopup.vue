@@ -16,7 +16,7 @@
 <script>
     import PopupTitle from './PopupTitle'
     import {Toast} from 'mint-ui'
-    import {UserApi} from '@/api'
+    import {UserApi, OrderApi} from '@/api'
     import {isValidSmsAuthCode} from '@/utils'
 
 
@@ -48,9 +48,8 @@
             getSmsCode() {
 
                 this.countDown()
-                UserApi.sendUserSms().then(res => {
+                UserApi.sendUserSms({type: 'order'}).then(res => {
                     console.log(res)
-                    this.code = res
                 })
             },
             handleBalance() {
@@ -65,8 +64,12 @@
                 if (!isValidSmsAuthCode(this.code)) {
                     return Toast('验证码错误')
                 }
-                this.handleBalance()
-                this.close()
+                console.log(222)
+
+                OrderApi.createOrder({code: this.code}).then(res => {
+                    console.log(res)
+                })
+                //this.close()
             }
         }
     }

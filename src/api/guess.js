@@ -26,17 +26,17 @@ class GuessApi {
 
     // 提交我的竞猜数字( num_guess )
     static sendGuessNum(query) {
-        return Requester.post('http://47.75.115.65:5082/api/guess_add', query)
+        return Requester.post(config.apiDomain + 'guess_add', query)
     }
 
     // 获取我的竞猜状态
     static getGuessStatus(query) {
-        return Requester.get('http://47.75.115.65:5082/api/guess_status', query)
+        return Requester.get(config.apiDomain + 'guess_status', query)
     }
 
     // 获取我的竞猜历史结果
     static getGuessHistory(query) {
-        return Requester.get('http://47.75.115.65:5082/api/history', query)
+        return Requester.get(config.apiDomain + 'history', query)
             .then(res => {
                 if (res.status !== 1) return {}
 

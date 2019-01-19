@@ -5,16 +5,17 @@ import config from './config'
 class OrderApi {
 
     // 投注
-    static createOrder() {
-        return Requester.post(config.apiDomain + 'create_order')
+    static createOrder(query) {
+        // code
+        return Requester.post(config.apiDomain + 'create_order',query)
     }
 
     // 历史投注
-    static orderList(query) {
+    static getOrderList(query) {
         // page
         // limit
 
-        return Requester.post(config.apiDomain + 'order_list', query)
+        return Requester.get(config.apiDomain + 'order_list', query)
     }
 
 }

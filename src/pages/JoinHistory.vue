@@ -7,8 +7,8 @@
                 <span>序列</span>
             </li>
             <li v-for="item in list" :key="item.number">
-                <span>{{item.time | formatDate}}</span>
-                <span>{{item.number}}</span>
+                <span>{{item.created_at | formatDate}}</span>
+                <span>{{item.round_rank}}</span>
             </li>
         </ul>
     </div>
@@ -17,23 +17,15 @@
 <script>
     import PopupTitle from '../components/PopupTitle'
     import moment from 'moment'
-    import {MainApi} from "../api"
+    import {OrderApi} from "../api"
     import {ensureMilliseconds} from "../utils"
 
     export default {
         components: {PopupTitle},
         data() {
             return {
-                list: [{
-                    time: '343411234500',
-                    number: 1
-                }, {
-                    time: '343411234500',
-                    number: 2
-                }, {
-                    time: '343411234500',
-                    number: 3
-                }]
+                list: [],
+                // total: 0
             }
         },
         filters: {
@@ -45,9 +37,8 @@
         },
         methods: {
             getOrderList() {
-                MainApi.getOrderList({page: '1', limit: '20'}).then(res => {
-                    console.log(res, '======================')
-                    this.list = res.data
+                OrderApi.getOrderList({page: '1', limit: '20'}).then(res => {
+                    this.list = res.data.list
                 }).catch(err => {
                     console.error(err)
                 })

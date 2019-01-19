@@ -31,9 +31,10 @@ class UserApi {
     }
 
     // 投注、提现
-    static sendUserSms() {
+    static sendUserSms(query) {
+        // type 投注(order) 提现(withdraw)
         // return Promise.resolve(123456)
-        return Requester.post(config.apiDomain + 'send_user_sms')
+        return Requester.post(config.apiDomain + 'send_user_sms', query)
     }
 
     // 获取邀请码
