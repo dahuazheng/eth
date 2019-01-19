@@ -55,7 +55,7 @@
         },
         computed: {
             ...mapState({
-                balance: state => state.balance,
+                balance: state => state.user.balance,
             })
         },
     }
