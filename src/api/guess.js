@@ -10,7 +10,7 @@ class GuessApi {
                 if (res.status < 1) {
                     return {}
                 }
-                return res.data.map(n => ({
+                return res.data && res.data.map(n => ({
                     addTime: n.add_time || '',   // 参与时间
                     numGuess: n.num_guess || '', // 竞猜数字
                     numTrue: n.num_true || '',   // 实际数字
@@ -40,7 +40,7 @@ class GuessApi {
             .then(res => {
                 if (res.status !== 1) return {}
 
-                const historyList = res.data.map(n => ({
+                const historyList = res.data && res.data.map(n => ({
                     addTime: n.add_time || '',     // 参与时间戳
                     numGuess: n.num_guess || '',   // 竞猜数字
                     numTrue: n.num_true || '',     // 实际数字

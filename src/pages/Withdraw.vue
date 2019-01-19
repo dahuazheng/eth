@@ -3,15 +3,20 @@
         <div class="title">
             <icon name="arrow-left" @click="() => {this.$router.go(-1)}"></icon>
             提现
-            <icon name="scan-code" class="scan" @click="() => {this.$router.push('/scan-qrcode')}"></icon>
+            <icon/>
+            <!--<icon name="scan-code" class="scan" @click="() => {this.$router.push('/scan-qrcode')}"></icon>-->
         </div>
         <div class="form">
             <div class="row">
                 <label>选择币种</label>
                 <span>
                     ETH
-                    <icon name="down"></icon>
+                    <icon name="down" @click=""></icon>
                 </span>
+                <ul>
+                    <li>ETH</li>
+                    <li>INC</li>
+                </ul>
             </div>
             <div class="row">
                 <input type="text" placeholder="收款人地址">
