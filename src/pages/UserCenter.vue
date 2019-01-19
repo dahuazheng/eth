@@ -209,8 +209,7 @@
                     limit: '20'
                 }).then(res => {
                     console.log(res, '==========')
-                    if (res.status !== 1) return
-                    this.pushList = res.data
+                    this.pushList = res
                 }).catch(err => {
                     console.error(err)
                 })
