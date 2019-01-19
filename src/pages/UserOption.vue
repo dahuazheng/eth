@@ -62,7 +62,7 @@
 </template>
 <script>
   import EthFooter from '@/components/EthFooter.vue'
-  import { removeCookie } from '@/api/utils'
+  import { removeCookie } from '@/utils'
 
   export default {
     name: 'userOption',

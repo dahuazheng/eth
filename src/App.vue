@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import UserApi from '@/api/user'
+    import {UserApi} from '@/api'
     import Cookies from 'js-cookie'
 
     export default {
@@ -13,19 +13,21 @@
             $route(to, from) {
                 this.init()
                 // this.$store.dispatch('user/getInviteCode')
-                console.log(333)
             }
         },
         methods: {
             test() {
                 // test
-                UserApi.getInviteCode().then(res => {ß
+                UserApi.getInviteCode().then(res => {
                     console.log(res)
                 })
             },
+            getData() {
+
+            },
             init() {
                 this.$store.dispatch('balance/getBalance')
-                return
+                // return
                 if (!UserApi.isOnline()) {
                     this.$router.push({name: 'login'})
                     return

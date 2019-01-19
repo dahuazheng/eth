@@ -30,8 +30,7 @@
 <script>
     import PopupTitle from '../components/PopupTitle'
     import moment from 'moment'
-    import { ensureMilliseconds, encodeMobile } from "../api/utils"
-    import  UserApi from '../api/user'
+    import { ensureMilliseconds, encodeMobile } from "../utils"
 
     export default {
         components: {PopupTitle},

@@ -1,3 +1,3 @@
-import joinMixin from './join'
+import initMixin from './init'
 
-export {joinMixin}
+export {initMixin}

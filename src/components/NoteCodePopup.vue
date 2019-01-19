@@ -17,7 +17,7 @@
     import PopupTitle from './PopupTitle'
     import {Toast} from 'mint-ui'
     import UserApi from '@/api/user'
-    import {isValidSmsAuthCode} from '@/api/utils'
+    import {isValidSmsAuthCode} from '@/utils'
 
 
     export default {

@@ -35,9 +35,9 @@
     import PickerPopup from '@/components/PickerPopup.vue'
     import Cookies from 'js-cookie'
     import {Toast} from 'mint-ui'
-    import {COUNTRIES, CAPTCHA_COUNTDOWN_DEFAULT} from '@/api/constants'
-    import UserApi from '@/api/user'
-    import {isMobile, isValidSmsAuthCode, initNECaptcha} from '@/api/utils'
+    import {COUNTRIES, CAPTCHA_COUNTDOWN_DEFAULT} from '@/utils/constants'
+    import {UserApi} from '@/api'
+    import {isMobile, isValidSmsAuthCode, initNECaptcha} from '@/utils'
 
     export default {
         name: 'loginPopup',
@@ -161,7 +161,7 @@
                     phone_code: this.code,
                 }).then(res => {
                     if (Number(res.status) !== 1) return
-                    Cookies.set('ETH.token', res.headers.token, { expires: 1 / 24 })
+                    Cookies.set('ETH.token', res.headers.token, {expires: 1 / 24})
                     this.$store.dispatch('user/getInviteCode')
                     this.$router.push({name: 'home', query: {tab: 'join'}})
                 })

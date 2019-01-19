@@ -23,8 +23,8 @@
 <script>
     import moment from 'moment'
     import NavHeader from '../components/NavHeader'
-    import { TRADE_STATUS } from '../api/constants'
-    import { ensureMilliseconds } from '../api/utils'
+    import { TRADE_STATUS } from '../utils/constants'
+    import { ensureMilliseconds } from '../utils'
 
     export default {
         data() {

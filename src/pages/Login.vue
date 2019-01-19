@@ -13,28 +13,26 @@
 </template>
 
 <script>
-  import Banner from '@/components/Banner.vue'
-  import EthFooter from '@/components/EthFooter.vue'
-  import LoginPopup from '@/components/LoginPopup.vue'
-  import { UserApi } from '../api/user'
+    import Banner from '@/components/Banner.vue'
+    import EthFooter from '@/components/EthFooter.vue'
+    import LoginPopup from '@/components/LoginPopup.vue'
 
-  export default {
-    name: 'login',
-    components: {
-      Banner, EthFooter, LoginPopup
-    },
-    data() {
-      return {
-        loginPopupShow: false
-      }
-    },
-    methods: {
-      toLogin() {
-        this.loginPopupShow = true
-        //UserApi.login()
-      }
+    export default {
+        name: 'login',
+        components: {
+            Banner, EthFooter, LoginPopup
+        },
+        data() {
+            return {
+                loginPopupShow: false
+            }
+        },
+        methods: {
+            toLogin() {
+                this.loginPopupShow = true
+            }
+        }
     }
-  }
 </script>
 <style lang="scss" scoped>
     @import "../assets/styles/mixin";
