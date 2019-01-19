@@ -206,8 +206,8 @@
                                 content: '';
                                 display: inline-block;
                                 margin-right: 10px;
-                                @include px2rem('width', 30);
-                                @include px2rem('height', 30);
+                                @include px2rem('width', 25);
+                                @include px2rem('height', 25);
                                 @include background-image();
                                 background-image: url('../assets/images/icon_sign_out.png');
                             }
@@ -268,7 +268,7 @@
                         display: inline-block;
                         margin-right: 10px;
                         @include px2rem('width', 15);
-                        @include px2rem('height', 15);
+                        @include px2rem('height', 16);
                         @include background-image();
                         background-image: url('../assets/images/sign_out_icon.png');
                     }

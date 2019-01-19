@@ -1,18 +1,18 @@
 <template>
     <div class="footer">
         <ul>
-            <li @click="handleTab('wallet')" :class="{active: action==='wallet'}">
-                <img v-if="action==='wallet'" src="../assets/images/wallet_press.png">
+            <li @click="handleTab('wallet')" :class="{active: action ==='wallet'}">
+                <img v-if="action ==='wallet'" src="../assets/images/wallet_press.png">
                 <img v-else src="../assets/images/wallet_nomal.png">
                 <span>钱包</span>
             </li>
-            <li @click="handleTab('home')" :class="{active: action==='home'}">
-                <img v-if="action==='home'" src="../assets/images/eth_press.png">
+            <li @click="handleTab('home')" :class="{active: action ==='home'}">
+                <img v-if="action ==='home'" src="../assets/images/eth_press.png">
                 <img v-else src="../assets/images/eth_nomal.png">
                 <span>1 ETH</span>
             </li>
-            <li @click="handleTab('userOption')" :class="{active: action==='userOption'}">
-                <img v-if="action==='userOption'" src="../assets/images/me_press.png">
+            <li @click="handleTab('userOption')" :class="{active: action  ==='userOption'}">
+                <img v-if="action ==='userOption'" src="../assets/images/me_press.png">
                 <img v-else src="../assets/images/me_nomal.png">
                 <span>我的</span>
             </li>

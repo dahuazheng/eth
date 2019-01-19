@@ -5,7 +5,7 @@
             <span>02:40:06</span>
             <span @click="toGuess('myGuess')">我的竞猜</span>
         </div>
-        <div class="un-join" v-show="joinAction==='un'">
+        <div class="un-join" v-show="guessStatus === 0">
             <div class="row" v-if="start">
                 <label>您尚未参与，请立即参与解锁竞猜权益！</label>
                 <EthButton name="现在参与" :click="joinNow"/>
@@ -14,33 +14,34 @@
                 <label>等待游戏开始</label>
             </div>
         </div>
-        <div class="in-join" v-show="joinAction==='in'">
+        <div class="in-join" v-show="guessStatus === 1">
             <input type="number"
                    v-model="guessValue"
                    placeholder="明天参与游戏的单日ETH总个数是多少？">
             <EthButton name="提交" borderRadios="21px" :click="submitGuess"/>
         </div>
-        <div class="end-join" v-show="joinAction==='end'">
+        <div class="end-join" v-show="guessStatus === 2">
             <div class="guess-value">
                 <img src="../assets/images/icon_king.png">
-                本次竞猜：{{guessValue}}
+                本次竞猜：{{ guessValue }}
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import {Toast} from 'mint-ui'
+    import { Toast } from 'mint-ui'
     import EthButton from './EthButton'
+    import UserApi from '../api/user'
 
     export default {
         name: 'dayGuess',
         components: {EthButton},
         data() {
             return {
-                joinAction: 'un',
-                guessValue: '',
-                start: true
+                guessValue: 0,  // 我的竞猜数字
+                start: true,
+                guessStatus: 0  // 竞猜状态  0未投注未竞猜，1已投注未竞猜，2已投注已竞猜
             }
         },
         methods: {
@@ -48,19 +49,60 @@
                 this.$router.push({name})
             },
             joinNow() {
-                this.joinAction = 'in'
+                this.guessStatus = 1
             },
-            handleGuess(){
 
+            // 提交竞猜数字
+            sendGuessNum() {
+                UserApi.sendGuessNum({
+                    num_guess: this.guessValue
+                }).then(res => {
+                    if (res.status < 1) return
+
+                    if(res.status === 2) {
+                        Toast(res.msg)
+                    }
+
+                    this.guessStatus = res.status
+                }).catch(err => {
+                    console.error(err)
+                })
             },
+
+            // 获取竞猜状态
+            getGuessStatus() {
+                UserApi.getGuessStatus()
+                    .then(res => {
+                       if (res.status < 0)  return
+
+                        this.guessStatus = res.status
+                    })
+                    .catch(err => {
+                      console.error(err)
+                    })
+            },
+
+            // 获取本次竞猜数字
+            getMyAward() {
+                UserApi.getMyAward().then(res => {
+                    this.guessValue = res[res.length-1].numTrue
+                }).catch(err => {
+                    console.error(err)
+                })
+            },
+
+            // 提交竞猜数字值后台
             submitGuess() {
                 if (!this.guessValue) {
                     Toast('请输入您的竞猜数额')
                     return
                 }
-                this.handleGuess()
-                this.joinAction = 'end'
+                this.sendGuessNum()
             },
+        },
+        mounted() {
+            this.getGuessStatus()
+            this.getMyAward()
         }
     }
 </script>

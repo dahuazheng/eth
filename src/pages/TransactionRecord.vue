@@ -29,7 +29,7 @@
     export default {
         data() {
            return {
-               currStatus: ' ',
+               currStatus: '',
                listData: [
                    {
                       businessType: '充值',

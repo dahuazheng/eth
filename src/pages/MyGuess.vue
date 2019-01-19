@@ -9,43 +9,16 @@
                     <th>中奖数字</th>
                     <th>结果</th>
                 </tr>
-                <tr>
+                <tr v-for="item in myAwardList" :key="item.id">
                     <td>
-                        2019-01-07 <br>
-                        12:30:20
+                        {{ item.addTime | formatDate}}
                     </td>
-                    <td>12</td>
-                    <td>16</td>
+                    <td>{{ item.numGuess }}</td>
+                    <td>{{ item.numTrue }}</td>
                     <td>
-                        二等奖 <br>
-                        +0.0002 ETH <br>
-                        +1000 INC
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        2019-01-07 <br>
-                        12:30:20
-                    </td>
-                    <td>32</td>
-                    <td>6</td>
-                    <td>
-                        未中奖<br>
-                        +0.0002 ETH <br>
-                        +1000 INC
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        2019-01-07 <br>
-                        12:30:20
-                    </td>
-                    <td>32</td>
-                    <td>6</td>
-                    <td>
-                        未中奖<br>
-                        +0.0002 ETH <br>
-                        +1000 INC
+                        {{ transformStatus(item.status) }} <br>
+                        +{{ item.eth }} ETH <br>
+                        +{{ item.inc }} INC
                     </td>
                 </tr>
             </table>
@@ -55,13 +28,61 @@
 
 <script>
     import PopupTitle from '../components/PopupTitle'
+    import UserApi from '../api/user'
+    // import Cookies from 'js-cookie'
+    import moment from 'moment'
+    import { ensureMilliseconds } from '../api/utils'
 
     export default {
         components: {PopupTitle},
+        data() {
+            return {
+                myAwardList: []
+            }
+        },
+        filters: {
+            formatDate(value) {
+                if (!value) return
+                const formatDate = 'YYYY-M-DD'
+                return moment(ensureMilliseconds(value)).format(formatDate)
+            }
+        },
         methods: {
             close() {
                 this.$router.push({name: 'home', query: {tab: 'guess'}})
+            },
+
+            // 状态值转换中奖等级
+            transformStatus(val) {
+                switch(val){
+                    case 0:
+                        return '未中奖';
+                    case 1:
+                        return '一等奖';
+                    case 2:
+                        return '二等奖';
+                    case 3:
+                        return '三等奖';
+                    case 4:
+                        return '四等奖';
+                    case 5:
+                        return '五等奖';
+                    default:
+                        return null
+                }
+            },
+
+            // 请求我的竞猜
+            getMyAward() {
+                UserApi.getMyAward().then(res => {
+                    this.myAwardList = res
+                }).catch(err => {
+                    console.error(err)
+                })
             }
+        },
+        mounted() {
+            this.getMyAward()
         }
     }
 </script>
