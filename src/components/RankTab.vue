@@ -238,7 +238,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
+            padding: 0 15px;
             font-size: $font-little;
 
             span {
@@ -246,11 +246,13 @@
                 padding: 10px;
                 text-align: center;
                 color: #9e9f9d;
+                @include px2rem('width', 105);
+                @include px2rem('height', 35);
 
                 &.active {
-                    @include background-gradient(#af24d4, #7312b9);
+                    background-image: url('../assets/images/bg_bet.png');
                     color: $color-white;
-                    border-radius: 18px;
+                    @include background-image();
                 }
             }
         }
@@ -272,7 +274,7 @@
                             border-bottom-color: transparent;
 
                             span:nth-child(3) {
-                                text-align: center;
+                                text-align: left;
                             }
                         }
 
@@ -295,7 +297,7 @@
                             }
 
                             &:nth-child(3) {
-                                text-align: right;
+                                text-align: left;
                             }
 
                             &:last-child {
@@ -305,7 +307,7 @@
 
                             &.name,
                             &.account {
-                                width: 25%;
+                                width: 30%;
                             }
 
                             &.per {

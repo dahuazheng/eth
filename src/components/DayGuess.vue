@@ -110,11 +110,21 @@
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            padding: 30px 0;
+            align-items: center;
+            padding: 10px 0;
             border-bottom: 1px solid $border-color;
 
             span {
-                @include fontPrimaryColor($primary-color)
+                border: 1px solid #6813ae;
+                border-radius: 10px;
+                padding: 9px 15px;
+                font-size: 13px;
+                @include fontPrimaryColor($primary-color);
+
+                &:nth-child(2) {
+                    border: none;
+                    padding: 0;
+                }
             }
         }
 
@@ -126,6 +136,7 @@
 
             label {
                 margin-bottom: $space-width;
+                color: #474747;
             }
         }
 

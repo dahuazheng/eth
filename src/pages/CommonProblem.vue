@@ -166,14 +166,14 @@
 
             li {
                 padding: 0 20px;
-                border-bottom: 2px solid $border-bottom-color;
+                border-bottom: 1px solid $border-bottom-color;
 
                 p {
                     display: flex;
                     align-items: flex-start;
                     font-size: $font-medium-s + 1;
                     color: #3d215c;
-                    margin-bottom: 0;
+                    margin-bottom: 7px;
 
                     &::before {
                         content: '';
