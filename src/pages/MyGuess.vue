@@ -28,10 +28,10 @@
 
 <script>
     import PopupTitle from '../components/PopupTitle'
-    import UserApi from '../api/user'
+    import {UserApi} from '../api'
     // import Cookies from 'js-cookie'
     import moment from 'moment'
-    import { ensureMilliseconds } from '../api/utils'
+    import { ensureMilliseconds } from '../utils'
 
     export default {
         components: {PopupTitle},

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import UserApi from '@/api/user'
+    import {UserApi} from '@/api'
     import Cookies from 'js-cookie'
 
     export default {
