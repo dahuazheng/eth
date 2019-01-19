@@ -5,7 +5,7 @@ class BalanceApi {
 
     static getBalance() {
         return Promise.resolve({
-           ETH: 769.2,
+            ETH: 769.2,
             // ETH: 0,
             INC: 2313503.2
         })

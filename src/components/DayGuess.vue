@@ -39,7 +39,7 @@
         components: {EthButton},
         data() {
             return {
-                guessValue: 0,  // 我的竞猜数字
+                guessValue: '',  // 我的竞猜数字
                 start: true,
                 guessStatus: 0  // 竞猜状态  0未投注未竞猜，1已投注未竞猜，2已投注已竞猜
             }
