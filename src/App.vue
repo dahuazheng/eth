@@ -19,9 +19,12 @@
         methods: {
             test() {
                 // test
-                UserApi.getInviteCode().then(res => {ß
+                UserApi.getInviteCode().then(res => {
                     console.log(res)
                 })
+            },
+            getData() {
+
             },
             init() {
                 this.$store.dispatch('balance/getBalance')
