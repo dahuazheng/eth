@@ -36,8 +36,8 @@
     import Cookies from 'js-cookie'
     import {Toast} from 'mint-ui'
     import {COUNTRIES, CAPTCHA_COUNTDOWN_DEFAULT} from '@/utils/constants'
-    import {UserApi} from '@/api'
     import {isMobile, isValidSmsAuthCode, initNECaptcha} from '@/utils'
+    import {UserApi} from '@/api'
 
     export default {
         name: 'loginPopup',
@@ -142,6 +142,18 @@
                 })
             },
 
+            // 判断是否绑定邀请码
+            checkInviteBind() {
+                UserApi.checkInviteBind().then(res => {
+                    console.log(res)
+                    if (Number(res.status === 1) && Number(res.data.is_bind) === -1) {
+                        Cookies.set('ETH.bind_inviter', 'true', {expires: 1 / 24})
+                    } else {
+                        Cookies.remove('ETH.bind_inviter')
+                    }
+                })
+            },
+
             login() {
                 if (!this.phone) {
                     return Toast('请输入手机号码')
@@ -160,13 +172,22 @@
                     phone: this.phone,
                     phone_code: this.code,
                 }).then(res => {
-                    if (Number(res.status) !== 1) return
+                    if (Number(res.status) === -1) {
+                        return Toast('验证码错误')
+                    }
+                    if (Number(res.status) !== 1) {
+                        return Toast('请刷新重试')
+                    }
+
                     Cookies.set('ETH.token', res.headers.token, {expires: 1 / 24})
-                    this.$store.dispatch('user/getInviteCode')
+                    this.checkInviteBind()
                     this.$router.push({name: 'home', query: {tab: 'join'}})
+                    // this.$store.dispatch('user/getInviteCode')
                 })
             },
             init() {
+                Cookies.remove('ETH.token')
+
                 this.prefixSlots[0].values = COUNTRIES.map(country => {
                     const {nameEN, nameCN, code} = country
                     return nameEN + ' ' + nameCN + ' : ' + code

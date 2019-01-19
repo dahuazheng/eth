@@ -30,9 +30,9 @@
 </template>
 
 <script>
-    import { Toast } from 'mint-ui'
+    import {Toast} from 'mint-ui'
     import EthButton from './EthButton'
-    import UserApi from '../api/user'
+    import {GuessApi} from '../api'
 
     export default {
         name: 'dayGuess',
@@ -54,12 +54,12 @@
 
             // 提交竞猜数字
             sendGuessNum() {
-                UserApi.sendGuessNum({
+                GuessApi.sendGuessNum({
                     num_guess: this.guessValue
                 }).then(res => {
                     if (res.status < 1) return
 
-                    if(res.status === 2) {
+                    if (res.status === 2) {
                         Toast(res.msg)
                     }
 
@@ -71,21 +71,21 @@
 
             // 获取竞猜状态
             getGuessStatus() {
-                UserApi.getGuessStatus()
+                GuessApi.getGuessStatus()
                     .then(res => {
-                       if (res.status < 0)  return
+                        if (res.status < 0) return
 
                         this.guessStatus = res.status
                     })
                     .catch(err => {
-                      console.error(err)
+                        console.error(err)
                     })
             },
 
             // 获取本次竞猜数字
             getMyAward() {
-                UserApi.getMyAward().then(res => {
-                    this.guessValue = res[res.length-1].numTrue
+                GuessApi.getMyAward().then(res => {
+                    this.guessValue = res[res.length - 1].numTrue
                 }).catch(err => {
                     console.error(err)
                 })
@@ -125,7 +125,7 @@
             }
         }
 
-        .un-join .row{
+        .un-join .row {
             display: flex;
             flex-direction: column;
             align-items: center;
