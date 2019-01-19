@@ -52,7 +52,7 @@
                         Toast('绑定成功')
                         setTimeout(() => {
                             this.$router.push({name: 'home'})
-                        }, 2000)
+                        }, 1000)
                     } else {
                         Toast('输入的邀请人昵称不存在')
                     }

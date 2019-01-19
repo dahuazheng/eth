@@ -35,7 +35,7 @@
                         </router-link>
                     </li>
                     <li>
-                        <a @click="() => { this.isSignOut = true }" >
+                        <a @click="() => { this.isSignOut = true  }" >
                             <span class="check-option__out"> 退出登录</span>
                             <span class='check-arrow'/>
                         </a>
@@ -74,7 +74,7 @@
     },
     methods: {
         signOut() {
-            removeCookie('token')
+            removeCookie('ETH.token')
             this.$router.push('/')
         }
     }
@@ -205,7 +205,8 @@
                             &.check-option__out::before {
                                 content: '';
                                 display: inline-block;
-                                margin-right: 10px;
+                                margin-left: 2px;
+                                margin-right: 15px;
                                 @include px2rem('width', 25);
                                 @include px2rem('height', 25);
                                 @include background-image();

@@ -372,27 +372,27 @@
             display: flex;
             flex-direction: row;
             justify-content: space-around;
+            align-items: center;
             margin-top: 8px;
 
             li {
-                @include px2rem('width', 108);
-                @include px2rem('height', 36);
+                @include px2rem('width', 105);
+                @include px2rem('height', 52);
                 @include px2rem('line-height', 36);
-                @include px2rem('border-radius', 18);
+                //  @include px2rem('border-radius', 18);
                 @include fontSubColor($font-sub-color);
                 @include fontSize($font-little);
                 text-align: center;
 
                 &.active {
-                    @include background-gradient(#af24d4, #7312b9);
+                    background-image: url('../assets/images/bg_bet.png');
                     color: $clear-color;
+                    @include background-image();
                 }
             }
         }
 
         .items {
-            margin-top: $margin-width;
-
             table.push {
                 width: 100%;
                 border-collapse: collapse;

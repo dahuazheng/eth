@@ -14,7 +14,7 @@
                     <label>INC</label>
                 </li>
             </ul>
-            <p>{{balance.address}}</p>
+            <p>{{balance.address ? balance.address : '暂无钱包地址'}}</p>
         </div>
         <div class="btn-box">
             <button @click="() => {this.$router.push('/charge-money')}">
@@ -111,7 +111,6 @@
 
                     label {
                         @include fontSize($font-medium-s);
-
                     }
                 }
             }
@@ -121,7 +120,9 @@
                 @include px2rem('line-height', 28);
                 @include px2rem('border-radius', 14);
                 @include fontPrimaryColor(#614292);
+                width: 60%;
                 padding: 0 20px;
+                text-align: center;
                 background: #efe0fd;
             }
         }
