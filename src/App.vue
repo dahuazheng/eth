@@ -6,9 +6,11 @@
 
 <script>
     import {UserApi} from '@/api'
+    import {initMixin} from '@/mixins'
     import Cookies from 'js-cookie'
 
     export default {
+        mixins:[initMixin],
         watch: {
             $route(to, from) {
                 this.init()
@@ -22,11 +24,8 @@
                     console.log(res)
                 })
             },
-            getData() {
-
-            },
             init() {
-                this.$store.dispatch('balance/getBalance')
+                this.$store.dispatch('user/getBalance')
                 // return
                 if (!UserApi.isOnline()) {
                     this.$router.push({name: 'login'})
