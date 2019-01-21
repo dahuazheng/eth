@@ -2,7 +2,7 @@ import Requester from "../services/requester"
 
 class RankApi {
 
-    // 获取直推表数据
+    // 直推表
     static getPushList(query) {
         return Requester.get(config.apiDomain + 'push_list', query)
             .then(res => {
@@ -20,10 +20,21 @@ class RankApi {
             })
     }
 
-    // 获取我的龙虎榜数据
+    // 龙虎榜历史
+    static getDayPushHistory(query){
+        return Requester.get(config.apiDomain + 'day_push_history', query)
+    }
+
+    // 我的今日直推
+    static getMyDayPushCount(query){
+        return Requester.get(config.apiDomain + 'my_day_push_count', query)
+    }
+
+    // 我的龙虎榜
     static getWinnerList(query) {
-        return Requester.get(config.apiDomain + 'winner_list', query)
+        return Requester.get(config.apiDomain + 'my_day_push_count', query)
             .then(res => {
+                console.log(res)
                 if (res.status !== '1') return
 
                 const list = res.data.list.map(n => ({
@@ -40,23 +51,10 @@ class RankApi {
             })
     }
 
-    // 获取竞猜数据
-    // static getGuessList(query) {
-    //     return Requester.get('http://47.75.115.65:5082/api/winner_list', query)
-    //         .then(res => {
-    //             if (res.status !== '1') return
-    //
-    //             const guessList = res.data.list.map(n => ({
-    //                 // phone: n.phone || '',                // 用户昵称（手机号）
-    //                 // orderCount: n.order_count || '',     // 投注次数
-    //                 // pushCount: n.push_count || '',       // 直推个数
-    //             }))
-    //
-    //             return guessList
-    //         }).catch(err => {
-    //             console.error(err)
-    //         })
-    // }
+    // 直推龙虎榜奖池
+    static getDayPushBonus(query){
+        return Requester.get(config.apiDomain + 'day_push_bonus', query)
+    }
 }
 
 export default RankApi
