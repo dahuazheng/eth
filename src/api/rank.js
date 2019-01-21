@@ -1,4 +1,5 @@
 import Requester from "../services/requester"
+import config from './config'
 
 class RankApi {
 
