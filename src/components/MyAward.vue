@@ -2,7 +2,7 @@
     <div class="my-award">
         <p class='my-title'>
             <i></i>
-            <span>我的头衔</span>：参与者
+            <span>我的头衔</span>：{{ this.transformStatus(level) }}
         </p>
         <div class="price-box">
             <span @click.stop="showAwardDetail=true">
@@ -39,6 +39,11 @@
                         <span>0.000000 ETH</span>
                         <span>0.000000 INC</span>
                     </li>
+                    <li>
+                        <label>其他奖励</label>
+                        <span>0.000000 ETH</span>
+                        <span>0.000000 INC</span>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -53,21 +58,49 @@
 
 <script>
     import EthButton from './EthButton'
+    import RankApi from '../api/rank'
 
     export default {
         components: {EthButton},
         data() {
             return {
-                showAwardDetail: false
+                showAwardDetail: false,
+                level: '1'
             }
         },
         methods: {
-            withdraw() {
-
+            // 获取我的头衔
+            getPushList() {
+              RankApi.getPushList({
+                  page: '1',
+                  limit: '20'
+              }).then(res => {
+                  this.level = res.level
+              }).catch(err => {
+                  console.error(err)
+              })
             },
+
+            // 转换头衔
+            transformStatus(val) {
+                switch(val){
+                    case '1':
+                        return '参与者';
+                    case '2':
+                        return '经理';
+                    case '3':
+                        return '高级经理';
+                    default:
+                        return null
+                }
+            },
+
             recommend() {
                 this.$router.push('/user-center')
             }
+        },
+        mounted() {
+            this.getPushList()
         }
     }
 </script>

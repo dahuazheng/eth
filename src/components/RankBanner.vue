@@ -6,18 +6,48 @@
 
         <div class='rank-content__text'>
             <p>24 H直推龙虎榜</p>
-            <p>(奖金池 0.690 ETH/1203.0 INC</p>
+            <p>(奖金池 {{ ethAmount }} ETH/{{ incAmount }} INC)</p>
             <p>（04:30:03后更新）</p>
-            <button class='btn btn-visit-num'><span>今日邀请数</span> <br> 0</button>
+            <button class='btn btn-visit-num'><span>今日邀请数</span> <br>{{ pushCount }}</button>
         </div>
     </div>
 </template>
 <script>
+  import RankApi from '../api/rank'
+
   export default {
     name: 'rankBanner',
     data() {
-      return {}
-    }
+      return {
+          incAmount: '0',
+          ethAmount: '0',
+          pushCount: 0
+      }
+    },
+      methods: {
+          // 获取直推龙虎榜奖池
+          getPushBonus()  {
+              RankApi.getDayPushBonus({}).then(res => {
+                this.incAmount = res.incAmount
+                this.ethAmount = res.ethAmount
+              }).catch(err => {
+                  console.error(err)
+              })
+          },
+
+          // 我的今日直推
+          getMyDayPushCount() {
+              RankApi.getMyDayPushCount({}).then(res => {
+                  this.pushCount = res.pushCount
+              }).catch(err => {
+                  console.error(err)
+              })
+          }
+      },
+      mounted() {
+        this.getPushBonus()
+        this.getMyDayPushCount()
+      }
   }
 </script>
 <style lang='scss' scoped>
