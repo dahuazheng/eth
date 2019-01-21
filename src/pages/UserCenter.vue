@@ -68,20 +68,14 @@
                         <th>直推个数</th>
                         <th>结果</th>
                     </tr>
-                    <tr>
-                        <td>2018-12-12</td>
-                        <td>88</td>
-                        <th><span>一等奖</span><br>+0.0002 ETH <br>+1000 INC</th>
-                    </tr>
-                    <tr>
-                        <td>2018-12-12</td>
-                        <td>88</td>
-                        <th><span>一等奖</span><br>+0.0002 ETH <br>+1000 INC</th>
-                    </tr>
-                    <tr>
-                        <td>2018-12-12</td>
-                        <td>88</td>
-                        <th><span>一等奖</span><br>+0.0002 ETH <br>+1000 INC</th>
+                    <tr v-for="item in winnerList" :key="item.id">
+                        <td>{{ item.date | formatDate }}</td>
+                        <td>{{ item.pushCount }}</td>
+                        <td>
+                            {{ transformStatus(item.status) }} <br>
+                            +{{ item.eth }} ETH <br>
+                            +{{ item.inc }} INC
+                        </td>
                     </tr>
                 </table>
             </li>
@@ -93,32 +87,17 @@
                         <th>中奖数字</th>
                         <th>结果</th>
                     </tr>
-                    <tr>
+                    <tr v-for="item in myAwardList" :key="item.id">
                         <td>
-                            2018-12-12 <br>
-                            23:23:23
+                            {{ item.addTime | formatDate}}
                         </td>
-                        <td>8</td>
-                        <td>88</td>
-                        <td>888</td>
-                    </tr>
-                    <tr>
+                        <td>{{ item.numGuess }}</td>
+                        <td>{{ item.numTrue }}</td>
                         <td>
-                            2018-12-12 <br>
-                            23:23:23
+                            {{ transformStatus(item.status) }} <br>
+                            +{{ item.eth }} ETH <br>
+                            +{{ item.inc }} INC
                         </td>
-                        <td>8</td>
-                        <td>88</td>
-                        <td>888</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            2018-12-12 <br>
-                            23:23:23
-                        </td>
-                        <td>8</td>
-                        <td>88</td>
-                        <td>888</td>
                     </tr>
                 </table>
             </li>
@@ -164,6 +143,9 @@
 <script>
     import {mapState} from 'vuex'
     import RankApi from '../api/rank'
+    import moment from 'moment'
+    import { ensureMilliseconds } from '../utils'
+
 
     export default {
         name: 'userCenter',
@@ -179,6 +161,13 @@
                 pushList: [],
                 winnerList: [],
                 guessList: []
+            }
+        },
+        filters: {
+            formatDate(value) {
+                if (!value) return
+                const formatDate = 'YYYY-MM-DD'
+                return moment(ensureMilliseconds(value)).format(formatDate)
             }
         },
         computed: {
@@ -225,10 +214,7 @@
 
             // 获取龙虎榜数据
             getWinnerList() {
-                RankApi.getWinnerList({
-                    page: '1',
-                    limit: '20'
-                }).then(res => {
+                RankApi.getWinnerList({}).then(res => {
                     this.winnerList = res
                 }).catch(err => {
                     console.error(err)
@@ -237,7 +223,7 @@
 
             // 获取竞猜数据
             getGuessList() {
-                RankApi.getGuessList({
+                RankApi.getMyGuessList({
                     page: '1',
                     limit: '20'
                 }).then(res => {

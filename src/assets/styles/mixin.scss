@@ -22,7 +22,7 @@
 @mixin fontColor($color) {
   color: $color;
   [data-theme="default"] & {
-    color: $default-color;
+         color: $default-color;
   }
   [data-theme="dark"] & {
     color: $default-color-dark;
@@ -55,7 +55,7 @@
 @mixin fontPrimaryColor($color) {
   color: $color;
   [data-theme="default"] & {
-    color: $font-primary-color;
+       color: $font-primary-color;
   }
   [data-theme="dark"] & {
     color: $font-primary-color-dark;

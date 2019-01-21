@@ -19,7 +19,7 @@
         methods: {
             init() {
                 if (!UserApi.isOnline()) {
-                    this.$router.push({name: 'login'})
+                    // this.$router.push({name: 'login'})
                     return
                 }
                 console.log(UserApi.isBindInviter())
