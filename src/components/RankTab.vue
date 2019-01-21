@@ -15,7 +15,7 @@
                     <span class="per">直推个数/展开</span>
                 </li>
                 <!--以下 同一名次对应多个用户-->
-                <li v-for="(live, liveKey) in liveList" :key="liveKey">
+                <li v-for="(live, liveKey) in liveList" :key="liveKey" :class="'color-' + liveKey">
                     <span class="num">
                         <span class="icon" :class="'icon-' + liveKey"></span>
                     </span>
@@ -242,6 +242,7 @@
                         align-items: center;
                         flex-direction: row;
                         justify-content: space-around;
+                        border-bottom: 1px solid $border-color;
 
                         .icon {
                             @include px2rem('width', 30);
@@ -271,74 +272,50 @@
                             }
                         }
 
-                        .num {
-                            //width: 20%;
-                        }
-
-                        &:first-child {
-                            flex-direction: row;
-                            background-color: #f5f5f5;
-                            color: #b1b2b0;
-                            border-bottom-color: transparent;
-
-                            span:nth-child(3) {
-                                text-align: left;
-                            }
-                        }
-
                         span {
                             position: relative;
                             font-size: $font-little;
                             padding: 8px 0;
+                            box-sizing: border-box;
                             display: flex;
+                            align-items: center;
+                            justify-content: center;
 
-                            &.name,
+                            &.num {
+                                width: 20%;
+                            }
+
+                            &.name {
+                                width: 30%;
+                            }
+
                             &.account {
-                                //width: 30%;
+                                width: 20%;
                             }
 
                             &.per {
-                                display: inline-flex;
-                                flex-direction: column;
-                                align-items: center;
-                                //width: 26%;
-
-                                span {
-                                    padding: 0;
-                                }
-
-                                .toggle-arrow {
-                                    position: absolute;
-                                    bottom: -12px;
-                                    display: inline-block;
-                                    border-top: 10px solid #ccc;
-                                    border-bottom: 10px solid transparent;
-                                    border-left: 9px solid transparent;
-                                    border-right: 9px solid transparent;
-                                }
+                                width: 30%;
                             }
+                        }
 
-                            &.rank-color {
-                                &.color-1 {
-                                    color: #daa032;
-                                }
+                        &.color-0 {
+                            color: #daa032;
+                        }
 
-                                &.color-2 {
-                                    color: #b6babd;
-                                }
+                        &.color-1 {
+                            color: #b6babd;
+                        }
 
-                                &.color-3 {
-                                    color: #c59567;
-                                }
+                        &.color-2 {
+                            color: #c59567;
+                        }
 
-                                &.color-4 {
-                                    color: #d0b791;
-                                }
+                        &.color-3 {
+                            color: #d0b791;
+                        }
 
-                                &.color-5 {
-                                    color: #d0b791;
-                                }
-                            }
+                        &.color-4 {
+                            color: #d0b791;
                         }
                     }
                 }
