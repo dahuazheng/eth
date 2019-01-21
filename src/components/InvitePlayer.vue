@@ -4,11 +4,11 @@
             <label>我的邀请人</label>
             <span>9999999</span>
         </div>
-        <div class="item un-active" v-show="active==='un'">
-            <input type="text" placeholder="请指定您的专属邀请昵称" v-model="name">
-            <span @click="activateName">激活专属邀请昵称</span>
-        </div>
-        <div class="item in-active" v-show="active==='in'">
+        <!--<div class="item un-active" v-show="active==='un'">-->
+            <!--<input type="text" placeholder="请指定您的专属邀请昵称" v-model="name">-->
+            <!--<span @click="activateName">激活专属邀请昵称</span>-->
+        <!--</div>-->
+        <div class="item in-active">
             <label>您的专属邀请码为</label><br>
             <span>
                 {{name}}
