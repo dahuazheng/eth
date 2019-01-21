@@ -168,6 +168,12 @@
                     return Toast('验证码错误')
                 }
 
+                // 临时token
+                const TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTAxMjQzIiwidG9rZW5fdmVyc2lvbiI6IlBKb3hPTDIxZGx4OW42VTQwOSIsImV4cCI6MTU0ODI0Nzk0N30.jkGqPaSGRNd_oKrvl5xLblD3S2pS6N4ODk9eeGC3BzY'
+                Cookies.set('ETH.token', TOKEN, {expires: 1 / 24})
+                this.$router.push({name: 'home', query: {tab: 'join'}})
+
+
                 UserApi.login({
                     phone: this.phone,
                     phone_code: this.code,

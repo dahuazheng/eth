@@ -5,13 +5,13 @@
             <span>9999999</span>
         </div>
         <!--<div class="item un-active" v-show="active==='un'">-->
-            <!--<input type="text" placeholder="请指定您的专属邀请昵称" v-model="name">-->
-            <!--<span @click="activateName">激活专属邀请昵称</span>-->
+        <!--<input type="text" placeholder="请指定您的专属邀请昵称" v-model="name">-->
+        <!--<span @click="activateName">激活专属邀请昵称</span>-->
         <!--</div>-->
         <div class="item in-active">
             <label>您的专属邀请码为</label><br>
             <span>
-                {{name}}
+                {{user.invite_code || ''}}
                 <img src="../assets/images/icon_copy.png" @click="copyName">
             </span>
         </div>
@@ -19,36 +19,42 @@
 </template>
 
 <script>
-  import {Toast} from 'mint-ui'
+    import {Toast} from 'mint-ui'
+    import {mapState} from 'vuex'
 
-  export default {
-    data() {
-      return {
-        active: 'un',
-        name: ''
-      }
-    },
-    methods: {
-      activateName() {
-        if (!this.name) {
-          Toast('请输入专属邀请昵称')
-          return
+
+    export default {
+        data() {
+            return {
+                active: 'un',
+            }
+        },
+        computed: {
+            ...mapState({
+                user: state => state.user,
+            })
+        },
+        methods: {
+            activateName() {
+                if (!this.name) {
+                    Toast('请输入专属邀请昵称')
+                    return
+                }
+                this.active = 'in'
+            },
+            copyName() {
+                const input = document.createElement('input')
+                document.body.appendChild(input)
+                input.setAttribute('value', this.user.invite_code)
+                input.select()
+                if (document.execCommand('copy')) {
+                    document.execCommand('copy')
+                }
+                Toast('复制成功')
+                document.body.removeChild(input)
+            }
         }
-        this.active = 'in'
-      },
-      copyName() {
-        const input = document.createElement('input')
-        document.body.appendChild(input)
-        input.setAttribute('value', this.name)
-        input.select()
-        if (document.execCommand('copy')) {
-          document.execCommand('copy')
-        }
-        Toast('复制成功')
-        document.body.removeChild(input)
-      }
     }
-  }
 </script>
 
 <style scoped lang="scss">

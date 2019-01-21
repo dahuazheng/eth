@@ -13,13 +13,13 @@
         mixins: [initMixin],
         watch: {
             $route(to, from) {
-                // this.init()
+                this.init()
             }
         },
         methods: {
             init() {
                 if (!UserApi.isOnline()) {
-                    // this.$router.push({name: 'login'})
+                    this.$router.push({name: 'login'})
                     return
                 }
                 console.log(UserApi.isBindInviter())
@@ -32,7 +32,7 @@
             }
         },
         created() {
-            // this.init()
+            this.init()
         }
     }
 </script>

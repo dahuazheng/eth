@@ -45,6 +45,10 @@
                     return Toast('请输入邀请人昵称')
                 }
 
+                // 临时邀请码
+                Cookies.set('ETH.bind_inviter', 'true', {expires: 1 / 24})
+                this.$router.push({name: 'home'})
+
                 UserApi.bindInviteCode({invite_code: this.inviteCode}).then(res => {
                     if (Number(res.status) === 1) {
                         // console.log(res)

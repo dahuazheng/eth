@@ -54,7 +54,7 @@ instance.interceptors.request.use(config => {
 
 // 拦截响应
 instance.interceptors.response.use(res => {
-    const {headers, data} = res
+    let {headers, data} = res
     const config = res.config
     const apiArr = config.url.substr(config.url.indexOf('://') + 3).split('/')
     apiArr[0] = ''
