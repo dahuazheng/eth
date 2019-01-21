@@ -127,7 +127,7 @@
                 console.log('imageCaptcha', this.imageCaptcha)
                 UserApi.sendSms({
                     phone: this.phone,
-                    phone_prefix: '+' + this.prefix,
+                    phone_prefix: this.prefix, //'86'
                     type: 'login',
                     validate: this.imageCaptcha
                 }).then(res => {
@@ -266,6 +266,8 @@
                 margin: auto;
                 box-sizing: border-box;
                 padding: 7px 0;
+                background: transparent;
+                border: none;
             }
 
             &.phone-box {
