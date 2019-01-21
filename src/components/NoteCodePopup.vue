@@ -52,11 +52,6 @@
                     console.log(res)
                 })
             },
-            handleBalance() {
-                // 处理事件
-
-
-            },
             submit() {
                 if (!this.code) {
                     return Toast('请输入验证码')

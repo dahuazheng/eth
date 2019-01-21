@@ -13,7 +13,7 @@
         mixins: [initMixin],
         watch: {
             $route(to, from) {
-                this.init()
+                // this.init()
             }
         },
         methods: {
@@ -32,7 +32,7 @@
             }
         },
         created() {
-            this.init()
+            // this.init()
         }
     }
 </script>

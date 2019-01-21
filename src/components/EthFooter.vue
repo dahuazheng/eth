@@ -27,17 +27,16 @@
     export default {
         name: 'ethFooter',
         props: ['action'],
-        data() {
-            return {
-                // action: 'home'
-            }
-        },
         methods: {
             handleTab(action) {
                 if (!UserApi.isOnline()) {
                     if (action === 'home') {
-                        //return
+                        return
                     }
+                    if (this.$route.name === 'login') {
+                        Toast('请先登陆')
+                    }
+
                     this.$router.push({name: 'login'})
                 }
 

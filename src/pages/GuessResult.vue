@@ -162,52 +162,43 @@
 
                 span {
                     display: flex;
-                    align-items: flex-start;
+                    align-items: center;
+                    justify-content: center;
                     font-size: $font-little-s;
-                    //padding-top: 3px;
-                    //padding-bottom: 3px;
                     color: $color-black;
-                    //font-weight: 500;
                     text-align: center;
                     padding: 8px 0;
 
-                    &.date{
+                    &.date {
                         width: 20%;
                     }
+
                     &.number {
-                        width: 17%;
-                        text-align: left;
-                        font-size: $font-little-s;
+                        width: 15%;
 
                         &.date-top {
                             text-align: center;
-                            //padding-top: 10px;
                         }
                     }
 
-                    &.date {
-                        padding-left: 10px;
+                    &.award {
+                        width: 15%;
+
                     }
 
-                    &.award,
                     &.player {
-                        width: 16%;
-                    }
-
-                    &.player,
-                    &.number {
-                        transform: translateX(-10%);
+                        width: 25%;
                     }
 
                     &.amount {
-                        width: 20%;
+                        width: 25%;
                     }
                 }
 
                 .row-content {
                     display: flex;
                     flex-direction: column;
-                    width: 80%;
+                    width: 65%;
 
                     .row {
                         display: flex;
