@@ -19,8 +19,8 @@
     name: 'rankBanner',
     data() {
       return {
-          incAmount: '0',
-          ethAmount: '0',
+          incAmount: 0,
+          ethAmount: 0,
           pushCount: 0
       }
     },

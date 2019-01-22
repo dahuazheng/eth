@@ -60,7 +60,7 @@ class RankApi {
                if (res.status !== '1') return
 
                 return data ={
-                    pushCount: res.data && res.data.push_count || ''     // 直推数
+                    pushCount: res.data && res.data.push_count || 0     // 直推数
                 }
             }).catch(err => {
                console.error(err)
@@ -93,8 +93,8 @@ class RankApi {
             .then(res => {
                 if (res.status !== '1') return
                 return list = {
-                    incAmount: res.data && res.data.inc_amount || '',  // inc数量
-                    ethAmount: res.data && res.data.eth_amount || ''   // eth数量
+                    incAmount: res.data && res.data.inc_amount || 0,  // inc数量
+                    ethAmount: res.data && res.data.eth_amount || 0   // eth数量
                 }
 
             }).catch(err => {
