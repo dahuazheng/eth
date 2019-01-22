@@ -66,11 +66,11 @@
                         <th>直推个数</th>
                         <th>结果</th>
                     </tr>
-                    <tr v-for="item in winnerList" :key="item.id">
+                    <tr v-for="(item, key) in winnerList" :key="key">
                         <td>{{ item.date | formatDate }}</td>
                         <td>{{ item.pushCount }}</td>
                         <td>
-                            {{ transformStatus(item.status) }} <br>
+                            {{ transformStatus(item.rank) }} <br>
                             +{{ item.eth }} ETH <br>
                             +{{ item.inc }} INC
                         </td>
@@ -93,8 +93,9 @@
                         <td>{{ item.numTrue }}</td>
                         <td>
                             {{ item.status | transformStatus }} <br>
-                            +{{ item.eth }} ETH <br>
-                            +{{ item.inc }} INC
+                            <small>+{{ item.eth }} ETH</small>
+                            <br>
+                            <small>+{{ item.inc }} INC</small>
                         </td>
                     </tr>
                 </table>
@@ -140,7 +141,7 @@
 
 <script>
     import {mapState} from 'vuex'
-    import RankApi from '../api/rank'
+    import {GuessApi, RankApi} from '../api'
     import moment from 'moment'
     import {ensureMilliseconds} from '../utils'
     import {rewardLevels} from '../utils/options'
@@ -184,6 +185,9 @@
         methods: {
             changeTab(value) {
                 this.action = value
+                this.action === 'push' && this.getPushList()
+                this.action === 'winner' && this.getWinnerList()
+                this.action === 'guess' && this.getMyGuessList()
             },
 
             // 获取直推表数据
@@ -208,11 +212,8 @@
             },
 
             // 获取竞猜数据
-            getGuessList() {
-                RankApi.getMyGuessList({
-                    page: '1',
-                    limit: '20'
-                }).then(res => {
+            getMyGuessList() {
+                GuessApi.getMyGuessList().then(res => {
                     this.guessList = res
                 }).catch(err => {
                     console.error(err)
@@ -222,14 +223,14 @@
             // 我的直推个数
             getMyDayPushCount() {
                 RankApi.getMyDayPushCount().then(res => {
-                    console.log(res)
+                    this.pushCount = res
                 })
             }
         },
         mounted() {
             this.action === 'push' && this.getPushList()
             this.action === 'winner' && this.getWinnerList()
-            this.action === 'guess' && this.getGuessList()
+            this.action === 'guess' && this.getMyGuessList()
             this.getMyDayPushCount()
         }
     }
@@ -446,7 +447,7 @@
                 }
                 &.guess th, &.guess td {
                     box-sizing: border-box;
-                    width: 25%;
+                    //width: 25%;
                 }
             }
         }

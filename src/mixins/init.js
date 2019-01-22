@@ -6,7 +6,7 @@ const initMixin = {
         getInitData() {
             this.$store.dispatch('user/getBalance')
             this.$store.dispatch('user/getInviteCode')
-
+            // this.$store.dispatch('user/getAddress')
         }
     }
 }

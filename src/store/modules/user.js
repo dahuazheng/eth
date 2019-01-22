@@ -26,6 +26,13 @@ const actions = {
         UserApi.getBalance().then(balance => {
             commit('setBalance', balance)
         })
+    },
+    getAddress({commit}) {
+        UserApi.getWalletAddress().then(res => {
+            if (Number(res.status) !== 1) return
+
+            commit('setBalance', res.data.address)
+        })
     }
 }
 
@@ -36,8 +43,12 @@ const mutations = {
         state.invite_code = inviteCode
     },
     setBalance(state, balance) {
-        console.log('balance', balance)
+        // console.log('balance', balance)
         state.balance = balance
+    },
+    setAddress(state, address) {
+        console.log('balance', address)
+        state.address = address
     }
 }
 

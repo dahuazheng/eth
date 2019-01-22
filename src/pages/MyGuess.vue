@@ -16,7 +16,7 @@
                     <td>{{ item.numGuess }}</td>
                     <td>{{ item.numTrue }}</td>
                     <td>
-                        {{ transformStatus(item.status) }} <br>
+                        {{ item.status | transformStatus }} <br>
                         +{{ item.eth }} ETH <br>
                         +{{ item.inc }} INC
                     </td>
@@ -32,6 +32,7 @@
     // import Cookies from 'js-cookie'
     import moment from 'moment'
     import { ensureMilliseconds } from '../utils'
+    import {rewardLevels} from '../utils/options'
 
     export default {
         components: {PopupTitle},
@@ -45,31 +46,16 @@
                 if (!value) return
                 const formatDate = 'YYYY-M-DD'
                 return moment(ensureMilliseconds(value)).format(formatDate)
-            }
+            },
+            // 状态值转换中奖等级
+            transformStatus(value) {
+                const option = rewardLevels.find(reward => reward.value === String(value))
+                return option && option.label || '未中奖'
+            },
         },
         methods: {
             close() {
                 this.$router.push({name: 'home', query: {tab: 'guess'}})
-            },
-
-            // 状态值转换中奖等级
-            transformStatus(val) {
-                switch(val){
-                    case 0:
-                        return '未中奖';
-                    case 1:
-                        return '一等奖';
-                    case 2:
-                        return '二等奖';
-                    case 3:
-                        return '三等奖';
-                    case 4:
-                        return '四等奖';
-                    case 5:
-                        return '五等奖';
-                    default:
-                        return null
-                }
             },
 
             // 请求我的竞猜

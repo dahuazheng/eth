@@ -46,31 +46,46 @@
     </div>
 </template>
 <script>
-  import {Toast} from 'mint-ui'
-  import UserApi from '@/api/user'
+    import {Toast} from 'mint-ui'
+    import {UserApi, OrderApi} from '@/api'
 
-  export default {
-    name: 'banner',
-    data() {
-      return {
-          countDownTime: '12:00:00'
-      }
-    },
-    methods: {
-      toRankingList() {
-        if (!UserApi.isOnline()) {
-          return Toast('请先登录')
+    export default {
+        name: 'banner',
+        data() {
+            return {
+                countDownTime: '12:00:00',
+                startTime: null,
+                endTime: null
+            }
+        },
+        methods: {
+            toRankingList() {
+                if (!UserApi.isOnline()) {
+                    return Toast('请先登录')
+                }
+
+                this.$router.push({name: 'rankingName'})
+            },
+
+            // 游戏时间倒计时
+            getCountDown() {
+
+            },
+
+            getGameTime() {
+                OrderApi.getGameTime().then(res => {
+                    if(Number(res.status) !== 1) return
+                    this.startTime = new Date(Number(res.data && res.data.start_time))
+                    this.endTime = new Date(Number(res.data && res.data.end_time))
+                    console.log(this.startTime)
+                    console.log(this.endTime)
+                })
+            }
+        },
+        mounted() {
+            this.getGameTime()
         }
-
-        this.$router.push({name: 'rankingName'})
-      },
-
-      // 游戏时间倒计时
-      getCountDown() {
-
-      }
     }
-  }
 </script>
 <style lang="scss" scoped>
     @import "../assets/styles/mixin";
