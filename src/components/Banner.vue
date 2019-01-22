@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="time">
-                02:45:00
+                {{countDownTime}}
             </div>
             <div class="message" v-show='false'>
                 <icon name="small-bell" class="icon"></icon>
@@ -52,7 +52,9 @@
   export default {
     name: 'banner',
     data() {
-      return {}
+      return {
+          countDownTime: '12:00:00'
+      }
     },
     methods: {
       toRankingList() {
@@ -61,6 +63,11 @@
         }
 
         this.$router.push({name: 'rankingName'})
+      },
+
+      // 游戏时间倒计时
+      getCountDown() {
+
       }
     }
   }
