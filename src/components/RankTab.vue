@@ -1,24 +1,29 @@
 <template>
     <div id='rank-tab'>
         <div class="rank-tab__header">
-            <span :class="currTab === 'live' && 'active'" @click="checkTab('live')">24H 直推龙虎榜</span> <span :class="currTab === 'history' && 'active'" @click="checkTab('history')">龙虎榜历史</span> <span :class="currTab === 'my-rank' && 'active'" @click="checkTab('my-rank')">我的龙虎榜</span>
+            <span :class="{active: currTab === 'live'}" @click="checkTab('live')">24H 直推龙虎榜</span>
+            <span :class="{active: currTab === 'history'}" @click="checkTab('history')">龙虎榜历史</span>
+            <span :class="{active: currTab === 'my-rank'}" @click="checkTab('my-rank')">我的龙虎榜</span>
         </div>
 
         <div class="rank-tab__body">
             <ul class="live" v-show="currTab === 'live'">
                 <li>
-                    <span class="num">名次</span> <span class="name">昵称</span> <span class="account">奖励总额</span> <span class="per">直推个数/展开</span>
+                    <span class="num">名次</span>
+                    <span class="name">手机号</span>
+                    <span class="account">奖励总额</span>
+                    <span class="per">直推个数/展开</span>
                 </li>
                 <!--以下 同一名次对应多个用户-->
-                <li v-for="(live, liveKey) in liveList.slice(0, 5)" :key="live.rankNum">
-                    <div class="listContainer" v-for="(list, index) in (live.list)" :key='list.id' v-show="index===0 || live.isDrop">
-                        <span class="num">
-                            <span :class="['rank-icon', 'icon-'+ live.rankNum]"></span>
-                        </span> <span :class="['name', 'rank-color','color-' + live.rankNum]">{{ list.phoneNumber | formatPhoneNumber}}</span> <span :class="['account', 'rank-color','color-' + live.rankNum]">{{ list.ethTotal }} <br> {{ live.incTotal }}</span> <span :class="['per', 'rank-color','color-' + live.rankNum]">
-                            <span>{{ list.number }}</span>
-                            <i v-show="live.list.length > 1 && index === 0" class="toggle-arrow" @click="dropList(liveKey)"></i>
-                        </span>
-                    </div>
+                <li v-for="(live, liveKey) in liveList" :key="liveKey" :class="'color-' + liveKey">
+                    <span class="num">
+                        <span class="icon" :class="'icon-' + liveKey"></span>
+                    </span>
+                    <span class="name">{{ live.phone}}</span>
+                    <span class="account">{{ live.order_count }} </span>
+                    <span class="per">
+                        {{ live.push_count }}
+                    </span>
                 </li>
             </ul>
             <ul class="history" v-show="currTab === 'history'">
@@ -60,57 +65,14 @@
 <script>
     import moment from 'moment'
     import {ensureMilliseconds, encodeMobile} from '../utils'
-
-    const liveRankData = [
-        {
-            rankNum: 1,
-            list: [{
-                phoneNumber: '154360898',
-                ethTotal: '0.345 ETH',
-                incTotal: '0.54 INC',
-                number: 4
-            }]
-        },
-        {
-            rankNum: 2,
-            list: [{
-                phoneNumber: '2221254360898',
-                ethTotal: '0.345 ETH',
-                incTotal: '0.54 INC',
-                number: 9
-            }, {
-                phoneNumber: '2154360898',
-                ethTotal: '0.345 ETH',
-                incTotal: '0.54 INC',
-                number: 7
-            }, {
-                phoneNumber: '4154360898',
-                ethTotal: '0.345 ETH',
-                incTotal: '0.54 INC',
-                number: 8
-            }]
-        },
-        {
-            rankNum: 3,
-            list: [{
-                phoneNumber: '0154360898',
-                ethTotal: '0.345 ETH',
-                incTotal: '0.54 INC',
-                number: 2
-            }]
-        }
-    ]
-    const newData = liveRankData.map(item => {
-        item.isDrop = false
-        return item
-    })
+    import {RankApi} from '../api'
 
     export default {
         name: 'rank-tab',
         data() {
             return {
                 currTab: 'live',
-                liveList: newData,
+                liveList: [{}, {}, {}, {}, {}],
                 historyList: [
                     {
                         date: 1547478015,
@@ -219,7 +181,20 @@
 
             dropList(key) {
                 this.liveList[key].isDrop = !this.liveList[key].isDrop
+            },
+
+            getPushList(query) {
+                RankApi.getPushList(query).then(res => {
+                    if (String(res.status) !== '1') {
+                        return
+                    }
+                    console.log(res)
+                    this.liveList = res.data.list
+                })
             }
+        },
+        mounted() {
+            this.getPushList({page: 1, limit: 20})
         }
     }
 </script>
@@ -265,120 +240,82 @@
                     li {
                         display: flex;
                         align-items: center;
-                        flex-direction: column;
+                        flex-direction: row;
+                        justify-content: space-around;
+                        border-bottom: 1px solid $border-color;
 
-                        &:first-child {
-                            flex-direction: row;
-                            background-color: #f5f5f5;
-                            color: #b1b2b0;
-                            border-bottom-color: transparent;
+                        .icon {
+                            @include px2rem('width', 30);
+                            @include px2rem('height', 30);
+                            display: inline-block;
+                            background-size: 100% 100%;
+                            padding: 0;
 
-                            span:nth-child(3) {
-                                text-align: left;
+                            &.icon-0 {
+                                background-image: url('../assets/images/icon_one.png');
                             }
-                        }
 
-                        .listContainer {
-                            display: flex;
-                            flex-direction: row;
-                            width: 100%;
-                            padding: 8px 0;
-                            border-bottom: 1px solid $border-bottom-color;
+                            &.icon-1 {
+                                background-image: url('../assets/images/icon_two.png');
+                            }
+
+                            &.icon-2 {
+                                background-image: url('../assets/images/icon_three.png');
+                            }
+
+                            &.icon-3 {
+                                background-image: url('../assets/images/icon_four.png');
+                            }
+
+                            &.icon-4 {
+                                background-image: url('../assets/images/icon_five.png');
+                            }
                         }
 
                         span {
                             position: relative;
                             font-size: $font-little;
                             padding: 8px 0;
+                            box-sizing: border-box;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
 
-                            &:first-child {
-                                @include px2rem('width', 55);
-                                padding-left: $common-list-padding;
+                            &.num {
+                                width: 20%;
                             }
 
-                            &:nth-child(3) {
-                                text-align: left;
-                            }
-
-                            &:last-child {
-                                text-align: center;
-                                padding-right: $common-list-padding;
-                            }
-
-                            &.name,
-                            &.account {
+                            &.name {
                                 width: 30%;
                             }
 
+                            &.account {
+                                width: 20%;
+                            }
+
                             &.per {
-                                display: inline-flex;
-                                flex-direction: column;
-                                align-items: center;
-                                width: 26%;
-
-                                span {
-                                    padding: 0;
-                                }
-
-                                .toggle-arrow {
-                                    position: absolute;
-                                    bottom: -12px;
-                                    display: inline-block;
-                                    border-top: 10px solid #ccc;
-                                    border-bottom: 10px solid transparent;
-                                    border-left: 9px solid transparent;
-                                    border-right: 9px solid transparent;
-                                }
+                                width: 30%;
                             }
+                        }
 
-                            .rank-icon {
-                                // display: inline-block;
-                                @include px2rem('width', 30);
-                                @include px2rem('height', 30);
-                                background-size: 100% 100%;
+                        &.color-0 {
+                            color: #daa032;
+                        }
 
-                                &.icon-1 {
-                                    background-image: url('../assets/images/icon_one.png');
-                                }
+                        &.color-1 {
+                            color: #b6babd;
+                        }
 
-                                &.icon-2 {
-                                    background-image: url('../assets/images/icon_two.png');
-                                }
+                        &.color-2 {
+                            color: #c59567;
+                        }
 
-                                &.icon-3 {
-                                    background-image: url('../assets/images/icon_three.png');
-                                }
+                        &.color-3 {
+                            color: #d0b791;
+                        }
 
-                                &.icon-4 {
-                                    background-image: url('../assets/images/icon_four.png');
-                                }
-
-                                &.icon-5 {
-                                    background-image: url('../assets/images/icon_five.png');
-                                }
-                            }
-
-                            &.rank-color {
-                                &.color-1 {
-                                    color: #daa032;
-                                }
-
-                                &.color-2 {
-                                    color: #b6babd;
-                                }
-
-                                &.color-3 {
-                                    color: #c59567;
-                                }
-
-                                &.color-4 {
-                                    color: #d0b791;
-                                }
-
-                                &.color-5 {
-                                    color: #d0b791;
-                                }
-                            }
+                        &.color-4 {
+                            color: #d0b791;
                         }
                     }
                 }

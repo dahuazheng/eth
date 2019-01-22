@@ -87,7 +87,7 @@
                         <th>中奖数字</th>
                         <th>结果</th>
                     </tr>
-                    <tr v-for="item in myAwardList" :key="item.id">
+                    <tr v-for="item in guessList" :key="item.id">
                         <td>
                             {{ item.addTime | formatDate}}
                         </td>
@@ -145,7 +145,6 @@
     import RankApi from '../api/rank'
     import moment from 'moment'
     import { ensureMilliseconds } from '../utils'
-
 
     export default {
         name: 'userCenter',

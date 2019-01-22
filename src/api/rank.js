@@ -5,6 +5,32 @@ class RankApi {
 
     // 直推表
     static getPushList(query) {
+        const data =  {
+            "status": "1",
+            "msg": "",
+            "data": {
+                "list": [
+                    {
+                        "children": "101244",
+                        "order_count": "0",
+                        "push_count": "0",
+                        "phone": "137****901",
+                        "level": "1"
+                    },
+                    {
+                        "children": "101245",
+                        "order_count": "0",
+                        "push_count": "0",
+                        "phone": "137****902",
+                        "level": "1"
+                    }
+                ],
+                "count": 2
+            }
+        }
+
+        return Promise.resolve(data)
+
         return Requester.get(config.apiDomain + 'push_list', query)
             .then(res => {
                 if (res.status !== '1') return
@@ -23,12 +49,12 @@ class RankApi {
     }
 
     // 龙虎榜历史
-    static getDayPushHistory(query){
+    static getDayPushHistory(query) {
         return Requester.get(config.apiDomain + 'day_push_history', query)
     }
 
     // 我的今日直推
-    static getMyDayPushCount(query){
+    static getMyDayPushCount(query) {
         return Requester.get(config.apiDomain + 'my_day_push_count', query)
             .then(res => {
                if (res.status !== '1') return
@@ -62,7 +88,7 @@ class RankApi {
     }
 
     // 直推龙虎榜奖池
-    static getDayPushBonus(query){
+    static getDayPushBonus(query) {
         return Requester.get(config.apiDomain + 'day_push_bonus', query)
             .then(res => {
                 if (res.status !== '1') return
