@@ -5,7 +5,7 @@ class RankApi {
 
     // 直推表
     static getPushList(query) {
-        const data =  {
+        const data = {
             "status": "1",
             "msg": "",
             "data": {
@@ -57,13 +57,13 @@ class RankApi {
     static getMyDayPushCount(query) {
         return Requester.get(config.apiDomain + 'my_day_push_count', query)
             .then(res => {
-               if (res.status !== '1') return
+                if (res.status !== '1') return
 
-                return data ={
+                return data = {
                     pushCount: res.data && res.data.push_count || 0     // 直推数
                 }
             }).catch(err => {
-               console.error(err)
+                console.error(err)
             })
     }
 

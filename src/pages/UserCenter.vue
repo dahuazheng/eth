@@ -11,7 +11,7 @@
                     <label>专属昵称</label>
                     <span>{{user.invite_code || ''}}</span>
                 </div>
-                <p>0x8923kjKJhkjh9879827ufiywiyri2987yhiu</p>
+                <p>{{user.address}}</p>
             </div>
             <ul>
                 <li>
@@ -23,13 +23,13 @@
                     </label>
                 </li>
                 <li>
-                    <span>0</span>
+                    <span>{{joinCount}}</span>
                     <label>
                         参与次数
                     </label>
                 </li>
                 <li>
-                    <span>0</span>
+                    <span>{{pushCount}}</span>
                     <label>
                         直推个数
                     </label>
@@ -49,13 +49,11 @@
                 <table class="push">
                     <tr>
                         <th>昵称</th>
-                        <!--<th>钱包地址</th>-->
                         <th>参与次数</th>
                         <th>直推个数</th>
                     </tr>
                     <tr v-for="item in pushList" :key="item.id">
                         <td>{{ item.phone }}</td>
-                        <!--<td>0x8923kjKJhkjh9879827ufiywiyri2987yhiu</td>-->
                         <td>{{ item.orderCount }}</td>
                         <td>{{ item.pushCount }}</td>
                     </tr>
@@ -94,7 +92,7 @@
                         <td>{{ item.numGuess }}</td>
                         <td>{{ item.numTrue }}</td>
                         <td>
-                            {{ transformStatus(item.status) }} <br>
+                            {{ item.status | transformStatus }} <br>
                             +{{ item.eth }} ETH <br>
                             +{{ item.inc }} INC
                         </td>
@@ -144,7 +142,8 @@
     import {mapState} from 'vuex'
     import RankApi from '../api/rank'
     import moment from 'moment'
-    import { ensureMilliseconds } from '../utils'
+    import {ensureMilliseconds} from '../utils'
+    import {rewardLevels} from '../utils/options'
 
     export default {
         name: 'userCenter',
@@ -152,6 +151,8 @@
             return {
                 showAwardDetail: false,
                 action: 'push',
+                joinCount: 0,
+                pushCount: 0,
                 tabs: [
                     {label: '直推表', value: 'push'},
                     {label: '龙虎榜', value: 'winner'},
@@ -167,7 +168,13 @@
                 if (!value) return
                 const formatDate = 'YYYY-MM-DD'
                 return moment(ensureMilliseconds(value)).format(formatDate)
-            }
+            },
+
+            // 状态值转换中奖等级
+            transformStatus(value) {
+                const option = rewardLevels.find(reward => reward.value === String(value))
+                return option && option.label || '未中奖'
+            },
         },
         computed: {
             ...mapState({
@@ -177,26 +184,6 @@
         methods: {
             changeTab(value) {
                 this.action = value
-            },
-
-            // 状态值转换中奖等级
-            transformStatus(val) {
-                switch(val){
-                    case 0:
-                        return '未中奖';
-                    case 1:
-                        return '一等奖';
-                    case 2:
-                        return '二等奖';
-                    case 3:
-                        return '三等奖';
-                    case 4:
-                        return '四等奖';
-                    case 5:
-                        return '五等奖';
-                    default:
-                        return null
-                }
             },
 
             // 获取直推表数据
@@ -230,12 +217,20 @@
                 }).catch(err => {
                     console.error(err)
                 })
+            },
+
+            // 我的直推个数
+            getMyDayPushCount() {
+                RankApi.getMyDayPushCount().then(res => {
+                    console.log(res)
+                })
             }
         },
         mounted() {
             this.action === 'push' && this.getPushList()
             this.action === 'winner' && this.getWinnerList()
             this.action === 'guess' && this.getGuessList()
+            this.getMyDayPushCount()
         }
     }
 </script>

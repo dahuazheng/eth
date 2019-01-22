@@ -31,7 +31,8 @@
     import PopupTitle from '../components/PopupTitle'
     import moment from 'moment'
     import {GuessApi} from '../api'
-    import {ensureMilliseconds, encodeMobile} from "../utils"
+    import {ensureMilliseconds, encodeMobile} from '../utils'
+    import {rewardLevels} from '../utils/options'
 
     export default {
         components: {PopupTitle},
@@ -53,23 +54,9 @@
             },
 
             // 状态值转换中奖等级
-            transformStatus(val) {
-                switch(val){
-                    case 0:
-                        return '未中奖';
-                    case 1:
-                        return '一等奖';
-                    case 2:
-                        return '二等奖';
-                    case 3:
-                        return '三等奖';
-                    case 4:
-                        return '四等奖';
-                    case 5:
-                        return '五等奖';
-                    default:
-                        return null
-                }
+            transformStatus(value) {
+                const option = rewardLevels.find(reward => reward.value === String(value))
+                return option && option.label || '未中奖'
             },
         },
         methods: {
