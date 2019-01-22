@@ -29,7 +29,7 @@ class RankApi {
             }
         }
 
-        return Promise.resolve(data)
+        // return Promise.resolve(data)
 
         return Requester.get(config.apiDomain + 'push_list', query)
             .then(res => {

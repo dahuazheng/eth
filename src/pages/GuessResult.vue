@@ -16,7 +16,7 @@
 
                     <div class="row-content">
                         <div class="row" v-for="(item, key) in history.list" :key="key">
-                            <span class="award">{{item.status}}</span>
+                            <span class="award">{{item.status | transformStatus}}</span>
                             <span class="player">{{item.phone }}</span>
                             <span class="amount text-green">+{{item.eth}}<br> +{{ item.inc }}</span>
                         </div>
@@ -37,69 +37,7 @@
         components: {PopupTitle},
         data() {
             return {
-                historyList: [
-                    {
-                        time: 1547478015,
-                        awardNumber: 2,
-                        contents: [
-                            {
-                                awardNo: '一等奖',
-                                playerPhone: '1395673975',
-                                ethAmount: 0.65,
-                                incAmount: 0.65
-                            }, {
-                                awardNo: '二等奖',
-                                playerPhone: '1395673975',
-                                ethAmount: 0.65,
-                                incAmount: 0.65,
-                            }, {
-                                awardNo: '三等奖',
-                                playerPhone: '1395673975',
-                                ethAmount: 0.65,
-                                incAmount: 0.65,
-                            }, {
-                                awardNo: '四等奖',
-                                player: '1395673975',
-                                ethAmount: 0.65,
-                                incAmount: 0.65,
-                            }]
-                    },
-                    {
-                        time: 1547478229,
-                        awardNumber: 3,
-                        contents: [
-                            {
-                                awardNo: '一等奖',
-                                playerPhone: '1395673975',
-                                ethAmount: 0.65,
-                                incAmount: 0.65
-                            },
-                            {
-                                awardNo: '二等奖',
-                                playerPhone: '1395673975',
-                                ethAmount: 0.65,
-                                incAmount: 0.65,
-                            },
-                            {
-                                awardNo: '三等奖',
-                                playerPhone: '1395673975',
-                                ethAmount: 0.65,
-                                incAmount: 0.65,
-                            },
-                            {
-                                awardNo: '四等奖',
-                                playerPhone: '1395673975',
-                                ethAmount: 0.65,
-                                incAmount: 0.65,
-                            },
-                            {
-                                award: '五等奖',
-                                playerPhone: '71395673975',
-                                ethAmount: 0.65,
-                                incAmount: 0.65,
-                            }]
-                    }
-                ],
+                historyList: [],
             }
         },
         filters: {
@@ -112,7 +50,27 @@
             formatPhoneNumber(val) {
                 if (!val) return
                 return encodeMobile(val)
-            }
+            },
+
+            // 状态值转换中奖等级
+            transformStatus(val) {
+                switch(val){
+                    case 0:
+                        return '未中奖';
+                    case 1:
+                        return '一等奖';
+                    case 2:
+                        return '二等奖';
+                    case 3:
+                        return '三等奖';
+                    case 4:
+                        return '四等奖';
+                    case 5:
+                        return '五等奖';
+                    default:
+                        return null
+                }
+            },
         },
         methods: {
             close() {

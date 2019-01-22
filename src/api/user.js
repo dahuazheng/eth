@@ -12,11 +12,6 @@ class UserApi {
         // phone: 18368095040
         // phone_code: 123456
 
-        /*return Promise.resolve({
-            token: 'token' + query.phone,
-            token_password: 'token_password' + query.phone_code
-        })*/
-
         return Requester.post(config.apiDomain + 'login', query)
     }
 
@@ -59,6 +54,11 @@ class UserApi {
     // 查看是否绑定邀请码
     static checkInviteBind() {
         return Requester.get(config.apiDomain + 'check_invite_bind')
+    }
+
+    // 用户钱包地址
+    static getWalletAddress() {
+        return Requester.get(config.apiDomain + 'newpay_get_address')
     }
 
     static getBalance() {

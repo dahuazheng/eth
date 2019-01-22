@@ -19,7 +19,6 @@
     import {UserApi, OrderApi} from '@/api'
     import {isValidSmsAuthCode} from '@/utils'
 
-
     export default {
         components: {PopupTitle},
         props: ['show', 'close'],
@@ -27,7 +26,6 @@
             return {
                 smsLabel: '获取验证码',
                 count: 15,
-                phone: '18368095040',
                 code: null,
             }
         },
@@ -59,9 +57,10 @@
                 if (!isValidSmsAuthCode(this.code)) {
                     return Toast('验证码错误')
                 }
-                console.log(222)
+                console.log(this.code)
 
                 OrderApi.createOrder({phone_code: String(this.code)}).then(res => {
+                    if(res.status  === '-1') Toast('验证码错误，请重试')
                     console.log(res)
                 })
                 //this.close()

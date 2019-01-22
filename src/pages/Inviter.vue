@@ -46,8 +46,8 @@
                 }
 
                 // 临时邀请码
-                Cookies.set('ETH.bind_inviter', 'true', {expires: 1 / 24})
-                this.$router.push({name: 'home'})
+                // Cookies.set('ETH.bind_inviter', 'true', {expires: 1 / 24})
+                // this.$router.push({name: 'home'})
 
                 UserApi.bindInviteCode({invite_code: this.inviteCode}).then(res => {
                     if (Number(res.status) === 1) {

@@ -7,7 +7,7 @@ class OrderApi {
     // 投注
     static createOrder(query) {
         // code
-        return Requester.post(config.apiDomain + 'create_order',query)
+        return Requester.post(config.apiDomain + 'create_order', query)
     }
 
     // 历史投注
@@ -16,6 +16,11 @@ class OrderApi {
         // limit
 
         return Requester.get(config.apiDomain + 'order_list', query)
+    }
+
+    // 游戏开始及结束时间
+    static getGameTime() {
+        return Requester.get(config.apiDomain + 'game_end_time')
     }
 
 }
