@@ -67,7 +67,7 @@
             checkInviteBind() {
                 UserApi.checkInviteBind().then(res => {
                     console.log(res)
-                    if (Number(res.status === 1) && Number(res.data.is_bind) === -1) {
+                    if (Number(res.status) === 1 && Number(res.data.is_bind) === 1) {
                         Cookies.set('ETH.bind_inviter', 'true', {expires: 1 / 24})
                         this.$router.push({name: 'home', query: {tab: 'join'}})
                     } else {
