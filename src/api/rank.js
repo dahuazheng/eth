@@ -5,7 +5,7 @@ class RankApi {
 
     // 直推表
     static getPushList(query) {
-        const data =  {
+        const data = {
             "status": "1",
             "msg": "",
             "data": {
@@ -57,19 +57,17 @@ class RankApi {
     static getMyDayPushCount(query) {
         return Requester.get(config.apiDomain + 'my_day_push_count', query)
             .then(res => {
-               if (res.status !== '1') return
+                if (res.status !== '1') return 0
 
-                return data ={
-                    pushCount: res.data && res.data.push_count || 0     // 直推数
-                }
+                return res.data && res.data.push_count || 0     // 直推数
             }).catch(err => {
-               console.error(err)
+                console.error(err)
             })
     }
 
-    // 我的龙虎榜  （待修正地址）
+    // 我的龙虎榜
     static getWinnerList(query) {
-        return Requester.get(config.apiDomain + 'my_day_push_count', query)
+        return Requester.get(config.apiDomain + 'my_day_push', query)
             .then(res => {
                 if (res.status !== '1') return
 
@@ -77,7 +75,7 @@ class RankApi {
                     date: n.date || '',                    // 日期
                     eth: n.eth || '',                      // 奖励的eth
                     inc: n.inc || '',                      // 奖励的inc
-                    status: n.status || '',                // 中奖状态：0为未中奖,1-5为中奖等级
+                    rank: n.rank || '',                // 中奖状态：0为未中奖,1-5为中奖等级
                     pushCount: n.push_count || '',         // 直推个数
                 }))
 
@@ -92,7 +90,7 @@ class RankApi {
         return Requester.get(config.apiDomain + 'day_push_bonus', query)
             .then(res => {
                 if (res.status !== '1') return
-                return list = {
+                return  {
                     incAmount: res.data && res.data.inc_amount || 0,  // inc数量
                     ethAmount: res.data && res.data.eth_amount || 0   // eth数量
                 }

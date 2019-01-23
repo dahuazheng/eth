@@ -60,6 +60,7 @@
                         if (res.status < 0) return
 
                         this.guessStatus = res.status
+                        this.getMyAward()
                     })
                     .catch(err => {
                         console.error(err)
@@ -68,8 +69,12 @@
 
             // 获取本次竞猜数字
             getMyAward() {
+                console.log(this.guessStatus)
+
+                if (Number(this.guessStatus) !== 2) return
                 GuessApi.getMyGuessList().then(res => {
-                    this.guessValue = res.length && res[res.length - 1].numTrue
+                    console.log('res',res)
+                    this.guessValue = res.length && res[0].numGuess
                 }).catch(err => {
                     console.error(err)
                 })
@@ -90,12 +95,12 @@
                     }
 
                     this.guessStatus = res.status
+                    this.getMyAward()
                 }).catch(err => console.error(err))
             },
         },
         mounted() {
             this.getGuessStatus()
-            this.getMyAward()
         }
     }
 </script>
