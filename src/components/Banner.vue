@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="time">
-                {{countDownTime}}
+                {{endCountDown | displayCountDown}}
             </div>
             <div class="message" v-show='false'>
                 <icon name="small-bell" class="icon"></icon>
@@ -47,16 +47,14 @@
 </template>
 <script>
     import {Toast} from 'mint-ui'
-    import {UserApi, OrderApi} from '@/api'
+    import {UserApi} from '../api'
+    import {countDownMixin} from '../mixins'
 
     export default {
         name: 'banner',
+        mixins: [countDownMixin],
         data() {
-            return {
-                countDownTime: '12:00:00',
-                startTime: null,
-                endTime: null
-            }
+            return {}
         },
         methods: {
             toRankingList() {
@@ -66,24 +64,6 @@
 
                 this.$router.push({name: 'rankingName'})
             },
-
-            // 游戏时间倒计时
-            getCountDown() {
-
-            },
-
-            getGameTime() {
-                OrderApi.getGameTime().then(res => {
-                    if(Number(res.status) !== 1) return
-                    this.startTime = new Date(Number(res.data && res.data.start_time))
-                    this.endTime = new Date(Number(res.data && res.data.end_time))
-                    console.log(this.startTime)
-                    console.log(this.endTime)
-                })
-            }
-        },
-        mounted() {
-            this.getGameTime()
         }
     }
 </script>
