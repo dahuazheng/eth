@@ -6,7 +6,7 @@
         </div>
         <p>
             <span @click="toHistory">参与历史</span>
-            <small>我的累积参与：0次</small>
+            <small>我的累积参与：{{joinCount}}次</small>
             <small>钱包余额：{{balance.ETH}} ETH</small>
         </p>
     </div>
@@ -14,9 +14,15 @@
 
 <script>
     import {Toast} from 'mint-ui'
+    import {OrderApi} from "../api"
 
     export default {
         props: ['open', 'balance'],
+        data(){
+            return {
+                joinCount: 0
+            }
+        },
         methods: {
             toHistory(){
                 this.$router.push({name: 'joinHistory'})
@@ -29,8 +35,17 @@
                 }
 
                 this.open()
-                this.$router.push({name: 'home'})
-            }
+            },
+            getOrderList() {
+                OrderApi.getOrderList({page: '1', limit: '1'}).then(res => {
+                    this.joinCount = res.data && res.data.count
+                }).catch(err => {
+                    console.error(err)
+                })
+            },
+        },
+        mounted(){
+            this.getOrderList()
         }
     }
 </script>

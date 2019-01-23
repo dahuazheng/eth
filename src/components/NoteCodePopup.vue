@@ -3,7 +3,7 @@
         <div class="popup" @click.stop>
             <PopupTitle title="短信验证" :back="close"/>
             <div class="input-box">
-                <input type="number" placeholder="请输入验证码" v-model.trim="code">
+                <input type="number" placeholder="请输入验证码" v-model="code">
                 <button :disabled="count < 15" @click="getSmsCode">{{smsLabel}}</button>
             </div>
             <div class="btn-box">
@@ -44,7 +44,6 @@
                 }, 1000)
             },
             getSmsCode() {
-
                 this.countDown()
                 UserApi.sendUserSms({type: 'order'}).then(res => {
                     console.log(res)
@@ -59,9 +58,10 @@
                 }
 
                 OrderApi.createOrder({phone_code: String(this.code)}).then(res => {
-                    if(String(res.status)  === '-1') Toast('验证码错误，请重试')
-                    if(String(res.status)  === '1') {
+                    if (String(res.status) === '-1') Toast('验证码错误，请重试')
+                    if (String(res.status) === '1') {
                         Toast('参与成功')
+                        this.code = null
                         this.close()
                     }
                 }).catch(err => {

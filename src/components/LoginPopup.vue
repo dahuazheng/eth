@@ -10,11 +10,11 @@
                 +{{prefix}}
                 <icon name="down"></icon>
             </label>
-            <input type="text" v-model.trim="phone">
+            <input type="text" v-model="phone">
             <span class="delete" @click="phone=''">×</span>
         </div>
         <div class="row">
-            <input type="number" v-model.trim="code" placeholder="验证码">
+            <input type="number" v-model="code" placeholder="验证码">
             <button id="btn-get-captcha" :disabled="count < 15" @click="onBtnCaptchaClick">{{smsLabel}}</button>
         </div>
         <div class="btn-box">
@@ -155,6 +155,8 @@
             },
 
             login() {
+                console.log(this.prefix)
+
                 if (!this.phone) {
                     return Toast('请输入手机号码')
                 }
@@ -172,7 +174,6 @@
                 // const TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTAxMjQzIiwidG9rZW5fdmVyc2lvbiI6IlBKb3hPTDIxZGx4OW42VTQwOSIsImV4cCI6MTU0ODI0Nzk0N30.jkGqPaSGRNd_oKrvl5xLblD3S2pS6N4ODk9eeGC3BzY'
                 // Cookies.set('ETH.token', TOKEN, {expires: 1 / 24})
                 // this.$router.push({name: 'home', query: {tab: 'join'}})
-
 
                 UserApi.login({
                     phone: this.phone,

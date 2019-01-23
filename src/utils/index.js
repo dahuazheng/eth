@@ -1,4 +1,4 @@
-import { REG, CAPTCHA_ID } from './constants'
+import {REG, CAPTCHA_ID} from './constants'
 import Cookies from 'js-cookie'
 
 /**
@@ -77,7 +77,7 @@ export const isValidSmsAuthCode = (str = '') => REG.SMS_AUTH.test(str)
  * @returns {number} 10 位时间戳
  */
 export const ensureSeconds = (num = 0) => {
-  return Number(String(num).substr(0, 10))
+    return Number(String(num).substr(0, 10))
 }
 
 /**
@@ -86,7 +86,7 @@ export const ensureSeconds = (num = 0) => {
  * @returns {number} 13 位时间戳
  */
 export const ensureMilliseconds = (num = 0) => {
-  return Number(String(num).padEnd(13, 0).substr(0, 13))
+    return Number(String(num).padEnd(13, 0).substr(0, 13))
 }
 
 /**
@@ -96,11 +96,11 @@ export const ensureMilliseconds = (num = 0) => {
  * @returns {string} 过滤后的字符串
  */
 export const xssFilter = (str = '') => {
-  return str.toString()
-    .replace(/<script>/gi, '&lt;script&gt;')
-    .replace(/<\/script>/gi, '&lt;/script&gt;')
-    .replace(/<iframe>/gi, '&lt;iframe&gt;')
-    .replace(/<\/iframe>/gi, '&lt;/iframe&gt;')
+    return str.toString()
+        .replace(/<script>/gi, '&lt;script&gt;')
+        .replace(/<\/script>/gi, '&lt;/script&gt;')
+        .replace(/<iframe>/gi, '&lt;iframe&gt;')
+        .replace(/<\/iframe>/gi, '&lt;/iframe&gt;')
 }
 
 /**
@@ -109,32 +109,32 @@ export const xssFilter = (str = '') => {
  * @returns {string} 格式化后的数字
  */
 export const _handleScientificNotation = (number = 0) => {
-  const numStr = number.toString()
-  if (Number.isNaN(number)) return numStr
-  if (!numStr.includes('e')) return numStr
+    const numStr = number.toString()
+    if (Number.isNaN(number)) return numStr
+    if (!numStr.includes('e')) return numStr
 
-  const params = numStr.split('e')
+    const params = numStr.split('e')
 
-  const meta = {
-    coefficient: params[0], // coefficient 系数
-    integer: params[0].split('.')[0], // integer 整数部分
-    decimal: params[0].split('.')[1] || '', // decimal 小数部分
-    exponent: params[1].substr(1), // exponent 指数
-    sign: params[1].substr(0, 1) // sign 符号
-  }
-
-  let result = ''
-  if (meta.sign === '-') {
-    result = `0.${''.padEnd(Number(meta.exponent) - 1, '0')}${meta.integer}${meta.decimal || ''}`
-  } else {
-    const offset = Number(meta.exponent) - meta.decimal.length
-    if (offset) {
-      result = `${meta.integer}${meta.decimal}${''.padEnd(offset, '0')}`
-    } else {
-      result = `${meta.integer}${meta.decimal.substr(0, meta.exponent)}.${meta.decimalsubstr(meta.exponent)}`
+    const meta = {
+        coefficient: params[0], // coefficient 系数
+        integer: params[0].split('.')[0], // integer 整数部分
+        decimal: params[0].split('.')[1] || '', // decimal 小数部分
+        exponent: params[1].substr(1), // exponent 指数
+        sign: params[1].substr(0, 1) // sign 符号
     }
-  }
-  return result
+
+    let result = ''
+    if (meta.sign === '-') {
+        result = `0.${''.padEnd(Number(meta.exponent) - 1, '0')}${meta.integer}${meta.decimal || ''}`
+    } else {
+        const offset = Number(meta.exponent) - meta.decimal.length
+        if (offset) {
+            result = `${meta.integer}${meta.decimal}${''.padEnd(offset, '0')}`
+        } else {
+            result = `${meta.integer}${meta.decimal.substr(0, meta.exponent)}.${meta.decimalsubstr(meta.exponent)}`
+        }
+    }
+    return result
 }
 
 export const handleScientificNotation = _handleScientificNotation
@@ -148,20 +148,20 @@ export const handleSN = _handleScientificNotation // short-hand naming
  * @returns {string} 格式化后的字符串
  */
 export const limitDecimal = (number = 0, decimalMax = 0, rounding = false) => {
-  // Handle undefined & null
-  if (number === undefined || number === null) return ''
+    // Handle undefined & null
+    if (number === undefined || number === null) return ''
 
-  number = Number(number)
-  // Handle NaN
-  if (Number.isNaN(number)) return ''
-  // Handle Integer
-  if (Number.isInteger(number)) return number.toString()
+    number = Number(number)
+    // Handle NaN
+    if (Number.isNaN(number)) return ''
+    // Handle Integer
+    if (Number.isInteger(number)) return number.toString()
 
-  // Handle Decimal
-  const arr = (rounding ? number.toFixed(decimalMax) : number.toString()).split('.')
-  const [integer = '', decimal = ''] = arr
-  const trimedDecimal = decimal.replace(/0*$/g, '').substr(0, decimalMax)
-  return integer + (trimedDecimal ? '.' + trimedDecimal : '')
+    // Handle Decimal
+    const arr = (rounding ? number.toFixed(decimalMax) : number.toString()).split('.')
+    const [integer = '', decimal = ''] = arr
+    const trimedDecimal = decimal.replace(/0*$/g, '').substr(0, decimalMax)
+    return integer + (trimedDecimal ? '.' + trimedDecimal : '')
 }
 
 /**
@@ -171,16 +171,16 @@ export const limitDecimal = (number = 0, decimalMax = 0, rounding = false) => {
  * @returns {string} 格式化后的字符串
  */
 export const _toFixedWithoutRounding = (number = 0, limit = 0) => {
-  // Handle undefined & null
-  if (number === undefined || number === null) return ''
-  // Handle NaN
-  if (Number.isNaN(number)) return ''
+    // Handle undefined & null
+    if (number === undefined || number === null) return ''
+    // Handle NaN
+    if (Number.isNaN(number)) return ''
 
-  // Handle Decimal
-  const arr = number.toString().split('.')
-  const [integer = '', decimal = ''] = arr
-  const trimedDecimal = decimal.substr(0, limit).padEnd(limit, '0')
-  return integer + (trimedDecimal ? '.' + trimedDecimal : '')
+    // Handle Decimal
+    const arr = number.toString().split('.')
+    const [integer = '', decimal = ''] = arr
+    const trimedDecimal = decimal.substr(0, limit).padEnd(limit, '0')
+    return integer + (trimedDecimal ? '.' + trimedDecimal : '')
 }
 
 export const toFixedWithoutRounding = _toFixedWithoutRounding
@@ -193,7 +193,7 @@ export const toFixed = _toFixedWithoutRounding // short-hand naming
  * @returns {string} 格式化后的字符串
  */
 export const formatDecimal = (number = 0, limit = 0) => {
-  return _toFixedWithoutRounding(_handleScientificNotation(number), limit)
+    return _toFixedWithoutRounding(_handleScientificNotation(number), limit)
 }
 
 /**
@@ -208,60 +208,60 @@ export const encodeMobile = str => `${str.substr(0, 3)}****${str.substr(-4)}`
  * @param {object} config 验证码配置对象
  */
 export const initNECaptcha = (config = {}) => {
-  if (!window.initNECaptcha) return
-  window.initNECaptcha(
-    {
-      captchaId: config.captchaId || CAPTCHA_ID,
-      element: config.element || '',
-      mode: config.mode || 'popup',
-      width: config.width || 280,
-      // lang: config.lang === 'zh-CN' ? 'zh-CN' : 'en',
-      onReady: instance => {
-        // 验证码一切准备就绪，此时可正常使用验证码的相关功能
-        if (config.debug) {
-          console.log('[NECaptcha] onReady')
-        }
-        config.onReady &&
-        typeof config.onReady === 'function' &&
-        config.onReady(instance)
-      },
-      onVerify: (err, data) => {
-        // 验证结果
-        if (config.debug) {
-          console.log('[NECaptcha] onVerify', data.validate)
-        }
-        if (err && config.debug) {
-          console.error(err)
-          return
-        }
+    if (!window.initNECaptcha) return
+    window.initNECaptcha(
+        {
+            captchaId: config.captchaId || CAPTCHA_ID,
+            element: config.element || '',
+            mode: config.mode || 'popup',
+            width: config.width || 280,
+            // lang: config.lang === 'zh-CN' ? 'zh-CN' : 'en',
+            onReady: instance => {
+                // 验证码一切准备就绪，此时可正常使用验证码的相关功能
+                if (config.debug) {
+                    console.log('[NECaptcha] onReady')
+                }
+                config.onReady &&
+                typeof config.onReady === 'function' &&
+                config.onReady(instance)
+            },
+            onVerify: (err, data) => {
+                // 验证结果
+                if (config.debug) {
+                    console.log('[NECaptcha] onVerify', data.validate)
+                }
+                if (err && config.debug) {
+                    console.error(err)
+                    return
+                }
 
-        config.onVerify &&
-        typeof config.onVerify === 'function' &&
-        config.onVerify(data)
-      }
-    },
-    instance => {
-      // 初始化成功
-      if (config.debug) {
-        console.log('[NECaptcha] Initialized')
-        console.log('[NECaptcha] instance', instance)
-      }
-      instance.popUp()
+                config.onVerify &&
+                typeof config.onVerify === 'function' &&
+                config.onVerify(data)
+            }
+        },
+        instance => {
+            // 初始化成功
+            if (config.debug) {
+                console.log('[NECaptcha] Initialized')
+                console.log('[NECaptcha] instance', instance)
+            }
+            instance.popUp()
 
-      config.onLoad &&
-      typeof config.onLoad === 'function' &&
-      config.onLoad(instance)
-    },
-    err => {
-      // 初始化失败
-      if (config.debug) {
-        console.error('[NECaptcha] Fail to initialize', err)
-      }
-      config.onError &&
-      typeof config.onError === 'function' &&
-      config.onError()
-    }
-  )
+            config.onLoad &&
+            typeof config.onLoad === 'function' &&
+            config.onLoad(instance)
+        },
+        err => {
+            // 初始化失败
+            if (config.debug) {
+                console.error('[NECaptcha] Fail to initialize', err)
+            }
+            config.onError &&
+            typeof config.onError === 'function' &&
+            config.onError()
+        }
+    )
 }
 
 /**
@@ -288,12 +288,12 @@ export const getCookie = _getCookie
  * @param {object} config 配置选项
  */
 export const setCookie = (key = '', value = '', config = {}) => {
-  const { hostname = '' } = window.location
-  let domain = isIP(hostname)
-    ? hostname
-    : hostname.split('.').slice(-2).join('.')
-  Cookies.set(key, value, { path: '/', domain: domain, ...config })
-  Cookies.set(key, value, { path: '/', domain: '.' + domain, ...config })
+    const {hostname = ''} = window.location
+    let domain = isIP(hostname)
+        ? hostname
+        : hostname.split('.').slice(-2).join('.')
+    Cookies.set(key, value, {path: '/', domain: domain, ...config})
+    Cookies.set(key, value, {path: '/', domain: '.' + domain, ...config})
 }
 
 /**
@@ -303,22 +303,22 @@ export const setCookie = (key = '', value = '', config = {}) => {
  * @param {object} config 配置选项
  */
 export const removeCookie = (key = '', config = {}) => {
-  const { hostname = '' } = window.location
-  let domain = isIP(hostname)
-    ? hostname
-    : hostname.split('.').slice(-2).join('.')
+    const {hostname = ''} = window.location
+    let domain = isIP(hostname)
+        ? hostname
+        : hostname.split('.').slice(-2).join('.')
 
-  let keyArr = []
-  if (Array.isArray(key)) {
-    keyArr = key
-  } else {
-    keyArr = [key]
-  }
+    let keyArr = []
+    if (Array.isArray(key)) {
+        keyArr = key
+    } else {
+        keyArr = [key]
+    }
 
-  keyArr.forEach(item => {
-    Cookies.remove(item, { path: '/', domain: domain, ...config })
-    Cookies.remove(item, { path: '/', domain: '.' + domain, ...config })
-  })
+    keyArr.forEach(item => {
+        Cookies.remove(item, {path: '/', domain: domain, ...config})
+        Cookies.remove(item, {path: '/', domain: '.' + domain, ...config})
+    })
 }
 
 /**
@@ -326,13 +326,24 @@ export const removeCookie = (key = '', config = {}) => {
  * @param {object} config 配置选项
  */
 export const clearCookie = (config = {}) => {
-  const { hostname = '' } = window.location
-  let domain = isIP(hostname)
-    ? hostname
-    : hostname.split('.').slice(-2).join('.')
+    const {hostname = ''} = window.location
+    let domain = isIP(hostname)
+        ? hostname
+        : hostname.split('.').slice(-2).join('.')
 
-  Object.keys(Cookies.get()).forEach(key => {
-    Cookies.remove(key, { path: '/', domain: domain, ...config })
-    Cookies.remove(key, { path: '/', domain: '.' + domain, ...config })
-  })
+    Object.keys(Cookies.get()).forEach(key => {
+        Cookies.remove(key, {path: '/', domain: domain, ...config})
+        Cookies.remove(key, {path: '/', domain: '.' + domain, ...config})
+    })
+}
+
+
+/**
+ * @description 补零
+ * @param {number|string} 原始数字
+ * @returns {number|string} 补零后的数字或字符串
+ */
+
+export const zerofill = (value) => {
+    return value >= 10 ? value : '0' + value
 }

@@ -40,6 +40,7 @@
     import InvitePlayer from '@/components/InvitePlayer.vue'
 
     import {mapState} from 'vuex'
+    import {UserApi} from '@/api'
 
     export default {
         name: 'home',
@@ -76,6 +77,10 @@
             },
         },
         mounted() {
+            if (!UserApi.isBindInviter()) {
+                this.$router.push({name: 'inviter'})
+                return
+            }
             const {tab} = this.$route.query
             this.tabAction = tab || 'join'
         }

@@ -22,11 +22,6 @@
                     this.$router.push({name: 'login'})
                     return
                 }
-                console.log(UserApi.isBindInviter())
-                if (!UserApi.isBindInviter()) {
-                    this.$router.push({name: 'inviter'})
-                    return
-                }
 
                 this.getInitData()
             }
