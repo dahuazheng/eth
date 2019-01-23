@@ -151,7 +151,7 @@
         data() {
             return {
                 showAwardDetail: false,
-                action: 'push',
+                action: 'winner',
                 joinCount: 0,
                 pushCount: 0,
                 tabs: [

@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="in-join" v-show="guessStatus === 1">
-            <div v-if="startCountDown <= 0">
+            <div v-if="startCountDown <= 0" style="text-align: center">
                 <input type="number"
                        v-model="guessValue"
                        placeholder="明天参与游戏的单日ETH总个数是多少？">

@@ -58,7 +58,7 @@ class UserApi {
 
     // 用户钱包地址
     static getWalletAddress() {
-        return Requester.get(config.apiDomain + 'newpay_get_address')
+        return Requester.post(config.apiDomain + 'newpay_get_address')
     }
 
     static getBalance() {
@@ -79,7 +79,7 @@ class UserApi {
         return !!Cookies.get('ETH.bind_inviter')
     }
 
-    // 我的奖励总额
+    // 获取我的奖励
     static getUserBonus(query) {
         return Requester.get(config.apiDomain + 'user_bonus', query)
             .then(res => {
