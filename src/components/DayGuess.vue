@@ -94,7 +94,7 @@
                         Toast(res.msg)
                     }
 
-                    this.guessStatus = res.status
+                    this.guessStatus = 2
                     this.getMyAward()
                 }).catch(err => console.error(err))
             },
