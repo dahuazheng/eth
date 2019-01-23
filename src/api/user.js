@@ -100,7 +100,7 @@ class UserApi {
                      allEth: res.data.all && res.data.all.eth_amount || 0,
                }
             }).catch(err => {
-                console.error(err)
+                console.log(err)
             })
     }
 
@@ -110,7 +110,7 @@ class UserApi {
             if (res.status !== '1') return
             return {level: res.data && res.data.level }
         }).catch(err => {
-            console.error(err)
+            console.log(err)
         })
     }
 
