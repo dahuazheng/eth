@@ -3,7 +3,7 @@
         <div class="popup" @click.stop>
             <PopupTitle title="短信验证" :back="close"/>
             <div class="input-box">
-                <input type="number" placeholder="请输入验证码" v-model.trim="code">
+                <input type="number" placeholder="请输入验证码" v-model="code">
                 <button :disabled="count < 15" @click="getSmsCode">{{smsLabel}}</button>
             </div>
             <div class="btn-box">
