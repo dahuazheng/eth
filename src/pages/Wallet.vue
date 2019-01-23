@@ -26,18 +26,18 @@
                 提现
             </button>
         </div>
-        <div class="records">
-            <div class="tabs">
-                <span>交易记录</span>
-                <span @click="() => {this.$router.push('/transaction-record')}">查看所有</span>
-            </div>
-            <div class="list">
-                <ul>
-                    <li></li>
-                </ul>
-                <img src="../assets/images/icon_no_data.png">
-            </div>
-        </div>
+        <!--<div class="records">-->
+            <!--<div class="tabs">-->
+                <!--<span>交易记录</span>-->
+                <!--<span @click="() => {this.$router.push('/transaction-record')}">查看所有</span>-->
+            <!--</div>-->
+            <!--<div class="list">-->
+                <!--<ul>-->
+                    <!--<li></li>-->
+                <!--</ul>-->
+                <!--<img src="../assets/images/icon_no_data.png">-->
+            <!--</div>-->
+        <!--</div>-->
         <EthFooter action="wallet"/>
     </div>
 </template>

@@ -3,8 +3,7 @@
         <div class="title">
             <icon name="arrow-left" @click="() => {this.$router.go(-1)}"></icon>
             提现
-            <icon/>
-            <!--<icon name="scan-code" class="scan" @click="() => {this.$router.push('/scan-qrcode')}"></icon>-->
+            <span @click="() => {this.$router.push('/withdraw-record')}"></span>
         </div>
         <div class="form">
             <div class="row">
@@ -85,12 +84,16 @@
             padding: 0 $margin-width;
 
             .svg-icon {
+                 width: 20px;
+                 height: 20px;
+             }
+
+            span {
+                display: inline-block;
                 width: 20px;
                 height: 20px;
-            }
-
-            .scan {
-                @include fontPrimaryColor($primary-color)
+                background-image: url('../assets/images/icon_record.png');
+                @include background-image()
             }
         }
 

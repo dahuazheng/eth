@@ -2,7 +2,7 @@
     <div class="charge-money">
         <div class="title">
             <icon name="arrow-left" @click="() => { this.$router.go(-1) }"></icon>
-            <!--<icon name="article-share"></icon>-->
+            <span @click="() => {this.$router.push('/withdraw-record')}"></span>
         </div>
         <div class="box">
             <h2>
@@ -37,13 +37,15 @@
         },
         computed: {
             ...mapState({
-                balance: state => state.balance,
-            })
+                balance: state => state.user.balance
+            }),
+
         },
         methods: {
             onCopy(e) {
                 return Toast('已复制')
             },
+
             onError() {
                 return Toast('请重新复制')
             }
@@ -72,7 +74,17 @@
             margin: 5px $margin-width;
 
             .svg-icon {
+                width: 20px;
+                height: 20px;
                 color: $clear-color;
+            }
+
+            span {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                background-image: url('../assets/images/icon_record.png');
+                @include background-image()
             }
         }
 
