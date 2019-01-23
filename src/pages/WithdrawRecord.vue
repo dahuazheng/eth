@@ -1,6 +1,6 @@
 <template>
     <div id="transaction-record">
-        <NavHeader title="交易记录"/>
+        <NavHeader title="提现记录"/>
         <div class="transaction-record__content">
             <ul>
                 <li>类型</li>
@@ -32,7 +32,7 @@
                currStatus: '',
                listData: [
                    {
-                      businessType: '充值',
+                      businessType: '提现',
                       amount: '100',
                       status: TRADE_STATUS.success,
                       time: '23423453400'
@@ -44,7 +44,7 @@
                        time: '23423453400'
                    },
                    {
-                       businessType: '充值',
+                       businessType: '提现',
                        amount: '100',
                        status: TRADE_STATUS.fail,
                        time: '23423453400'

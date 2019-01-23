@@ -15,7 +15,8 @@ import GameIntro from './pages/GameIntro.vue'
 import ContactUs from './pages/ContactUs.vue'
 import ChargeMoney from './pages/ChargeMoney.vue'
 import Withdraw from './pages/Withdraw.vue'
-import TransactionRecord from './pages/TransactionRecord.vue'
+import RechargeRecord from './pages/RechargeRecord.vue'
+import WithdrawRecord from './pages/WithdrawRecord.vue'
 import ScanQrcode from './pages/ScanQrcode.vue'
 import PhotoQrcode from './pages/PhotoQrcode.vue'
 
@@ -95,9 +96,14 @@ export default new Router({
             component: Withdraw
         },
         {
-            path: '/transaction-Record',
-            name: 'transactionRecord',
-            component: TransactionRecord
+            path: '/withdraw-record',
+            name: 'withdrawRecord',
+            component: WithdrawRecord
+        },
+        {
+            path: '/recharge-record',
+            name: 'rechargeRecord',
+            component: RechargeRecord
         },
         {
             path: '/scan-qrcode',
