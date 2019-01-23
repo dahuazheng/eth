@@ -8,13 +8,13 @@
                 <li>状态</li>
                 <li>时间</li>
             </ul>
-            <ul v-for="data in listData" :key="data.id">
-                <li>{{ data.businessType }}</li>
-                <li><span>{{ data.businessType === '充值' ? '+' : '-' }}</span> 100 INC</li>
+            <ul v-for="data in withdrawlist" :key="data.id">
+                <li>{{ data.type }}</li>
+                <li>+{{data.amount}} {{data.coinCode}}</li>
                 <li :class="[data.status === 1 && 'text-green', data.status === -1 && 'text-red']">
                     {{transformStatus(data.status)}}
                 </li>
-                <li>{{ data.time | formatDate }}</li>
+                <li>{{ data.createdAt | formatDate }}</li>
             </ul>
         </div>
     </div>
@@ -23,33 +23,16 @@
 <script>
     import moment from 'moment'
     import NavHeader from '../components/NavHeader'
-    import { TRADE_STATUS } from '../utils/constants'
+    // import { TRADE_STATUS } from '../utils/constants'
     import { ensureMilliseconds } from '../utils'
+    import { RankApi } from '../api'
+
 
     export default {
         data() {
            return {
                currStatus: '',
-               listData: [
-                   {
-                      businessType: '提现',
-                      amount: '100',
-                      status: TRADE_STATUS.success,
-                      time: '23423453400'
-                   },
-                   {
-                       businessType: '提现',
-                       amount: '100',
-                       status: TRADE_STATUS.pending,
-                       time: '23423453400'
-                   },
-                   {
-                       businessType: '提现',
-                       amount: '100',
-                       status: TRADE_STATUS.fail,
-                       time: '23423453400'
-                   }
-               ]
+               withdrawlist: {}
            }
         },
         filters: {
@@ -61,18 +44,40 @@
         },
         components:{NavHeader},
         methods: {
+            // 转换状态值为文字
             transformStatus(val) {
                 switch(val){
-                    case  1:
-                        return this.currStatus = '成功';
-                    case 0:
-                        return this.currStatus = '等待';
-                    case  -1:
-                        return this.currStatus = '失败';
+                    case 1:
+                        return this.currStatus = '提现待审核';
+                    case 2:
+                        return this.currStatus = '提现中';
+                    case 3:
+                        return this.currStatus = '拒绝提现申请';
+                    case 4:
+                        return this.currStatus = '提现成功';
+                    case 5:
+                        return this.currStatus = '提现失败';
+                    case 6:
+                        return this.currStatus = '充值成功';
                     default:
                         return null
                 }
+            },
+
+            // 获取提现记录表
+            getNewpayOrderList() {
+                RankApi.getNewpayOrderList({
+                    type: '2'   // 1充值 2提现
+                }).then(res => {
+                    this.withdrawlist = res
+                }).catch(err => {
+                    console.error(err)
+                })
+
             }
+        },
+        mounted() {
+            this.getNewpayOrderList()
         }
     }
 </script>

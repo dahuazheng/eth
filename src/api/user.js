@@ -79,6 +79,40 @@ class UserApi {
         return !!Cookies.get('ETH.bind_inviter')
     }
 
+    // 我的奖励总额
+    static getUserBonus(query) {
+        return Requester.get(config.apiDomain + 'user_bonus', query)
+            .then(res => {
+               if (res.status !== '1') return
+                console.log('奖励总额', res.data)
+               return {
+                     staticInc: res.data.static_bonus && res.data.static_bonus.inc_amount || 0,            // 静态inc、eth
+                     staticEth: res.data.static_bonus && res.data.static_bonus.eth_amount || 0,
+                     dynamicInc: res.data.dynamic_bonus && res.data.dynamic_bonus.eth_amount || 0,          // 动态inc、eth
+                     dynamicEth: res.data.dynamic_bonus && res.data.dynamic_bonus.eth_amount || 0,
+                     topManagerInc: res.data.top_manager_bonus && res.data.top_manager_bonus.inc_amount || 0,   // 高级经理inc、eth
+                     topManagerEth: res.data.top_manager_bonus && res.data.top_manager_bonus.eth_amount || 0,
+                     dayGuessInc: res.data.day_guess_bonus && res.data.day_guess_bonus.inc_amount || 0,       // 每日竞猜 inc、eth
+                     dayGuessEth: res.data.day_guess_bonus && res.data.day_guess_bonus.eth_amount || 0,
+                     dayPushInc: res.data.day_push_bonus && res.data.day_push_bonus.inc_amount || 0,         // 龙虎榜 inc、eth
+                     dayPushEth: res.data.day_push_bonus && res.data.day_push_bonus.eth_amount || 0,
+                     allInc: res.data.all && res.data.all.inc_amount || 0,                        // 总奖励 inc、eth
+                     allEth: res.data.all && res.data.all.eth_amount || 0,
+               }
+            }).catch(err => {
+                console.error(err)
+            })
+    }
+
+    // 我的头衔
+    static getUserInfo(query) {
+        return Requester.get(config.apiDomain + 'user_info', query).then(res => {
+            if (res.status !== '1') return
+            return {level: res.data && res.data.level }
+        }).catch(err => {
+            console.error(err)
+        })
+    }
 
 }
 

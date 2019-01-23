@@ -50,7 +50,7 @@
                 // this.$router.push({name: 'home'})
 
                 UserApi.bindInviteCode({invite_code: this.inviteCode}).then(res => {
-                    if (Number(res.status) === 1) {
+                    if (String(res.status) === '1') {
                         // console.log(res)
                         Cookies.set('ETH.bind_inviter', 'true', {expires: 1 / 24})
                         Toast('绑定成功')
@@ -66,8 +66,8 @@
             // 判断是否绑定邀请码
             checkInviteBind() {
                 UserApi.checkInviteBind().then(res => {
-                    console.log(res)
-                    if (Number(res.status === 1) && Number(res.data.is_bind) === -1) {
+                    // console.log(res)
+                    if (res.status === '1' && res.data.is_bind === '1') {
                         Cookies.set('ETH.bind_inviter', 'true', {expires: 1 / 24})
                         this.$router.push({name: 'home', query: {tab: 'join'}})
                     } else {

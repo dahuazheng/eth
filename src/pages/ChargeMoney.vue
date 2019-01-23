@@ -2,7 +2,7 @@
     <div class="charge-money">
         <div class="title">
             <icon name="arrow-left" @click="() => { this.$router.go(-1) }"></icon>
-            <span @click="() => {this.$router.push('/withdraw-record')}"></span>
+            <span @click="() => {this.$router.push('/recharge-record')}"></span>
         </div>
         <div class="box">
             <h2>

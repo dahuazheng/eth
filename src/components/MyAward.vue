@@ -5,7 +5,7 @@
             <span>我的头衔</span>：{{ this.transformStatus(level) }}
         </p>
         <div class="price-box">
-            <span @click.stop="showAwardDetail=true">
+            <span @click.stop="getBonusAmount">
                 奖励总额：
                 <img src="../assets/images/icon_help.png">
             </span>
@@ -16,33 +16,33 @@
                 <ul @click.stop>
                     <li>
                         <label>静态分红奖</label>
-                        <span>0.000000 ETH</span>
-                        <span>0.000000 INC</span>
+                        <span>{{bonusList.staticInc || 0}} ETH</span>
+                        <span>{{bonusList.staticEth || 0}} INC</span>
                     </li>
                     <li>
                         <label>动态分红奖</label>
-                        <span>0.000000 ETH</span>
-                        <span>0.000000 INC</span>
+                        <span>{{bonusList.dynamicInc || 0}} ETH</span>
+                        <span>{{bonusList.dynamicEth || 0}} INC</span>
                     </li>
                     <li>
                         <label>高级经理奖</label>
-                        <span>0.000000 ETH</span>
-                        <span>0.000000 INC</span>
+                        <span>{{bonusList.topManagerInc || 0}} ETH</span>
+                        <span>{{bonusList.topManagerEth || 0}} INC</span>
                     </li>
                     <li>
                         <label>每日竞猜奖</label>
-                        <span>0.000000 ETH</span>
-                        <span>0.000000 INC</span>
+                        <span>{{bonusList.dayGuessInc || 0}} ETH</span>
+                        <span>{{bonusList.dayGuessEth || 0}} INC</span>
                     </li>
                     <li>
                         <label>24H 直推龙虎榜</label>
-                        <span>0.000000 ETH</span>
-                        <span>0.000000 INC</span>
+                        <span>{{bonusList.dayPushInc || 0}} ETH</span>
+                        <span>{{bonusList.dayPushEth || 0}} INC</span>
                     </li>
                     <li>
                         <label>其他奖励</label>
-                        <span>0.000000 ETH</span>
-                        <span>0.000000 INC</span>
+                        <span>{{bonusList.staticInc || 0}} ETH</span>
+                        <span>{{bonusList.staticEth || 0}} INC</span>
                     </li>
                 </ul>
             </div>
@@ -58,23 +58,21 @@
 
 <script>
     import EthButton from './EthButton'
-    import RankApi from '../api/rank'
+    import { RankApi, UserApi} from '../api'
 
     export default {
         components: {EthButton},
         data() {
             return {
                 showAwardDetail: false,
-                level: '1'
+                level: '1',
+                bonusList: {}
             }
         },
         methods: {
             // 获取我的头衔
-            getPushList() {
-              RankApi.getPushList({
-                  page: '1',
-                  limit: '20'
-              }).then(res => {
+            getUserInfo() {
+              UserApi.getUserInfo().then(res => {
                   this.level = res.level
               }).catch(err => {
                   console.error(err)
@@ -95,12 +93,27 @@
                 }
             },
 
+            // 点击显示总额
+            getBonusAmount() {
+                this.showAwardDetail = true
+                this.getUserBonus()
+            },
+
+            // 奖励总额
+            getUserBonus() {
+                UserApi.getUserBonus().then(res => {
+                    this.bonusList = res
+                }).catch(err => {
+                    console.error(err)
+                })
+            },
+
             recommend() {
                 this.$router.push('/user-center')
             }
         },
         mounted() {
-            this.getPushList()
+            this.getUserInfo()
         }
     }
 </script>
