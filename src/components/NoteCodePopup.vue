@@ -60,10 +60,12 @@
                 console.log(this.code)
 
                 OrderApi.createOrder({phone_code: String(this.code)}).then(res => {
-                    if(res.status  === '-1') Toast('验证码错误，请重试')
-                    console.log(res)
+                    if(String(res.status)  === '-1') Toast('验证码错误，请重试')
+                    if(String(res.status)  === '1') {
+                        Toast('参与成功')
+                        this.close()
+                    }
                 })
-                //this.close()
             }
         }
     }
