@@ -57,11 +57,13 @@
                 if (!isValidSmsAuthCode(this.code)) {
                     return Toast('验证码错误')
                 }
-                console.log(this.code)
 
                 OrderApi.createOrder({phone_code: String(this.code)}).then(res => {
-                    if(res.status  === '-1') Toast('验证码错误，请重试')
-                    console.log(res)
+                    if(res.status  === '-1') return Toast('验证码错误，请重试', () =>{
+                        console.log(res, res.msg)
+                    })
+                }).catch(err => {
+                    console.error(err)
                 })
                 //this.close()
             }

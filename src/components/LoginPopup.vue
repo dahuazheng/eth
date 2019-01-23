@@ -177,6 +177,7 @@
                 UserApi.login({
                     phone: this.phone,
                     phone_code: this.code,
+                    phone_prefix: this.prefix, //'86'
                 }).then(res => {
                     if (Number(res.status) === -1) {
                         return Toast('验证码错误')
