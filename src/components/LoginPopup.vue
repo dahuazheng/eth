@@ -1,5 +1,6 @@
 <template>
     <div class="login-popup animated fadeInRight" v-show="show">
+        <header @click="cancel"></header>
         <h1>
             您好，
             <br>
@@ -42,7 +43,7 @@
     export default {
         name: 'loginPopup',
         components: {EthButton, PickerPopup},
-        props: ['show'],
+        props: ['show','cancel'],
         data() {
             return {
                 prefix: '86',
@@ -225,6 +226,14 @@
         z-index: 999;
         padding: 30px;
         background: $clear-color;
+
+
+        header {
+            width: 20px;
+            height: 20px;
+            background-image: url('../assets/images/icon_back_black.png');
+            @include background-image();
+        }
 
         h1 {
             @include fontSize(30px);
