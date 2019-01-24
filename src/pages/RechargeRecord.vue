@@ -25,7 +25,7 @@
     import NavHeader from '../components/NavHeader'
     // import { TRADE_STATUS } from '../utils/constants'
     import { ensureMilliseconds } from '../utils'
-    import { RankApi } from '../api'
+    import { WalletApi } from '../api'
 
     export default {
         data() {
@@ -65,8 +65,8 @@
 
             // 获取充值记录表
             getNewpayOrderList() {
-                RankApi.getNewpayOrderList({
-                    type: '1'   // 1充值 2提现
+                WalletApi.getNewpayOrderList({
+                    type: '2'  // 1充值 2提现
                 }).then(res => {
                     this.rechargeList = res
                 }).catch(err => {
