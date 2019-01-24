@@ -72,6 +72,7 @@
         data() {
             return {
                 currTab: 'live',
+                dayPushHistory:{},
                 liveList: [{}, {}, {}, {}, {}],
                 historyList: [
                     {
@@ -162,6 +163,21 @@
                 ]
             }
         },
+        computed:{
+            dayPushHistoryList(){
+                const dayPushHistory = Object.keys(this.dayPushHistory)
+                if(!this.dayPushHistory || dayPushHistory.length){
+                    return []
+                }
+                return dayPushHistory.map(dayPushKey=>{
+                        return {
+                            date:dayPushKey,
+                            list:this.dayPushHistory[dayPushKey]
+                        }
+                })
+
+            }
+        },
         filters: {
             formatDate(value) {
                 if (!value) return
@@ -191,9 +207,25 @@
                     console.log(res)
                     this.liveList = res.data.list
                 })
+            },
+
+            // 24h 直推龙虎榜
+            getDayPush(){
+                RankApi.getDayPush().then(res=>{
+                    console.log(res)
+                })
+            },
+
+            // 龙虎榜历史
+            getDayPushHistory(){
+                RankApi.getDayPushHistory().then(res=>{
+                    this.dayPushHistory = res.data && res.data.list
+                })
             }
         },
         mounted() {
+            this.getDayPush()
+            this.getDayPushHistory()
             this.getPushList({page: 1, limit: 20})
         }
     }

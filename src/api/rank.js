@@ -6,31 +6,6 @@ class RankApi {
 
     // 直推表
     static getPushList(query) {
-        const data = {
-            "status": "1",
-            "msg": "",
-            "data": {
-                "list": [
-                    {
-                        "children": "101244",
-                        "order_count": "0",
-                        "push_count": "0",
-                        "phone": "137****901",
-                        "level": "1"
-                    },
-                    {
-                        "children": "101245",
-                        "order_count": "0",
-                        "push_count": "0",
-                        "phone": "137****902",
-                        "level": "1"
-                    }
-                ],
-                "count": 2
-            }
-        }
-
-        // return Promise.resolve(data)
 
         return Requester.get(config.apiDomain + 'push_list', query)
             .then(res => {
@@ -47,6 +22,11 @@ class RankApi {
             }).catch(err => {
                 console.error(err)
             })
+    }
+
+    // 24小时直推龙虎榜
+    static getDayPush(){
+        return Requester.get(config.apiDomain +'day_push')
     }
 
     // 龙虎榜历史
@@ -74,8 +54,8 @@ class RankApi {
 
                 const list = res.data.list && res.data.list.map(n => ({
                     date: n.date || '',                    // 日期
-                    eth: n.eth || '',                      // 奖励的eth
-                    inc: n.inc || '',                      // 奖励的inc
+                    eth: n.eth_amount || 0,                      // 奖励的eth
+                    inc: n.inc_amount || 0,                      // 奖励的inc
                     rank: n.rank || '',                    // 中奖状态：0为未中奖,1-5为中奖等级
                     pushCount: n.push_count || '',         // 直推个数
                 }))

@@ -38,7 +38,7 @@
           // 我的今日直推
           getMyDayPushCount() {
               RankApi.getMyDayPushCount({}).then(res => {
-                  this.pushCount = res.pushCount
+                  this.pushCount = res
               }).catch(err => {
                   console.error(err)
               })
@@ -106,6 +106,7 @@
                 }
                 
                 span {
+                    @include fontSize(12px);
                     color: #f2bf86;
                 }
             }

@@ -67,10 +67,10 @@
                         <th>结果</th>
                     </tr>
                     <tr v-for="(item, key) in winnerList" :key="key">
-                        <td>{{ item.date | formatDate }}</td>
+                        <td>{{ item.date }}</td>
                         <td>{{ item.pushCount }}</td>
                         <td>
-                            {{ transformStatus(item.rank) }} <br>
+                            {{ item.rank | transformStatus }} <br>
                             +{{ item.eth }} ETH <br>
                             +{{ item.inc }} INC
                         </td>
@@ -205,6 +205,7 @@
             // 获取龙虎榜数据
             getWinnerList() {
                 RankApi.getWinnerList({}).then(res => {
+                    console.log('res',res)
                     this.winnerList = res
                 }).catch(err => {
                     console.error(err)
