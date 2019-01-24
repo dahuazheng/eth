@@ -6,13 +6,13 @@
             <span @click="() => {this.$router.push('/withdraw-record')}"></span>
         </div>
         <div class="form">
-            <div class="row">
+            <div class="row coin-select">
                 <label>选择币种</label>
                 <span>
                     ETH
                     <icon name="down" @click=""></icon>
                 </span>
-                <ul>
+                <ul class="options">
                     <li>ETH</li>
                     <li>INC</li>
                 </ul>
@@ -48,17 +48,17 @@
 </template>
 
 <script>
-  import EthButton from '@/components/EthButton.vue'
+    import EthButton from '@/components/EthButton.vue'
 
-  export default {
-    name: 'withdraw',
-    components: {EthButton},
-    methods:{
-      next(){
+    export default {
+        name: 'withdraw',
+        components: {EthButton},
+        methods: {
+            next() {
 
-      }
+            }
+        }
     }
-  }
 
 </script>
 
@@ -84,9 +84,9 @@
             padding: 0 $margin-width;
 
             .svg-icon {
-                 width: 20px;
-                 height: 20px;
-             }
+                width: 20px;
+                height: 20px;
+            }
 
             span {
                 display: inline-block;
@@ -118,7 +118,9 @@
                     right: 0;
                     bottom: 0;
                     margin: auto;
-                    padding: 7px 0;
+                    height: 20px;
+                    line-height: 20px;
+                    display: inline-block;
                 }
 
                 small {
@@ -129,7 +131,6 @@
                 }
 
                 .code {
-                    font-weight: 500;
                     color: #3f1964;
                 }
 
@@ -139,9 +140,38 @@
                     font-weight: 500;
                     letter-spacing: 1px;
                 }
+
+                &.coin-select {
+                    position: relative;
+
+                    .options{
+                        @include clearUl;
+                        position: absolute;
+                        right: 0;
+                        top: 30px;
+                        padding: 5px 0;
+                        border: 1px solid #f0f0f0;
+                        border-radius: 5px;
+                        z-index: 1;
+                        text-align: center;
+                        background: $clear-color;
+                        overflow: hidden;
+
+                        li{
+                            padding: 0 20px;
+                            line-height: 24px;
+
+                            &:first-child{
+                                //background: #ae00b8;
+                                color: #ae00b8;
+                            }
+                        }
+
+                    }
+                }
             }
 
-            .btn-box{
+            .btn-box {
                 margin-top: 120px;
                 text-align: center;
             }
