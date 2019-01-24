@@ -58,13 +58,12 @@ class UserApi {
 
     // 用户钱包地址
     static getWalletAddress() {
-        return Requester.post(config.apiDomain + 'newpay_get_address')
+        return Requester.post(config.apiDomain + 'newpay_get_address',{coin_id:''})
     }
 
     static getBalance() {
         return Promise.resolve({
             ETH: 769.2,
-            // ETH: 0,
             INC: 2313503.2
         })
     }

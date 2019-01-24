@@ -14,7 +14,7 @@
                     <label>INC</label>
                 </li>
             </ul>
-            <p>{{balance.address ? balance.address : '暂无钱包地址'}}</p>
+            <p>{{address ? address : '暂无钱包地址'}}</p>
         </div>
         <div class="btn-box">
             <button @click="() => {this.$router.push('/charge-money')}">
@@ -27,16 +27,16 @@
             </button>
         </div>
         <!--<div class="records">-->
-            <!--<div class="tabs">-->
-                <!--<span>交易记录</span>-->
-                <!--<span @click="() => {this.$router.push('/transaction-record')}">查看所有</span>-->
-            <!--</div>-->
-            <!--<div class="list">-->
-                <!--<ul>-->
-                    <!--<li></li>-->
-                <!--</ul>-->
-                <!--<img src="../assets/images/icon_no_data.png">-->
-            <!--</div>-->
+        <!--<div class="tabs">-->
+        <!--<span>交易记录</span>-->
+        <!--<span @click="() => {this.$router.push('/transaction-record')}">查看所有</span>-->
+        <!--</div>-->
+        <!--<div class="list">-->
+        <!--<ul>-->
+        <!--<li></li>-->
+        <!--</ul>-->
+        <!--<img src="../assets/images/icon_no_data.png">-->
+        <!--</div>-->
         <!--</div>-->
         <EthFooter action="wallet"/>
     </div>
@@ -56,6 +56,7 @@
         computed: {
             ...mapState({
                 balance: state => state.user.balance,
+                address: state => state.user.address,
             })
         },
     }
@@ -120,7 +121,7 @@
                 @include px2rem('line-height', 28);
                 @include px2rem('border-radius', 14);
                 @include fontPrimaryColor(#614292);
-                width: 60%;
+                // width: 60%;
                 padding: 0 20px;
                 text-align: center;
                 background: #efe0fd;

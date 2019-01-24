@@ -29,6 +29,7 @@ const actions = {
     },
     getAddress({commit}) {
         UserApi.getWalletAddress().then(res => {
+            console.log(res)
             if (Number(res.status) !== 1) return
 
             commit('setBalance', res.data.address)

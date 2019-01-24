@@ -9,9 +9,9 @@
                 收款 <br>
                 <small>余额： {{balance.ETH}} ETH / {{balance.INC}} INC</small>
             </h2>
-            <QrcodeVue :value="balance.address" size="138" renderAs='svg'/>
-            <p class="code">{{ balance.address }}</p>
-            <p v-clipboard:copy="balance.address"
+            <QrcodeVue :value="address" size="138" renderAs='svg'/>
+            <p class="code">{{ address }}</p>
+            <p v-clipboard:copy="address"
                v-clipboard:success="onCopy"
                v-clipboard:error="onError"
             >复制地址</p>
@@ -37,7 +37,8 @@
         },
         computed: {
             ...mapState({
-                balance: state => state.user.balance
+                balance: state => state.user.balance,
+                address: state => state.user.address
             }),
 
         },
