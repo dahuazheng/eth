@@ -41,17 +41,13 @@
     @import "../assets/styles/mixin";
 
     .login {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+       min-height: 100vh;
         background: $clear-color;
 
         main {
             p {
                 @include fontSize($font-medium-s);
-                margin: 40px;
+                margin: 50px 40px;
                 text-align: center;
 
                 label {
@@ -68,6 +64,7 @@
                     color: $clear-color;
                     border-radius: 5px;
                     border: none;
+                    margin-bottom: 50px;
                 }
             }
         }

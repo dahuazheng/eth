@@ -34,7 +34,7 @@
                         return
                     }
                     if (this.$route.name === 'login') {
-                        Toast('请先登陆')
+                        Toast('请先登录')
                     }
 
                     this.$router.push({name: 'login'})

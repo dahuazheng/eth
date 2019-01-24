@@ -183,6 +183,7 @@
             .time {
                 @include fontSize($font-medium);
                 color: #94D9FF;
+                padding-top: 0.3rem;
             }
 
             .message {
