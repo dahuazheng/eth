@@ -1,5 +1,5 @@
 <template>
-    <div id='rank-tab'>
+    <div id="rank-tab">
         <div class="rank-tab__header">
             <span :class="{active: currTab === 'live'}" @click="checkTab('live')">24H 直推龙虎榜</span>
             <span :class="{active: currTab === 'history'}" @click="checkTab('history')">龙虎榜历史</span>
@@ -20,10 +20,8 @@
                         <span class="icon" :class="'icon-' + liveKey"></span>
                     </span>
                     <span class="name">{{ live.phone}}</span>
-                    <span class="account">{{ live.order_count }} </span>
-                    <span class="per">
-                        {{ live.push_count }}
-                    </span>
+                    <span class="account">{{ live.order_count }}</span>
+                    <span class="per">{{ live.push_count }}</span>
                 </li>
             </ul>
             <ul class="history" v-show="currTab === 'history'">
@@ -34,14 +32,19 @@
                     <span class="num">直推个数</span>
                     <span class="amount">金额（eth/inc）</span>
                 </li>
-                <li v-for="history in historyList" :key="history.id">
-                    <span class="date date-top">{{ history.date | formatDate}}</span>
+                <li v-for="history in dayPushHistoryList" :key="history.date">
+                    <span class="date date-top">{{ history.date}}</span>
 
                     <div class="row-content">
-                        <div class="row" v-for="content in history.contents" :key="content.id">
-                            <span class="award">{{content.award}}</span>
-                            <span class="player">{{content.player | formatPhoneNumber}}</span>
-                            <span class="num">{{content.number}}</span> <span class='amount text-green'>{{content.ethAmount}}<br> {{ content.incAmount }}</span>
+                        <div class="row" v-for="row in history.list" :key="row.user_id">
+                            <span class="award">{{row.rank | transformStatus}}</span>
+                            <span class="player">{{row.phone}}</span>
+                            <span class="num">{{row.push_count}}</span>
+                            <span class="amount text-green">
+                                {{row.eth_amount}}
+                                <br>
+                                {{ row.inc_amount }}
+                            </span>
                         </div>
                     </div>
                 </li>
@@ -52,10 +55,10 @@
                     <td>直推个数</td>
                     <td>结果</td>
                 </tr>
-                <tr v-for="myRank in myRankList" :key="myRank.id">
-                    <td>{{ myRank.date | formatDate }}</td>
-                    <td>{{ myRank.number }}</td>
-                    <td>{{ myRank.result }}</td>
+                <tr v-for="myRank in myRankList" :key="myRank.date">
+                    <td>{{ myRank.date }}</td>
+                    <td>{{ myRank.pushCount }}</td>
+                    <td>{{ myRank.rank | transformStatus }}</td>
                 </tr>
             </table>
         </div>
@@ -63,172 +66,92 @@
 </template>
 
 <script>
-    import moment from 'moment'
-    import {ensureMilliseconds, encodeMobile} from '../utils'
-    import {RankApi} from '../api'
+    import moment from "moment";
+    import {ensureMilliseconds, encodeMobile} from "../utils";
+    import {rewardLevels} from '../utils/options'
+    import {RankApi} from "../api";
+
 
     export default {
-        name: 'rank-tab',
+        name: "rank-tab",
         data() {
             return {
-                currTab: 'live',
-                dayPushHistory:{},
+                currTab: "live",
+                dayPushHistory: {},
                 liveList: [{}, {}, {}, {}, {}],
-                historyList: [
-                    {
-                        date: 1547478015,
-                        contents: [
-                            {
-                                award: '一等奖',
-                                player: '1395673975',
-                                number: 4,
-                                ethAmount: 0.65,
-                                incAmount: 0.65
-                            }, {
-                                award: '二等奖',
-                                player: '1395673975',
-                                number: 7,
-                                ethAmount: 0.65,
-                                incAmount: 0.65,
-                            }, {
-                                award: '三等奖',
-                                player: '1395673975',
-                                number: 1,
-                                ethAmount: 0.65,
-                                incAmount: 0.65,
-                            }, {
-                                award: '四等奖',
-                                player: '1395673975',
-                                number: 3,
-                                ethAmount: 0.65,
-                                incAmount: 0.65,
-                            }]
-                    },
-                    {
-                        date: 1547478229,
-                        contents: [
-                            {
-                                award: '一等奖',
-                                player: '1395673975',
-                                number: 8,
-                                ethAmount: 0.65,
-                                incAmount: 0.65
-                            },
-                            {
-                                award: '二等奖',
-                                player: '1395673975',
-                                number: 7,
-                                ethAmount: 0.65,
-                                incAmount: 0.65,
-                            },
-                            {
-                                award: '三等奖',
-                                player: '1395673975',
-                                number: 1,
-                                ethAmount: 0.65,
-                                incAmount: 0.65,
-                            },
-                            {
-                                award: '四等奖',
-                                player: '1395673975',
-                                number: 3,
-                                ethAmount: 0.65,
-                                incAmount: 0.65,
-                            },
-                            {
-                                award: '五等奖',
-                                player: '71395673975',
-                                number: 5,
-                                ethAmount: 0.65,
-                                incAmount: 0.65,
-                            }]
-                    }
-                ],
-                myRankList: [
-                    {
-                        date: 1547878015,
-                        number: 2,
-                        result: '第一名'
-                    },
-                    {
-                        date: 1547490015,
-                        number: 2,
-                        result: '第一名'
-                    },
-                    {
-                        date: 15474900150,
-                        number: 2,
-                        result: '第一名'
-                    }
-                ]
-            }
+                myRankList: []
+            };
         },
-        computed:{
-            dayPushHistoryList(){
+        computed: {
+            dayPushHistoryList() {
                 const dayPushHistory = Object.keys(this.dayPushHistory)
-                if(!this.dayPushHistory || dayPushHistory.length){
+                if (!this.dayPushHistory || !dayPushHistory.length) {
                     return []
                 }
-                return dayPushHistory.map(dayPushKey=>{
-                        return {
-                            date:dayPushKey,
-                            list:this.dayPushHistory[dayPushKey]
-                        }
-                })
 
+                return dayPushHistory.map(dayPushKey => {
+                    return {
+                        date: dayPushKey,
+                        list: this.dayPushHistory[dayPushKey]
+                    }
+                })
             }
         },
         filters: {
             formatDate(value) {
-                if (!value) return
-                const formatDate = 'YYYY-M-DD'
+                if (!value) return;
+                const formatDate = "YYYY-M-DD";
                 return moment(ensureMilliseconds(value)).format(formatDate)
             },
 
             formatPhoneNumber(val) {
-                if (!val) return
-                return encodeMobile(val)
-            }
+                if (!val) return;
+                return encodeMobile(val);
+            },
+
+            // 状态值转换中奖等级
+            transformStatus(value) {
+                const option = rewardLevels.find(reward => reward.value === String(value));
+                return option && option.label || '未中奖'
+            },
         },
         methods: {
             checkTab(val) {
-                this.currTab = val
-            },
-
-            dropList(key) {
-                this.liveList[key].isDrop = !this.liveList[key].isDrop
-            },
-
-            getPushList(query) {
-                RankApi.getPushList(query).then(res => {
-                    if (String(res.status) !== '1') {
-                        return
-                    }
-                    console.log(res)
-                    this.liveList = res.data.list
-                })
+                this.currTab = val;
             },
 
             // 24h 直推龙虎榜
-            getDayPush(){
-                RankApi.getDayPush().then(res=>{
-                    console.log(res)
-                })
+            getDayPush() {
+                RankApi.getDayPush().then(res => {
+                    console.log(res);
+                });
             },
 
             // 龙虎榜历史
-            getDayPushHistory(){
-                RankApi.getDayPushHistory().then(res=>{
-                    this.dayPushHistory = res.data && res.data.list
+            getDayPushHistory() {
+                RankApi.getDayPushHistory().then(res => {
+                    this.dayPushHistory = res.data && res.data.list;
+
+                    setTimeout(() => {
+                        console.log(this.dayPushHistoryList)
+                    }, 2000)
+                });
+            },
+            // 我的龙虎榜
+            getWinnerList() {
+                RankApi.getWinnerList().then(res => {
+                    console.log(res)
+                    this.myRankList = res
                 })
+
             }
         },
         mounted() {
-            this.getDayPush()
-            this.getDayPushHistory()
-            this.getPushList({page: 1, limit: 20})
+            //this.getDayPush();
+            this.getDayPushHistory();
+            this.getWinnerList();
         }
-    }
+    };
 </script>
 
 <style lang='scss' scoped>
@@ -253,11 +176,11 @@
                 padding: 10px;
                 text-align: center;
                 color: #9e9f9d;
-                @include px2rem('width', 105);
-                @include px2rem('height', 35);
+                @include px2rem("width", 105);
+                @include px2rem("height", 35);
 
                 &.active {
-                    background-image: url('../assets/images/bg_bet.png');
+                    background-image: url("../assets/images/bg_bet.png");
                     color: $color-white;
                     @include background-image();
                 }
@@ -277,30 +200,30 @@
                         border-bottom: 1px solid $border-color;
 
                         .icon {
-                            @include px2rem('width', 30);
-                            @include px2rem('height', 30);
+                            @include px2rem("width", 30);
+                            @include px2rem("height", 30);
                             display: inline-block;
                             background-size: 100% 100%;
                             padding: 0;
 
                             &.icon-0 {
-                                background-image: url('../assets/images/icon_one.png');
+                                background-image: url("../assets/images/icon_one.png");
                             }
 
                             &.icon-1 {
-                                background-image: url('../assets/images/icon_two.png');
+                                background-image: url("../assets/images/icon_two.png");
                             }
 
                             &.icon-2 {
-                                background-image: url('../assets/images/icon_three.png');
+                                background-image: url("../assets/images/icon_three.png");
                             }
 
                             &.icon-3 {
-                                background-image: url('../assets/images/icon_four.png');
+                                background-image: url("../assets/images/icon_four.png");
                             }
 
                             &.icon-4 {
-                                background-image: url('../assets/images/icon_five.png');
+                                background-image: url("../assets/images/icon_five.png");
                             }
                         }
 
@@ -432,7 +355,6 @@
                     font-weight: 500;
 
                     &:first-child {
-
                         td {
                             font-size: $font-little-s;
 
