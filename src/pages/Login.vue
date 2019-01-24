@@ -8,7 +8,7 @@
             </p>
         </main>
         <EthFooter action="home"/>
-        <LoginPopup :show="loginPopupShow"/>
+        <LoginPopup :show="loginPopupShow" :cancel="onCancel"/>
     </div>
 </template>
 
@@ -30,6 +30,9 @@
         methods: {
             toLogin() {
                 this.loginPopupShow = true
+            },
+            onCancel() {
+                this.loginPopupShow = false
             }
         }
     }
