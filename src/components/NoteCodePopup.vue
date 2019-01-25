@@ -115,7 +115,7 @@
                 bottom: 0;
                 margin: auto;
                 box-sizing: border-box;
-                padding: 7px 0;
+                /*padding: 7px 0;*/
                 background: transparent;
                 border: none;
             }

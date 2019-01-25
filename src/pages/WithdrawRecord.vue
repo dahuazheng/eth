@@ -8,11 +8,11 @@
                 <li>状态</li>
                 <li>时间</li>
             </ul>
-            <ul v-for="data in withdrawlist" :key="data.id">
-                <li>{{ data.type }}</li>
+            <ul v-for="(data, key) in withdrawList" :key='key'>
+                <li>{{ data.type === '1' ? '充值' : '提现' }}</li>
                 <li>+{{data.amount}} {{data.coinCode}}</li>
-                <li :class="[data.status === 1 && 'text-green', data.status === -1 && 'text-red']">
-                    {{transformStatus(data.status)}}
+                <li :class="data.status | transformColor">
+                    {{data.status | transformStatus}}
                 </li>
                 <li>{{ data.createdAt | formatDate }}</li>
             </ul>
@@ -25,14 +25,14 @@
     import NavHeader from '../components/NavHeader'
     // import { TRADE_STATUS } from '../utils/constants'
     import { ensureMilliseconds } from '../utils'
-    import { RankApi } from '../api'
+    import { WalletApi } from '../api'
 
 
     export default {
         data() {
            return {
                currStatus: '',
-               withdrawlist: {}
+               withdrawList: {}
            }
         },
         filters: {
@@ -40,36 +40,58 @@
                 if (!value) return
                 const formatDate = 'YYYY-M-DD  HH:mm:ss'
                 return moment(ensureMilliseconds(value)).format(formatDate)
-            }
-        },
-        components:{NavHeader},
-        methods: {
+            },
             // 转换状态值为文字
             transformStatus(val) {
                 switch(val){
-                    case 1:
-                        return this.currStatus = '提现待审核';
-                    case 2:
-                        return this.currStatus = '提现中';
-                    case 3:
-                        return this.currStatus = '拒绝提现申请';
-                    case 4:
-                        return this.currStatus = '提现成功';
-                    case 5:
-                        return this.currStatus = '提现失败';
-                    case 6:
-                        return this.currStatus = '充值成功';
+                    case '1':
+                        return '提现待审核';
+                    case '2':
+                        return '提现中';
+                    case '3':
+                        return '拒绝提现申请';
+                    case '4':
+                        return '提现成功';
+                    case '5':
+                        return '提现失败';
+                    case '6':
+                        return '充值成功';
                     default:
                         return null
                 }
             },
-
+            // 转换状态值为色号
+            transformColor(val) {
+                console.log(val)
+                switch(val){
+                    case '1':
+                        return ' ';
+                    case '2':
+                        return '';
+                    case '3':
+                        return 'text-red';
+                    case '4':
+                        return 'text-green';
+                    case '5':
+                        return 'text-red';
+                    case '6':
+                        return 'text-green';
+                    default:
+                        return ''
+                }
+            },
+        },
+        components:{NavHeader},
+        methods: {
             // 获取提现记录表
             getNewpayOrderList() {
-                RankApi.getNewpayOrderList({
+                console.log('提现')
+                WalletApi.getNewpayOrderList({
                     type: '2'   // 1充值 2提现
                 }).then(res => {
-                    this.withdrawlist = res
+                    // console.log(res[2], res[2].createdAt)
+                    this.withdrawList = res
+                    // console.log('res', this.withdrawList[2].created_at)
                 }).catch(err => {
                     console.error(err)
                 })

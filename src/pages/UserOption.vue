@@ -147,6 +147,7 @@
                     @include clearUl;
                     display: flex;
                     flex-direction: column;
+                    padding-bottom: 50px;
 
                     li > a {
                         position: relative;
@@ -233,7 +234,7 @@
         }
 
         .dialog-shadow {
-            position: absolute;
+            position: fixed;
             top: 0;
             bottom: 0;
             left: 0;

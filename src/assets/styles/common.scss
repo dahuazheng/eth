@@ -102,3 +102,15 @@ input, textarea, button {
 .text-red {
     color: #d15757 !important;
 }
+
+input {
+    outline: none;
+
+    &:focus {
+        background: none;
+    }
+}
+
+button {
+    border: none;
+}

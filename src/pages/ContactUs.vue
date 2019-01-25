@@ -58,7 +58,7 @@
                     display: inline-flex;
                     align-items: center;
                     color: #5b5b5b;
-                    font-size: $font-little-s;
+                    font-size: $font-medium-s + 1;
                     letter-spacing: 1px;
 
                     &.tip {

@@ -41,7 +41,7 @@
     @import "../assets/styles/mixin";
 
     .login {
-       min-height: 100vh;
+        padding-bottom: 50px;
         background: $clear-color;
 
         main {

@@ -265,7 +265,7 @@
             }
 
             input {
-                @include fontSize($font-medium-s);
+                @include fontSize($font-medium-s + 1);
                 width: 100%;
                 box-sizing: border-box;
                 padding: 7px 0;
@@ -275,14 +275,13 @@
 
             span, button {
                 @include fontPrimaryColor(#aa1bc0);
-                @include fontSize($font-medium-s);
+                @include fontSize($font-medium-s + 1);
                 position: absolute;
                 right: 0;
                 top: 0;
                 bottom: 0;
                 margin: auto;
                 box-sizing: border-box;
-                padding: 7px 0;
                 background: transparent;
                 border: none;
             }
@@ -295,7 +294,7 @@
                 .delete {
                     @include px2rem('width', 20);
                     @include px2rem('height', 20);
-                    @include px2rem('line-height', 18);
+                    @include px2rem('line-height', 20);
                     @include fontSubColor($font-sub-color);
                     display: inline-block;
                     border-radius: 7px;

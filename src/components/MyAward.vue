@@ -225,6 +225,10 @@
             align-items: center;
             background: #f1e2ff;
             padding-bottom: 20px;
+
+            button {
+                border: none;
+            }
         }
 
         p{

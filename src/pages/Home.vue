@@ -92,8 +92,9 @@
 
     .home {
         position: relative;
-        height: 100%;
+        box-sizing: border-box;
         background: $clear-color;
+        padding-bottom: 50px;
 
         ul {
             @include clearUl;
