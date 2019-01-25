@@ -1,4 +1,4 @@
-import {UserApi} from '@/api'
+import {UserApi,WalletApi} from '@/api'
 
 // initial state
 const state = {
@@ -24,7 +24,7 @@ const actions = {
         })
     },
     getAsset({commit}) {
-        UserApi.getAsset().then(asset => {
+        WalletApi.getAsset().then(asset => {
             if (Number(asset.status) !== 1) return
             commit('setAsset', asset.data)
         })
