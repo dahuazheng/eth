@@ -144,7 +144,7 @@
                 &.coin-select {
                     position: relative;
 
-                    .options{
+                    .options {
                         @include clearUl;
                         position: absolute;
                         right: 0;
@@ -157,11 +157,11 @@
                         background: $clear-color;
                         overflow: hidden;
 
-                        li{
+                        li {
                             padding: 0 20px;
                             line-height: 24px;
 
-                            &:first-child{
+                            &:first-child {
                                 //background: #ae00b8;
                                 color: #ae00b8;
                             }
