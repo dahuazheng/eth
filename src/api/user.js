@@ -58,7 +58,7 @@ class UserApi {
 
     // 用户钱包地址
     static getWalletAddress() {
-        return Requester.post(config.apiDomain + 'newpay_get_address',{coin_id:''})
+        return Requester.post(config.apiDomain + 'newpay_get_address')
     }
 
     static getBalance() {
@@ -95,8 +95,8 @@ class UserApi {
                      dayGuessEth: res.data.day_guess_bonus && res.data.day_guess_bonus.eth_amount || 0,
                      dayPushInc: res.data.day_push_bonus && res.data.day_push_bonus.inc_amount || 0,         // 龙虎榜 inc、eth
                      dayPushEth: res.data.day_push_bonus && res.data.day_push_bonus.eth_amount || 0,
-                     allInc: res.data.all && res.data.all.inc_amount || 0,                        // 总奖励 inc、eth
-                     allEth: res.data.all && res.data.all.eth_amount || 0,
+                     allInc: res.data.all_bonus && res.data.all_bonus.inc_amount || 0,                        // 总奖励 inc、eth
+                     allEth: res.data.all_bonus && res.data.all_bonus.eth_amount || 0,
                }
             }).catch(err => {
                 console.log(err)

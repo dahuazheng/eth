@@ -10,39 +10,39 @@
                 <img src="../assets/images/icon_help.png">
             </span>
             <small>
-                {{bonusList.allEth || 0}} ETH / {{bonusList.allInc || 0}} INC
+                {{userBonus.allEth || 0}} ETH / {{userBonus.allInc || 0}} INC
             </small>
             <div class="explain-box" @click="showAwardDetail=false" v-show="showAwardDetail" >
                 <ul @click.stop>
                     <li>
                         <label>静态分红奖</label>
-                        <span>{{bonusList.staticEth || 0}} ETH</span>
-                        <span>{{bonusList.staticInc || 0}} INC</span>
+                        <span>{{userBonus.staticEth || 0}} ETH</span>
+                        <span>{{userBonus.staticInc || 0}} INC</span>
                     </li>
                     <li>
                         <label>动态分红奖</label>
-                        <span>{{bonusList.dynamicEth || 0}} ETH</span>
-                        <span>{{bonusList.dynamicInc || 0}} INC</span>
+                        <span>{{userBonus.dynamicEth || 0}} ETH</span>
+                        <span>{{userBonus.dynamicInc || 0}} INC</span>
                     </li>
                     <li>
                         <label>高级经理奖</label>
-                        <span>{{bonusList.topManagerEth || 0}} ETH</span>
-                        <span>{{bonusList.topManagerInc || 0}} INC</span>
+                        <span>{{userBonus.topManagerEth || 0}} ETH</span>
+                        <span>{{userBonus.topManagerInc || 0}} INC</span>
                     </li>
                     <li>
                         <label>每日竞猜奖</label>
-                        <span>{{bonusList.dayGuessEth || 0}} ETH</span>
-                        <span>{{bonusList.dayGuessInc || 0}} INC</span>
+                        <span>{{userBonus.dayGuessEth || 0}} ETH</span>
+                        <span>{{userBonus.dayGuessInc || 0}} INC</span>
                     </li>
                     <li>
                         <label>24H 直推龙虎榜</label>
-                        <span>{{bonusList.dayPushEth || 0}} ETH</span>
-                        <span>{{bonusList.dayPushInc || 0}} INC</span>
+                        <span>{{userBonus.dayPushEth || 0}} ETH</span>
+                        <span>{{userBonus.dayPushInc || 0}} INC</span>
                     </li>
                     <li>
                         <label>其他奖励</label>
-                        <span>{{bonusList.staticEth || 0}} ETH</span>
-                        <span>{{bonusList.staticInc || 0}} INC</span>
+                        <span>{{userBonus.staticEth || 0}} ETH</span>
+                        <span>{{userBonus.staticInc || 0}} INC</span>
                     </li>
                 </ul>
             </div>
@@ -66,7 +66,7 @@
             return {
                 showAwardDetail: false,
                 level: '1',
-                bonusList: {}
+                userBonus: {}
             }
         },
         methods: {
@@ -101,7 +101,8 @@
             // 奖励总额
             getUserBonus() {
                 UserApi.getUserBonus().then(res => {
-                    //this.bonusList = res
+                    console.log('aaaa',res)
+                    this.userBonus = res
                 }).catch(err => {
                     console.error(err)
                 })

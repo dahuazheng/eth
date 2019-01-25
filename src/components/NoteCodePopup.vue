@@ -62,7 +62,7 @@
                     if (String(res.status) === '1') {
                         Toast('参与成功')
                         this.code = null
-                        this.close()
+                        this.$router.go({path: '/', force: true})
                     }
                 }).catch(err => {
                     console.log(err)

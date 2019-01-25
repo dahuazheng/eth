@@ -17,22 +17,34 @@
           <span>累计参与额</span>
           <span>
             {{gameBonus.order_eth_amount}}
-            <img class="icon-bet" src="../assets/images/icon_bet_eth.png">
+            <img
+              class="icon-bet"
+              src="../assets/images/icon_bet_eth.png"
+            >
           </span>
           <span>
             {{gameBonus.order_inc_amount}}
-            <img class="icon-star" src="../assets/images/icon_bet_eth_star.png">
+            <img
+              class="icon-star"
+              src="../assets/images/icon_bet_eth_star.png"
+            >
           </span>
         </div>
         <div class="row">
           <span>今日参与额</span>
           <span>
             {{gameBonus.day_order_eth_amount || 0}}
-            <img class="icon-bet" src="../assets/images/icon_bet_eth.png">
+            <img
+              class="icon-bet"
+              src="../assets/images/icon_bet_eth.png"
+            >
           </span>
           <span>
             {{gameBonus.day_order_inc_amount ||0}}
-            <img class="icon-star" src="../assets/images/icon_bet_eth_star.png">
+            <img
+              class="icon-star"
+              src="../assets/images/icon_bet_eth_star.png"
+            >
           </span>
         </div>
       </div>
@@ -54,7 +66,7 @@ export default {
   mixins: [countDownMixin],
   data() {
     return {
-      gameBonus:{}
+      gameBonus: {}
     };
   },
   methods: {
@@ -67,8 +79,8 @@ export default {
     },
     getGameBonus() {
       MainApi.getGameBonus().then(res => {
-        if(Number(res.status)===1){
-          this.gameBonus = res.data
+        if (Number(res.status) === 1) {
+          this.gameBonus = res.data;
         }
         console.log("game_bonus", res);
       });

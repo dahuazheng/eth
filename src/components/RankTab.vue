@@ -78,7 +78,7 @@
             return {
                 currTab: "live",
                 dayPushHistory: {},
-                liveList: [{}, {}, {}, {}, {}],
+                liveList: [],
                 myRankList: []
             };
         },

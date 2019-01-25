@@ -4,6 +4,7 @@ import {UserApi} from '@/api'
 const state = {
     invite_code: '',
     address: '0x8923kjKJhkjh9879827ufiywiyri2987yhiu',
+    asset: {},
     balance: {
         ETH: 0,
         INC: 0,
@@ -22,9 +23,10 @@ const actions = {
             commit('setInviteCode', res.data.invite_code)
         })
     },
-    getBalance({commit}) {
-        UserApi.getBalance().then(balance => {
-            commit('setBalance', balance)
+    getAsset({commit}) {
+        UserApi.getAsset().then(asset => {
+            if (Number(asset.status) !== 1) return
+            commit('setAsset', asset.data)
         })
     },
     getAddress({commit}) {
@@ -43,9 +45,13 @@ const mutations = {
         // console.log('invite_code', inviteCode)
         state.invite_code = inviteCode
     },
-    setBalance(state, balance) {
+    setAsset(state, asset) {
         // console.log('balance', balance)
-        state.balance = balance
+        state.asset = asset
+        const incObj = asset.find(item => item.coin_code === 'INC')
+        const ethObj = asset.find(item => item.coin_code === 'ETH')
+        state.balance = {INC: incObj.available_amount, ETH: ethObj.available_amount}
+
     },
     setAddress(state, address) {
         console.log('balance', address)

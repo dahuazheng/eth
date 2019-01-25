@@ -78,7 +78,7 @@
         },
         mounted() {
             if (!UserApi.isBindInviter()) {
-                //this.$router.push({name: 'inviter'})
+                this.$router.push({name: 'inviter'})
                 return
             }
             const {tab} = this.$route.query
