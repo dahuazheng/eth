@@ -147,7 +147,7 @@
             }
         },
         mounted() {
-            //this.getDayPush();
+            this.getDayPush();
             this.getDayPushHistory();
             this.getWinnerList();
         }
