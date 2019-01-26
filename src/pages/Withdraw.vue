@@ -51,7 +51,7 @@
 
 <script>
     import EthButton from '@/components/EthButton.vue'
-    import {Toast} from 'mint-ui'
+    import {Toast, MessageBox} from 'mint-ui'
     import {isValidETHWallet, isValidSmsAuthCode} from '../utils'
     import {WalletApi, UserApi} from '../api'
     import {mapState} from 'vuex'
@@ -158,15 +158,20 @@
                 }
 
                 const coinOption = this.asset.find(item => item.coin_code === this.coin)
+                console.log(coinOption)
 
                 WalletApi.applyTransfer({
-                    coin_id: coinOption && coinOption.id || '',
+                    coin_id: coinOption && coinOption.coin_id || '',
                     address: this.address,
                     amount: this.money,
                     sms_code: this.code
                 }).then(res => {
-                    console.log(res)
-                    Toast('申请成功')
+                    if (Number(res.status) !== 1) {
+                        Toast('申请失败，请重试')
+                    }
+                    MessageBox.alert('申请成功').then(action => {
+                        this.$router.push({name: 'wallet'})
+                    })
                 })
             }
         },
