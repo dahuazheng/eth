@@ -235,7 +235,7 @@
                         span {
                             position: relative;
                             @include fontSize($font-little);
-                            padding: 8px 0;
+                            padding: 10px 0;
                             box-sizing: border-box;
                             display: flex;
                             align-items: center;
@@ -290,7 +290,6 @@
                         &:first-child {
                             text-align: center;
                             @include fontSize($font-little-s);
-                            padding-bottom: 13px;
                             border-bottom: 1px solid $border-bottom-color;
 
                             span {
@@ -303,26 +302,28 @@
                             align-items: flex-start;
                             @include fontSize($font-little);
                             padding-top: 3px;
-                            padding-bottom: 3px;
                             color: $color-black;
-                            font-weight: 500;
+                            font-weight: normal;
                             text-align: center;
 
                             &.date,
+                            &.award {
+                                display: inline;
+                                width: 13%;
+                            }
+
                             &.player {
                                 display: inline;
                                 width: 20%;
                             }
 
-                            &.award,
                             &.num {
-                                width: 13%;
+                                width: 15%;
                             }
 
                             &.date {
                                 padding-left: 15px;
                                 text-align: left;
-                                @include fontSize($font-little-s);
 
                                 &.date-top {
                                     padding-top: 10px;
@@ -358,11 +359,11 @@
                 tr {
                     border-bottom: 1px solid $border-bottom-color;
                     @include fontSize($font-little - 1);
-                    font-weight: 500;
+                    font-weight: normal;
 
                     &:first-child {
                         td {
-                            @include fontSize($font-little-s);
+                            @include fontSize($font-little);
 
                             &:first-child {
                                 width: 30%;

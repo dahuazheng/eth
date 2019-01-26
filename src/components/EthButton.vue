@@ -29,7 +29,6 @@
             box-sizing: border-box;
             color: $clear-color;
             border-radius: 10px;
-            border: 1px solid #fff;
 
             &.white {
                 color: $primary-color;

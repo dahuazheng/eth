@@ -57,6 +57,7 @@
         right: 0;
         border-top: 1px solid $border-color;
         background: $clear-color;
+        z-index: 100;
 
         ul {
             @include clearUl;
