@@ -87,7 +87,7 @@
             border-collapse: collapse;
 
             tr {
-                @include fontSize($font-little-s);
+                @include fontSize($font-little);
                 border-bottom: 1px solid $border-color;
             }
 

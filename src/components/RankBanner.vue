@@ -81,17 +81,17 @@
 
             p {
                 &:nth-child(1) {
-                    font-size: $font-large + 1;
+                    @include fontSize($font-large + 1);
                     color: $color-white;
                 }
 
                 &:nth-child(2) {
-                    font-size: $font-little-s;
+                    @include fontSize($font-little-s);
                     color: $color-orange;
                 }
 
                 &:nth-child(3) {
-                    font-size: $font-little-s;
+                    @include fontSize($font-little-s);
                     color: $color-purple;
                 }
             }

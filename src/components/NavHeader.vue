@@ -30,7 +30,7 @@
         }
 
         .nav-title {
-            font-size: $font-medium-s + 4;
+            @include fontSize($font-large-s);
             font-weight: 600;
             color: #000;
         }

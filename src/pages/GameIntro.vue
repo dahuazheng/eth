@@ -141,7 +141,7 @@
                     &.title {
                         display: inline-block;
                         vertical-align: bottom;
-                        font-size: $font-little + 1;
+                        @include fontSize($font-little + 1);
                         color: $primary-color;
                         letter-spacing: 1px;
                     }

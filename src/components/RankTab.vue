@@ -171,7 +171,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 15px;
-            font-size: $font-little;
+            @include fontSize($font-little);
 
             span {
                 display: inline-block;
@@ -231,7 +231,7 @@
 
                         span {
                             position: relative;
-                            font-size: $font-little;
+                            @include fontSize($font-little);
                             padding: 8px 0;
                             box-sizing: border-box;
                             display: flex;
@@ -285,7 +285,7 @@
 
                         &:first-child {
                             text-align: center;
-                            font-size: $font-little-s;
+                            @include fontSize($font-little-s);
                             padding-bottom: 13px;
                             border-bottom: 1px solid $border-bottom-color;
 
@@ -297,7 +297,7 @@
                         span {
                             display: flex;
                             align-items: flex-start;
-                            font-size: $font-little-s + 1;
+                            @include fontSize($font-little-s + 1);
                             padding-top: 3px;
                             padding-bottom: 3px;
                             color: $color-black;
@@ -318,7 +318,7 @@
                             &.date {
                                 padding-left: 15px;
                                 text-align: left;
-                                font-size: $font-little-s;
+                                @include fontSize($font-little-s);
 
                                 &.date-top {
                                     padding-top: 10px;
@@ -353,12 +353,12 @@
 
                 tr {
                     border-bottom: 1px solid $border-bottom-color;
-                    font-size: $font-little - 1;
+                    @include fontSize($font-little - 1);
                     font-weight: 500;
 
                     &:first-child {
                         td {
-                            font-size: $font-little-s;
+                            @include fontSize($font-little-s);
 
                             &:first-child {
                                 width: 30%;

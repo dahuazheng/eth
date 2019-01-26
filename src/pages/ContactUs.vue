@@ -51,15 +51,15 @@
                 justify-content: space-between;
                 align-items: center;
                 padding: 15px 0;
-                font-size: $font-little + 1;
+                @include fontSize($font-little + 1);
                 text-decoration: none;
 
                 span {
                     display: inline-flex;
                     align-items: center;
                     color: #5b5b5b;
-                    font-size: $font-medium-s + 1;
                     letter-spacing: 1px;
+                    @include fontSize($font-medium-s + 1);
 
                     &.tip {
                         position: absolute;
