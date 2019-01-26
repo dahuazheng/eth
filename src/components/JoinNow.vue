@@ -40,7 +40,7 @@
             // 获取参与次数
             getOrderList() {
                 OrderApi.getOrderList({page: '1', limit: '1'}).then(res => {
-                    this.joinCount = res.data && res.data.count
+                    this.joinCount = res.data && res.data.count || 0
                 }).catch(err => {
                     console.error(err)
                 })

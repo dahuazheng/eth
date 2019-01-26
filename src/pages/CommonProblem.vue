@@ -172,7 +172,7 @@
                 p {
                     display: flex;
                     align-items: flex-start;
-                    font-size: $font-medium-s + 1;
+                    @include fontSize($font-medium-s + 1);
                     color: #3d215c;
                     margin-bottom: 7px;
 
@@ -187,7 +187,7 @@
                 }
                 
                 div.content {
-                    font-size: $font-medium-s + 1;
+                    @include fontSize($font-medium-s + 1);
                     line-height: 1.5;
                     padding: 0 20px 10px;
                     text-align: justify;

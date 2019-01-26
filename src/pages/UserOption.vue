@@ -138,8 +138,8 @@
                 p {
                     color: #fed67c;
                     letter-spacing: 1px;
-                    font-size: $font-large;
                     margin-top: 0;
+                    @include fontSize($font-large);
                 }
             }
 
@@ -161,8 +161,8 @@
                         justify-content: space-between;
                         align-items: center;
                         padding: 20px 0;
-                        font-size: $font-little + 1;
                         text-decoration: none;
+                        @include fontSize($font-little + 1);
 
                         span {
                             display: inline-flex;
@@ -230,7 +230,7 @@
                             &.lang-tip {
                                 position: absolute;
                                 right: 30px;
-                                font-size: $font-little-s;
+                                @include fontSize($font-little-s);
                                 color: #c4c2c2;
                             }
                         }

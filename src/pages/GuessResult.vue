@@ -100,8 +100,12 @@
                     border-bottom: 1px solid $border-bottom-color;
 
                     span {
-                        font-size: $font-little-s;
+                        @include fontSize($font-little);
                         font-weight: 500;
+
+                        &:last-child {
+                            width: 24%;
+                        }
                     }
                 }
 
@@ -109,7 +113,7 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    font-size: $font-little-s;
+                    @include fontSize($font-little);
                     color: $color-black;
                     text-align: center;
                     padding: 8px 0;
@@ -119,7 +123,7 @@
                     }
 
                     &.number {
-                        width: 15%;
+                        width: 14%;
 
                         &.date-top {
                             text-align: center;
@@ -127,7 +131,7 @@
                     }
 
                     &.award {
-                        width: 15%;
+                        width: 16%;
 
                     }
 
@@ -137,7 +141,7 @@
 
                     &.amount {
                         text-align: right;
-                        width: 25%;
+                        width: 13%;
                     }
                 }
 

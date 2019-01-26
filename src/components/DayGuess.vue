@@ -121,7 +121,7 @@
                 border: 1px solid #6813ae;
                 border-radius: 10px;
                 padding: 9px 15px;
-                font-size: 13px;
+                @include fontSize($font-little + 1);
                 @include fontPrimaryColor($primary-color);
 
                 &:nth-child(2) {
