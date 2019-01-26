@@ -7,13 +7,13 @@
 <script>
     import {UserApi} from '@/api'
     import {initMixin} from '@/mixins'
-    import Cookies from 'js-cookie'
+
 
     export default {
         mixins: [initMixin],
         watch: {
             $route(to, from) {
-                this.init()
+                //this.init()
             }
         },
         methods: {
@@ -22,11 +22,10 @@
                     this.$router.push({name: 'login'})
                     return
                 }
-
                 this.getInitData()
             }
         },
-        created() {
+        mounted() {
             this.init()
         }
     }

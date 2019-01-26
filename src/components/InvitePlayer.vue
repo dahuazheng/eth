@@ -2,7 +2,7 @@
     <div class="invite-player">
         <div class="my-inviter">
             <label>我的邀请人</label>
-            <span>9999999</span>
+            <span>{{parentInviteCode}}</span>
         </div>
         <!--<div class="item un-active" v-show="active==='un'">-->
         <!--<input type="text" placeholder="请指定您的专属邀请昵称" v-model="name">-->
@@ -21,12 +21,13 @@
 <script>
     import {Toast} from 'mint-ui'
     import {mapState} from 'vuex'
-
+    import {UserApi} from '../api'
 
     export default {
         data() {
             return {
                 active: 'un',
+                parentInviteCode: ''
             }
         },
         computed: {
@@ -53,6 +54,14 @@
                 Toast('复制成功')
                 document.body.removeChild(input)
             }
+        },
+        mounted() {
+            UserApi.getParentInviteCode().then(res => {
+                // console.log(res)
+                if (Number(res.status) === 1) {
+                    this.parentInviteCode = res.data && res.data.parent_invite_code
+                }
+            })
         }
     }
 </script>

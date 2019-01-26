@@ -106,7 +106,7 @@
                     text-align: center;
 
                     span {
-                        @include fontSize(26px);
+                        @include fontSize(16px);
                         margin-bottom: $space-width;
                     }
 
@@ -185,8 +185,6 @@
                     @include px2rem('height', 151);
                 }
             }
-
         }
-
     }
 </style>
