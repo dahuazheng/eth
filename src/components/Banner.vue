@@ -48,7 +48,7 @@
             <div class="time-circle">
                <div class="wave">
                    <!-- <img src="../assets/images/bg_wave.svg" alt=""> -->
-                   02:45:00
+                   <span> 02:45:00</span>
                </div>
             </div>
         </div>
@@ -239,12 +239,14 @@
                 justify-content: center;
                 width: 100%;
 
-                > div {
+                .wave {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                     position: relative;
                     @include px2rem('width', 120);
                     @include px2rem('height', 120);
                     background-color: #fff600;
-                    //background-color: rgb(118, 218, 255);
                     border-radius: 50%;
                     border: 2px solid #fff41f;
                     box-shadow: 0 0 40px #b78330, 0 0 20px #b78330 inset;
@@ -262,7 +264,7 @@
                         border-radius: 40%;
                         transform: translate(-50%, -70%) rotate(0);
                         animation: rotate 6s linear infinite;
-                        z-index: 10;
+                        z-index: 5;
                     }
 
                     &::after {
@@ -270,9 +272,17 @@
                         background-color: #7900ae;
                         transform: translate(-50%, -70%) rotate(0);
                         animation: rotate 4s linear -5s infinite;
-                        z-index: 10;
+                        z-index: 5;
                     }
 
+
+                    span {
+                        position: absolute;
+                        z-index: 6;
+                        color: #fff;
+                        @include px2rem('font-size', 20);
+                    }
+                    
                     @keyframes rotate {
                         50% {
                             transform: translate(-50%, -73%) rotate(180deg);
