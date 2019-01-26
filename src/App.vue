@@ -8,7 +8,6 @@
     import {UserApi} from '@/api'
     import {initMixin} from '@/mixins'
 
-
     export default {
         mixins: [initMixin],
         watch: {
