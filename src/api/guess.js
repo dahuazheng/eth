@@ -1,7 +1,8 @@
 import Requester from "../services/requester"
 import config from './config'
-import { formatDecimal } from '../utils/index'
-import { PRECISION } from '../utils/constants'
+import {formatDecimal} from '../utils/index'
+import {PRECISION} from '../utils/constants'
+
 class GuessApi {
 
     // 获取我的竞猜状态
@@ -38,9 +39,25 @@ class GuessApi {
     static getGuessHistory(query) {
         return Requester.get(config.apiDomain + 'history', query)
             .then(res => {
-                if (res.status !== 1) return []
+                if (Number(res.status) !== 1) return
 
-                return res.data
+                const lists = res.data && res.data.map(n => ({
+                    date: n.date || '',
+                    addTime: Number(n.add_time) || 0,
+                    numTrue: Number(n.num_true) || 0,
+                    list: n.list.map(i => {
+                        return {
+                            numGuess: i.num_guess,
+                            phone: i.phone,
+                            eth: formatDecimal(i.eth, PRECISION.ETH),
+                            inc: formatDecimal(i.inc, PRECISION.INC),
+                            status: i.status,
+                            date: i.date
+                        }
+                    }) || []
+                }))
+
+                return lists
             })
             .catch(err => {
                 console.error(err)

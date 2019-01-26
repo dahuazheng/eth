@@ -11,14 +11,14 @@
                     <span class="amount">奖金（eth/inc）</span>
                 </li>
                 <li v-for="(history, hKey) in historyList" :key="hKey">
-                    <span class="date date-top">{{ history.add_time | formatDate}}</span>
-                    <span class="number date-top">{{ history.num_true }}</span>
+                    <span class="date date-top">{{ history.addTime | formatDate}}</span>
+                    <span class="number date-top">{{ history.numTrue }}</span>
 
                     <div class="row-content">
                         <div class="row" v-for="(item, key) in history.list" :key="key">
                             <span class="award">{{item.status | transformStatus}}</span>
                             <span class="player">{{item.phone }}</span>
-                            <span class="amount text-green">+{{formatDecimal(item.eth, PRECISION.ETH)}}<br> +{{ formatDecimal(item.inc, PRECISION.INC) }}</span>
+                            <span class="amount text-green">+{{item.eth}}<br> +{{item.inc }}</span>
                         </div>
                     </div>
                 </li>
@@ -67,7 +67,6 @@
             // 获取历史结果
             getHistoryList() {
                 GuessApi.getGuessHistory({}).then(res => {
-                    console.log('3245', res)
                     this.historyList = res
                 }).catch(err => {
                     console.log(err)
@@ -137,6 +136,7 @@
                     }
 
                     &.amount {
+                        text-align: right;
                         width: 25%;
                     }
                 }

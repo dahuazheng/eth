@@ -121,8 +121,7 @@
                 @include px2rem('line-height', 28);
                 @include px2rem('border-radius', 14);
                 @include fontPrimaryColor(#614292);
-                // width: 60%;
-                padding: 0 20px;
+                padding: 0 10px;
                 text-align: center;
                 background: #efe0fd;
             }
