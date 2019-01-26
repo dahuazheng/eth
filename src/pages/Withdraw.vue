@@ -64,6 +64,11 @@
             }
         },
         methods: {
+            // 校验钱包地址
+            checkAddress(){
+                return false
+            },
+
             switchCoin(coin) {
                 this.coin = coin
                 this.showOptions = false
@@ -80,8 +85,13 @@
                         return true
                     }
                 })
-
                 if (err) return
+
+                // 判断钱包地址是否是ETH系列钱包
+                if(this.checkAddress()) {
+                    Toast(`请输入正确的${this.coin}}系钱包地址`)
+                }
+
             }
         }
     }

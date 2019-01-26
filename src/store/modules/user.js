@@ -33,8 +33,8 @@ const actions = {
         })
     },
     getAddress({commit}) {
-        ['ETH'].map(coin => {
-            WalletApi.getWalletAddress({chain_code: coin}).then(res => {
+        ['INC'].map(coin => {
+            WalletApi.getWalletAddress().then(res => {
                 console.log(res)
                 return
                 if (Number(res.status) !== 1) return
