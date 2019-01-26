@@ -17,7 +17,7 @@
                     <td>{{ item.numTrue }}</td>
                     <td>
                         {{ item.status | transformStatus }} <br>
-                        +{{ item.eth }} ETH <br>
+                        +{{ item.eth }} ETH<br>
                         +{{ item.inc }} INC
                     </td>
                 </tr>
@@ -94,7 +94,7 @@
             th, td {
                 padding: 5px 0;
                 text-align: center;
-                font-weight: 500;
+                font-weight: normal;
 
                 &:first-child {
                     text-align: left;

@@ -7,6 +7,7 @@
         </div>
 
         <div class="rank-tab__body">
+            <!--24小时直推龙虎榜-->
             <ul class="live" v-show="currTab === 'live'">
                 <li>
                     <span class="num">名次</span>
@@ -28,6 +29,8 @@
                     <span class="per">{{ live.push_count }}</span>
                 </li>
             </ul>
+
+            <!--龙虎榜历史-->
             <ul class="history" v-show="currTab === 'history'">
                 <li>
                     <span class="date">日期</span>
@@ -45,14 +48,16 @@
                             <span class="player">{{row.phone}}</span>
                             <span class="num">{{row.push_count}}</span>
                             <span class="amount text-green">
-                                {{row.eth_amount}}
+                                +{{row.eth_amount}}
                                 <br>
-                                {{ row.inc_amount }}
+                                +{{row.inc_amount}}
                             </span>
                         </div>
                     </div>
                 </li>
             </ul>
+
+            <!--我的龙虎榜-->
             <table class="my-rank" v-show="currTab === 'my-rank'">
                 <tr>
                     <td>日期</td>
@@ -136,7 +141,7 @@
             // 龙虎榜历史
             getDayPushHistory() {
                 RankApi.getDayPushHistory().then(res => {
-                    this.dayPushHistory = res.data && res.data.list;
+                    // this.dayPushHistory = res.data && res.data.list;
                 });
             },
 
@@ -282,6 +287,7 @@
                         display: flex;
                         justify-content: space-around;
                         border-bottom: 1px solid $border-bottom-color;
+                        padding: 10px 0;
 
                         &:first-child {
                             text-align: center;
@@ -297,7 +303,7 @@
                         span {
                             display: flex;
                             align-items: flex-start;
-                            @include fontSize($font-little-s + 1);
+                            @include fontSize($font-little);
                             padding-top: 3px;
                             padding-bottom: 3px;
                             color: $color-black;
