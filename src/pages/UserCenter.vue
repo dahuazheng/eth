@@ -509,7 +509,8 @@
                     flex-wrap: wrap;
                     justify-content: start;
                     align-items: center;
-                    margin: $margin-width;
+                    padding: 0 15px;
+                    margin-top: $margin-width;
 
                     > li {
                         @include fontSize($font-little-s);
