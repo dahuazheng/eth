@@ -20,7 +20,11 @@
                         <span class="icon" :class="'icon-' + liveKey"></span>
                     </span>
                     <span class="name">{{ live.phone}}</span>
-                    <span class="account">{{ live.order_count }}</span>
+                    <span class="account">
+                        {{ live.eth_amount }} ETH
+                        <br>
+                        {{ live.inc_amount }} INC
+                    </span>
                     <span class="per">{{ live.push_count }}</span>
                 </li>
             </ul>
@@ -76,9 +80,9 @@
         name: "rank-tab",
         data() {
             return {
-                currTab: "live",
-                dayPushHistory: {},
+                currTab: 'live',
                 liveList: [],
+                dayPushHistory: {},
                 myRankList: []
             };
         },
@@ -123,7 +127,9 @@
             // 24h 直推龙虎榜
             getDayPush() {
                 RankApi.getDayPush().then(res => {
-                    console.log(res);
+                    if(Number(res.status)===1){
+                        this.liveList = res.data && res.data.list
+                    }
                 });
             },
 
@@ -131,12 +137,9 @@
             getDayPushHistory() {
                 RankApi.getDayPushHistory().then(res => {
                     this.dayPushHistory = res.data && res.data.list;
-
-                    setTimeout(() => {
-                        console.log(this.dayPushHistoryList)
-                    }, 2000)
                 });
             },
+
             // 我的龙虎榜
             getWinnerList() {
                 RankApi.getWinnerList().then(res => {

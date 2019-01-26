@@ -28,6 +28,16 @@ class WalletApi {
     static getWalletAddress(query) {
         return Requester.post(config.apiDomain + 'newpay_get_address', query)
     }
+
+    // 获取币种配置信息
+    static getCoinInfo(query){
+        return Requester.post(config.apiDomain + 'newpay_get_coin_info', query)
+    }
+
+    // 申请提现
+    static applyTransfer(query){
+        return Requester.post(config.apiDomain + 'newpay_apply_transfer', query)
+    }
 }
 
 export default WalletApi

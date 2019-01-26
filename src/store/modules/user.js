@@ -5,10 +5,7 @@ import {PRECISION} from "../../utils/constants";
 // initial state
 const state = {
     invite_code: '',
-    address: {
-        ETH: '0x8923kjKJhkjh9879827ufiywiyri2987yhiu',
-        INC: ''
-    },
+    address: '0x8923kjKJhkjh9879827ufiywiyri2987yhiu',
     asset: {},
     balance: {
         ETH: 0,
@@ -35,14 +32,10 @@ const actions = {
         })
     },
     getAddress({commit}) {
-        ['INC'].map(coin => {
-            WalletApi.getWalletAddress().then(res => {
-                console.log(res)
-                return
-                if (Number(res.status) !== 1) return
+        WalletApi.getWalletAddress({chain_code: 'ETH'}).then(res => {
+            if (Number(res.status) !== 1) return
 
-                commit('setAddress', res.data.address)
-            })
+            commit('setAddress', res.data.address)
         })
 
     }
