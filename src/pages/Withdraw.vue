@@ -50,6 +50,8 @@
 <script>
     import EthButton from '@/components/EthButton.vue'
     import {Toast} from 'mint-ui'
+    import {isValidETHWallet} from '../utils'
+    import {WalletApi} from '../api'
 
     export default {
         name: 'withdraw',
@@ -57,15 +59,26 @@
         data() {
             return {
                 showOptions: false,
-                coin: 'INC',
+                coin: 'ETH',
                 address: '',
                 money: '',
-                code: ''
+                code: '',
+                coinInfo:{}
             }
         },
         methods: {
+            getCoinInfo() {
+                WalletApi.getCoinInfo({coin_code: this.coin}).then(res => {
+                    if(Number(res.status)===1){
+                        console.log(res)
+                        this.coinInfo = res.data && res.data
+                        console.log(this.coinInfo)
+                    }
+                })
+            },
+
             // 校验钱包地址
-            checkAddress(){
+            checkAddress() {
                 return false
             },
 
@@ -74,7 +87,7 @@
                 this.showOptions = false
             },
             next() {
-                const errors = [
+                /*const errors = [
                     {key: 'address', msg: '请填写收款人地址'},
                     {key: 'money', msg: '请输入提现金额'},
                     {key: 'code', msg: '请输入验证码'}]
@@ -85,14 +98,17 @@
                         return true
                     }
                 })
-                if (err) return
+                if (err) return*/
 
                 // 判断钱包地址是否是ETH系列钱包
-                if(this.checkAddress()) {
-                    Toast(`请输入正确的${this.coin}}系钱包地址`)
+                if (!isValidETHWallet(this.address)) {
+                    Toast(`请输入正确的ETH系钱包地址`)
                 }
 
             }
+        },
+        mounted(){
+            this.getCoinInfo()
         }
     }
 
