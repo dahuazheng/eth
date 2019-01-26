@@ -51,7 +51,6 @@ const mutations = {
         const incObj = asset.find(item => item.coin_code === 'INC')
         const ethObj = asset.find(item => item.coin_code === 'ETH')
         state.balance = {INC: incObj.available_amount, ETH: ethObj.available_amount}
-
     },
     setAddress(state, address) {
         console.log('balance', address)

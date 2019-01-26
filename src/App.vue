@@ -7,7 +7,6 @@
 <script>
     import {UserApi} from '@/api'
     import {initMixin} from '@/mixins'
-    import Cookies from 'js-cookie'
 
     export default {
         mixins: [initMixin],
