@@ -1,5 +1,5 @@
 <template>
-    <div class="login-popup animated fadeInRight" v-show="show">
+    <div class="login-popup animated fadeInRight" v-show="show" @click.stop @touchmove.prevent>
         <header @click="cancel"></header>
         <h1>
             您好，
@@ -11,7 +11,7 @@
                 +{{prefix}}
                 <icon name="down"></icon>
             </label>
-            <input type="text" v-model="phone">
+            <input type="number" v-model="phone">
             <span class="delete" @click="phone=''">×</span>
         </div>
         <div class="row">

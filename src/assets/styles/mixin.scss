@@ -1,231 +1,235 @@
 @charset "utf-8";
 @import "./variable";
 
+// px转rem
+@mixin px2rem($property,$px,$px2:false,$px3:false,$px4:false) {
+    $rem: 75; /* 设计稿尺寸/10 */
+    @if $px and $px2 and $px3 and $px4 {
+        #{$property}: ($px / $rem) + rem ($px2 / $rem) + rem ($px3 / $rem) + rem ($px4 / $rem) + rem;
+    } @else if $px and $px2 {
+        #{$property}: ($px / $rem) + rem ($px2 / $rem) + rem;
+        //[data-model='pad'] & {#{$property}: ($px * 1.4 / $rem) + rem ($px2 * 1.4 / $rem) + rem;}
+    } @else {
+        #{$property}: ($px / $rem) + rem !important;
+        //[data-model='pad'] & {#{$property}: ($px * 1.4 / $rem) + rem;}
+    }
+}
+
 // 根据dpr计算font-size
 @mixin fontDpr($font-size) {
-  font-size: $font-size;
-  //[data-model="pad"] & { font-size: $font-size * 1.4; }
-  [data-dpr="2"] & {
-    font-size: $font-size * 2;
-  }
-  [data-dpr="3"] & {
-    font-size: $font-size * 3;
-  }
+    //font-size: $font-size;
+    @include px2rem('font-size', $font-size);
+    //[data-model="pad"] & { font-size: $font-size * 1.4; }
+    [data-dpr="2"] & {
+        // font-size: $font-size * 2;
+        @include px2rem('font-size', $font-size *2);
+
+    }
+    [data-dpr="3"] & {
+        // font-size: $font-size * 3;
+        @include px2rem('font-size', $font-size *3);
+    }
 }
 
 // 通过该函数设置字体大小，后期方便统一管理
 @mixin fontSize($size) {
-  @include fontDpr($size);
+    @include fontDpr($size);
 }
 
 // 设置字体颜色
 @mixin fontColor($color) {
-  color: $color;
-  [data-theme="default"] & {
-         color: $default-color;
-  }
-  [data-theme="dark"] & {
-    color: $default-color-dark;
-  }
+    color: $color;
+    [data-theme="default"] & {
+        color: $default-color;
+    }
+    [data-theme="dark"] & {
+        color: $default-color-dark;
+    }
 }
 
 // 设置字体铺色
 @mixin fontSubColor($color) {
-  color: $color;
-  [data-theme="default"] & {
-    color: $font-sub-color;
-  }
-  [data-theme="dark"] & {
-    color: $font-sub-color-dark;
-  }
+    color: $color;
+    [data-theme="default"] & {
+        color: $font-sub-color;
+    }
+    [data-theme="dark"] & {
+        color: $font-sub-color-dark;
+    }
 }
 
 // 设置字体对比色
 @mixin fontComparisonColor($color) {
-  color: $color;
-  [data-theme="default"] & {
-    color: $font-comparison-color;
-  }
-  [data-theme="dark"] & {
-    color: $font-comparison-color-dark;
-  }
+    color: $color;
+    [data-theme="default"] & {
+        color: $font-comparison-color;
+    }
+    [data-theme="dark"] & {
+        color: $font-comparison-color-dark;
+    }
 }
 
 // 设置字体主题色
 @mixin fontPrimaryColor($color) {
-  color: $color;
-  [data-theme="default"] & {
-       color: $font-primary-color;
-  }
-  [data-theme="dark"] & {
-    color: $font-primary-color-dark;
-  }
+    color: $color;
+    [data-theme="default"] & {
+        color: $font-primary-color;
+    }
+    [data-theme="dark"] & {
+        color: $font-primary-color-dark;
+    }
 }
 
 // 设置背景色
 @mixin bgColor($color) {
-  background-color: $color;
-  [data-theme="default"] & {
-    background-color: $default-color;
-  }
-  [data-theme="dark"] & {
-    background-color: $default-color-dark;
-  }
+    background-color: $color;
+    [data-theme="default"] & {
+        background-color: $default-color;
+    }
+    [data-theme="dark"] & {
+        background-color: $default-color-dark;
+    }
 }
 
 // 设置背景主题色
 @mixin primaryColor($color) {
-  background-color: $color;
-  [data-theme="default"] & {
-    background-color: $primary-color;
-  }
-  [data-theme="dark"] & {
-    background-color: $primary-color-dark;
-  }
+    background-color: $color;
+    [data-theme="default"] & {
+        background-color: $primary-color;
+    }
+    [data-theme="dark"] & {
+        background-color: $primary-color-dark;
+    }
 }
 
 // 设置背景危险色
 @mixin dangerColor($color) {
-  background-color: $color;
-  [data-theme="default"] & {
-    background-color: $danger-color;
-  }
-  [data-theme="dark"] & {
-    background-color: $danger-color-dark;
-  }
+    background-color: $color;
+    [data-theme="default"] & {
+        background-color: $danger-color;
+    }
+    [data-theme="dark"] & {
+        background-color: $danger-color-dark;
+    }
 }
 
 // 设置边框
 @mixin setBorder($property,$width,$style,$color) {
-  #{$property}: $width + px $style $color;
-  [data-theme="default"] & {
-    #{$property}: $width + px $style $border-color;
-  }
-  [data-theme="dark"] & {
-    #{$property}: $width + px $style $border-color-dark;
-  }
-}
-
-// px转rem
-@mixin px2rem($property,$px,$px2:false,$px3:false,$px4:false) {
-  $rem: 75; /* 设计稿尺寸/10 */
-  @if $px and $px2 and $px3 and $px4 {
-    #{$property}: ($px / $rem) + rem ($px2 / $rem) + rem ($px3 / $rem) + rem ($px4 / $rem) + rem;
-  } @else if $px and $px2 {
-    #{$property}: ($px / $rem) + rem ($px2 / $rem) + rem;
-    //[data-model='pad'] & {#{$property}: ($px * 1.4 / $rem) + rem ($px2 * 1.4 / $rem) + rem;}
-  } @else {
-    #{$property}: ($px / $rem) + rem !important;
-    //[data-model='pad'] & {#{$property}: ($px * 1.4 / $rem) + rem;}
-  }
+    #{$property}: $width + px $style $color;
+    [data-theme="default"] & {
+        #{$property}: $width + px $style $border-color;
+    }
+    [data-theme="dark"] & {
+        #{$property}: $width + px $style $border-color-dark;
+    }
 }
 
 /*超行溢出显示省略号*/
 @mixin overflow($num:1,$fontSize:0,$lineHeight:1.5) {
-  display: -webkit-box;
-  -webkit-line-clamp: $num;
-  overflow: hidden;
-  /*! autoprefixer: off */
-  -webkit-box-orient: vertical;
-  /* autoprefixer: on */
-  @if $fontSize!=0 and $lineHeight { /*高度需要撑开*/
-    line-height: $lineHeight;
-    @if $lineHeight < 1.2 {
-      line-height: 1.2; /*最小需要1.2，否则在部分安卓机下第$num+1行会顶部漏出*/
+    display: -webkit-box;
+    -webkit-line-clamp: $num;
+    overflow: hidden;
+    /*! autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+    @if $fontSize!=0 and $lineHeight { /*高度需要撑开*/
+        line-height: $lineHeight;
+        @if $lineHeight < 1.2 {
+            line-height: 1.2; /*最小需要1.2，否则在部分安卓机下第$num+1行会顶部漏出*/
+        }
+        height: $num * $fontSize * $lineHeight;
+        [data-dpr="2"] & {
+            height: $num * $fontSize * $lineHeight * 2 !important;
+        }
+        [data-dpr="3"] & {
+            height: $num * $fontSize * $lineHeight * 3 !important;
+        }
     }
-    height: $num * $fontSize * $lineHeight;
-    [data-dpr="2"] & {
-      height: $num * $fontSize * $lineHeight * 2 !important;
-    }
-    [data-dpr="3"] & {
-      height: $num * $fontSize * $lineHeight * 3 !important;
-    }
-  }
 }
 
 //transition兼容写法
 @mixin transition($content:all .2s) {
-  -moz-transition: $content;
-  -webkit-transition: $content;
-  -o-transition: $content;
-  transition: $content;
+    -moz-transition: $content;
+    -webkit-transition: $content;
+    -o-transition: $content;
+    transition: $content;
 }
 
 //transfrom兼容
 @mixin translateX($num:-50%) {
-  -ms-transform: translateX($num);
-  -moz-transform: translateX($num);
-  -webkit-transform: translateX($num);
-  -o-transform: translateX($num);
-  transform: translateX($num);
+    -ms-transform: translateX($num);
+    -moz-transform: translateX($num);
+    -webkit-transform: translateX($num);
+    -o-transform: translateX($num);
+    transform: translateX($num);
 }
 
 @mixin translateY($num:-50%) {
-  -ms-transform: translateY($num);
-  -moz-transform: translateY($num);
-  -webkit-transform: translateY($num);
-  -o-transform: translateY($num);
-  transform: translateY($num);
+    -ms-transform: translateY($num);
+    -moz-transform: translateY($num);
+    -webkit-transform: translateY($num);
+    -o-transform: translateY($num);
+    transform: translateY($num);
 }
 
 @mixin rotate($deg:90deg) {
-  -ms-transform: rotate($deg);
-  -moz-transform: rotate($deg);
-  -webkit-transform: rotate($deg);
-  -o-transform: rotate($deg);
-  transform: rotate($deg);
+    -ms-transform: rotate($deg);
+    -moz-transform: rotate($deg);
+    -webkit-transform: rotate($deg);
+    -o-transform: rotate($deg);
+    transform: rotate($deg);
 }
 
 @mixin clearBack() {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 @mixin clearUl() {
-  @include clearBack;
-  list-style: none;
+    @include clearBack;
+    list-style: none;
 }
 
 @mixin background-image() {
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 @mixin background-gradient($color-from, $color-to) {
-  background: $color-from;
-  background: -moz-linear-gradient(left, $color-from 0%, $color-to 100%);
-  background: -webkit-gradient(left top, right top, color-stop(0%, $color-from), color-stop(100%, $color-to));
-  background: -webkit-linear-gradient(left, $color-from 0%, $color-to 100%);
-  background: -o-linear-gradient(left, $color-from 0%, $color-to 100%);
-  background: -ms-linear-gradient(left, $color-from 0%, $color-to 100%);
-  background: linear-gradient(to right, $color-from 0%, $color-to 100%);
-  /* stylelint-disable function-name-case */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-from}', endColorstr='#{$color-to}', GradientType=1);
-  /* stylelint-enable function-name-case */
+    background: $color-from;
+    background: -moz-linear-gradient(left, $color-from 0%, $color-to 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, $color-from), color-stop(100%, $color-to));
+    background: -webkit-linear-gradient(left, $color-from 0%, $color-to 100%);
+    background: -o-linear-gradient(left, $color-from 0%, $color-to 100%);
+    background: -ms-linear-gradient(left, $color-from 0%, $color-to 100%);
+    background: linear-gradient(to right, $color-from 0%, $color-to 100%);
+    /* stylelint-disable function-name-case */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-from}', endColorstr='#{$color-to}', GradientType=1);
+    /* stylelint-enable function-name-case */
 }
 
 @mixin background-gradient-vertical($color-from, $color-to) {
-  background: $color-from;
-  background: -moz-linear-gradient(top, $color-from 0%, $color-to 100%);
-  background: -webkit-gradient(left top, left bottom, color-stop(0%, $color-from), color-stop(100%, $color-to));
-  background: -webkit-linear-gradient(top, $color-from 0%, $color-to 100%);
-  background: -o-linear-gradient(top, $color-from 0%, $color-to 100%);
-  background: -ms-linear-gradient(top, $color-from 0%, $color-to 100%);
-  background: linear-gradient(to bottom, $color-from 0%, $color-to 100%);
-  /* stylelint-disable function-name-case */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-from}', endColorstr='#{$color-to}', GradientType=0);
-  /* stylelint-enable function-name-case */
+    background: $color-from;
+    background: -moz-linear-gradient(top, $color-from 0%, $color-to 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, $color-from), color-stop(100%, $color-to));
+    background: -webkit-linear-gradient(top, $color-from 0%, $color-to 100%);
+    background: -o-linear-gradient(top, $color-from 0%, $color-to 100%);
+    background: -ms-linear-gradient(top, $color-from 0%, $color-to 100%);
+    background: linear-gradient(to bottom, $color-from 0%, $color-to 100%);
+    /* stylelint-disable function-name-case */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-from}', endColorstr='#{$color-to}', GradientType=0);
+    /* stylelint-enable function-name-case */
 }
 
 @mixin background-gradient-diagonal($color-from, $color-to) {
-  background: $color-from;
-  background: -moz-linear-gradient(left top, $color-from 0%, $color-to 100%);
-  background: -webkit-gradient(left top, right bottom, color-stop(0%, $color-from), color-stop(100%, $color-to));
-  background: -webkit-linear-gradient(left top, $color-from 0%, $color-to 100%);
-  background: -o-linear-gradient(left top, $color-from 0%, $color-to 100%);
-  background: -ms-linear-gradient(left top, $color-from 0%, $color-to 100%);
-  background: linear-gradient(to right bottom, $color-from 0%, $color-to 100%);
-  /* stylelint-disable function-name-case */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-from}', endColorstr='#{$color-to}', GradientType=1);
-  /* stylelint-enable function-name-case */
+    background: $color-from;
+    background: -moz-linear-gradient(left top, $color-from 0%, $color-to 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, $color-from), color-stop(100%, $color-to));
+    background: -webkit-linear-gradient(left top, $color-from 0%, $color-to 100%);
+    background: -o-linear-gradient(left top, $color-from 0%, $color-to 100%);
+    background: -ms-linear-gradient(left top, $color-from 0%, $color-to 100%);
+    background: linear-gradient(to right bottom, $color-from 0%, $color-to 100%);
+    /* stylelint-disable function-name-case */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color-from}', endColorstr='#{$color-to}', GradientType=1);
+    /* stylelint-enable function-name-case */
 }

@@ -34,12 +34,19 @@ $font-comparison-color-dark: #000;
 $font-primary-color-dark: $primary-color-dark;
 
 // 字体定义规范
-$font-little-s: 10px;
+$font-little-s: 10;
+$font-little: 12;
+$font-medium-s: 14;
+$font-medium: 16;
+$font-large-s: 18;
+$font-large: 20;
+
+/*$font-little-s: 10px;
 $font-little: 12px;
 $font-medium-s: 14px;
 $font-medium: 16px;
 $font-large-s: 18px;
-$font-large: 20px;
+$font-large: 20px;*/
 
 // 其他配置
 $font-sans-serif: PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, Arial, sans-serif;
