@@ -140,7 +140,6 @@
             // 我的龙虎榜
             getWinnerList() {
                 RankApi.getWinnerList().then(res => {
-                    console.log(res)
                     this.myRankList = res
                 })
 

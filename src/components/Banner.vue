@@ -80,7 +80,6 @@
                     if (Number(res.status) === 1) {
                         this.gameBonus = res.data;
                     }
-                    console.log("game_bonus", res);
                 });
             }
         },

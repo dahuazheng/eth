@@ -1,9 +1,12 @@
-import {UserApi,WalletApi} from '@/api'
+import {UserApi, WalletApi} from '@/api'
 
 // initial state
 const state = {
     invite_code: '',
-    address: '0x8923kjKJhkjh9879827ufiywiyri2987yhiu',
+    address: {
+        ETH: '0x8923kjKJhkjh9879827ufiywiyri2987yhiu',
+        INC: ''
+    },
     asset: {},
     balance: {
         ETH: 0,
@@ -30,31 +33,31 @@ const actions = {
         })
     },
     getAddress({commit}) {
-        UserApi.getWalletAddress().then(res => {
-            console.log(res)
-            if (Number(res.status) !== 1) return
+        ['ETH'].map(coin => {
+            WalletApi.getWalletAddress({chain_code: coin}).then(res => {
+                console.log(res)
+                return
+                if (Number(res.status) !== 1) return
 
-            commit('setBalance', res.data.address)
+                commit('setAddress', res.data.address)
+            })
         })
+
     }
 }
 
 // mutations
 const mutations = {
     setInviteCode(state, inviteCode) {
-        // console.log('invite_code', inviteCode)
         state.invite_code = inviteCode
     },
     setAsset(state, asset) {
-        // console.log('balance', balance)
         state.asset = asset
         const incObj = asset.find(item => item.coin_code === 'INC')
         const ethObj = asset.find(item => item.coin_code === 'ETH')
         state.balance = {INC: incObj.available_amount, ETH: ethObj.available_amount}
-        console.log('state',state)
     },
     setAddress(state, address) {
-        console.log('balance', address)
         state.address = address
     }
 }

@@ -49,6 +49,7 @@
 
 <script>
     import EthButton from '@/components/EthButton.vue'
+    import {Toast} from 'mint-ui'
 
     export default {
         name: 'withdraw',
@@ -58,7 +59,7 @@
                 showOptions: false,
                 coin: 'INC',
                 address: '',
-                money:'',
+                money: '',
                 code: ''
             }
         },
@@ -68,7 +69,19 @@
                 this.showOptions = false
             },
             next() {
+                const errors = [
+                    {key: 'address', msg: '请填写收款人地址'},
+                    {key: 'money', msg: '请输入提现金额'},
+                    {key: 'code', msg: '请输入验证码'}]
 
+                const err = errors.some(error => {
+                    if (!this[error.key]) {
+                        Toast(error.msg)
+                        return true
+                    }
+                })
+
+                if (err) return
             }
         }
     }
@@ -185,7 +198,7 @@
                             border-left: 10px solid transparent;
                         }
 
-                        &::after{
+                        &::after {
                             top: -18px;
                             border-bottom: 10px solid $clear-color;
                         }

@@ -37,6 +37,7 @@ class UserApi {
         return Requester.get(config.apiDomain + 'invite_code')
     }
 
+    // 获取我的邀请人
     static getParentInviteCode(){
         return Requester.get(config.apiDomain + 'parent_invite_code')
     }
@@ -60,18 +61,6 @@ class UserApi {
         return Requester.get(config.apiDomain + 'check_invite_bind')
     }
 
-    // 用户钱包地址
-    static getWalletAddress() {
-        return Requester.post(config.apiDomain + 'newpay_get_address')
-    }
-
-    static getBalance() {
-        return Promise.resolve({
-            ETH: 769.2,
-            INC: 2313503.2
-        })
-    }
-
     // 判断是否已登录
     static isOnline() {
         return !!Cookies.get('ETH.token')
@@ -87,9 +76,7 @@ class UserApi {
         return Requester.get(config.apiDomain + 'user_bonus', query)
             .then(res => {
                 // console.log('奖励总额', typeof res.status)
-
-                if (res.status !== '1') return
-                console.log('3333', res.data)
+                if (String(res.status) !== '1') return
                return {
                      staticInc:  res.data.static_bonus && res.data.static_bonus.inc_amount || 0,            // 静态inc、eth
                      staticEth: res.data.static_bonus && res.data.static_bonus.eth_amount || 0,

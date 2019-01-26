@@ -9,8 +9,8 @@
                 收款 <br>
                 <small>余额： {{balance.ETH}} ETH / {{balance.INC}} INC</small>
             </h2>
-            <QrcodeVue :value="address" size="138" renderAs='svg'/>
-            <p class="code">{{ address }}</p>
+            <QrcodeVue :value="address.ETH" size="138" renderAs='svg'/>
+            <p class="code">{{ address.ETH }}</p>
             <p v-clipboard:copy="address"
                v-clipboard:success="onCopy"
                v-clipboard:error="onError"
