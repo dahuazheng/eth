@@ -134,8 +134,8 @@
                     </li>
                     <li>
                         <label>其他奖励</label>
-                        <span>{{userBonus.staticEth || 0}} ETH</span>
-                        <span>{{userBonus.staticInc || 0}} INC</span>
+                        <span>{{userBonus.otherEth || 0}} ETH</span>
+                        <span>{{userBonus.otherInc || 0}} INC</span>
                     </li>
                 </ul>
             </div>

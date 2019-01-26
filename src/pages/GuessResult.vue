@@ -18,7 +18,7 @@
                         <div class="row" v-for="(item, key) in history.list" :key="key">
                             <span class="award">{{item.status | transformStatus}}</span>
                             <span class="player">{{item.phone }}</span>
-                            <span class="amount text-green">+{{item.eth}}<br> +{{ item.inc }}</span>
+                            <span class="amount text-green">+{{formatDecimal(item.eth, PRECISION.ETH)}}<br> +{{ formatDecimal(item.inc, PRECISION.INC) }}</span>
                         </div>
                     </div>
                 </li>
@@ -31,7 +31,7 @@
     import PopupTitle from '../components/PopupTitle'
     import moment from 'moment'
     import {GuessApi} from '../api'
-    import {ensureMilliseconds, encodeMobile} from '../utils'
+    import {ensureMilliseconds, encodeMobile, formatDecimal} from '../utils/index'
     import {rewardLevels} from '../utils/options'
 
     export default {
@@ -64,12 +64,13 @@
                 this.$router.push({name: 'home', query: {tab: 'guess'}})
             },
 
+            // 获取历史结果
             getHistoryList() {
                 GuessApi.getGuessHistory({}).then(res => {
+                    console.log('3245', res)
                     this.historyList = res
-                    console.log(this.historyList)
                 }).catch(err => {
-                    console.error(err)
+                    console.log(err)
                 })
             }
         },

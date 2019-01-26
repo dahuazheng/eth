@@ -1,4 +1,6 @@
 import {UserApi, WalletApi} from '@/api'
+import {formatDecimal} from "../../utils";
+import {PRECISION} from "../../utils/constants";
 
 // initial state
 const state = {
@@ -55,7 +57,7 @@ const mutations = {
         state.asset = asset
         const incObj = asset.find(item => item.coin_code === 'INC')
         const ethObj = asset.find(item => item.coin_code === 'ETH')
-        state.balance = {INC: incObj.available_amount, ETH: ethObj.available_amount}
+        state.balance = {INC: formatDecimal(incObj.available_amount, PRECISION.INC), ETH: formatDecimal(ethObj.available_amount, PRECISION.ETH)}
     },
     setAddress(state, address) {
         state.address = address
