@@ -1,6 +1,8 @@
 import Cookies from 'js-cookie'
 import Requester from '@/services/requester'
 import config from './config'
+import {formatDecimal} from "../utils";
+import {PRECISION} from "../utils/constants";
 
 // 测试token
 const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTAxMjQzIiwidG9rZW5fdmVyc2lvbiI6IlBKb3hPTDIxZGx4OW42VTQwOSIsImV4cCI6MTU0ODI0Nzk0N30.jkGqPaSGRNd_oKrvl5xLblD3S2pS6N4ODk9eeGC3BzY'
@@ -80,21 +82,22 @@ class UserApi {
     static getUserBonus(query) {
         return Requester.get(config.apiDomain + 'user_bonus', query)
             .then(res => {
-                // console.log('奖励总额', typeof res.status)
                 if (String(res.status) !== '1') return
                return {
-                     staticInc:  res.data.static_bonus && res.data.static_bonus.inc_amount || 0,            // 静态inc、eth
-                     staticEth: res.data.static_bonus && res.data.static_bonus.eth_amount || 0,
-                     dynamicInc: res.data.dynamic_bonus && res.data.dynamic_bonus.eth_amount || 0,          // 动态inc、eth
-                     dynamicEth: res.data.dynamic_bonus && res.data.dynamic_bonus.eth_amount || 0,
-                     topManagerInc: res.data.top_manager_bonus && res.data.top_manager_bonus.inc_amount || 0,   // 高级经理inc、eth
-                     topManagerEth: res.data.top_manager_bonus && res.data.top_manager_bonus.eth_amount || 0,
-                     dayGuessInc: res.data.day_guess_bonus && res.data.day_guess_bonus.inc_amount || 0,       // 每日竞猜 inc、eth
-                     dayGuessEth: res.data.day_guess_bonus && res.data.day_guess_bonus.eth_amount || 0,
-                     dayPushInc: res.data.day_push_bonus && res.data.day_push_bonus.inc_amount || 0,         // 龙虎榜 inc、eth
-                     dayPushEth: res.data.day_push_bonus && res.data.day_push_bonus.eth_amount || 0,
-                     allInc: res.data.all_bonus && res.data.all_bonus.inc_amount || 0,                        // 总奖励 inc、eth
-                     allEth: res.data.all_bonus && res.data.all_bonus.eth_amount || 0,
+                     staticInc:  formatDecimal(res.data.static_bonus && res.data.static_bonus.inc_amount, PRECISION.INC) || 0,               // 静态inc、eth
+                     staticEth: formatDecimal(res.data.static_bonus && res.data.static_bonus.eth_amount, PRECISION.ETH) || 0,
+                     dynamicInc: formatDecimal(res.data.dynamic_bonus && res.data.dynamic_bonus.eth_amount, PRECISION.INC) || 0,             // 动态inc、eth
+                     dynamicEth: formatDecimal(res.data.dynamic_bonus && res.data.dynamic_bonus.eth_amount, PRECISION.ETH) || 0,
+                     topManagerInc: formatDecimal(res.data.top_manager_bonus && res.data.top_manager_bonus.inc_amount, PRECISION.INC) || 0,  // 高级经理inc、eth
+                     topManagerEth: formatDecimal(res.data.top_manager_bonus && res.data.top_manager_bonus.eth_amount, PRECISION.ETH) || 0,
+                     dayGuessInc: formatDecimal(res.data.day_guess_bonus && res.data.day_guess_bonus.inc_amount, PRECISION.INC) || 0,        // 每日竞猜 inc、eth
+                     dayGuessEth: formatDecimal(res.data.day_guess_bonus && res.data.day_guess_bonus.eth_amount, PRECISION.ETH) || 0,
+                     dayPushInc: formatDecimal(res.data.day_push_bonus && res.data.day_push_bonus.inc_amount, PRECISION.INC) || 0,           // 龙虎榜 inc、eth
+                     dayPushEth: formatDecimal(res.data.day_push_bonus && res.data.day_push_bonus.eth_amount, PRECISION.ETH) || 0,
+                     otherInc: formatDecimal(res.data.other_bonus && res.data.other_bonus.inc_amount, PRECISION.INC) || 0,                       // 其他奖励 inc、eth
+                     otherEth: formatDecimal(res.data.other_bonus && res.data.other_bonus.eth_amount, PRECISION.ETH) || 0,
+                     allInc: formatDecimal(res.data.all_bonus && res.data.all_bonus.inc_amount, PRECISION.INC) || 0,                         // 总奖励 inc、eth
+                     allEth: formatDecimal(res.data.all_bonus && res.data.all_bonus.eth_amount, PRECISION.ETH) || 0,
                }
             }).catch(err => {
                 console.log(err)

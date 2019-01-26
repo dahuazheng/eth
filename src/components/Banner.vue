@@ -13,31 +13,31 @@
             <div class="price-container" v-if="isOnline && endCountDown !== 0 ">
                 <div class="price-box">
                     <label>当前奖池</label>
-                    <p>{{gameBonus.eth_amount || 0}} ETH / {{gameBonus.inc_amount || 0}} INC</p>
-                    <div class="row">
-                        <span>累计参与额</span>
-                        <span>
-                            {{gameBonus.order_eth_amount || 0}}
+                    <p>{{gameBonus.ethAmount}} ETH / {{gameBonus.incAmount}} INC</p>
+                    <ul class="row">
+                        <li>累计参与额</li>
+                        <li>
+                            {{gameBonus.orderEthAmount}}
                             <img
                                 class="icon-bet"
                                 src="../assets/images/icon_bet_eth.png">
-                        </span>
-                        <span>
-                            {{gameBonus.order_inc_amount || 0}}
+                        </li>
+                        <li>
+                            {{gameBonus.orderIncAmount}}
                             <img class="icon-star" src="../assets/images/icon_bet_eth_star.png">
-                        </span>
-                    </div>
-                    <div class="row">
-                        <span>今日参与额</span>
-                        <span> {{gameBonus.day_order_eth_amount || 0}}
+                        </li>
+                    </ul>
+                    <ul class="row">
+                        <li>今日参与额</li>
+                        <li> {{gameBonus.dayOrderEthAmount}}
                             <img class="icon-bet"
                                  src="../assets/images/icon_bet_eth.png">
-                        </span>
-                        <span>
-                            {{gameBonus.day_order_inc_amount ||0}}
+                        </li>
+                        <li>
+                            {{gameBonus.dayOrderIncAmount}}
                             <img class="icon-star" src="../assets/images/icon_bet_eth_star.png">
-                        </span>
-                    </div>
+                        </li>
+                    </ul>
                 </div>
                 <div class="time">{{endCountDown | displayCountDown}}</div>
                 <div class="message" v-show="false">
@@ -48,7 +48,7 @@
             <div class="time-circle" v-else>
                <div class="wave">
                    <!--<img src="../assets/images/bg_wave.svg" alt="">-->
-                   <span>02:45:00</span>
+                   <span>{{endCountDown | displayCountDown}}</span>
                </div>
             </div>
         </div>
@@ -78,9 +78,7 @@
             },
             getGameBonus() {
                 MainApi.getGameBonus().then(res => {
-                    if (Number(res.status) === 1) {
-                        this.gameBonus = res.data;
-                    }
+                   this.gameBonus = res;
                 });
             }
         },
@@ -177,17 +175,20 @@
                     }
 
                     .row {
+                        width: 70%;
                         @include px2rem("height", 16);
-                        margin-bottom: $margin-width;
+                        margin: $margin-width auto;
+                        padding: 0;
                         display: flex;
                         flex-direction: row;
-                        justify-content: center;
+                        justify-content: space-around;
 
-                        span {
+                        li {
+                            width: 30%;
                             display: flex;
                             flex-direction: row;
                             align-items: center;
-                            margin: $space-width;
+                            text-align: left;
 
                             img {
                                 margin-left: 5px;

@@ -1,5 +1,7 @@
 import Requester from "../services/requester"
 import config from './config'
+import {formatDecimal} from "../utils";
+import {PRECISION} from "../utils/constants";
 
 class RankApi {
 
@@ -52,11 +54,11 @@ class RankApi {
                 if (res.status !== '1') return
 
                 const list = res.data.list && res.data.list.map(n => ({
-                    date: n.date || '',                    // 日期
-                    eth: n.eth_amount || 0,                      // 奖励的eth
-                    inc: n.inc_amount || 0,                      // 奖励的inc
-                    rank: n.rank || '',                    // 中奖状态：0为未中奖,1-5为中奖等级
-                    pushCount: n.push_count || '',         // 直推个数
+                    date: n.date || '',                              // 日期
+                    eth: formatDecimal(n.eth, PRECISION.ETH) || 0,   // 奖励的eth
+                    inc: formatDecimal(n.inc, PRECISION.INC) || 0,   // 奖励的inc
+                    rank: n.rank || '',                              // 中奖状态：0为未中奖,1-5为中奖等级
+                    pushCount: n.push_count || '',                   // 直推个数
                 }))
 
                 return list
@@ -71,8 +73,8 @@ class RankApi {
             .then(res => {
                 if (res.status !== '1') return
                 return  {
-                    incAmount: res.data && res.data.inc_amount || 0,  // inc数量
-                    ethAmount: res.data && res.data.eth_amount || 0   // eth数量
+                    incAmount: formatDecimal(res.data && res.data.inc_amount, PRECISION.INC) || 0,  // inc数量
+                    ethAmount: formatDecimal(res.data && res.data.eth_amount, PRECISION.ETH) || 0   // eth数量
                 }
 
             }).catch(err => {

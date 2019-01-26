@@ -985,8 +985,8 @@ export const REG = {
 
 // 数字显示精度
 export const PRECISION = {
-  PRICE: 8, // 价格相关
-  AMOUNT: 8 // 数量相关
+  INC: 2, // inc 小数保留位
+  ETH: 4  // eth 小数保留位
 }
 
 // 发送短信的目的（type 的取值）
