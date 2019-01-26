@@ -88,7 +88,7 @@ class UserApi {
             .then(res => {
                 // console.log('奖励总额', typeof res.status)
 
-                if (res.status !== 1) return
+                if (res.status !== '1') return
                 console.log('3333', res.data)
                return {
                      staticInc:  res.data.static_bonus && res.data.static_bonus.inc_amount || 0,            // 静态inc、eth
