@@ -86,10 +86,12 @@ class UserApi {
     static getUserBonus(query) {
         return Requester.get(config.apiDomain + 'user_bonus', query)
             .then(res => {
-               if (res.status !== '1') return
-                console.log('奖励总额', res.data)
+                // console.log('奖励总额', typeof res.status)
+
+                if (res.status !== 1) return
+                console.log('3333', res.data)
                return {
-                     staticInc: res.data.static_bonus && res.data.static_bonus.inc_amount || 0,            // 静态inc、eth
+                     staticInc:  res.data.static_bonus && res.data.static_bonus.inc_amount || 0,            // 静态inc、eth
                      staticEth: res.data.static_bonus && res.data.static_bonus.eth_amount || 0,
                      dynamicInc: res.data.dynamic_bonus && res.data.dynamic_bonus.eth_amount || 0,          // 动态inc、eth
                      dynamicEth: res.data.dynamic_bonus && res.data.dynamic_bonus.eth_amount || 0,

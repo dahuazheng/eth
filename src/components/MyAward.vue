@@ -89,7 +89,7 @@
                     case '3':
                         return '高级经理';
                     default:
-                        return null
+                        return ''
                 }
             },
 

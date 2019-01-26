@@ -10,7 +10,7 @@
                 <span>x</span>
                 <img src="../assets/images/icon_eth_star.png" alt>
             </div>
-            <div class="price-container" v-show="endCountDown !== 0 ">
+            <div class="price-container" v-if="endCountDown !== 0 ">
                 <div class="price-box">
                     <label>当前奖池</label>
                     <p>{{gameBonus.eth_amount || 0}} ETH / {{gameBonus.inc_amount || 0}} INC</p>
@@ -45,10 +45,10 @@
                     <span></span>
                 </div>
             </div>
-            <div class="time-circle">
+            <div class="time-circle" v-else>
                <div class="wave">
-                   <!-- <img src="../assets/images/bg_wave.svg" alt=""> -->
-                   <span> 02:45:00</span>
+                   <!--<img src="../assets/images/bg_wave.svg" alt="">-->
+                   <span>02:45:00</span>
                </div>
             </div>
         </div>
@@ -247,7 +247,7 @@
                     @include px2rem('width', 120);
                     @include px2rem('height', 120);
                     background-color: #fff600;
-                    border-radius: 55%;
+                    border-radius: 50%;
                     border: 2px solid #fff41f;
                     box-shadow: 0 0 40px #b78330, 0 0 20px #b78330 inset;
                     overflow: hidden;
@@ -263,15 +263,15 @@
                         background-color: rgba(255, 255, 255, .8);
                         border-radius: 40%;
                         transform: translate(-50%, -70%) rotate(0);
-                        animation: rotate 7s linear infinite;
+                        animation: rotate 10s linear infinite;
                         z-index: 5;
                     }
 
                     &::after {
-                        border-radius: 35%;
+                        border-radius: 40%;
                         background-color: #7900ae;
                         transform: translate(-50%, -70%) rotate(0);
-                        animation: rotate 5s linear -5s infinite;
+                        animation: rotate 7s linear -5s infinite;
                         z-index: 5;
                     }
 
@@ -282,15 +282,57 @@
                         color: #fff;
                         @include px2rem('font-size', 20);
                     }
-                    
+
                     @keyframes rotate {
                         50% {
                             transform: translate(-50%, -73%) rotate(180deg);
-                        } 100% {
-                              transform: translate(-50%, -70%) rotate(360deg);
-                          }
+                        }
+                        100% {
+                            transform: translate(-50%, -70%) rotate(360deg);
+                        }
                     }
                 }
+
+                /*> div {
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    @include px2rem('width', 120);
+                    @include px2rem('height', 120);
+                    border-radius: 50%;
+                    border: 2px solid #fff41f;
+                    box-shadow: 0 0 40px #b78330, 0 0 20px #b78330 inset;
+                    overflow: hidden;
+
+                    span {
+                        position: absolute;
+                        font-size: 18px;
+                        color: #fff;
+                        z-index: 10;
+                    }
+
+                    img {
+                        position: absolute;
+                        left: -10%;
+                        bottom: 0;
+                        width: 210px;
+                        height: auto;
+                        animation: mywave 3s infinite;
+
+                        @keyframes mywave
+                        {
+                            0% {left: 0%;}
+                            10% {left: -10%;}
+                            20% {left: -20%;}
+                            30% {left: -30%;}
+                            40% {left: -40%;}
+                            60% {left: -20%;}
+                            80% {left: -10%;}
+                            100% {left: 0;}
+                        }
+                    }
+                }*/
             }
 
         }
