@@ -62,7 +62,8 @@
 </template>
 <script>
   import EthFooter from '@/components/EthFooter.vue'
-  import { removeCookie } from '@/utils'
+  import { UserApi } from '../api'
+  import { removeCookie } from '../utils'
 
   export default {
     name: 'userOption',
@@ -74,8 +75,13 @@
     },
     methods: {
         signOut() {
-            removeCookie('ETH.token')
-            this.$router.push('/')
+            UserApi.logout().then(res => {
+                if (res.status !== '1') return
+                removeCookie('ETH.token')
+                this.$router.push('/')
+            }).catch(err => {
+                console.log(err)
+            })
         }
     }
   }

@@ -36,13 +36,15 @@
 
                 this.open()
             },
+
+            // 获取参与次数
             getOrderList() {
                 OrderApi.getOrderList({page: '1', limit: '1'}).then(res => {
                     this.joinCount = res.data && res.data.count
                 }).catch(err => {
                     console.error(err)
                 })
-            },
+            }
         },
         mounted(){
             this.getOrderList()
