@@ -1,5 +1,5 @@
 <template>
-    <div class="withdraw">
+    <div class="withdraw" @click="showOptions=false">
         <div class="title">
             <icon name="arrow-left" @click="() => {this.$router.go(-1)}"></icon>
             提现
@@ -8,25 +8,25 @@
         <div class="form">
             <div class="row coin-select">
                 <label>选择币种</label>
-                <span>
-                    ETH
-                    <icon name="down" @click=""></icon>
+                <span @click.stop="showOptions = !showOptions">
+                    {{coin}}
+                    <icon name="down"></icon>
                 </span>
-                <ul class="options">
-                    <li>ETH</li>
-                    <li>INC</li>
+                <ul class="options" v-show="showOptions">
+                    <li :class="{active: coin==='ETH'}" @click.stop="switchCoin('ETH')">ETH</li>
+                    <li :class="{active: coin==='INC'}" @click.stop="switchCoin('INC')">INC</li>
                 </ul>
             </div>
             <div class="row">
-                <input type="text" placeholder="收款人地址">
+                <input type="text" placeholder="收款人地址" v-model="address">
             </div>
             <div class="row">
-                <input type="text" placeholder="转账金额">
+                <input type="text" placeholder="转账金额" v-model="money">
                 <span>余额： 0 ETH</span>
                 <small>手续费：0.0001 ETH</small>
             </div>
             <div class="row">
-                <input type="text" placeholder="转账金额">
+                <input type="text" placeholder="转账金额" v-model="code">
                 <span class="code">获取验证码</span>
             </div>
             <div class="row">
@@ -53,7 +53,20 @@
     export default {
         name: 'withdraw',
         components: {EthButton},
+        data() {
+            return {
+                showOptions: false,
+                coin: 'INC',
+                address: '',
+                money:'',
+                code: ''
+            }
+        },
         methods: {
+            switchCoin(coin) {
+                this.coin = coin
+                this.showOptions = false
+            },
             next() {
 
             }
@@ -155,18 +168,36 @@
                         z-index: 1;
                         text-align: center;
                         background: $clear-color;
-                        overflow: hidden;
+
+                        &::before, &::after {
+                            position: absolute;
+                            top: -20px;
+                            right: 0;
+                            left: 0;
+                            margin: auto;
+                            content: '';
+                            width: 0;
+                            height: 0;
+
+                            border-top: 10px solid transparent;
+                            border-right: 10px solid transparent;
+                            border-bottom: 10px solid #f0f0f0;
+                            border-left: 10px solid transparent;
+                        }
+
+                        &::after{
+                            top: -18px;
+                            border-bottom: 10px solid $clear-color;
+                        }
 
                         li {
                             padding: 0 20px;
                             line-height: 24px;
 
-                            &:first-child {
-                                //background: #ae00b8;
+                            &.active {
                                 color: #ae00b8;
                             }
                         }
-
                     }
                 }
             }

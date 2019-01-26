@@ -39,11 +39,13 @@
     import {COUNTRIES, CAPTCHA_COUNTDOWN_DEFAULT} from '@/utils/constants'
     import {isMobile, isValidSmsAuthCode, initNECaptcha} from '@/utils'
     import {UserApi} from '@/api'
+    import {initMixin} from '@/mixins'
 
     export default {
         name: 'loginPopup',
         components: {EthButton, PickerPopup},
-        props: ['show','cancel'],
+        mixins: [initMixin],
+        props: ['show', 'cancel'],
         data() {
             return {
                 prefix: '86',
@@ -136,11 +138,8 @@
                     if (res.status !== 1) {
                         return
                     }
-
                     Toast('验证码已发送')
-                }).catch(err => {
-                    console.log(err)
-                })
+                }).catch(err => console.log(err))
             },
 
             // 判断是否绑定邀请码
@@ -189,9 +188,15 @@
                     }
 
                     Cookies.set('ETH.token', res.headers.token, {expires: 1 / 24})
+                    this.getInitData()
+
                     this.checkInviteBind()
+                    const redirectUrl = this.$router.query && this.$router.query.redirect_url
+
+                    if (redirectUrl) {
+                        window.location.href = redirectUrl
+                    }
                     this.$router.push({name: 'home', query: {tab: 'join'}})
-                    // this.$store.dispatch('user/getInviteCode')
                 })
             },
             init() {
@@ -226,7 +231,6 @@
         z-index: 999;
         padding: 30px;
         background: $clear-color;
-
 
         header {
             width: 20px;
