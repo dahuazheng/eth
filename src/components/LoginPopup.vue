@@ -240,7 +240,7 @@
         }
 
         h1 {
-            @include fontSize(30px);
+            @include fontSize(30);
             margin: 50px 0;
             font-weight: normal;
             line-height: 1.1;
@@ -264,7 +264,6 @@
                 .svg-icon {
                     @include px2rem('width', 12);
                     @include px2rem('height', 12);
-
                 }
             }
 
@@ -298,9 +297,9 @@
                 .delete {
                     @include px2rem('width', 20);
                     @include px2rem('height', 20);
-                    @include px2rem('line-height', 20);
+                    @include px2rem('line-height', 18);
                     @include fontSubColor($font-sub-color);
-                    display: inline-block;
+                    display: block;
                     border-radius: 7px;
                     background: #f1f1f1;
                     text-align: center;

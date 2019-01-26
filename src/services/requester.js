@@ -1,6 +1,7 @@
 import axios from 'axios'
 import qs from 'querystring'
 import Cookies from 'js-cookie'
+import {Indicator} from 'mint-ui'
 
 // Axois 全局设置
 const instance = axios.create({
@@ -33,14 +34,21 @@ const prepareData = data => {
     return data
 }
 
+// 定义计时器
+let loadCount = 0
+
 // 拦截请求
 instance.interceptors.request.use(config => {
+    loadCount++
+    Indicator.open({
+        spinnerType: 'fading-circle'
+    })
+
     const method = config.method.toUpperCase()
     const data = ['GET', 'DELETE'].includes(method) ? config.params : config.data
 
     // 设置请求头
     config.headers.token = config.headers.token || Cookies('ETH.token') || ''
-    //config.headers.tokenpassword = config.headers.tokenpassword || getCookie('INEX.tokenpassword') || ''
 
     // 显示请求信息
     /*if (DEBUG_MODE) {
@@ -54,6 +62,11 @@ instance.interceptors.request.use(config => {
 
 // 拦截响应
 instance.interceptors.response.use(res => {
+    loadCount--
+    if (!loadCount) {
+        Indicator.close()
+    }
+
     let {headers, data} = res
     const config = res.config
     const apiArr = config.url.substr(config.url.indexOf('://') + 3).split('/')
@@ -79,7 +92,14 @@ instance.interceptors.response.use(res => {
     res.data.headers = {...headers}
 
     return res
-}, err => Promise.reject(err))
+}, err => {
+    loadCount--
+    if (!loadCount) {
+        Indicator.close()
+    }
+
+    Promise.reject(err)
+})
 
 class Requester {
     static get(url = '', data = {}, opts = {}) {

@@ -1,7 +1,10 @@
 <template>
     <div class="join-history">
-        <PopupTitle title="参与历史" :back="close"/>
-        <ul>
+        <PopupTitle title="参与历史" :fixed="true" :back="close"/>
+        <ul v-infinite-scroll="loadMore"
+            infinite-scroll-disabled="loading"
+            infinite-scroll-distance="20"
+            :infinite-scroll-immediate-check="true">
             <li>
                 <span>时间</span>
                 <span>序列</span>
@@ -25,7 +28,8 @@
         data() {
             return {
                 list: [],
-                // total: 0
+                total: 0,
+                page: 1,
             }
         },
         filters: {
@@ -37,11 +41,19 @@
         },
         methods: {
             getOrderList() {
-                OrderApi.getOrderList({page: '1', limit: '20'}).then(res => {
-                    this.list = res.data.list
+                OrderApi.getOrderList({page: String(this.page), limit: '20'}).then(res => {
+                    if(Number(res.status) !== 1) return
+                    this.list.push(...res.data.list)
+                    this.total = res.data.count
                 }).catch(err => {
                     console.error(err)
                 })
+            },
+            loadMore() {
+                if(this.list.length >= this.total) return
+                this.page = this.page + 1
+                this.getOrderList()
+
             },
             close() {
                 this.$router.push({name: 'home', query: {tab: 'join'}})
@@ -57,6 +69,9 @@
     @import "../assets/styles/mixin";
 
     .join-history {
+        padding-top: 44px;
+        padding-bottom: 30px;
+
         ul {
             @include clearUl;
             padding: $margin-width;

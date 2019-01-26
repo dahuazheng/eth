@@ -116,7 +116,7 @@
                         @include transition(all .25);
                         display: inline-block;
                         box-sizing: border-box;
-
+                        border-bottom: 2px solid transparent;
                     }
 
                     &.active {

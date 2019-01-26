@@ -25,7 +25,7 @@
         data() {
             return {
                 smsLabel: '获取验证码',
-                count: 15,
+                count: 60,
                 code: null,
             }
         },
@@ -93,6 +93,8 @@
         left: 0;
         z-index: 999;
         background: $clear-color;
+        box-sizing: border-box;
+        padding-top: 44px;
 
         .input-box {
             position: relative;
