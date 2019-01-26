@@ -8,7 +8,7 @@ class WalletApi {
     static getNewpayOrderList(query) {
         return Requester.post(config.apiDomain + 'newpay_order_list', query).then(res => {
             if (res.status !== '1') return
-            console.log(res.data)
+
             return res.data && res.data.map(n => ({
                 type: n.type || '',                     // 列表类型
                 amount: Number(n.amount) || 0,          // 充值/提现数量
