@@ -172,7 +172,7 @@
                 align-items: center;
                 color: #3f1964;
                 font-weight: 500;
-                /*padding-bottom: 20px;*/
+                padding-bottom: 10px;
             }
 
             img {

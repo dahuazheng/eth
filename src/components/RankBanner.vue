@@ -8,7 +8,7 @@
             <p>24 H直推龙虎榜</p>
             <p>(奖金池 {{ ethAmount }} ETH/{{ incAmount }} INC)</p>
             <p>（04:30:03后更新）</p>
-            <button class='btn btn-visit-num'><span>今日邀请数</span> <br>{{ pushCount }}</button>
+            <div class='visit-num'><span>今日邀请数</span> <br>{{ pushCount }}</div>
         </div>
     </div>
 </template>
@@ -96,19 +96,18 @@
                 }
             }
 
-            button {
-                &.btn-visit-num {
-                    @include px2rem('width', 140);
-                    @include px2rem('height', 67);
-                    border: none;
-                    background-image: url('../assets/images/bg_circle.png');
-                    background-size: 100% 100%;
-                }
+            .visit-num {
+                @include px2rem('width', 140);
+                padding: 15px 5px;
+                margin: 0 auto;
+                border: none;
+                background-image: url('../assets/images/bg_circle.png');
+                background-size: 100% 100%;
+             }
                 
-                span {
-                    @include fontSize($font-little);
-                    color: #f2bf86;
-                }
+            span {
+                @include fontSize($font-little);
+                color: #f2bf86;
             }
         }
     }
