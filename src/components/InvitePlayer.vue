@@ -2,7 +2,7 @@
     <div class="invite-player">
         <div class="my-inviter">
             <label>我的邀请人</label>
-            <span>{{}}</span>
+            <span>{{parentInviteCode}}</span>
         </div>
         <!--<div class="item un-active" v-show="active==='un'">-->
         <!--<input type="text" placeholder="请指定您的专属邀请昵称" v-model="name">-->
@@ -57,6 +57,7 @@
         },
         mounted() {
             UserApi.getParentInviteCode().then(res => {
+                // console.log(res)
                 if (Number(res.status) === 1) {
                     this.parentInviteCode = res.data && res.data.parent_invite_code
                 }

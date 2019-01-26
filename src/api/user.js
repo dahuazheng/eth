@@ -39,7 +39,6 @@ class UserApi {
 
     static getParentInviteCode(){
         return Requester.get(config.apiDomain + 'parent_invite_code')
-
     }
 
     // 绑定邀请码
