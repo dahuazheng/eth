@@ -241,9 +241,6 @@
                 width: 100%;
 
                 .wave {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
                     position: relative;
                     @include px2rem('width', 120);
                     @include px2rem('height', 120);
@@ -252,10 +249,12 @@
                     border: 2px solid #fff41f;
                     box-shadow: 0 0 40px #b78330, 0 0 20px #b78330 inset;
                     overflow: hidden;
+                    z-index: 4;
 
                     &::before,
                     &::after{
                         content: "";
+                        display: inline-block;
                         position: absolute;
                         width: 220px;
                         height: 220px;
@@ -279,9 +278,12 @@
 
                     span {
                         position: absolute;
-                        z-index: 6;
+                        top: 40%;
+                        left: 20%;
                         color: #fff;
                         @include px2rem('font-size', 20);
+                        z-index: 6;
+
                     }
 
                     @keyframes rotate {

@@ -84,7 +84,7 @@
                 display: inline-block;
                 width: 20px;
                 height: 20px;
-                background-image: url('../assets/images/icon_record.png');
+                background-image: url('../assets/images/icon_record_white.png');
                 @include background-image()
             }
         }
