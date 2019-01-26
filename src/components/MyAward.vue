@@ -58,7 +58,7 @@
 
 <script>
     import EthButton from './EthButton'
-    import { UserApi} from '../api'
+    import { UserApi } from '../api'
 
     export default {
         components: {EthButton},
@@ -159,7 +159,8 @@
             @include fontPrimaryColor($primary-color);
             @include fontSize($font-medium-s);
             position: relative;
-            padding: 20px 0;
+            padding-top: 35px;
+            padding-bottom: 13px;
             font-weight: normal;
             text-align: center;
             background: #f1e2ff;
@@ -171,6 +172,7 @@
                 align-items: center;
                 color: #3f1964;
                 font-weight: 500;
+                padding-bottom: 20px;
             }
 
             img {
