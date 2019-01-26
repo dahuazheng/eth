@@ -11,7 +11,7 @@
                     <label>专属昵称</label>
                     <span>{{user.invite_code || ''}}</span>
                 </div>
-                <p>{{user.address}}</p>
+                <p>{{user.address  && user.address.ETH}}</p>
             </div>
             <ul>
                 <li>

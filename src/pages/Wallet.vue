@@ -14,7 +14,7 @@
                     <label>INC</label>
                 </li>
             </ul>
-            <p>{{address ? address : '暂无钱包地址'}}</p>
+            <p>{{address.ETH ? address.ETH : '暂无钱包地址'}}</p>
         </div>
         <div class="btn-box">
             <button @click="() => {this.$router.push('/charge-money')}">

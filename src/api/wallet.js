@@ -19,8 +19,14 @@ class WalletApi {
         }).catch(err => console.error(err))
     }
 
+    // 获取用户资产信息
     static getAsset() {
         return Requester.post(config.apiDomain + 'newpay_get_asset')
+    }
+
+    // 获取用户钱包地址
+    static getWalletAddress(query) {
+        return Requester.post(config.apiDomain + 'newpay_get_address', query)
     }
 }
 

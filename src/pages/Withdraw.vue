@@ -49,6 +49,7 @@
 
 <script>
     import EthButton from '@/components/EthButton.vue'
+    import {Toast} from 'mint-ui'
 
     export default {
         name: 'withdraw',
@@ -58,16 +59,38 @@
                 showOptions: false,
                 coin: 'INC',
                 address: '',
-                money:'',
+                money: '',
                 code: ''
             }
         },
         methods: {
+            // 校验钱包地址
+            checkAddress(){
+                return false
+            },
+
             switchCoin(coin) {
                 this.coin = coin
                 this.showOptions = false
             },
             next() {
+                const errors = [
+                    {key: 'address', msg: '请填写收款人地址'},
+                    {key: 'money', msg: '请输入提现金额'},
+                    {key: 'code', msg: '请输入验证码'}]
+
+                const err = errors.some(error => {
+                    if (!this[error.key]) {
+                        Toast(error.msg)
+                        return true
+                    }
+                })
+                if (err) return
+
+                // 判断钱包地址是否是ETH系列钱包
+                if(this.checkAddress()) {
+                    Toast(`请输入正确的${this.coin}}系钱包地址`)
+                }
 
             }
         }
@@ -185,7 +208,7 @@
                             border-left: 10px solid transparent;
                         }
 
-                        &::after{
+                        &::after {
                             top: -18px;
                             border-bottom: 10px solid $clear-color;
                         }
