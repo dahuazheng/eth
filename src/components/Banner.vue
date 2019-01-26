@@ -247,7 +247,7 @@
                     @include px2rem('width', 120);
                     @include px2rem('height', 120);
                     background-color: #fff600;
-                    border-radius: 50%;
+                    border-radius: 55%;
                     border: 2px solid #fff41f;
                     box-shadow: 0 0 40px #b78330, 0 0 20px #b78330 inset;
                     overflow: hidden;
@@ -263,15 +263,15 @@
                         background-color: rgba(255, 255, 255, .8);
                         border-radius: 40%;
                         transform: translate(-50%, -70%) rotate(0);
-                        animation: rotate 6s linear infinite;
+                        animation: rotate 7s linear infinite;
                         z-index: 5;
                     }
 
                     &::after {
-                        border-radius: 45%;
+                        border-radius: 35%;
                         background-color: #7900ae;
                         transform: translate(-50%, -70%) rotate(0);
-                        animation: rotate 4s linear -5s infinite;
+                        animation: rotate 5s linear -5s infinite;
                         z-index: 5;
                     }
 
