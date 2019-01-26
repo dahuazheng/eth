@@ -33,6 +33,23 @@ class RankApi {
     // 龙虎榜历史
     static getDayPushHistory(query) {
         return Requester.get(config.apiDomain + 'day_push_history', query)
+            .then(res => {
+                if (Number(res.status) !== 1 ) return
+                console.log('res111', res.data.list)
+
+                const list = res.data.list && res.data.list.map(n => ({
+                  data: n.data || '',                                   //
+                  pushCount: Number(n.push_count) || 0,
+                  incAmount: formatDecimal(n.inc, PRECISION.INC) || 0,
+                  ethAmount: formatDecimal(n.eth, PRECISION.ETH) || 0,
+                  rank: n.rank || ''
+                }))
+
+
+                return list
+            }).catch(err => {
+                console.log(err)
+            })
     }
 
     // 我的今日直推

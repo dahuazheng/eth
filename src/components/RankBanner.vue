@@ -86,12 +86,12 @@
                 }
 
                 &:nth-child(2) {
-                    @include fontSize($font-little-s);
+                    @include fontSize($font-little);
                     color: $color-orange;
                 }
 
                 &:nth-child(3) {
-                    @include fontSize($font-little-s);
+                    @include fontSize($font-little);
                     color: $color-purple;
                 }
             }
@@ -106,7 +106,7 @@
                 }
                 
                 span {
-                    @include fontSize(12px);
+                    @include fontSize($font-little);
                     color: #f2bf86;
                 }
             }

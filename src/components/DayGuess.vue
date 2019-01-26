@@ -73,7 +73,6 @@
                 if (Number(this.guessStatus) !== 2) return
 
                 GuessApi.getMyGuessList().then(res => {
-                    console.log('res', res)
                     this.guessValue = res.length && res[0].numGuess
                 }).catch(err => console.error(err))
             },

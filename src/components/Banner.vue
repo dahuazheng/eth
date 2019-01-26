@@ -165,7 +165,7 @@
 
             .price-container {
                 .price-box {
-                    @include fontSize($font-little-s);
+                    @include fontSize($font-little);
                     color: $default-color;
 
                     p {

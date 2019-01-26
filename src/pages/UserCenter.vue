@@ -1,7 +1,7 @@
 <template>
     <div class="user-center">
         <header>
-            <icon name="arrow-left" @click="$router.go(-1)"></icon>
+            <span class="nav-back" @click="$router.go(-1)"></span>
             <span>个人中心</span>
             <icon name="home" @click="$router.push('/')" class="icon-home"></icon>
         </header>
@@ -274,27 +274,25 @@
 
         header {
             @include fontSize($font-medium);
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             height: 39px;
+            box-sizing: border-box;
+            padding: 0 20px;
             line-height: 39px;
-            text-align: center;
             color: $clear-color;
 
-            .svg-icon {
-                position: absolute;
-                top: 0;
-                left: $margin-width;
-                bottom: 0;
-                margin: auto;
-                color: $clear-color;
-
-                &.icon-home {
-                    left: auto;
-                    right: $margin-width;
-                }
+            .nav-back {
+                @include px2rem('width', 20);
+                @include px2rem('height', 20);
+                @include background-image;
+                text-decoration: none;
+                background-image: url('../assets/images/icon_back_white.png');
             }
         }
 
@@ -314,25 +312,21 @@
                 .name {
                     @include px2rem('width', 167);
                     @include px2rem('height', 58);
-                    position: relative;
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
                     box-sizing: border-box;
+                    padding-top: 12px;
+                    text-align: center;
                     background-image: url('../assets/images/icon_user_nickname.png');
                     background-size: 100% 100%;
 
                     label {
-                        @include px2rem('top', 20);
-                        @include px2rem('left', 11);
-                        @include fontSize($font-little-s);
-                        position: absolute;
+                        @include fontSize($font-little);
                         color: #865149;
                     }
 
                     span {
-                        @include px2rem('top', 28);
-                        position: absolute;
-                        left: 0;
-                        right: 0;
-                        margin: auto;
                         text-align: center;
                         color: $primary-color;
                     }
@@ -340,7 +334,7 @@
 
                 p {
                     @include clearBack;
-                    @include fontSize($font-little-s);
+                    @include fontSize($font-medium-s - 1);
                     color: #fcb2ff;
                 }
             }
@@ -363,7 +357,7 @@
                     line-height: 1.8;
 
                     label {
-                        @include fontSize($font-little-s);
+                        @include fontSize($font-little);
                         margin-top: 5px;
                         color: #EFA795;
 
@@ -385,12 +379,11 @@
             margin-top: 8px;
 
             li {
-                @include px2rem('width', 105);
+                width: 33%;
                 @include px2rem('height', 52);
                 @include px2rem('line-height', 36);
-                //  @include px2rem('border-radius', 18);
                 @include fontSubColor($font-sub-color);
-                @include fontSize($font-little);
+                @include fontSize($font-medium-s);
                 text-align: center;
 
                 &.active {
@@ -402,6 +395,7 @@
         }
 
         .items {
+            padding-bottom: 30px;
             table.push {
                 width: 100%;
                 border-collapse: collapse;
@@ -447,6 +441,7 @@
             table.guess, table.winner {
                 width: 100%;
                 border-collapse: collapse;
+                padding-bottom: 50px;
 
                 tr {
                     @include fontSize($font-little);
@@ -458,7 +453,7 @@
                 th, td {
                     text-align: center;
                     padding: 5px;
-                    font-weight: 500;
+                    font-weight: normal;
 
                     &:first-child {
                         padding-left: $common-list-padding;
@@ -490,6 +485,7 @@
             z-index: 999;
 
             .content {
+                width: 80%;
                 @include px2rem('height', 200);
                 position: absolute;
                 top: 30px;
@@ -497,7 +493,6 @@
                 left: 0;
                 right: 0;
                 margin: auto;
-                width: 80%;
                 border-radius: 10px;
                 background: $clear-color;
                 background-size: 100% 100%;
@@ -507,14 +502,15 @@
                     display: flex;
                     flex-direction: row;
                     flex-wrap: wrap;
-                    justify-content: start;
+                    justify-content: center;
                     align-items: center;
-                    padding: 0 15px;
-                    margin-top: $margin-width;
+                    vertical-align: middle;
+                    height: 100%;
+                    box-sizing: border-box;
+                    padding: 15px 0;
 
                     > li {
-                        @include fontSize($font-little-s);
-                        @include px2rem('padding-top', 15);
+                        @include fontSize($font-little);
 
                         display: flex;
                         flex-direction: column;
