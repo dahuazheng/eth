@@ -4,10 +4,6 @@
             <label>我的邀请人</label>
             <span>{{parentInviteCode}}</span>
         </div>
-        <!--<div class="item un-active" v-show="active==='un'">-->
-        <!--<input type="text" placeholder="请指定您的专属邀请昵称" v-model="name">-->
-        <!--<span @click="activateName">激活专属邀请昵称</span>-->
-        <!--</div>-->
         <div class="item in-active">
             <label>您的专属邀请码为</label><br>
             <span>
@@ -26,7 +22,6 @@
     export default {
         data() {
             return {
-                active: 'un',
                 parentInviteCode: ''
             }
         },
@@ -36,13 +31,6 @@
             })
         },
         methods: {
-            activateName() {
-                if (!this.name) {
-                    Toast('请输入专属邀请昵称')
-                    return
-                }
-                this.active = 'in'
-            },
             copyName() {
                 const input = document.createElement('input')
                 document.body.appendChild(input)
@@ -71,38 +59,13 @@
 
     .invite-player {
         .my-inviter {
-            @include px2rem('height', 64);
-            @include px2rem('line-height', 64);
+            padding: 20px 0;
             border-bottom: 1px solid $border-color;
             text-align: center;
 
             label {
                 @include fontSubColor($font-sub-color);
                 margin-right: $space-width;
-            }
-        }
-
-        .un-active {
-            position: relative;
-            margin: $margin-width;
-
-            input {
-                @include fontSize($font-medium-s);
-                box-sizing: border-box;
-                width: 100%;
-                padding: 7px 15px;
-                border: none;
-                border-bottom: 1px solid $border-color;
-            }
-
-            span {
-                @include fontColor(#cebf6e);
-                position: absolute;
-                top: 0;
-                right: 15px;
-                bottom: 0;
-                margin: auto;
-                padding: 7px 0;
             }
         }
 

@@ -24,15 +24,11 @@
                 </li>
                 <li>
                     <span>{{joinCount}}</span>
-                    <label>
-                        参与次数
-                    </label>
+                    <label>参与次数</label>
                 </li>
                 <li>
                     <span>{{pushCount}}</span>
-                    <label>
-                        直推个数
-                    </label>
+                    <label>直推个数</label>
                 </li>
             </ul>
         </div>
@@ -335,6 +331,7 @@
                 p {
                     @include clearBack;
                     @include fontSize($font-medium-s - 1);
+                    margin-top: 5px;
                     color: #fcb2ff;
                 }
             }
@@ -353,6 +350,7 @@
                     flex-direction: column;
                     justify-content: end;
                     align-items: center;
+                    width: 33.333%;
                     color: $clear-color;
                     line-height: 1.8;
 

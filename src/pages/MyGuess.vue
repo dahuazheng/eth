@@ -1,6 +1,6 @@
 <template>
     <div class="my-guess">
-        <PopupTitle title="我的竞猜" :back="close"/>
+        <PopupTitle title="我的竞猜" :fixed="true" :back="close"/>
         <div class="list">
             <table>
                 <tr>
@@ -17,8 +17,8 @@
                     <td>{{ item.numTrue }}</td>
                     <td>
                         {{ item.status | transformStatus }} <br>
-                        +{{ item.eth }} ETH<br>
-                        +{{ item.inc }} INC
+                        <small>+{{ item.eth }} ETH</small><br>
+                        <small>+{{ item.inc }} INC</small>
                     </td>
                 </tr>
             </table>
@@ -77,6 +77,8 @@
     @import "../assets/styles/mixin";
 
     .my-guess {
+        padding-top: 44px;
+
         .list {
             margin-top: $margin-width;
             padding: 0 $space-width;
@@ -92,6 +94,7 @@
             }
 
             th, td {
+                width: 25%;
                 padding: 5px 0;
                 text-align: center;
                 font-weight: normal;

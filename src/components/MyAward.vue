@@ -12,7 +12,7 @@
             <small>
                 {{userBonus.allEth || 0}} ETH / {{userBonus.allInc || 0}} INC
             </small>
-            <div class="explain-box" @click="showAwardDetail=false" v-show="showAwardDetail" >
+            <div class="explain-box" @click="showAwardDetail=false" v-show="showAwardDetail">
                 <ul @click.stop>
                     <li>
                         <label>静态分红奖</label>
@@ -58,7 +58,7 @@
 
 <script>
     import EthButton from './EthButton'
-    import { UserApi } from '../api'
+    import {UserApi} from '../api'
 
     export default {
         components: {EthButton},
@@ -72,16 +72,16 @@
         methods: {
             // 获取我的头衔
             getUserInfo() {
-              UserApi.getUserInfo().then(res => {
-                  this.level = res.level
-              }).catch(err => {
-                  console.error(err)
-              })
+                UserApi.getUserInfo().then(res => {
+                    this.level = res.level
+                }).catch(err => {
+                    console.error(err)
+                })
             },
 
             // 转换头衔
             transformStatus(val) {
-                switch(val){
+                switch (val) {
                     case '1':
                         return '参与者';
                     case '2':
@@ -101,7 +101,7 @@
             // 奖励总额
             getUserBonus() {
                 UserApi.getUserBonus().then(res => {
-                    console.log('aaaa',res)
+                    console.log('aaaa', res)
                     this.userBonus = res
                 }).catch(err => {
                     console.error(err)
@@ -147,7 +147,7 @@
             }
         }
 
-        .shade{
+        .shade {
             position: fixed;
             top: 0;
             right: 0;
@@ -183,7 +183,7 @@
             .explain-box {
                 @include px2rem('height', 209);
                 position: absolute;
-                bottom: 30px;
+                bottom: 44px;
                 left: 0;
                 right: 0;
                 margin: auto;
@@ -234,13 +234,13 @@
             }
         }
 
-        p{
+        p {
+            @include fontPrimaryColor(#a35a85);
+            @include fontSize($font-little);
             display: flex;
             align-items: center;
             justify-content: center;
-            @include fontPrimaryColor(#a35a85);
-            @include fontSize($font-little);
-            margin-top: 30px;
+            margin: 25px 0;
             font-weight: 500;
             text-align: center;
         }
