@@ -10,7 +10,7 @@
                 <span>x</span>
                 <img src="../assets/images/icon_eth_star.png" alt>
             </div>
-            <div class="price-container" v-if="endCountDown !== 0 ">
+            <div class="price-container" v-if="isOnline && endCountDown !== 0 ">
                 <div class="price-box">
                     <label>当前奖池</label>
                     <p>{{gameBonus.eth_amount || 0}} ETH / {{gameBonus.inc_amount || 0}} INC</p>
@@ -64,7 +64,8 @@
         mixins: [countDownMixin],
         data() {
             return {
-                gameBonus: {}
+                gameBonus: {},
+                isOnline: UserApi.isOnline()
             };
         },
         methods: {

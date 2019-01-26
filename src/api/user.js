@@ -15,6 +15,11 @@ class UserApi {
         return Requester.post(config.apiDomain + 'login', query)
     }
 
+    // 退出登录
+    static logout(query) {
+        return Requester.get(config.apiDomain + 'logout', query)
+    }
+
     // 获取登录验证码
     static sendSms(query) {
         // phone_prefix: +86

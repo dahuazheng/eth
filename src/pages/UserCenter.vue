@@ -15,9 +15,9 @@
             </div>
             <ul>
                 <li>
-                    <span>0.000 ETH</span>
-                    <span>0.000 INC</span>
-                    <label @click="showAwardDetail=true">
+                    <span>{{userBonus.allEth || 0}} ETH</span>
+                    <span>{{userBonus.allInc || 0}} INC</span>
+                    <label @click.stop="showAwardDetail = true">
                         奖励总额
                         <img src="../assets/images/icon_total_eth.png">
                     </label>
@@ -109,28 +109,33 @@
                 <ul>
                     <li>
                         <label>静态分红奖</label>
-                        <span>0.000000 ETH</span>
-                        <span>0.000000 INC</span>
+                        <span>{{userBonus.staticEth || 0}} ETH</span>
+                        <span>{{userBonus.staticInc || 0}} INC</span>
                     </li>
                     <li>
                         <label>动态分红奖</label>
-                        <span>0.000000 ETH</span>
-                        <span>0.000000 INC</span>
+                        <span>{{userBonus.dynamicEth || 0}} ETH</span>
+                        <span>{{userBonus.dynamicInc || 0}} INC</span>
                     </li>
                     <li>
                         <label>高级经理奖</label>
-                        <span>0.000000 ETH</span>
-                        <span>0.000000 INC</span>
+                        <span>{{userBonus.topManagerEth || 0}} ETH</span>
+                        <span>{{userBonus.topManagerInc || 0}} INC</span>
                     </li>
                     <li>
                         <label>每日竞猜奖</label>
-                        <span>0.000000 ETH</span>
-                        <span>0.000000 INC</span>
+                        <span>{{userBonus.dayGuessEth || 0}} ETH</span>
+                        <span>{{userBonus.dayGuessInc || 0}} INC</span>
                     </li>
                     <li>
                         <label>24H 直推龙虎榜</label>
-                        <span>0.000000 ETH</span>
-                        <span>0.000000 INC</span>
+                        <span>{{userBonus.dayPushEth || 0}} ETH</span>
+                        <span>{{userBonus.dayPushInc || 0}} INC</span>
+                    </li>
+                    <li>
+                        <label>其他奖励</label>
+                        <span>{{userBonus.staticEth || 0}} ETH</span>
+                        <span>{{userBonus.staticInc || 0}} INC</span>
                     </li>
                 </ul>
             </div>
@@ -141,7 +146,7 @@
 
 <script>
     import {mapState} from 'vuex'
-    import {GuessApi, RankApi} from '../api'
+    import {GuessApi, RankApi, UserApi, OrderApi} from '../api'
     import moment from 'moment'
     import {ensureMilliseconds} from '../utils'
     import {rewardLevels} from '../utils/options'
@@ -161,7 +166,8 @@
                 ],
                 pushList: [],
                 winnerList: [],
-                guessList: []
+                guessList: [],
+                userBonus: {}
             }
         },
         filters: {
@@ -202,10 +208,19 @@
                 })
             },
 
+            // 获取参与次数
+            getOrderList() {
+                OrderApi.getOrderList({page: '1', limit: '1'}).then(res => {
+                    this.joinCount = res.data && res.data.count
+                }).catch(err => {
+                    console.error(err)
+                })
+            },
+
             // 获取龙虎榜数据
             getWinnerList() {
                 RankApi.getWinnerList({}).then(res => {
-                    console.log('res',res)
+                    // console.log('res',res)
                     this.winnerList = res
                 }).catch(err => {
                     console.error(err)
@@ -226,13 +241,25 @@
                 RankApi.getMyDayPushCount().then(res => {
                     this.pushCount = res
                 })
-            }
+            },
+
+            // 奖励总额
+            getUserBonus() {
+                UserApi.getUserBonus().then(res => {
+                    console.log('bbb',res)
+                    this.userBonus = res
+                }).catch(err => {
+                    console.error(err)
+                })
+            },
         },
         mounted() {
             this.action === 'push' && this.getPushList()
             this.action === 'winner' && this.getWinnerList()
             this.action === 'guess' && this.getMyGuessList()
             this.getMyDayPushCount()
+            this.getUserBonus()
+            this.getOrderList()
         }
     }
 </script>
