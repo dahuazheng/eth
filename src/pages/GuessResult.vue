@@ -1,6 +1,6 @@
 <template>
     <div class="guess-result">
-        <PopupTitle title="历史结果" :back="close"/>
+        <PopupTitle title="历史结果" :fixed="true" :back="close"/>
         <div class="list">
             <ul>
                 <li>
@@ -83,8 +83,11 @@
     @import "../assets/styles/mixin";
 
     .guess-result {
+        padding-top: 44px;
+
         .list {
-            margin-top: $margin-width;
+            //margin-top: $margin-width;
+            padding: $margin-width $space-width;
         }
 
         ul {
