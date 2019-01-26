@@ -3,7 +3,7 @@
         <PopupTitle title="参与历史" :fixed="true" :back="close"/>
         <ul v-infinite-scroll="loadMore"
             infinite-scroll-disabled="loading"
-            infinite-scroll-distance="20"
+            infinite-scroll-distance="40"
             :infinite-scroll-immediate-check="true">
             <li>
                 <span>时间</span>
@@ -53,7 +53,6 @@
                 if(this.list.length >= this.total) return
                 this.page = this.page + 1
                 this.getOrderList()
-
             },
             close() {
                 this.$router.push({name: 'home', query: {tab: 'join'}})

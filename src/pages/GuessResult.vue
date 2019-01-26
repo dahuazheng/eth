@@ -2,24 +2,22 @@
     <div class="guess-result">
         <PopupTitle title="历史结果" :fixed="true" :back="close"/>
         <div class="list">
+            <div class="row">
+                <div class="date">日期</div>
+                <div class="number">中奖数字</div>
+                <div class="award">奖项</div>
+                <div class="player">中奖玩家</div>
+                <div class="amount">奖金（eth/inc）</div>
+            </div>
             <ul>
-                <li>
-                    <span class="date">日期</span>
-                    <span class="number">中奖数字</span>
-                    <span class="award">奖项</span>
-                    <span class="player">中奖玩家</span>
-                    <span class="amount">奖金（eth/inc）</span>
-                </li>
                 <li v-for="(history, hKey) in historyList" :key="hKey">
-                    <span class="date date-top">{{ history.addTime | formatDate}}</span>
-                    <span class="number date-top">{{ history.numTrue }}</span>
+                    <div class="row" v-for="(item, key) in history.list" :key="key">
+                        <div class="date top">{{ key === 0 ? history.date : ''}}</div>
+                        <div class="number top">{{ key === 0 ? history.numTrue : '' }}</div>
 
-                    <div class="row-content">
-                        <div class="row" v-for="(item, key) in history.list" :key="key">
-                            <span class="award">{{item.status | transformStatus}}</span>
-                            <span class="player">{{item.phone }}</span>
-                            <span class="amount text-green">+{{item.eth}}<br> +{{item.inc }}</span>
-                        </div>
+                        <div class="award">{{item.status | transformStatus}}</div>
+                        <div class="player">{{item.phone }}</div>
+                        <div class="amount text-green">+{{item.eth}}<br> +{{item.inc }}</div>
                     </div>
                 </li>
             </ul>
@@ -42,12 +40,6 @@
             }
         },
         filters: {
-            formatDate(value) {
-                if (!value) return
-                const formatDate = 'YYYY-MM-DD'
-                return moment(ensureMilliseconds(value)).format(formatDate)
-            },
-
             formatPhoneNumber(val) {
                 if (!val) return
                 return encodeMobile(val)
@@ -86,8 +78,7 @@
         padding-top: 44px;
 
         .list {
-            //margin-top: $margin-width;
-            padding: $margin-width $space-width;
+            padding: $margin-width;
         }
 
         ul {
@@ -95,76 +86,60 @@
             width: 100%;
 
             li {
+                border-bottom: 1px solid $border-bottom-color;
+            }
+        }
+
+        .row {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+
+            > div {
+                @include fontSize($font-little-s + 1);
+                height: 46px;
                 display: flex;
+                align-items: center;
+                justify-content: center;
+                color: $color-black;
+                text-align: center;
                 border-bottom: 1px solid $border-bottom-color;
 
-                &:first-child {
-                    text-align: center;
-                    border-bottom: 1px solid $border-bottom-color;
-
-                    span {
-                        @include fontSize($font-little);
-                        font-weight: 500;
-
-                        &:last-child {
-                            width: 24%;
-                        }
-                    }
+                &:last-child {
+                    justify-content: flex-end;
+                    text-align: right;
                 }
 
-                span {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    @include fontSize($font-little);
-                    color: $color-black;
-                    text-align: center;
-                    padding: 8px 0;
-
-                    &.date {
-                        width: 20%;
-                    }
-
-                    &.number {
-                        width: 14%;
-
-                        &.date-top {
-                            text-align: center;
-                        }
-                    }
-
-                    &.award {
-                        width: 16%;
-
-                    }
-
-                    &.player {
-                        width: 25%;
-                    }
-
-                    &.amount {
-                        text-align: right;
-                        width: 13%;
-                    }
+                &.top {
+                    border-bottom: none
                 }
 
-                .row-content {
-                    display: flex;
-                    flex-direction: column;
-                    width: 65%;
-
-                    .row {
-                        display: flex;
-                        justify-content: space-around;
-                        align-items: center;
-                        width: 100%;
-                        border-bottom: 1px solid $border-bottom-color;
-
-                        &:last-child {
-                            border-bottom-color: transparent;
-                        }
-                    }
+                &.date {
+                    width: 20%;
                 }
+
+                &.number {
+                    width: 16%;
+                }
+
+                &.award {
+                    width: 17%;
+
+                }
+
+                &.player {
+                    width: 25%;
+                }
+
+                &.amount {
+                    width: 30%;
+                }
+            }
+
+            &:last-child > div {
+                border-bottom: none;
             }
         }
     }

@@ -12,6 +12,12 @@ html {
     }
 }
 
+@media screen and (min-width: 400px) {
+    html {
+        font-size: 82px;
+    }
+}
+
 body {
     @include fontSize($font-medium-s);
     margin: 0;
