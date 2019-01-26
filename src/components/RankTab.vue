@@ -22,47 +22,43 @@
                     </span>
                     <span class="name">{{ live.phone}}</span>
                     <span class="account">
-                        {{ live.eth_amount }} ETH
+                        {{ live.ethAmount }} ETH
                         <br>
-                        {{ live.inc_amount }} INC
+                        {{ live.incAmount }} INC
                     </span>
-                    <span class="per">{{ live.push_count }}</span>
+                    <span class="per">{{ live.pushCount }}</span>
                 </li>
             </ul>
 
             <!--龙虎榜历史-->
-            <ul class="history" v-show="currTab === 'history'">
-                <li>
+            <div class="history" v-show="currTab === 'history'">
+                <div class="row top">
                     <span class="date">日期</span>
                     <span class="award">奖项</span>
                     <span class="player">获奖玩家</span>
                     <span class="num">直推个数</span>
                     <span class="amount">金额（eth/inc）</span>
-                </li>
-                <li v-for="history in dayPushHistoryList" :key="history.date">
-                    <span class="date date-top">{{ history.date}}</span>
-
-                    <div class="row-content">
-                        <div class="row" v-for="row in history.list" :key="row.user_id">
-                            <span class="award">{{row.rank | transformStatus}}</span>
-                            <span class="player">{{row.phone}}</span>
-                            <span class="num">{{row.push_count}}</span>
-                            <span class="amount text-green">
-                                +{{row.eth_amount}}
-                                <br>
-                                +{{row.inc_amount}}
-                            </span>
-                        </div>
-                    </div>
-                </li>
-            </ul>
+                </div>
+                <ul v-for="history in dayPushHistoryList" :key="history.date + '-label'">
+                    <li class="row" v-for="(row, key) in history.list" :key="row.userId + key">
+                        <span class="date date-top">{{ key === 0 ? history.date : ''}}</span>
+                        <span class="award">{{row.rank | transformStatus}}</span>
+                        <span class="player">{{row.phone}}</span>
+                        <span class="num">{{row.pushCount}}</span>
+                        <span class="amount text-green">
+                            +{{row.ethAmount}}<br>
+                            +{{row.incAmount}}
+                        </span>
+                    </li>
+                </ul>
+            </div>
 
             <!--我的龙虎榜-->
             <table class="my-rank" v-show="currTab === 'my-rank'">
                 <tr>
-                    <td>日期</td>
-                    <td>直推个数</td>
-                    <td>结果</td>
+                    <th>日期</th>
+                    <th>直推个数</th>
+                    <th>结果</th>
                 </tr>
                 <tr v-for="myRank in myRankList" :key="myRank.date">
                     <td>{{ myRank.date }}</td>
@@ -80,29 +76,15 @@
     import {rewardLevels} from '../utils/options'
     import {RankApi} from "../api";
 
-
     export default {
         name: "rank-tab",
         data() {
             return {
                 currTab: 'live',
                 liveList: [],
-                dayPushHistory: {},
+                dayPushHistoryList: [],
                 myRankList: []
             };
-        },
-        computed: {
-            dayPushHistoryList() {
-                const dayPushHistory = Object.keys(this.dayPushHistory)
-                if (!this.dayPushHistory || !dayPushHistory.length) return []
-
-                return dayPushHistory.map(dayPushKey => {
-                    return {
-                        date: dayPushKey,
-                        list: this.dayPushHistory[dayPushKey]
-                    }
-                })
-            }
         },
         filters: {
             formatDate(value) {
@@ -130,17 +112,15 @@
             // 24h 直推龙虎榜
             getDayPush() {
                 RankApi.getDayPush().then(res => {
-                    if(Number(res.status)===1){
-                        this.liveList = res.data && res.data.list
-                    }
-                });
+                        this.liveList = res
+                })
             },
 
             // 龙虎榜历史
             getDayPushHistory() {
                 RankApi.getDayPushHistory().then(res => {
-                    this.dayPushHistory = res.data && res.data.list;
-                });
+                    this.dayPushHistoryList = res
+                }).catch(err=>console.log(err))
             },
 
             // 我的龙虎榜
@@ -164,9 +144,7 @@
 
     #rank-tab {
         ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+            @include clearUl
         }
 
         .rank-tab__header {
@@ -193,162 +171,146 @@
         }
 
         .rank-tab__body {
-            ul {
+
+            .live {
                 width: 100%;
 
-                &.live {
-                    li {
+                li {
+                    display: flex;
+                    align-items: center;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    border-bottom: 1px solid $border-color;
+
+                    .icon {
+                        @include px2rem("width", 30);
+                        @include px2rem("height", 30);
+                        display: inline-block;
+                        background-size: 100% 100%;
+                        padding: 0;
+
+                        &.icon-0 {
+                            background-image: url("../assets/images/icon_one.png");
+                        }
+
+                        &.icon-1 {
+                            background-image: url("../assets/images/icon_two.png");
+                        }
+
+                        &.icon-2 {
+                            background-image: url("../assets/images/icon_three.png");
+                        }
+
+                        &.icon-3 {
+                            background-image: url("../assets/images/icon_four.png");
+                        }
+
+                        &.icon-4 {
+                            background-image: url("../assets/images/icon_five.png");
+                        }
+                    }
+
+                    span {
+                        @include fontSize($font-little);
+                        position: relative;
+                        padding: 8px 0;
+                        box-sizing: border-box;
                         display: flex;
                         align-items: center;
-                        flex-direction: row;
-                        justify-content: space-around;
-                        border-bottom: 1px solid $border-color;
+                        justify-content: center;
+                        text-align: center;
 
-                        .icon {
-                            @include px2rem("width", 30);
-                            @include px2rem("height", 30);
-                            display: inline-block;
-                            background-size: 100% 100%;
-                            padding: 0;
-
-                            &.icon-0 {
-                                background-image: url("../assets/images/icon_one.png");
-                            }
-
-                            &.icon-1 {
-                                background-image: url("../assets/images/icon_two.png");
-                            }
-
-                            &.icon-2 {
-                                background-image: url("../assets/images/icon_three.png");
-                            }
-
-                            &.icon-3 {
-                                background-image: url("../assets/images/icon_four.png");
-                            }
-
-                            &.icon-4 {
-                                background-image: url("../assets/images/icon_five.png");
-                            }
+                        &.num {
+                            width: 20%;
                         }
 
-                        span {
-                            position: relative;
-                            @include fontSize($font-little);
-                            padding: 10px 0;
-                            box-sizing: border-box;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-
-                            &.num {
-                                width: 20%;
-                            }
-
-                            &.name {
-                                width: 30%;
-                            }
-
-                            &.account {
-                                width: 20%;
-                            }
-
-                            &.per {
-                                width: 30%;
-                            }
+                        &.name {
+                            width: 30%;
                         }
 
-                        &.color-0 {
-                            color: #daa032;
+                        &.account {
+                            width: 20%;
                         }
 
-                        &.color-1 {
-                            color: #b6babd;
+                        &.per {
+                            width: 30%;
+                        }
+                    }
+
+                    &.color-0 {
+                        color: #daa032;
+                    }
+
+                    &.color-1 {
+                        color: #b6babd;
+                    }
+
+                    &.color-2 {
+                        color: #c59567;
+                    }
+
+                    &.color-3 {
+                        color: #d0b791;
+                    }
+
+                    &.color-4 {
+                        color: #d0b791;
+                    }
+                }
+            }
+
+            .history {
+                .row {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    padding: 0 $space-width;
+
+                    &.top {
+                        border-bottom: 1px solid #f0f0f0;
+                    }
+
+                    span {
+                        @include fontSize($font-little);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 44px;
+                        color: $color-black;
+                        text-align: center;
+                        border-bottom: 1px solid #f0f0f0;
+
+                        &.date {
+                            justify-content: flex-start;
+                            width: 21%;
+                            border-bottom: none;
                         }
 
-                        &.color-2 {
-                            color: #c59567;
+                        &.player {
+                            width: 21%;
                         }
 
-                        &.color-3 {
-                            color: #d0b791;
+                        &.award,
+                        &.num {
+                            width: 15%;
                         }
 
-                        &.color-4 {
-                            color: #d0b791;
+                        &.amount {
+                            justify-content: flex-end;
+                            width: 26%;
+                            text-align: right;
                         }
+                    }
+
+                    &:last-child,
+                    &.top span,
+                    &:last-child span {
+                        border-bottom: none;
                     }
                 }
 
-                &.history {
-                    li {
-                        display: flex;
-                        justify-content: space-around;
-                        border-bottom: 1px solid $border-bottom-color;
-                        padding: 10px 0;
-
-                        &:first-child {
-                            text-align: center;
-                            @include fontSize($font-little-s);
-                            border-bottom: 1px solid $border-bottom-color;
-
-                            span {
-                                padding-top: 0;
-                            }
-                        }
-
-                        span {
-                            display: flex;
-                            align-items: flex-start;
-                            @include fontSize($font-little);
-                            padding-top: 3px;
-                            color: $color-black;
-                            font-weight: normal;
-                            text-align: center;
-
-                            &.date,
-                            &.award {
-                                display: inline;
-                                width: 13%;
-                            }
-
-                            &.player {
-                                display: inline;
-                                width: 20%;
-                            }
-
-                            &.num {
-                                width: 15%;
-                            }
-
-                            &.date {
-                                padding-left: 15px;
-                                text-align: left;
-
-                                &.date-top {
-                                    padding-top: 10px;
-                                }
-                            }
-                        }
-
-                        .row-content {
-                            display: flex;
-                            flex-direction: column;
-                            width: 100%;
-
-                            .row {
-                                display: flex;
-                                justify-content: space-around;
-                                align-items: center;
-                                width: 100%;
-                                border-bottom: 1px solid $border-bottom-color;
-
-                                &:last-child {
-                                    border-bottom-color: transparent;
-                                }
-                            }
-                        }
-                    }
+                ul {
+                    border-bottom: 1px solid #f0f0f0;
                 }
             }
 
@@ -357,25 +319,20 @@
                 border-collapse: collapse;
 
                 tr {
+                    @include fontSize($font-little);
                     border-bottom: 1px solid $border-bottom-color;
-                    @include fontSize($font-little - 1);
-                    font-weight: normal;
 
-                    &:first-child {
-                        td {
-                            @include fontSize($font-little);
-
-                            &:first-child {
-                                width: 30%;
-                            }
-                        }
-                    }
-
+                    th,
                     td {
+                        height: 44px;
                         text-align: center;
-                        padding-top: 10px;
-                        padding-bottom: 10px;
                         color: $color-black;
+
+                        &:first-child{
+                            width: 33.33%;
+                            padding-left: 15px;
+                            text-align: left;
+                        }
                     }
                 }
             }

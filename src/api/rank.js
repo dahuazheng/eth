@@ -26,30 +26,46 @@ class RankApi {
     }
 
     // 24小时直推龙虎榜
-    static getDayPush(){
-        return Requester.get(config.apiDomain +'day_push')
+    static getDayPush() {
+        return Requester.get(config.apiDomain + 'day_push').then(res => {
+            if (Number(res.status) !== 1) return
+
+            return res.data && res.data.list.map(n => ({
+                userId: n.user_id,
+                date: n.date,
+                pushCount: n.push_count,
+                incAmount: formatDecimal(n.inc_amount, PRECISION.INC),
+                ethAmount: formatDecimal(n.eth_amount, PRECISION.ETH),
+                phone: n.phone,
+            }))
+        })
     }
 
     // 龙虎榜历史
     static getDayPushHistory(query) {
         return Requester.get(config.apiDomain + 'day_push_history', query)
             .then(res => {
-                if (Number(res.status) !== 1 ) return
-                console.log('res111', res.data.list)
+                if (Number(res.status) !== 1) return
+                const historyObj = res.data.list
+                const keys = Object.keys(historyObj)
+                if (!keys.length) return []
 
-                const list = res.data.list && res.data.list.map(n => ({
-                  data: n.data || '',                                   //
-                  pushCount: Number(n.push_count) || 0,
-                  incAmount: formatDecimal(n.inc, PRECISION.INC) || 0,
-                  ethAmount: formatDecimal(n.eth, PRECISION.ETH) || 0,
-                  rank: n.rank || ''
-                }))
-
-
-                return list
-            }).catch(err => {
-                console.log(err)
-            })
+                return keys.map(key => {
+                    let list = historyObj[key].map(n => ({
+                        date: n.date,
+                        ethAmount: formatDecimal(n.eth_amount, PRECISION.ETH),
+                        incAmount: formatDecimal(n.inc_amount, PRECISION.INC),
+                        phone: n.phone,
+                        pushCount: n.push_count,
+                        userId: n.user_id,
+                        rank: n.rank
+                    }))
+                    return {
+                        date: key,
+                        list: list
+                    }
+                })
+            }).catch(err => console.log(err))
     }
 
     // 我的今日直推
@@ -89,7 +105,7 @@ class RankApi {
         return Requester.get(config.apiDomain + 'day_push_bonus', query)
             .then(res => {
                 if (res.status !== '1') return
-                return  {
+                return {
                     incAmount: formatDecimal(res.data && res.data.inc_amount, PRECISION.INC) || 0,  // inc数量
                     ethAmount: formatDecimal(res.data && res.data.eth_amount, PRECISION.ETH) || 0   // eth数量
                 }
