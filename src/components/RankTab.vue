@@ -94,9 +94,7 @@
         computed: {
             dayPushHistoryList() {
                 const dayPushHistory = Object.keys(this.dayPushHistory)
-                if (!this.dayPushHistory || !dayPushHistory.length) {
-                    return []
-                }
+                if (!this.dayPushHistory || !dayPushHistory.length) return []
 
                 return dayPushHistory.map(dayPushKey => {
                     return {
@@ -141,7 +139,7 @@
             // 龙虎榜历史
             getDayPushHistory() {
                 RankApi.getDayPushHistory().then(res => {
-                    // this.dayPushHistory = res.data && res.data.list;
+                    this.dayPushHistory = res.data && res.data.list;
                 });
             },
 
