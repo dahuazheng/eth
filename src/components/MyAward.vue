@@ -10,7 +10,7 @@
                 <img src="../assets/images/icon_help.png">
             </span>
             <small>
-                {{userBonus.allEth || 0}} ETH / {{userBonus.allInc || 0}} INC
+                {{userBonus.allEth}} ETH / {{userBonus.allInc || 0}} INC
             </small>
             <div class="explain-box" @click="showAwardDetail=false" v-show="showAwardDetail">
                 <ul @click.stop>
@@ -159,7 +159,7 @@
             @include fontPrimaryColor($primary-color);
             @include fontSize($font-medium-s);
             position: relative;
-            padding-top: 35px;
+            padding-top: 30px;
             padding-bottom: 13px;
             font-weight: normal;
             text-align: center;
@@ -172,7 +172,7 @@
                 align-items: center;
                 color: #3f1964;
                 font-weight: 500;
-                padding-bottom: 10px;
+                padding-bottom: 5px;
             }
 
             img {
@@ -202,7 +202,7 @@
                     margin: $margin-width;
 
                     > li {
-                        @include fontSize($font-little-s);
+                        @include fontSize($font-little);
                         @include px2rem('padding-top', 15);
 
                         display: flex;
@@ -210,10 +210,10 @@
                         justify-content: center;
                         align-items: center;
                         width: 33.333%;
-                        line-height: 1.6;
+                        line-height: 1.2;
 
                         label {
-                            margin-bottom: 5px;
+                            margin-bottom: 10px;
                             @include fontColor($font-color)
                         }
                     }
@@ -227,7 +227,7 @@
             justify-content: center;
             align-items: center;
             background: #f1e2ff;
-            padding-bottom: 20px;
+            padding-bottom: 30px;
 
             button {
                 border: none;

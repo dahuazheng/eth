@@ -117,7 +117,7 @@
                 display: flex;
                 align-items: center;
                 border-bottom: 1px solid $border-bottom-color;
-                @include fontSize($font-little - 1);
+                @include fontSize($font-little);
                 font-weight: $common-font-weight;
                 padding: 5px 0;
 
