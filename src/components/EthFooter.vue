@@ -35,6 +35,7 @@
                     }
                     if (this.$route.name === 'login') {
                         Toast('请先登录')
+                        return
                     }
 
                     this.$router.push({name: 'login'})
