@@ -1,6 +1,6 @@
 <template>
     <div class="nav-header">
-        <span class="nav-back" @click="() => { this.$router.go(-1)}"></span>
+        <span class="nav-back" @click="$router.go(-1)"></span>
         <span class="nav-title">{{ title }}</span>
         <span></span>
     </div>

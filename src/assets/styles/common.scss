@@ -109,8 +109,17 @@ input {
     &:focus {
         background: none;
     }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+    &[type='number'] {
+        -moz-appearance: textfield;
+    }
 }
 
 button {
     border: none;
 }
+

@@ -5,6 +5,7 @@ import store from './store'
 import SvgIcon from 'vue-svgicon'
 import VueClipboard  from 'vue-clipboard2'
 import { Picker } from 'mint-ui'
+import { InfiniteScroll } from 'mint-ui'
 
 import 'animate.css'
 import 'mint-ui/lib/style.css'
@@ -18,6 +19,7 @@ Vue.use(SvgIcon, {
 Vue.use(VueClipboard)
 
 Vue.component(Picker.name, Picker)
+Vue.use(InfiniteScroll)
 
 import './registerServiceWorker'
 Vue.config.productionTip = false
