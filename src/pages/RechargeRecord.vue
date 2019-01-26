@@ -112,12 +112,11 @@
                 display: flex;
                 align-items: center;
                 border-bottom: 1px solid $border-bottom-color;
-                @include fontSize($font-little - 1);
-                font-weight: $common-font-weight;
+                @include fontSize($font-little);
                 padding: 5px 0;
 
                 &:first-child {
-                    padding-bottom: 13px;
+                    padding-bottom: 10px;
                 }
 
                 li {

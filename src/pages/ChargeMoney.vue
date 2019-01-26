@@ -1,13 +1,13 @@
 <template>
     <div class="charge-money">
         <div class="title">
-            <icon name="arrow-left" @click="() => { this.$router.go(-1) }"></icon>
+            <span class="nav-back" @click="$router.go(-1)"></span>
             <span @click="() => {this.$router.push('/recharge-record')}"></span>
         </div>
         <div class="box">
             <h2>
                 收款 <br>
-                <small>余额： {{balance.ETH}} ETH / {{balance.INC}} INC</small>
+                <small>余额： {{balance.ETH || 0}} ETH / {{balance.INC || 0}} INC</small>
             </h2>
             <QrcodeVue :value="address" size="138" renderAs='svg'/>
             <p class="code">{{ address }}</p>
@@ -74,10 +74,12 @@
             height: 39px;
             margin: 5px $margin-width;
 
-            .svg-icon {
-                width: 20px;
-                height: 20px;
-                color: $clear-color;
+            .nav-back {
+                @include px2rem('width', 20);
+                @include px2rem('height', 20);
+                @include background-image;
+                text-decoration: none;
+                background-image: url('../assets/images/icon_back_white.png');
             }
 
             span {
@@ -91,7 +93,6 @@
 
         .box {
             @include px2rem('width', 280);
-            @include px2rem('height', 380);
             position: absolute;
             top: 70px;
             right: 0;
@@ -127,15 +128,14 @@
 
             p {
                 @include fontPrimaryColor(#7c46af);
+                margin: 20px 0;
 
                 &.code {
-                    @include px2rem('height', 18);
-                    @include px2rem('line-height', 18);
                     @include px2rem('border-radius', 14);
-                    @include fontSize($font-little-s);
-                    display: inline-block;
-                    padding: 0 10px;
+                    @include fontSize($font-little - 1);
+                    padding: 5px 10px;
                     background: #efe0fd;
+                    word-break: break-word;
 
                 }
             }

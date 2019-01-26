@@ -521,6 +521,11 @@
                             margin-bottom: 5px;
                             @include fontColor($font-color)
                         }
+
+                        span {
+                            color: #3f1964;
+                            font-weight: 500;
+                        }
                     }
                 }
             }

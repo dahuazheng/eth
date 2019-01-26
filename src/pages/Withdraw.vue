@@ -1,7 +1,7 @@
 <template>
     <div class="withdraw" @click="showOptions=false">
         <div class="title">
-            <icon name="arrow-left" @click="() => {this.$router.go(-1)}"></icon>
+            <span class="nav-back" @click="() => {this.$router.go(-1)}"></span>
             提现
             <span @click="() => {this.$router.push('/withdraw-record')}"></span>
         </div>
@@ -23,7 +23,7 @@
             <div class="row">
                 <input type="text" placeholder="转账金额" v-model="money">
                 <span>余额： {{balance[this.coin] + ' ' + coin}}</span>
-                <small>手续费：{{coinInfo.withdraw_fee_amount + ' ' + coin}}</small>
+                <small>手续费：{{coinInfo.withdrawFeeAmount + ' ' + coin}}</small>
             </div>
             <div class="row">
                 <input type="text" placeholder="短信验证码" v-model="code">
@@ -38,7 +38,9 @@
 
             <div class="row">
                 <p class="tip">
-                    温馨提示：每人每日最高可提现{{coinInfo.day_max_withdraw_amount}}ETH，单笔转出限额为{{coinInfo.min_withdraw_amount+'-'+coinInfo.max_withdraw_amount}}ETH，手续费{{coinInfo.withdraw_fee_amount}}ETH。
+                    温馨提示：每人每日最高可提现{{coinInfo.dayMaxWithdrawAmount + ' ' +
+                    coin}}，单笔转出限额为{{coinInfo.minWithdrawAmount+'-'+coinInfo.maxWithdrawAmount + ' ' +
+                    coin}}，手续费{{coinInfo.withdrawFeeAmount + ' ' + coin}}。
                 </p>
             </div>
             <div class="btn-box">
@@ -76,19 +78,17 @@
                 balance: state => state.user.balance,
                 asset: state => state.user.asset
             }),
+
             amount() {
                 if (!this.money) return `--${this.coin}`
-                return (parseFloat(this.money) - parseFloat(this.coinInfo.withdraw_fee_amount)).toFixed(this.coin === 'ETH' ? 4 : 2) + ' ' + this.coin
+                return (parseFloat(this.money) - parseFloat(this.coinInfo.withdrawFeeAmount)).toFixed(this.coin === 'ETH' ? 4 : 2) + ' ' + this.coin
             }
         },
         methods: {
             getCoinInfo() {
                 WalletApi.getCoinInfo({coin_code: this.coin}).then(res => {
-                    if (Number(res.status) === 1) {
-                        console.log(res)
-                        this.coinInfo = res.data && res.data
-                        console.log(this.coinInfo)
-                    }
+                    console.log(res)
+                    this.coinInfo = res
                 })
             },
 
@@ -118,7 +118,7 @@
                 this.getCoinInfo()
             },
             next() {
-                console.log(this.asset)
+                // console.log(this.asset)
                 const errors = [
                     {key: 'address', msg: '请填写收款人地址'},
                     {key: 'money', msg: '请输入提现金额'},
@@ -134,12 +134,12 @@
 
                 // 判断钱包地址是否是ETH系列钱包
                 if (!isValidETHWallet(this.address)) {
-                    // return Toast(`请输入正确的ETH系钱包地址`)
+                    return Toast(`请输入正确的ETH系钱包地址`)
                 }
 
                 // 判断最小提笔币数额
-                if (this.money < Number(this.coinInfo.min_withdraw_amount)) {
-                    return Toast(`最小提币金额${this.coinInfo.min_withdraw_amount + ' ' + this.coin}`)
+                if (this.money < Number(this.coinInfo.minWithdrawAmount)) {
+                    return Toast(`最小提币金额${this.coinInfo.minWithdrawAmount + ' ' + this.coin}`)
                 }
 
                 // 判断余额是否充足
@@ -148,8 +148,8 @@
                 }
 
                 // 判断最大提笔币数额
-                if (this.money > Number(this.coinInfo.max_withdraw_amount)) {
-                    return Toast(`最大提币金额${this.coinInfo.max_withdraw_amount + ' ' + this.coin}`)
+                if (this.money > Number(this.coinInfo.maxWithdrawAmount)) {
+                    return Toast(`最大提币金额${this.coinInfo.maxWithdrawAmount + ' ' + this.coin}`)
                 }
 
                 // 校验短信验证码
@@ -158,7 +158,7 @@
                 }
 
                 const coinOption = this.asset.find(item => item.coin_code === this.coin)
-                console.log(coinOption)
+                // console.log(coinOption)
 
                 WalletApi.applyTransfer({
                     coin_id: coinOption && coinOption.coin_id || '',
@@ -203,9 +203,12 @@
             height: 40px;
             padding: 0 $margin-width;
 
-            .svg-icon {
-                width: 20px;
-                height: 20px;
+            .nav-back {
+                @include px2rem('width', 20);
+                @include px2rem('height', 20);
+                @include background-image;
+                text-decoration: none;
+                background-image: url('../assets/images/icon_back_black.png');
             }
 
             span {

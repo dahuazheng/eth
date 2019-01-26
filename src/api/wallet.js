@@ -1,5 +1,7 @@
 import Requester from "../services/requester"
 import config from './config'
+import {formatDecimal} from "../utils";
+import {PRECISION} from "../utils/constants";
 
 // import { ensureMilliseconds } from  '../utils'
 
@@ -30,12 +32,27 @@ class WalletApi {
     }
 
     // 获取币种配置信息
-    static getCoinInfo(query){
+    static getCoinInfo(query) {
+        const coinCode = query.coin_code
+
         return Requester.post(config.apiDomain + 'newpay_get_coin_info', query)
+            .then(res => {
+                if (Number(res.status) !== 1) return
+                if (!res.data) return {}
+
+                const data = res.data
+                return {
+                    chainCode: data && data.chain_code || '',
+                    withdrawFeeAmount: formatDecimal(Number(data.withdraw_fee_amount), PRECISION[coinCode]) || 0,       // 提现手续费
+                    minWithdrawAmount: formatDecimal(Number(data.min_withdraw_amount), PRECISION[coinCode]) || 0,       // 单笔最小提现数量
+                    maxWithdrawAmount: (formatDecimal(Number(data.max_withdraw_amount), PRECISION[coinCode])) || 0,     // 单笔最大提现数量
+                    dayMaxWithdrawAmount: formatDecimal(Number(data.day_max_withdraw_amount), PRECISION[coinCode]) || 0 // 手续费
+                }
+            })
     }
 
     // 申请提现
-    static applyTransfer(query){
+    static applyTransfer(query) {
         return Requester.post(config.apiDomain + 'newpay_apply_transfer', query)
     }
 }
