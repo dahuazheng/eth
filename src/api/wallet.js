@@ -33,6 +33,11 @@ class WalletApi {
     static getCoinInfo(query){
         return Requester.post(config.apiDomain + 'newpay_get_coin_info', query)
     }
+
+    // 申请提现
+    static applyTransfer(query){
+        return Requester.post(config.apiDomain + 'newpay_apply_transfer', query)
+    }
 }
 
 export default WalletApi

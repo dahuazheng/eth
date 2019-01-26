@@ -22,22 +22,24 @@
             </div>
             <div class="row">
                 <input type="text" placeholder="转账金额" v-model="money">
-                <span>余额： 0 ETH</span>
-                <small>手续费：0.0001 ETH</small>
+                <span>余额： {{balance[this.coin] + ' ' + coin}}</span>
+                <small>手续费：{{coinInfo.withdraw_fee_amount + ' ' + coin}}</small>
             </div>
             <div class="row">
-                <input type="text" placeholder="转账金额" v-model="code">
-                <span class="code">获取验证码</span>
+                <input type="text" placeholder="短信验证码" v-model="code">
+                <span class="code" @click="getSmsCode">{{smsLabel}}</span>
             </div>
             <div class="row">
                 <label>到账数量</label>
                 <span>
-                    --ETH
+                    {{amount}}
                 </span>
             </div>
 
             <div class="row">
-                <p class="tip">温馨提示：每人每日最高可提现1000ETH，单笔转出限额为100-1000ETH，手续费0.0001ETH。</p>
+                <p class="tip">
+                    温馨提示：每人每日最高可提现{{coinInfo.day_max_withdraw_amount}}ETH，单笔转出限额为{{coinInfo.min_withdraw_amount+'-'+coinInfo.max_withdraw_amount}}ETH，手续费{{coinInfo.withdraw_fee_amount}}ETH。
+                </p>
             </div>
             <div class="btn-box">
                 <EthButton name="下一步" :click="next"/>
@@ -50,8 +52,9 @@
 <script>
     import EthButton from '@/components/EthButton.vue'
     import {Toast} from 'mint-ui'
-    import {isValidETHWallet} from '../utils'
-    import {WalletApi} from '../api'
+    import {isValidETHWallet, isValidSmsAuthCode} from '../utils'
+    import {WalletApi, UserApi} from '../api'
+    import {mapState} from 'vuex'
 
     export default {
         name: 'withdraw',
@@ -59,17 +62,29 @@
         data() {
             return {
                 showOptions: false,
+                smsLabel: '获取验证码',
+                count: 15,
                 coin: 'ETH',
                 address: '',
                 money: '',
                 code: '',
-                coinInfo:{}
+                coinInfo: {}
+            }
+        },
+        computed: {
+            ...mapState({
+                balance: state => state.user.balance,
+                asset: state => state.user.asset
+            }),
+            amount() {
+                if (!this.money) return `--${this.coin}`
+                return (parseFloat(this.money) - parseFloat(this.coinInfo.withdraw_fee_amount)).toFixed(this.coin === 'ETH' ? 4 : 2) + ' ' + this.coin
             }
         },
         methods: {
             getCoinInfo() {
                 WalletApi.getCoinInfo({coin_code: this.coin}).then(res => {
-                    if(Number(res.status)===1){
+                    if (Number(res.status) === 1) {
                         console.log(res)
                         this.coinInfo = res.data && res.data
                         console.log(this.coinInfo)
@@ -77,17 +92,34 @@
                 })
             },
 
-            // 校验钱包地址
-            checkAddress() {
-                return false
+            countDown() {
+                setTimeout(() => {
+                    this.smsLabel = this.count + ' s'
+
+                    if (this.count > 0) {
+                        this.count -= 1
+                        this.countDown()
+                    } else {
+                        this.count = 15
+                        this.smsLabel = '重新获取'
+                    }
+                }, 1000)
+            },
+            getSmsCode() {
+                this.countDown()
+                UserApi.sendUserSms({type: 'withdraw'}).then(res => {
+                    console.log(res)
+                })
             },
 
             switchCoin(coin) {
                 this.coin = coin
                 this.showOptions = false
+                this.getCoinInfo()
             },
             next() {
-                /*const errors = [
+                console.log(this.asset)
+                const errors = [
                     {key: 'address', msg: '请填写收款人地址'},
                     {key: 'money', msg: '请输入提现金额'},
                     {key: 'code', msg: '请输入验证码'}]
@@ -98,16 +130,47 @@
                         return true
                     }
                 })
-                if (err) return*/
+                if (err) return
 
                 // 判断钱包地址是否是ETH系列钱包
                 if (!isValidETHWallet(this.address)) {
-                    Toast(`请输入正确的ETH系钱包地址`)
+                    // return Toast(`请输入正确的ETH系钱包地址`)
                 }
 
+                // 判断最小提笔币数额
+                if (this.money < Number(this.coinInfo.min_withdraw_amount)) {
+                    return Toast(`最小提币金额${this.coinInfo.min_withdraw_amount + ' ' + this.coin}`)
+                }
+
+                // 判断余额是否充足
+                if (this.money > Number(this.balance[this.coin])) {
+                    return Toast('余额不足')
+                }
+
+                // 判断最大提笔币数额
+                if (this.money > Number(this.coinInfo.max_withdraw_amount)) {
+                    return Toast(`最大提币金额${this.coinInfo.max_withdraw_amount + ' ' + this.coin}`)
+                }
+
+                // 校验短信验证码
+                if (!isValidSmsAuthCode(this.code)) {
+                    return Toast('验证码错误')
+                }
+
+                const coinOption = this.asset.find(item => item.coin_code === this.coin)
+
+                WalletApi.applyTransfer({
+                    coin_id: coinOption && coinOption.id || '',
+                    address: this.address,
+                    amount: this.money,
+                    sms_code: this.code
+                }).then(res => {
+                    console.log(res)
+                    Toast('申请成功')
+                })
             }
         },
-        mounted(){
+        mounted() {
             this.getCoinInfo()
         }
     }
