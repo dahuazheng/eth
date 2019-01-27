@@ -4,7 +4,7 @@
             <PopupTitle title="短信验证" :back="close"/>
             <div class="input-box">
                 <input type="number" placeholder="请输入验证码" v-model="code">
-                <button :disabled="count < 15" @click="getSmsCode">{{smsLabel}}</button>
+                <button :disabled="count < 60" @click="getSmsCode">{{smsLabel}}</button>
             </div>
             <div class="btn-box">
                 <button @click="submit">确认</button>
@@ -31,14 +31,15 @@
         },
         methods: {
             countDown() {
+                this.count -= 1
+
                 setTimeout(() => {
                     this.smsLabel = this.count + ' s'
 
-                    if (this.count > 0) {
-                        this.count -= 1
+                    if (this.count >= 0) {
                         this.countDown()
                     } else {
-                        this.count = 15
+                        this.count = 60
                         this.smsLabel = '重新获取'
                     }
                 }, 1000)

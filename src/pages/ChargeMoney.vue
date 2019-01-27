@@ -92,7 +92,7 @@
         }
 
         .box {
-            @include px2rem('width', 280);
+            @include px2rem('width', 300);
             position: absolute;
             top: 70px;
             right: 0;
@@ -113,7 +113,6 @@
                 small {
                     @include fontSize($font-little);
                     @include fontColor($font-third-color);
-
                 }
             }
 
@@ -136,7 +135,6 @@
                     padding: 5px 10px;
                     background: #efe0fd;
                     word-break: break-word;
-
                 }
             }
         }

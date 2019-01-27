@@ -27,7 +27,7 @@
             </div>
             <div class="row">
                 <input type="text" placeholder="短信验证码" v-model="code">
-                <span class="code" @click="getSmsCode">{{smsLabel}}</span>
+                <button class="code" :disabled="count < 60" @click="getSmsCode">{{smsLabel}}</button>
             </div>
             <div class="row">
                 <label>到账数量</label>
@@ -65,7 +65,7 @@
             return {
                 showOptions: false,
                 smsLabel: '获取验证码',
-                count: 15,
+                count: 60,
                 coin: 'ETH',
                 address: '',
                 money: '',
@@ -93,14 +93,15 @@
             },
 
             countDown() {
+                this.count -= 1
+
                 setTimeout(() => {
                     this.smsLabel = this.count + ' s'
 
-                    if (this.count > 0) {
-                        this.count -= 1
+                    if (this.count >= 0) {
                         this.countDown()
                     } else {
-                        this.count = 15
+                        this.count = 60
                         this.smsLabel = '重新获取'
                     }
                 }, 1000)
@@ -186,12 +187,7 @@
     @import "../assets/styles/mixin";
 
     .withdraw {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 999;
+        min-height: 100vh;
         background: $clear-color;
 
         .title {
@@ -235,7 +231,7 @@
                     border-bottom: 1px solid $border-color;
                 }
 
-                span {
+                span, button {
                     position: absolute;
                     top: 0;
                     right: 0;
@@ -254,7 +250,11 @@
                 }
 
                 .code {
+                    @include fontSize($font-medium-s);
+                    padding-right: 0;
                     color: #3f1964;
+                    background: transparent;
+                    text-align: right;
                 }
 
                 .tip {

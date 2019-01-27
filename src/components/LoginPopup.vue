@@ -16,7 +16,7 @@
         </div>
         <div class="row">
             <input type="number" v-model="code" placeholder="验证码">
-            <button id="btn-get-captcha" :disabled="count < 15" @click="onBtnCaptchaClick">{{smsLabel}}</button>
+            <button id="btn-get-captcha" :disabled="count < 60" @click="onBtnCaptchaClick">{{smsLabel}}</button>
         </div>
         <div class="btn-box">
             <button @click="login">登录</button>
@@ -112,14 +112,15 @@
 
             // 开始倒计时
             startCountDown() {
+                this.count -= 1
+
                 setTimeout(() => {
                     this.smsLabel = this.count + ' s'
 
                     if (this.count >= 0) {
-                        this.count -= 1
                         this.startCountDown()
                     } else {
-                        this.count = 15
+                        this.count = CAPTCHA_COUNTDOWN_DEFAULT
                         this.smsLabel = '重新获取'
                     }
                 }, 1000)
