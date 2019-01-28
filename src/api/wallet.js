@@ -9,7 +9,7 @@ class WalletApi {
     // 用户充值提现记录列表  type = 1(充值）、2(提现）
     static getNewpayOrderList(query) {
         return Requester.post(config.apiDomain + 'newpay_order_list', query).then(res => {
-            if (res.status !== '1') return
+            if (Number(res.status) !== 1) return
 
             return res.data && res.data.map(n => ({
                 type: n.type || '',                     // 列表类型

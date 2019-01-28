@@ -58,8 +58,8 @@
                 }
 
                 OrderApi.createOrder({phone_code: String(this.code)}).then(res => {
-                    if (String(res.status) === '-1') Toast('验证码错误，请重试')
-                    if (String(res.status) === '1') {
+                    if (Number(res.status) === -1) Toast('验证码错误，请重试')
+                    if (Number(res.status) === 1) {
                         Toast('参与成功')
                         this.code = null
                         this.$router.go({path: '/', force: true})

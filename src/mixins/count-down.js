@@ -43,8 +43,6 @@ const countDownMixin = {
             setTimeout(() => {
                 const currentTime = +new Date()
                 const endTime = this.endTime
-                //console.log(currentTime)
-                //console.log(endTime)
                 if (currentTime >= endTime) {
                     this.endCountDown = 0
                     return
@@ -56,7 +54,7 @@ const countDownMixin = {
         },
         getGameTime() {
             OrderApi.getGameTime().then(res => {
-                if (Number(res.status) !== 1) return
+                if (Number(res && res.status) !== 1) return
 
                 this.startTime = +new Date(ensureMilliseconds(res.data && res.data.start_time))
                 // this.startTime = 1548258870738

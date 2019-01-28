@@ -20,7 +20,7 @@ class GuessApi {
     static getMyGuessList() {
         return Requester.get(config.apiDomain + 'guess_my')
             .then(res => {
-                if (res.status < 1) {
+                if (Number(res.status) < 1) {
                     return []
                 }
                 return res.data && res.data.map(n => ({

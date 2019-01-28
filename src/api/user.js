@@ -66,7 +66,7 @@ class UserApi {
     // 获取我的奖励
     static getUserBonus(query) {
         return Requester.get(config.apiDomain + 'user_bonus', query).then(res => {
-            if (String(res.status) !== '1') return
+            if (Number(res.status) !== 1) return
             return {
                 staticInc: formatDecimal(res.data.static_bonus && res.data.static_bonus.inc_amount, PRECISION.INC) || 0,               // 静态inc、eth
                 staticEth: formatDecimal(res.data.static_bonus && res.data.static_bonus.eth_amount, PRECISION.ETH) || 0,
@@ -89,7 +89,7 @@ class UserApi {
     // 我的头衔
     static getUserInfo(query) {
         return Requester.get(config.apiDomain + 'user_info', query).then(res => {
-            if (res.status !== '1') return
+            if (Number(res.status) !== 1) return
             return {level: res.data && res.data.level}
         }).catch(err => console.log(err))
     }

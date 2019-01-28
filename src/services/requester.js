@@ -107,7 +107,7 @@ class Requester {
             params: data,
             ...opts
         }
-        return instance.get(url, config).then(res => res.data)
+        return instance.get(url, config).then(res => res && res.data)
     }
 
     static post(url = '', data = {}, opts = {}) {

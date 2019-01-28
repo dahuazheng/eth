@@ -10,7 +10,7 @@ class RankApi {
 
         return Requester.get(config.apiDomain + 'push_list', query)
             .then(res => {
-                if (res.status !== '1') return
+                if (Number(res.status) !== 1) return
 
                 const pushList = res.data.list && res.data.list.map(n => ({
                     phone: n.phone || '',                // 用户昵称（手机号）
@@ -72,7 +72,7 @@ class RankApi {
     static getMyDayPushCount(query) {
         return Requester.get(config.apiDomain + 'my_day_push_count', query)
             .then(res => {
-                if (res.status !== '1') return 0
+                if (Number(res.status) !== 1) return 0
 
                 return res.data && res.data.push_count || 0     // 直推数
             }).catch(err => {
@@ -84,7 +84,7 @@ class RankApi {
     static getWinnerList(query) {
         return Requester.get(config.apiDomain + 'my_day_push', query)
             .then(res => {
-                if (res.status !== '1') return
+                if (Number(res.status) !== 1) return
 
                 const list = res.data.list && res.data.list.map(n => ({
                     date: n.date || '',                              // 日期
@@ -104,7 +104,7 @@ class RankApi {
     static getDayPushBonus(query) {
         return Requester.get(config.apiDomain + 'day_push_bonus', query)
             .then(res => {
-                if (res.status !== '1') return
+                if (Number(res.status) !== 1) return
                 return {
                     incAmount: formatDecimal(res.data && res.data.inc_amount, PRECISION.INC) || 0,  // inc数量
                     ethAmount: formatDecimal(res.data && res.data.eth_amount, PRECISION.ETH) || 0   // eth数量
