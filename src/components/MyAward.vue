@@ -73,7 +73,7 @@
             // 获取我的头衔
             getUserInfo() {
                 UserApi.getUserInfo().then(res => {
-                    this.level = res.level
+                    this.level = res && res.level
                 }).catch(err => {
                     console.error(err)
                 })
@@ -101,7 +101,6 @@
             // 奖励总额
             getUserBonus() {
                 UserApi.getUserBonus().then(res => {
-                    console.log('aaaa', res)
                     this.userBonus = res
                 }).catch(err => {
                     console.error(err)

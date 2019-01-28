@@ -45,7 +45,6 @@
         },
         mounted() {
             UserApi.getParentInviteCode().then(res => {
-                // console.log(res)
                 if (Number(res.status) === 1) {
                     this.parentInviteCode = res.data && res.data.parent_invite_code
                 }
