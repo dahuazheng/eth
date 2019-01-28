@@ -17,11 +17,11 @@
             <p>{{address ? address : '暂无钱包地址'}}</p>
         </div>
         <div class="btn-box">
-            <button @click="() => {this.$router.push('/charge-money')}">
+            <button @click="$router.push('/charge-money')">
                 <img src="../assets/images/collection.png">
                 充值
             </button>
-            <button @click="() => {this.$router.push('/withdraw')}">
+            <button @click="$router.push('/withdraw')">
                 <img src="../assets/images/transfer.png">
                 提现
             </button>

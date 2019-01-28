@@ -5,28 +5,31 @@
             <span>{{startCountDown | displayCountDown}}</span>
             <span @click="toGuess('myGuess')">我的竞猜</span>
         </div>
-        <div class="un-join" v-show="guessStatus === 0">
-            <div class="row">
-                <label>您尚未参与，请立即参与解锁竞猜权益！</label>
-                <EthButton name="现在参与" :click="joinNow"/>
+        <div v-if="startCountDown <= 0 && endCountDown > 0">
+            <div class="un-join" v-show="guessStatus === 0">
+                <div class="row">
+                    <label>您尚未参与，请立即参与解锁竞猜权益！</label>
+                    <EthButton name="现在参与" :click="joinNow"/>
+                </div>
+            </div>
+            <div class="in-join" v-show="guessStatus === 1">
+                <div style="text-align: center">
+                    <input type="number"
+                           v-model="guessValue"
+                           placeholder="明天参与游戏的单日ETH总个数是多少？">
+                    <EthButton name="提交" borderRadios="21px" :click="submitGuess"/>
+                </div>
+
+            </div>
+            <div class="end-join" v-show="guessStatus === 2">
+                <div class="guess-value">
+                    <img src="../assets/images/icon_king.png">
+                    本次竞猜：{{ guessValue }}
+                </div>
             </div>
         </div>
-        <div class="in-join" v-show="guessStatus === 1">
-            <div v-if="startCountDown <= 0" style="text-align: center">
-                <input type="number"
-                       v-model="guessValue"
-                       placeholder="明天参与游戏的单日ETH总个数是多少？">
-                <EthButton name="提交" borderRadios="21px" :click="submitGuess"/>
-            </div>
-            <div class="row" v-else>
-                <label>等待游戏开始</label>
-            </div>
-        </div>
-        <div class="end-join" v-show="guessStatus === 2">
-            <div class="guess-value">
-                <img src="../assets/images/icon_king.png">
-                本次竞猜：{{ guessValue }}
-            </div>
+        <div class="row" v-else>
+            <p style="margin:30px; text-align: center">等待游戏开始</p>
         </div>
     </div>
 </template>

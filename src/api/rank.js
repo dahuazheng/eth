@@ -20,9 +20,7 @@ class RankApi {
                 }))
 
                 return pushList
-            }).catch(err => {
-                console.error(err)
-            })
+            }).catch(err => console.error(err))
     }
 
     // 24小时直推龙虎榜

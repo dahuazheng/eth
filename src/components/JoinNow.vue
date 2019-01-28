@@ -1,8 +1,8 @@
 <template>
     <div class="join-now">
-        <div class="btn-box " :class="{gray: startCountDown > 0}" @click="join">
+        <div class="btn-box " :class="{gray: startCountDown > 0 || endCountDown <= 0}" @click="join">
             <b></b>
-            <span>{{startCountDown > 0 ? '等待游戏开始' : '立即参与 1 EHT'}}</span>
+            <span>{{startCountDown > 0 || endCountDown <= 0 ? '等待游戏开始' : '立即参与 1 EHT'}}</span>
             <img src="../assets/images/bg_eth.png">
         </div>
         <p>
@@ -31,6 +31,7 @@
                 this.$router.push({name: 'joinHistory'})
             },
             join() {
+                if (this.startCountDown > 0 || this.endCountDown <= 0) return
                 // 0.1ETC 1000INC
                 // 您的余额不足，请先充值后参与
                 if (this.balance.ETH < 0.1 || this.balance.INC < 1000) {
@@ -95,7 +96,7 @@
                 background-image: url('../assets/images/bg_bet.png');
             }
 
-            span{
+            span {
                 position: relative;
             }
 
@@ -125,7 +126,7 @@
             line-height: 1.6;
             z-index: 2;
 
-            span{
+            span {
                 display: inline-block;
                 padding-top: 10px;
             }
