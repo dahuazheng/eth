@@ -136,9 +136,7 @@
                     validate: this.imageCaptcha
                 }).then(res => {
                     this.code = res
-                    if (res.status !== 1) {
-                        return
-                    }
+                    if (Number(res && res.status) !== 1) return
                     Toast('验证码已发送')
                 }).catch(err => console.log(err))
             },
@@ -147,7 +145,7 @@
             checkInviteBind() {
                 UserApi.checkInviteBind().then(res => {
                     console.log(res)
-                    if (Number(res.status === 1) && Number(res.data.is_bind) === -1) {
+                    if (Number(res.status === 1) && Number(res.data  && res.data.is_bind) === -1) {
                         Cookies.set('ETH.bind_inviter', 'true', {expires: 1 / 24})
                     } else {
                         Cookies.remove('ETH.bind_inviter')

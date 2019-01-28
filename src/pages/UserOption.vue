@@ -76,7 +76,7 @@
     methods: {
         signOut() {
             UserApi.logout().then(res => {
-                if (res.status !== '1') return
+                if (Number(res.status) !== 1) return
                 removeCookie('ETH.token')
                 this.$router.push('/')
             }).catch(err => {

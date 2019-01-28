@@ -55,7 +55,7 @@ const countDownMixin = {
         },
         getGameTime() {
             OrderApi.getGameTime().then(res => {
-                if (Number(res.status) !== 1) return
+                if (Number(res && res.status) !== 1) return
 
                 this.gameStatus = res.data && Number(res.data.game_status)
 

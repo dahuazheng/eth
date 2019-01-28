@@ -66,9 +66,9 @@
             getGuessStatus() {
                 GuessApi.getGuessStatus()
                     .then(res => {
-                        if (res.status < 0) return
+                        if (Number(res.status) < 0) return
 
-                        this.guessStatus = res.status
+                        this.guessStatus = res && res.status
                         this.getMyAward()
                     })
                     .catch(err => console.error(err))
@@ -91,9 +91,9 @@
                 GuessApi.joinGuess({
                     num_guess: this.guessValue
                 }).then(res => {
-                    if (res.status < 1) return Toast(res.msg)
+                    if (Number(res.status) < 1) return Toast(res.msg)
 
-                    if (res.status === 2) {
+                    if (Number(res.status) === 2) {
                         Toast(res.msg)
                     }
 

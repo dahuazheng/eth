@@ -7,7 +7,7 @@ class MainApi {
     // 获取奖池、奖励
     static getGameBonus(){
         return Requester.get(config.apiDomain + 'game_bonus').then(res => {
-            if (res.status !== '1') return
+            if (Number(res && res.status) !== 1) return
 
             return {
                 ethAmount: formatDecimal(res.data && res.data.eth_amount, PRECISION.ETH) || 0,                   // 奖池 eth
