@@ -90,7 +90,7 @@ class UserApi {
     static getUserInfo(query) {
         return Requester.get(config.apiDomain + 'user_info', query).then(res => {
             if (Number(res.status) !== 1) return
-            return {level: res.data && res.data.level}
+            return {level: res.data && res.data.level, orderCount: res.data && res.data.order_count}
         }).catch(err => console.log(err))
     }
 }

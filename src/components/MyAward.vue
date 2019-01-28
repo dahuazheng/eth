@@ -105,6 +105,9 @@
                 }).catch(err => {
                     console.error(err)
                 })
+                UserApi.getUserBonus()
+                    .then(res => this.userBonus = res)
+                    .catch(err => console.error(err))
             },
 
             recommend() {
@@ -114,7 +117,6 @@
         mounted() {
             this.getUserInfo()
             this.getUserBonus()
-
         }
     }
 </script>

@@ -188,10 +188,9 @@
 
                     Cookies.set('ETH.token', res.headers.token, {expires: 1 / 24})
                     this.getInitData()
-
                     this.checkInviteBind()
-                    const redirectUrl = this.$router.query && this.$router.query.redirect_url
 
+                    const redirectUrl = this.$router.query && this.$router.query.redirect_url
                     if (redirectUrl) {
                         window.location.href = redirectUrl
                     }
@@ -209,6 +208,7 @@
         },
         mounted() {
             this.init()
+            console.log(222)
         }
     }
 

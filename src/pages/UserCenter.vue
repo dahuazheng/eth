@@ -242,12 +242,18 @@
             // 奖励总额
             getUserBonus() {
                 UserApi.getUserBonus().then(res => {
-                    console.log('bbb',res)
                     this.userBonus = res
                 }).catch(err => {
                     console.error(err)
                 })
             },
+
+            // 获取参与次数
+            getUserInfo() {
+                UserApi.getUserInfo().then(res => {
+                    this.joinCount = res.orderCount
+                }).catch(err => console.error(err))
+            }
         },
         mounted() {
             this.action === 'push' && this.getPushList()
@@ -256,6 +262,7 @@
             this.getMyDayPushCount()
             this.getUserBonus()
             this.getOrderList()
+            this.getUserInfo()
         }
     }
 </script>
