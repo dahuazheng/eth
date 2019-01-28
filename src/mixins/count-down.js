@@ -69,7 +69,6 @@ const countDownMixin = {
 
     },
     mounted() {
-        console.log('jhj', UserApi.isOnline())
         if (!UserApi.isOnline()) {
             this.$router.push({name: 'login'})
             return

@@ -100,12 +100,9 @@
 
             // 奖励总额
             getUserBonus() {
-                UserApi.getUserBonus().then(res => {
-                    console.log('aaaa', res)
-                    this.userBonus = res
-                }).catch(err => {
-                    console.error(err)
-                })
+                UserApi.getUserBonus()
+                    .then(res => this.userBonus = res)
+                    .catch(err => console.error(err))
             },
 
             recommend() {

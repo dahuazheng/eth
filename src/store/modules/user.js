@@ -54,7 +54,6 @@ const mutations = {
             INC: formatDecimal(incObj && incObj.available_amount || 0, PRECISION.INC),
             ETH: formatDecimal(ethObj && ethObj.available_amount || 0, PRECISION.ETH)
         }
-        console.log('23423', state.balance)
     },
     setAddress(state, address) {
         state.address = address

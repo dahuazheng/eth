@@ -242,7 +242,6 @@
             // 奖励总额
             getUserBonus() {
                 UserApi.getUserBonus().then(res => {
-                    console.log('bbb',res)
                     this.userBonus = res
                 }).catch(err => {
                     console.error(err)
