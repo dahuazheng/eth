@@ -10,7 +10,7 @@
                 <span>x</span>
                 <img src="../assets/images/icon_eth_star.png" alt>
             </div>
-            <div class="price-container" v-if="isOnline && endCountDown !== 0">
+            <div class="price-container" v-if="gameStatus===1">
                 <div class="price-box">
                     <label>当前奖池</label>
                     <p>{{gameBonus.ethAmount}} ETH / {{gameBonus.incAmount}} INC</p>
@@ -46,10 +46,10 @@
                 </div>
             </div>
             <div class="time-circle" v-else>
-               <div class="wave">
-                   <!--<img src="../assets/images/bg_wave.svg" alt="">-->
-                   <span>{{endCountDown | displayCountDown}}</span>
-               </div>
+                <div class="wave">
+                    <!--<img src="../assets/images/bg_wave.svg" alt="">-->
+                    <span>{{endCountDown | displayCountDown}}</span>
+                </div>
             </div>
         </div>
     </div>
@@ -78,7 +78,7 @@
             },
             getGameBonus() {
                 MainApi.getGameBonus().then(res => {
-                   this.gameBonus = res;
+                    this.gameBonus = res;
                 });
             }
         },
@@ -252,7 +252,7 @@
                     z-index: 4;
 
                     &::before,
-                    &::after{
+                    &::after {
                         content: "";
                         display: inline-block;
                         position: absolute;
@@ -274,7 +274,6 @@
                         animation: rotate 7s linear -5s infinite;
                         z-index: 5;
                     }
-
 
                     span {
                         position: absolute;

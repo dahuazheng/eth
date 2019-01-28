@@ -1,8 +1,8 @@
 <template>
     <div class="join-now">
-        <div class="btn-box " :class="{gray: startCountDown > 0 || endCountDown <= 0}" @click="join">
+        <div class="btn-box " :class="{gray: gameStatus === 2}" @click="join">
             <b></b>
-            <span>{{startCountDown > 0 || endCountDown <= 0 ? '等待游戏开始' : '立即参与 1 EHT'}}</span>
+            <span>{{gameStatus === 2 ? '等待游戏开始' : '立即参与 1 EHT'}}</span>
             <img src="../assets/images/bg_eth.png">
         </div>
         <p>
@@ -15,7 +15,7 @@
 
 <script>
     import {Toast} from 'mint-ui'
-    import {OrderApi} from "../api"
+    import {OrderApi, UserApi} from "../api"
     import {countDownMixin} from "../mixins"
 
     export default {
@@ -23,7 +23,7 @@
         mixins: [countDownMixin],
         data() {
             return {
-                joinCount: 0
+                joinCount: null
             }
         },
         methods: {
@@ -31,10 +31,10 @@
                 this.$router.push({name: 'joinHistory'})
             },
             join() {
-                if (this.startCountDown > 0 || this.endCountDown <= 0) return
+                if (this.gameStatus === 2) return
                 // 0.1ETC 1000INC
                 // 您的余额不足，请先充值后参与
-                if (this.balance.ETH < 0.1 || this.balance.INC < 1000) {
+                if (this.balance.ETH < 0.5 || this.balance.INC < 5000) {
                     return Toast('您的余额不足，请先充值后参与')
                 }
 
@@ -42,16 +42,14 @@
             },
 
             // 获取参与次数
-            getOrderList() {
-                OrderApi.getOrderList({page: '1', limit: '1'}).then(res => {
-                    this.joinCount = res.data && res.data.count || 0
-                }).catch(err => {
-                    console.error(err)
-                })
+            getUserInfo() {
+                UserApi.getUserInfo().then(res => {
+                    this.joinCount = res.orderCount
+                }).catch(err => console.error(err))
             }
         },
         mounted() {
-            this.getOrderList()
+            this.getUserInfo()
         }
     }
 </script>
@@ -118,8 +116,8 @@
         }
 
         p {
-            position: relative;
             @include fontColor($primary-color);
+            position: relative;
             display: flex;
             flex-direction: column;
             margin-top: -20px;

@@ -5,11 +5,11 @@
             <span>{{startCountDown | displayCountDown}}</span>
             <span @click="toGuess('myGuess')">我的竞猜</span>
         </div>
-        <div v-if="startCountDown <= 0 && endCountDown > 0">
+        <div v-if="gameStatus === 1">
             <div class="un-join" v-show="guessStatus === 0">
                 <div class="row">
                     <label>您尚未参与，请立即参与解锁竞猜权益！</label>
-                    <EthButton name="现在参与" :click="joinNow"/>
+                    <EthButton name="现在参与" :click="toJoin"/>
                 </div>
             </div>
             <div class="in-join" v-show="guessStatus === 1">
@@ -44,6 +44,7 @@
         name: 'dayGuess',
         components: {EthButton},
         mixins: [countDownMixin],
+        props: ['toJoin'],
         data() {
             return {
                 guessValue: '',  // 我的竞猜数字
@@ -51,12 +52,14 @@
                 guessStatus: 0  // 竞猜状态  0未投注未竞猜，1已投注未竞猜，2已投注已竞猜
             }
         },
+        watch: {
+            $route(to, from) {
+
+            }
+        },
         methods: {
             toGuess(name) {
                 this.$router.push({name})
-            },
-            joinNow() {
-                this.$router.push({name: 'home', query: {tab: 'join'}})
             },
 
             // 获取竞猜状态

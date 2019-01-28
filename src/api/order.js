@@ -20,7 +20,7 @@ class OrderApi {
 
     // 游戏开始及结束时间
     static getGameTime() {
-        return Requester.get(config.apiDomain + 'game_end_time')
+        return Requester.get(config.apiDomain + 'game_time')
     }
 
 }

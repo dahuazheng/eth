@@ -1,11 +1,12 @@
 import {ensureMilliseconds, zerofill} from '../utils'
-import {OrderApi} from '../api'
+import {OrderApi, UserApi} from '../api'
 
 const countDownMixin = {
     data() {
         return {
             startCountDown: 0,
             endCountDown: 0,
+            gameStatus: 2,
             startTime: null,
             endTime: null
         }
@@ -56,16 +57,24 @@ const countDownMixin = {
             OrderApi.getGameTime().then(res => {
                 if (Number(res.status) !== 1) return
 
-                // console.log(+new Date())
-                this.startTime = +new Date(ensureMilliseconds(res.data && res.data.start_time))
-                // this.startTime = 1548592130421
-                this.endTime = +new Date(ensureMilliseconds(res.data && res.data.end_time))
-                // this.endTime = 1548597130421
+                this.gameStatus = res.data && Number(res.data.game_status)
+
+                if (this.gameStatus === 1) {
+                    this.endTime = +new Date(ensureMilliseconds(res.data && res.data.time))
+                } else {
+                    this.startTime = +new Date(ensureMilliseconds(res.data && res.data.time))
+                }
             })
         }
 
     },
     mounted() {
+        console.log('jhj', UserApi.isOnline())
+        if (!UserApi.isOnline()) {
+            this.$router.push({name: 'login'})
+            return
+        }
+
         this.getGameTime()
         this.getStartCountDown()
         this.getEndCountDown()

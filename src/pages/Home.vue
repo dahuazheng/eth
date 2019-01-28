@@ -15,7 +15,7 @@
                     <JoinNow :balance="user && user.balance" :open="openNoteCodePopup"/>
                 </li>
                 <li v-show="tabAction==='guess'">
-                    <DayGuess/>
+                    <DayGuess :toJoin="toJoin"/>
                 </li>
                 <li v-show="tabAction==='award'">
                     <MyAward/>
@@ -73,8 +73,10 @@
             },
             changeTab(value) {
                 this.tabAction = value
-                this.$router.push({name: 'home', query: {tab: value}})
             },
+            toJoin() {
+                this.tabAction = 'join'
+            }
         },
         mounted() {
             if (!UserApi.isBindInviter()) {

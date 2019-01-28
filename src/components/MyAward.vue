@@ -115,7 +115,6 @@
         mounted() {
             this.getUserInfo()
             this.getUserBonus()
-
         }
     }
 </script>
