@@ -7,7 +7,7 @@ const countDownMixin = {
         return {
             startCountDown: 0,
             endCountDown: 0,
-            gussCountDown:0,
+            gussCountDown: 0,
             gameStatus: 2,
             startTime: null,
             endTime: null
@@ -16,11 +16,12 @@ const countDownMixin = {
     filters: {
         displayCountDown(value) {
             value = parseInt(value / 1000)
-            const hour = parseInt((value / 3600) % 24), //这里是计算还剩多少小时
+            const day = parseInt(value / (3600 * 24)),
+                hour = parseInt((value / 3600) % 24), //这里是计算还剩多少小时
                 minutes = parseInt((value / 60) % 60), //这里是计算还剩多少分钟
                 second = parseInt(value % 60); //这里是计算还剩多少秒数
 
-            return zerofill(hour) + ':' + zerofill(minutes) + ':' + zerofill(second)
+            return zerofill(day * 24 + hour) + ':' + zerofill(minutes) + ':' + zerofill(second)
         }
     },
     methods: {
@@ -82,6 +83,7 @@ const countDownMixin = {
                     this.endTime = +new Date(ensureMilliseconds(res.data && res.data.time))
                 } else {
                     this.startTime = +new Date(ensureMilliseconds(res.data && res.data.time))
+                    console.log(moment(this.startTime).format('YYYY-MM-DD'))
                 }
             })
         }

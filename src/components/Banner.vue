@@ -240,6 +240,7 @@
                 display: flex;
                 justify-content: center;
                 width: 100%;
+                margin-top: 36px;
 
                 .wave {
                     position: relative;
