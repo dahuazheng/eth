@@ -48,7 +48,7 @@
             <div class="time-circle" v-else>
                 <div class="wave">
                     <!--<img src="../assets/images/bg_wave.svg" alt="">-->
-                    <span>{{endCountDown | displayCountDown}}</span>
+                    <span>{{startCountDown | displayCountDown}}</span>
                 </div>
             </div>
         </div>
@@ -58,6 +58,7 @@
     import {Toast} from "mint-ui";
     import {UserApi, MainApi} from "../api";
     import {countDownMixin} from "../mixins";
+
 
     export default {
         name: "banner",

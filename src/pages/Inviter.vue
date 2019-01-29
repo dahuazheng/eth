@@ -93,6 +93,7 @@
 
         main {
             padding-top: 15px;
+            padding-bottom: 40px;
 
             p {
                 @include fontSize($font-medium-s);
@@ -130,6 +131,7 @@
 
                 &.btn-box {
                     margin-top: 40px;
+                    padding-bottom: 40px;
 
                     button {
                         @include px2rem('width', 148);

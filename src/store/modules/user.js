@@ -5,7 +5,8 @@ import {PRECISION} from "../../utils/constants";
 // initial state
 const state = {
     invite_code: '',
-    address: '0x8923kjKJhkjh9879827ufiywiyri2987yhiu',
+    address: '',
+    // address: '0x8923kjKJhkjh9879827ufiywiyri2987yhiu',
     asset: {},
     balance: {
         ETH: 0,
@@ -21,7 +22,6 @@ const actions = {
     getInviteCode({commit}) {
         UserApi.getInviteCode().then(res => {
             if (Number(res.status) !== 1) return
-            // console.log(res)
             commit('setInviteCode', res.data.invite_code)
         })
     },
@@ -34,8 +34,7 @@ const actions = {
     getAddress({commit}) {
         WalletApi.getWalletAddress({chain_code: 'ETH'}).then(res => {
             if (Number(res.status) !== 1) return
-
-            commit('setAddress', res.data.address)
+            commit('setAddress', res.data && res.data.address)
         })
 
     }

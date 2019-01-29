@@ -58,7 +58,7 @@
                 balance: state => state.user.balance,
                 address: state => state.user.address,
             })
-        },
+        }
     }
 </script>
 
