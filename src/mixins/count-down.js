@@ -1,11 +1,13 @@
 import {ensureMilliseconds, zerofill} from '../utils'
 import {OrderApi, UserApi} from '../api'
+import moment from 'moment'
 
 const countDownMixin = {
     data() {
         return {
             startCountDown: 0,
             endCountDown: 0,
+            gussCountDown:0,
             gameStatus: 2,
             startTime: null,
             endTime: null
@@ -38,7 +40,7 @@ const countDownMixin = {
             }, 1000)
         },
 
-        // 游戏时间倒计时
+        // 游戏结束时间倒计时
         getEndCountDown() {
             setTimeout(() => {
                 const currentTime = +new Date()
@@ -53,11 +55,28 @@ const countDownMixin = {
                 this.getEndCountDown()
             }, 1000)
         },
+
+        // 竞猜时间倒计时
+        getGuessCountDown() {
+            setTimeout(() => {
+                const currentTime = +new Date()
+                const endDate = moment().endOf('date').valueOf()
+
+                if (currentTime >= endDate) {
+                    this.gussCountDown = 0
+                    return
+                }
+
+                this.gussCountDown = endDate - currentTime
+                this.getGuessCountDown()
+            }, 1000)
+        },
         getGameTime() {
             OrderApi.getGameTime().then(res => {
                 if (Number(res && res.status) !== 1) return
 
                 this.gameStatus = res.data && Number(res.data.game_status)
+                console.log(this.gameStatus)
 
                 if (this.gameStatus === 1) {
                     this.endTime = +new Date(ensureMilliseconds(res.data && res.data.time))
@@ -77,6 +96,7 @@ const countDownMixin = {
         this.getGameTime()
         this.getStartCountDown()
         this.getEndCountDown()
+        this.getGuessCountDown()
     }
 }
 

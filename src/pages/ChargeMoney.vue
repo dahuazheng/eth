@@ -92,7 +92,8 @@
         }
 
         .box {
-            @include px2rem('width', 300);
+            // @include px2rem('width', 310);
+            width: 84%;
             position: absolute;
             top: 70px;
             right: 0;

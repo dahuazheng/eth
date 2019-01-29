@@ -5,7 +5,7 @@ import {PRECISION} from "../../utils/constants";
 // initial state
 const state = {
     invite_code: '',
-    address: '',
+    address: '暂无钱包地址',
     // address: '0x8923kjKJhkjh9879827ufiywiyri2987yhiu',
     asset: {},
     balance: {

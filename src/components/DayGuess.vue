@@ -2,7 +2,7 @@
     <div class="day-guess">
         <div class="detail">
             <span @click="toGuess('guessResult')">历史结果</span>
-            <span>{{startCountDown | displayCountDown}}</span>
+            <span v-show="Number(gameStatus) === 1">{{gussCountDown | displayCountDown}}</span>
             <span @click="toGuess('myGuess')">我的竞猜</span>
         </div>
         <div v-if="gameStatus === 1">

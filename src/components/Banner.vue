@@ -39,7 +39,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="time">{{endCountDown | displayCountDown}}</div>
+                <div class="time">{{(gameStatus===2 ? startCountDown : endCountDown) | displayCountDown}}</div>
                 <div class="message" v-show="false">
                     <icon name="small-bell" class="icon"></icon>
                     <span></span>
@@ -48,7 +48,7 @@
             <div class="time-circle" v-else>
                 <div class="wave">
                     <!--<img src="../assets/images/bg_wave.svg" alt="">-->
-                    <span>{{startCountDown | displayCountDown}}</span>
+                    <span>{{(gameStatus===2 ? startCountDown : endCountDown) | displayCountDown}}</span>
                 </div>
             </div>
         </div>

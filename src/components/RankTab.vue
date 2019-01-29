@@ -112,7 +112,7 @@
             // 24h 直推龙虎榜
             getDayPush() {
                 RankApi.getDayPush().then(res => {
-                        this.liveList = res
+                    this.liveList = res
                 })
             },
 
@@ -120,7 +120,7 @@
             getDayPushHistory() {
                 RankApi.getDayPushHistory().then(res => {
                     this.dayPushHistoryList = res
-                }).catch(err=>console.log(err))
+                }).catch(err => console.log(err))
             },
 
             // 我的龙虎榜
@@ -325,12 +325,12 @@
                     th,
                     td {
                         height: 44px;
+                        padding: 0 15px;
                         text-align: center;
                         color: $color-black;
+                        font-weight: normal;
 
-                        &:first-child{
-                            width: 33.33%;
-                            padding-left: 15px;
+                        &:first-child {
                             text-align: left;
                         }
                     }
