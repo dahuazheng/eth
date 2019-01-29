@@ -101,14 +101,16 @@
                 padding: 15px 5px;
                 margin: 0 auto;
                 border: none;
+                color: #fff;
                 background-image: url('../assets/images/bg_circle.png');
                 background-size: 100% 100%;
-             }
-                
-            span {
-                @include fontSize($font-little);
-                color: #f2bf86;
+
+                span {
+                    @include fontSize($font-little);
+                    color: #f2bf86;
+                }
             }
+                
         }
     }
 </style>
