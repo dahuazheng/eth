@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './pages/Home.vue'
 import Wallet from './pages/Wallet.vue'
 import Login from './pages/Login.vue'
+import LoginIn from './pages/LoginIn.vue'
 import Inviter from './pages/Inviter.vue'
 import RankingList from './pages/RankingList.vue'
 import JoinHistory from './pages/JoinHistory.vue'
@@ -39,6 +40,10 @@ export default new Router({
             path: '/login',
             name: 'login',
             component: Login
+        }, {
+            path: '/login-in',
+            name: 'loginIn',
+            component: LoginIn
         }, {
             path: '/inviter',
             name: 'inviter',

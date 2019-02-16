@@ -17,6 +17,8 @@
         },
         methods: {
             init() {
+                if(this.$route.name === 'loginIn') return
+                if(this.$route.name === 'login') return
                 if (!UserApi.isOnline()) {
                     this.$router.push({name: 'login'})
                     return

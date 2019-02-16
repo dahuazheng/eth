@@ -1,6 +1,6 @@
 <template>
-    <div class="login-popup animated fadeInRight" v-show="show" @click.stop @touchmove.prevent>
-        <header @click="cancel"></header>
+    <div class="animated fadeInRight" id="login-in" @touchmove.prevent>
+        <header @click="back"></header>
         <h1>
             您好，
             <br>
@@ -42,10 +42,9 @@
     import {initMixin} from '@/mixins'
 
     export default {
-        name: 'loginPopup',
+        name: 'loginIn',
         components: {EthButton, PickerPopup},
         mixins: [initMixin],
-        props: ['show', 'cancel'],
         data() {
             return {
                 prefix: '86',
@@ -74,6 +73,10 @@
                 let prefix = value.split(':')[1]
                 this.prefix = prefix.replace(/^\s+|\s+$/g, '')
                 this.prefixShow = false
+            },
+
+            back() {
+                this.$router.push({name: 'login'})
             },
 
             // “获取验证码”按钮点击回调
@@ -145,7 +148,7 @@
             checkInviteBind() {
                 UserApi.checkInviteBind().then(res => {
                     console.log(res)
-                    if (Number(res.status === 1) && Number(res.data  && res.data.is_bind) === -1) {
+                    if (Number(res.status === 1) && Number(res.data && res.data.is_bind) === -1) {
                         Cookies.set('ETH.bind_inviter', 'true', {expires: 1 / 24})
                     } else {
                         Cookies.remove('ETH.bind_inviter')
@@ -221,13 +224,7 @@
         transition: all .25s;
     }
 
-    .login-popup {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 999;
+    #login-in {
         padding: 30px;
         background: $clear-color;
 

@@ -8,31 +8,24 @@
             </p>
         </main>
         <EthFooter action="home"/>
-        <LoginPopup :show="loginPopupShow" :cancel="onCancel"/>
     </div>
 </template>
 
 <script>
     import Banner from '@/components/Banner.vue'
     import EthFooter from '@/components/EthFooter.vue'
-    import LoginPopup from '@/components/LoginPopup.vue'
 
     export default {
-        name: 'login',
+        name: 'loginIn',
         components: {
-            Banner, EthFooter, LoginPopup
-        },
-        data() {
-            return {
-                loginPopupShow: false
-            }
+            Banner, EthFooter
         },
         methods: {
             toLogin() {
-                this.loginPopupShow = true
-            },
-            onCancel() {
-                this.loginPopupShow = false
+                console.log(333)
+                //this.$router.push({name: 'home', query: {tab: 'join'}})
+
+                this.$router.push({path: '/login-in'})
             }
         }
     }
