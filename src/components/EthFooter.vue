@@ -7,9 +7,9 @@
                 <span>钱包</span>
             </li>
             <li @click="handleTab('home')" :class="{active: action ==='home'}">
-                <img v-if="action ==='home'" src="../assets/images/eth_press.png">
-                <img v-else src="../assets/images/eth_nomal.png">
-                <span>1 ETH</span>
+                <img v-if="action ==='home'" src="../assets/images/inc_press.png">
+                <img v-else src="../assets/images/inc_normal.png">
+                <span>Lucky Inc</span>
             </li>
             <li @click="handleTab('userOption')" :class="{active: action  ==='userOption'}">
                 <img v-if="action ==='userOption'" src="../assets/images/me_press.png">
@@ -22,7 +22,7 @@
 
 <script>
     import {Toast} from 'mint-ui'
-    import UserApi from '@/api/user'
+    import UserApi from '../api/user'
 
     export default {
         name: 'ethFooter',

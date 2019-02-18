@@ -36,7 +36,7 @@
             @include px2rem('width', 128);
             @include px2rem('height', 124);
             @include background-image();
-            background-image: url('../assets/images/ic_launcher.png');
+            background-image: url('../assets/images/inc_contact.png');
         }
 
         ul.list {

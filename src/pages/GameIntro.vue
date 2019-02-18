@@ -4,12 +4,12 @@
 
         <div class="game-intro__content">
             <div class="content eth-intro">
-                <p class="title">「 1ETH游戏介绍 」</p>
-                <p class="text">1ETH游戏是全球区块链爱好者共同发起的一款区块链游戏，游戏中奖励众多，参与即可获得奖励，并附带全新的区块链特性，让用户玩游戏的同时可以带来不菲的收益。</p>
+                <p class="title">「 Lucky Inc游戏介绍 」</p>
+                <p class="text">Lucky Inc游戏是全球区块链爱好者共同发起的一款区块链游戏，游戏中奖励众多，参与即可获得奖励，并附带全新的区块链特性，让用户玩游戏的同时可以带来不菲的收益。</p>
             </div>
             <div class="content part-method">
                 <p class="title">「 参与方法 」</p>
-                <p class="text">用户每次仅能投注0.1ETH+1000INC参与游戏，可以多次重复参与游戏。</p>
+                <p class="text">用户每次仅能投注0.5ETH+5000INC参与游戏，可以多次重复参与游戏。</p>
             </div>
             <div class="content reward-desc">
                 <p class="title">「 奖励说明 」</p>
@@ -40,7 +40,7 @@
         awardDesclist: [
           {
             title: '静态分红',
-            text: '每次投注参与的30%金额，拿给前面投注参与的用户做静态分红奖励，平均分配。静态分红奖励每天三倍封顶（即每次投注每日最高可拿静态分红0.3个ETH和3000个INC）',
+            text: '每次投注参与的30%金额，拿给前面投注参与的用户做静态分红奖励，平均分配。静态分红奖励每天三倍封顶（即每次投注每日最高可拿静态分红1.5个ETH和15000个INC）',
             status: false
           },
           {
@@ -90,7 +90,7 @@
           },
           {
             title: '倒数回本奖',
-            text: '当游戏倒计时结束，该轮游戏累计参与额的5%奖励给倒数101名开始逆数的人，直至发完。每人奖励0.1ETH+1000INC。',
+            text: '当游戏倒计时结束，该轮游戏累计参与额的5%奖励给倒数101名开始逆数的人，直至发完。每人奖励0.5ETH+5000INC。',
             status: false
           },
           {
