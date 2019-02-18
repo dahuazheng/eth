@@ -193,10 +193,10 @@
                     this.getInitData()
                     this.checkInviteBind()
 
-                    const redirectUrl = this.$router.query && this.$router.query.redirect_url
+                    /*const redirectUrl = this.$router.query && this.$router.query.redirect_url
                     if (redirectUrl) {
                         window.location.href = redirectUrl
-                    }
+                    }*/
                     this.$router.push({name: 'home', query: {tab: 'join'}})
                 })
             },

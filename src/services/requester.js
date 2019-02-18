@@ -74,10 +74,10 @@ instance.interceptors.response.use(res => {
     const api = apiArr.join('/')
 
     // 处理登录过期
-    if (Number(data.status) === -2) {
-        const redirectURL = encodeURIComponent(window.location.href)
-        window.location.href = `/login?redirect_url=${redirectURL}`
-    }
+    // if (Number(data.status) === -2) {
+    //     const redirectURL = encodeURIComponent(window.location.href)
+    //     window.location.href = `/login?redirect_url=${redirectURL}`
+    // }
     /*if (data.status === -2 && api !== '/api/sign_out') {
         message.error(data.msg)
         UserApi.logout().then(res => {
