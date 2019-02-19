@@ -168,7 +168,7 @@
                     sms_code: this.code
                 }).then(res => {
                     if (Number(res.status) !== 1) {
-                        Toast('申请失败，请重试')
+                        Toast(res.msg)
                     }
                     MessageBox.alert('申请成功').then(action => {
                         this.$router.push({name: 'wallet'})

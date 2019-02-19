@@ -54,12 +54,12 @@
                         // console.log(res)
                         this.$store.dispatch('user/getInviteCode')
                         Cookies.set('ETH.bind_inviter', 'true', {expires: 1 / 24})
-                        Toast('绑定成功')
+                        Toast(res.msg)
                         setTimeout(() => {
                             this.$router.push({name: 'home'})
                         }, 1000)
                     } else {
-                        Toast('输入的邀请人昵称不存在')
+                        Toast(res.msg)
                     }
                 })
             },
