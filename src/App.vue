@@ -21,13 +21,15 @@
                 if(this.$route.name === 'login') return
                 if (!UserApi.isOnline()) {
                     this.$router.push({name: 'login'})
-                    return
                 }
-                this.getInitData()
             }
         },
-        mounted() {
+        created(){
             this.init()
+
+            if (UserApi.isOnline()) {
+                this.getInitData()
+            }
         }
     }
 </script>

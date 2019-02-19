@@ -74,7 +74,7 @@ instance.interceptors.response.use(res => {
     const api = apiArr.join('/')
 
     // 处理登录过期
-    if (Number(data.status) === -2) {
+    if (Number(data.status) === -2 && !window.location.href.includes('/login')) {
         const redirectURL = encodeURIComponent(window.location.href)
         window.location.href = `/login?redirect_url=${redirectURL}`
     }

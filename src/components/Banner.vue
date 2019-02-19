@@ -59,9 +59,8 @@
     import {UserApi, MainApi} from "../api";
     import {countDownMixin} from "../mixins";
 
-
     export default {
-        name: "banner",
+        name: 'banner',
         mixins: [countDownMixin],
         data() {
             return {

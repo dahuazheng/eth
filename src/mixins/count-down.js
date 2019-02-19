@@ -90,11 +90,6 @@ const countDownMixin = {
 
     },
     mounted() {
-        // if (!UserApi.isOnline()) {
-        //     this.$router.push({name: 'login'})
-        //     return
-        // }
-
         this.getGameTime()
         this.getStartCountDown()
         this.getEndCountDown()

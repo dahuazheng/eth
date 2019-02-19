@@ -50,7 +50,7 @@
             // 状态值转换中奖等级
             transformStatus(value) {
                 const option = rewardLevels.find(reward => reward.value === String(value))
-                return option && option.label || '未中奖'
+                return option && option.label || '未开奖'
             },
         },
         methods: {
