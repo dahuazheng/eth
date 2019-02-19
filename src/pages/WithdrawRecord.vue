@@ -10,7 +10,7 @@
             </ul>
             <ul v-for="(data, key) in withdrawList" :key='key'>
                 <li>{{ data.type === '1' ? '充值' : '提现' }}</li>
-                <li>+{{data.amount}} {{data.coinCode}}</li>
+                <li>{{ data.type === '1' ? '+' : '-' }}{{data.amount}} {{data.coinCode}}</li>
                 <li :class="data.status | transformColor">
                     {{data.status | transformStatus}}
                 </li>
