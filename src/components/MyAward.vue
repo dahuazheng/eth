@@ -62,23 +62,14 @@
 
     export default {
         components: {EthButton},
+        props:['level'],
         data() {
             return {
                 showAwardDetail: false,
-                level: '1',
                 userBonus: {}
             }
         },
         methods: {
-            // 获取我的头衔
-            getUserInfo() {
-                UserApi.getUserInfo().then(res => {
-                    this.level = res && res.level
-                }).catch(err => {
-                    console.error(err)
-                })
-            },
-
             // 转换头衔
             transformStatus(val) {
                 switch (val) {
@@ -105,17 +96,13 @@
                 }).catch(err => {
                     console.error(err)
                 })
-                UserApi.getUserBonus()
-                    .then(res => this.userBonus = res)
-                    .catch(err => console.error(err))
             },
 
             recommend() {
                 this.$router.push('/user-center')
             }
         },
-        mounted() {
-            this.getUserInfo()
+        created() {
             this.getUserBonus()
         }
     }

@@ -15,17 +15,10 @@
 
 <script>
     import {Toast} from 'mint-ui'
-    import {OrderApi, UserApi} from "../api"
-    import {countDownMixin} from "../mixins"
+    import {UserApi} from "../api"
 
     export default {
-        props: ['open', 'balance'],
-        mixins: [countDownMixin],
-        data() {
-            return {
-                joinCount: null
-            }
-        },
+        props: ['open', 'balance', 'gameStatus', 'joinCount'],
         methods: {
             toHistory() {
                 this.$router.push({name: 'joinHistory'})
@@ -40,17 +33,7 @@
 
                 this.open()
             },
-
-            // 获取参与次数
-            getUserInfo() {
-                UserApi.getUserInfo().then(res => {
-                    this.joinCount = res.orderCount
-                }).catch(err => console.error(err))
-            }
         },
-        mounted() {
-            this.getUserInfo()
-        }
     }
 </script>
 

@@ -13,7 +13,8 @@ const countDownMixin = {
             endTime: null
         }
     },
-    filters: {
+    methods: {
+        // 倒计时格式化
         displayCountDown(value) {
             value = parseInt(value / 1000)
             const day = parseInt(value / (3600 * 24)),
@@ -22,9 +23,8 @@ const countDownMixin = {
                 second = parseInt(value % 60); //这里是计算还剩多少秒数
 
             return zerofill(day * 24 + hour) + ':' + zerofill(minutes) + ':' + zerofill(second)
-        }
-    },
-    methods: {
+        },
+
         // 游戏开始时间倒计时
         getStartCountDown() {
             setTimeout(() => {
@@ -87,7 +87,6 @@ const countDownMixin = {
                 }
             })
         }
-
     },
     mounted() {
         this.getGameTime()

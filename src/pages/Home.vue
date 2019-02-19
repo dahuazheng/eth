@@ -1,6 +1,11 @@
 <template>
     <div class="home">
-        <Banner/>
+        <Banner
+            :startCountDown="startCountDown"
+            :endCountDown="endCountDown"
+            :gameStatus="gameStatus"
+            :displayCountDown="displayCountDown"
+        />
         <main>
             <ul class="tabs">
                 <li v-for="tab in tabs"
@@ -12,13 +17,20 @@
             </ul>
             <ul class="items">
                 <li v-show="tabAction==='join'">
-                    <JoinNow :balance="user && user.balance" :open="openNoteCodePopup"/>
+                    <JoinNow
+                        :gameStatus="gameStatus"
+                        :balance="user && user.balance"
+                        :open="openNoteCodePopup"/>
                 </li>
                 <li v-show="tabAction==='guess'">
-                    <DayGuess :toJoin="toJoin"/>
+                    <DayGuess
+                        :gameStatus="gameStatus"
+                        :gussCountDown="gussCountDown"
+                        :displayCountDown="displayCountDown"
+                        :toJoin="toJoin"/>
                 </li>
                 <li v-show="tabAction==='award'">
-                    <MyAward/>
+                    <MyAward :level="level"/>
                 </li>
                 <li v-show="tabAction==='invite'">
                     <InvitePlayer/>
@@ -41,9 +53,11 @@
 
     import {mapState} from 'vuex'
     import {UserApi} from '@/api'
+    import {countDownMixin} from "../mixins";
 
     export default {
         name: 'home',
+        mixins: [countDownMixin],
         components: {
             Banner, EthFooter, NoteCodePopup, JoinNow, DayGuess, MyAward, InvitePlayer
         },
@@ -56,7 +70,9 @@
                     {label: '每日竞猜', value: 'guess'},
                     {label: '我的奖励', value: 'award'},
                     {label: '邀请玩家', value: 'invite'}
-                ]
+                ],
+                joinCount: 0,
+                level: '1',
             }
         },
         computed: {
@@ -76,15 +92,24 @@
             },
             toJoin() {
                 this.tabAction = 'join'
+            },
+
+            // 获取用户信息（参与次数、头衔）
+            getUserInfo() {
+                UserApi.getUserInfo().then(res => {
+                    this.joinCount = res && res.orderCount
+                    this.level = res && res.level
+                }).catch(err => console.error(err))
             }
         },
-        mounted() {
+        created() {
             if (!UserApi.isBindInviter()) {
                 this.$router.push({name: 'inviter'})
                 return
             }
             const {tab} = this.$route.query
             this.tabAction = tab || 'join'
+            this.getUserInfo()
         }
     }
 </script>

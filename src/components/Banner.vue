@@ -39,7 +39,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="time">{{(gameStatus===2 ? startCountDown : endCountDown) | displayCountDown}}</div>
+                <div class="time">{{displayCountDown(gameStatus===2 ? startCountDown : endCountDown)}}</div>
                 <div class="message" v-show="false">
                     <icon name="small-bell" class="icon"></icon>
                     <span></span>
@@ -48,20 +48,19 @@
             <div class="time-circle" v-else>
                 <div class="wave">
                     <!--<img src="../assets/images/bg_wave.svg" alt="">-->
-                    <span>{{(gameStatus===2 ? startCountDown : endCountDown) | displayCountDown}}</span>
+                    <span>{{displayCountDown(gameStatus===2 ? startCountDown : endCountDown)}}</span>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
-    import {Toast} from "mint-ui";
-    import {UserApi, MainApi} from "../api";
-    import {countDownMixin} from "../mixins";
+    import {Toast} from "mint-ui"
+    import {UserApi, MainApi} from "../api"
 
     export default {
         name: 'banner',
-        mixins: [countDownMixin],
+        props: ['startCountDown', 'endCountDown', 'gameStatus', 'displayCountDown'],
         data() {
             return {
                 gameBonus: {},
@@ -82,7 +81,7 @@
                 });
             }
         },
-        mounted() {
+        created() {
             this.getGameBonus();
         }
     };
@@ -337,7 +336,6 @@
                     }
                 }*/
             }
-
         }
     }
 </style>

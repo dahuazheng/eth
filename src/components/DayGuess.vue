@@ -2,7 +2,7 @@
     <div class="day-guess">
         <div class="detail">
             <span @click="toGuess('guessResult')">历史结果</span>
-            <span v-show="Number(gameStatus) === 1">{{gussCountDown | displayCountDown}}</span>
+            <span v-show="Number(gameStatus) === 1">{{displayCountDown(gussCountDown)}}</span>
             <span @click="toGuess('myGuess')">我的竞猜</span>
         </div>
         <div v-if="gameStatus === 1">
@@ -38,23 +38,16 @@
     import {Toast} from 'mint-ui'
     import EthButton from './EthButton'
     import {GuessApi} from '../api'
-    import {countDownMixin} from '../mixins'
 
     export default {
         name: 'dayGuess',
         components: {EthButton},
-        mixins: [countDownMixin],
-        props: ['toJoin'],
+        props: ['gameStatus','gussCountDown','displayCountDown','toJoin'],
         data() {
             return {
                 guessValue: '',  // 我的竞猜数字
                 start: true,
                 guessStatus: 0  // 竞猜状态  0未投注未竞猜，1已投注未竞猜，2已投注已竞猜
-            }
-        },
-        watch: {
-            $route(to, from) {
-
             }
         },
         methods: {
@@ -102,7 +95,7 @@
                 }).catch(err => console.error(err))
             },
         },
-        mounted() {
+        created() {
             this.getGuessStatus()
         }
     }
