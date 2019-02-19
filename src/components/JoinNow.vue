@@ -7,7 +7,7 @@
         </div>
         <p>
             <span @click="toHistory">参与历史</span>
-            <small>我的累积参与：{{joinCount}}次</small>
+            <small>我的累积参与：{{joinCount || 0}}次</small>
             <small>钱包余额：{{balance.ETH}} ETH</small>
         </p>
     </div>
