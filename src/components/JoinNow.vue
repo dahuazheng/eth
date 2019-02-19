@@ -15,7 +15,6 @@
 
 <script>
     import {Toast} from 'mint-ui'
-    import {UserApi} from "../api"
 
     export default {
         props: ['open', 'balance', 'gameStatus', 'joinCount'],
@@ -25,15 +24,13 @@
             },
             join() {
                 if (this.gameStatus === 2) return
-                // 0.1ETC 1000INC
-                // 您的余额不足，请先充值后参与
                 if (this.balance.ETH < 0.5 || this.balance.INC < 5000) {
                     return Toast('您的余额不足，请先充值后参与')
                 }
 
                 this.open()
-            },
-        },
+            }
+        }
     }
 </script>
 

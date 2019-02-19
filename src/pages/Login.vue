@@ -1,6 +1,11 @@
 <template>
     <div class="login">
-        <Banner/>
+        <Banner
+            :startCountDown="startCountDown"
+            :endCountDown="endCountDown"
+            :gameStatus="gameStatus"
+            :displayCountDown="displayCountDown"
+        />
         <main>
             <p><label>请先登录</label></p>
             <p>
@@ -14,9 +19,11 @@
 <script>
     import Banner from '@/components/Banner.vue'
     import EthFooter from '@/components/EthFooter.vue'
+    import {countDownMixin} from '../mixins'
 
     export default {
         name: 'loginIn',
+        mixins: [countDownMixin],
         components: {
             Banner, EthFooter
         },

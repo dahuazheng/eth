@@ -52,8 +52,9 @@
     import InvitePlayer from '@/components/InvitePlayer.vue'
 
     import {mapState} from 'vuex'
+    import Cookies from 'js-cookie'
     import {UserApi} from '@/api'
-    import {countDownMixin} from "../mixins";
+    import {countDownMixin} from "../mixins"
 
     export default {
         name: 'home',
@@ -103,10 +104,18 @@
             }
         },
         created() {
+            // 判断是否绑定邀请码
             if (!UserApi.isBindInviter()) {
-                this.$router.push({name: 'inviter'})
-                return
+                console.log(333)
+                UserApi.checkInviteBind().then(res => {
+                    if (Number(res.status) === 1 && Number(res.data && res.data.is_bind) === 1) {
+                        Cookies.set('ETH.bind_inviter', 'true', {expires: 1 / 24})
+                    } else {
+                        this.$router.push({name: 'inviter'})
+                    }
+                })
             }
+
             const {tab} = this.$route.query
             this.tabAction = tab || 'join'
             this.getUserInfo()

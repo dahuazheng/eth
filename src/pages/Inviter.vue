@@ -1,6 +1,11 @@
 <template>
     <div class="inviter">
-        <Banner/>
+        <Banner
+            :startCountDown="startCountDown"
+            :endCountDown="endCountDown"
+            :gameStatus="gameStatus"
+            :displayCountDown="displayCountDown"
+        />
         <main>
             <p>
                 <label>必须绑定邀请人才能参与游戏！</label>
@@ -28,9 +33,11 @@
     import Cookies from 'js-cookie'
     import {Toast} from 'mint-ui'
     import {UserApi} from '@/api'
+    import {countDownMixin} from '../mixins'
 
     export default {
         name: 'home',
+        mixins: [countDownMixin],
         components: {
             Banner, EthFooter
         },
@@ -62,23 +69,19 @@
                         Toast(res.msg)
                     }
                 })
-            },
-
-            // 判断是否绑定邀请码
-            checkInviteBind() {
-                UserApi.checkInviteBind().then(res => {
-                    console.log(res)
-                    if (Number(res.status) === 1 && Number(res.data.is_bind) === 1) {
-                        Cookies.set('ETH.bind_inviter', 'true', {expires: 1 / 24})
-                        this.$router.push({name: 'home', query: {tab: 'join'}})
-                    } else {
-                        Cookies.remove('ETH.bind_inviter')
-                    }
-                })
-            },
+            }
         },
         mounted() {
-            this.checkInviteBind()
+            // 判断是否绑定邀请码
+            if (!UserApi.isBindInviter()) {
+                UserApi.checkInviteBind().then(res => {
+                    if (Number(res.status) === 1 && Number(res.data && res.data.is_bind) === 1) {
+                        this.$router.push({name: 'home'})
+                    }
+                })
+            } else {
+                this.$router.push({name: 'home'})
+            }
         }
     }
 </script>
