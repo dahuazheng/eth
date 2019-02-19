@@ -84,13 +84,12 @@
             // 获取充值记录表
             getNewpayOrderList() {
                 WalletApi.getNewpayOrderList({
-                    type: '2'  // 1充值 2提现
+                    type: '1'  // 1充值 2提现
                 }).then(res => {
                     this.rechargeList = res
                 }).catch(err => {
                     console.error(err)
                 })
-
             }
         },
         mounted() {

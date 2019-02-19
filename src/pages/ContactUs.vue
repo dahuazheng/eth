@@ -6,12 +6,12 @@
         <ul class="list">
             <li>
                 <span class='contact'> 联系我们</span>
-                <span class="tip">400-800-600</span>
+                <span class="tip"> </span>
                 <span class='check-arrow'></span>
             </li>
             <li>
                 <span class="email">邮箱</span>
-                <span> </span>
+                <span>service@luckyinc.org</span>
                 <!--<span class='check-arrow'></span>-->
             </li>
         </ul>
