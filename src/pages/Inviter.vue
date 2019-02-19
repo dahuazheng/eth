@@ -12,7 +12,7 @@
                 </router-link>
             </p>
             <p>
-                <input type="text" v-model.trim="inviteCode" placeholder="输入邀请人昵称">
+                <input type="text" v-model.trim="inviteCode" placeholder="输入邀请码">
             </p>
             <p class="btn-box">
                 <button @click="submit">立即绑定</button>
