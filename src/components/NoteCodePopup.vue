@@ -60,7 +60,7 @@
 
                 OrderApi.createOrder({phone_code: String(this.code)}).then(res => {
                     if (Number(res.status) === 1) {
-                        Toast(res.msg)
+                        Toast('参与成功')
                         this.code = null
                         this.$router.go({path: '/', force: true})
                         return

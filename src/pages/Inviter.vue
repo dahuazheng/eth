@@ -54,7 +54,7 @@
                         // console.log(res)
                         this.$store.dispatch('user/getInviteCode')
                         Cookies.set('ETH.bind_inviter', 'true', {expires: 1 / 24})
-                        Toast(res.msg)
+                        Toast('绑定成功')
                         setTimeout(() => {
                             this.$router.push({name: 'home'})
                         }, 1000)
