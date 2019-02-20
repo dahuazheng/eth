@@ -51,7 +51,7 @@
             <!--<EthButton name="提现" border="1px solid #f1e2ff" :click="withdraw"/>-->
             <EthButton name="我的直推" type="#9712A3" :click="recommend"/>
         </div>
-        <p>加油！推荐30自动成为经理，可以获得50代的推荐奖。</p>
+        <p>加油！推荐15人自动成为经理，可以获得15代的推荐奖。</p>
         <div class="shade" v-show="showAwardDetail" @click="showAwardDetail=false"></div>
     </div>
 </template>
