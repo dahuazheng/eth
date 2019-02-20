@@ -181,20 +181,20 @@
                     this.getInitData()
 
                     // 判断是否绑定邀请码
-                    return UserApi.checkInviteBind()
-                }).then(res => {
-                    if (Number(res.status) === 1 && Number(res.data && res.data.is_bind) === 1) {
-                        Cookies.set('ETH.bind_inviter', 'true', {expires: 1 / 24})
+                    UserApi.checkInviteBind().then(res => {
+                        if (Number(res.status) === 1 && Number(res.data && res.data.is_bind) === 1) {
+                            Cookies.set('ETH.bind_inviter', 'true', {expires: 1 / 24})
 
-                        const redirectUrl = this.$router.query && this.$router.query.redirect_url
-                        if (redirectUrl) {
-                            window.location.href = redirectUrl
+                            const redirectUrl = this.$router.query && this.$router.query.redirect_url
+                            if (redirectUrl) {
+                                window.location.href = redirectUrl
+                            }
+                            this.$router.push({name: 'home', query: {tab: 'join'}})
+                        } else {
+                            Cookies.remove('ETH.bind_inviter')
+                            this.$router.push({name: 'inviter'})
                         }
-                        this.$router.push({name: 'home', query: {tab: 'join'}})
-                    } else {
-                        Cookies.remove('ETH.bind_inviter')
-                        this.$router.push({name: 'inviter'})
-                    }
+                    })
                 })
             },
             init() {
