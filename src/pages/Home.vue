@@ -18,6 +18,7 @@
             <ul class="items">
                 <li v-show="tabAction==='join'">
                     <JoinNow
+                        :joinCount="joinCount"
                         :gameStatus="gameStatus"
                         :balance="user && user.balance"
                         :open="openNoteCodePopup"/>
@@ -98,6 +99,7 @@
             // 获取用户信息（参与次数、头衔）
             getUserInfo() {
                 UserApi.getUserInfo().then(res => {
+                    console.log(res)
                     this.joinCount = res && res.orderCount
                     this.level = res && res.level
                 }).catch(err => console.error(err))

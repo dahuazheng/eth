@@ -14,9 +14,11 @@
             </div>
             <div class="in-join" v-show="guessStatus === 1">
                 <div style="text-align: center">
-                    <input type="number"
-                           v-model="guessValue"
-                           placeholder="明天参与游戏的单日ETH总个数是多少？">
+                    <input type="text"
+                           @input="change"
+                           @change="change"
+                           :value="inpNum"
+                           placeholder="明日游戏的参与次数是多少？">
                     <EthButton name="提交" borderRadios="21px" :click="submitGuess"/>
                 </div>
 
@@ -42,12 +44,17 @@
     export default {
         name: 'dayGuess',
         components: {EthButton},
-        props: ['gameStatus','gussCountDown','displayCountDown','toJoin'],
+        props: ['gameStatus', 'gussCountDown', 'displayCountDown', 'toJoin'],
         data() {
             return {
                 guessValue: '',  // 我的竞猜数字
                 start: true,
                 guessStatus: 0  // 竞猜状态  0未投注未竞猜，1已投注未竞猜，2已投注已竞猜
+            }
+        },
+        computed: {
+            inpNum () {
+                return this.guessValue
             }
         },
         methods: {
@@ -94,6 +101,16 @@
                     this.getMyAward()
                 }).catch(err => console.error(err))
             },
+
+            change (event) {
+                let val = event.target.value.trim()
+                // 只能是正整数或空,可根据需求修改正则
+                if (/^[1-9]\d*$|^$/.test(val)) {
+                    this.guessValue = val
+                } else {
+                    event.target.value = this.guessValue
+                }
+            }
         },
         created() {
             this.getGuessStatus()
