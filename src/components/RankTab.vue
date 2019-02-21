@@ -13,7 +13,7 @@
                     <span class="num">名次</span>
                     <span class="name">手机号</span>
                     <span class="account">奖励总额</span>
-                    <span class="per">直推个数/展开</span>
+                    <span class="per">直推个数</span>
                 </li>
                 <!--以下 同一名次对应多个用户-->
                 <li v-for="(live, liveKey) in liveList" :key="liveKey" :class="'color-' + liveKey">

@@ -70,7 +70,7 @@ class UserApi {
             return {
                 staticInc: formatDecimal(res.data.static_bonus && res.data.static_bonus.inc_amount, PRECISION.INC) || 0,               // 静态inc、eth
                 staticEth: formatDecimal(res.data.static_bonus && res.data.static_bonus.eth_amount, PRECISION.ETH) || 0,
-                dynamicInc: formatDecimal(res.data.dynamic_bonus && res.data.dynamic_bonus.eth_amount, PRECISION.INC) || 0,             // 动态inc、eth
+                dynamicInc: formatDecimal(res.data.dynamic_bonus && res.data.dynamic_bonus.inc_amount, PRECISION.INC) || 0,             // 动态inc、eth
                 dynamicEth: formatDecimal(res.data.dynamic_bonus && res.data.dynamic_bonus.eth_amount, PRECISION.ETH) || 0,
                 topManagerInc: formatDecimal(res.data.top_manager_bonus && res.data.top_manager_bonus.inc_amount, PRECISION.INC) || 0,  // 高级经理inc、eth
                 topManagerEth: formatDecimal(res.data.top_manager_bonus && res.data.top_manager_bonus.eth_amount, PRECISION.ETH) || 0,
