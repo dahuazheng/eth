@@ -1,5 +1,5 @@
 import {ensureMilliseconds, zerofill} from '../utils'
-import {OrderApi, UserApi} from '../api'
+import {OrderApi} from '../api'
 import moment from 'moment'
 
 const countDownMixin = {
@@ -10,7 +10,10 @@ const countDownMixin = {
             gussCountDown: 0,
             gameStatus: 2,
             startTime: null,
-            endTime: null
+            endTime: null,
+            startTimer: null,
+            endTimer: null,
+            guessTimer: null,
         }
     },
     methods: {
@@ -27,7 +30,7 @@ const countDownMixin = {
 
         // 游戏开始时间倒计时
         getStartCountDown() {
-            setTimeout(() => {
+            this.startTimer = setTimeout(() => {
                 const currentTime = +new Date()
                 const startTime = this.startTime
 
@@ -43,7 +46,7 @@ const countDownMixin = {
 
         // 游戏结束时间倒计时
         getEndCountDown() {
-            setTimeout(() => {
+            this.endTimer = setTimeout(() => {
                 const currentTime = +new Date()
                 const endTime = this.endTime
 
@@ -59,7 +62,7 @@ const countDownMixin = {
 
         // 竞猜时间倒计时
         getGuessCountDown() {
-            setTimeout(() => {
+            this.guessTimer = setTimeout(() => {
                 const currentTime = +new Date()
                 const endDate = moment().endOf('date').valueOf()
 
@@ -77,7 +80,6 @@ const countDownMixin = {
                 if (Number(res && res.status) !== 1) return
 
                 this.gameStatus = res.data && Number(res.data.game_status)
-                console.log(this.gameStatus)
 
                 if (this.gameStatus === 1) {
                     this.endTime = +new Date(ensureMilliseconds(res.data && res.data.time))
@@ -93,6 +95,23 @@ const countDownMixin = {
         this.getStartCountDown()
         this.getEndCountDown()
         this.getGuessCountDown()
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState == "hidden") {
+                clearTimeout(this.startTimer)
+                clearTimeout(this.endTimer)
+                clearTimeout(this.guessTimer)
+            } else {
+                this.getGameTime()
+                this.getStartCountDown()
+                this.getEndCountDown()
+                this.getGuessCountDown()
+            }
+        }, false)
+    },
+    destroyed() {
+        document.removeEventListener('visibilitychange', () => {
+        })
     }
 }
 
