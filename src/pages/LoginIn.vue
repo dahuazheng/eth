@@ -156,7 +156,7 @@
             change(event) {
                 let val = event.target.value.trim()
                 // 只能是正整数或空,可根据需求修改正则
-                if (/^[1-9]\d{0,3}$|^$/.test(val)) {
+                if (/^[0-9]{0,4}$|^$/.test(val)) {
                     this.code = val
                 } else {
                     event.target.value = this.code
@@ -197,6 +197,7 @@
                     }
 
                     Cookies.set('ETH.token', res.headers.token, {expires: 1 / 24})
+                    Cookies.set('ETH.lang', res.headers.lang, {expires: 1 / 24})
                     this.getInitData()
 
                     // 判断是否绑定邀请码

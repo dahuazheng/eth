@@ -49,6 +49,7 @@ instance.interceptors.request.use(config => {
 
     // 设置请求头
     config.headers.token = config.headers.token || Cookies('ETH.token') || ''
+    config.headers.lang = config.headers.lang || Cookies('ETH.lang') || ''
 
     // 显示请求信息
     /*if (DEBUG_MODE) {

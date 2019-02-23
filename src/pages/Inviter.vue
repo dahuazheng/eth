@@ -17,7 +17,13 @@
                 </router-link>
             </p>
             <p>
-                <input type="text" v-model.trim="inviteCode" placeholder="输入邀请码">
+                <input
+                    type="text"
+                    @input="change"
+                    @change="change"
+                    :value="inpCode"
+                    placeholder="输入邀请码"
+                >
             </p>
             <p class="btn-box">
                 <button @click="submit">立即绑定</button>
@@ -46,7 +52,22 @@
                 inviteCode: '',
             }
         },
+        computed: {
+            inpCode() {
+                return this.inviteCode
+            }
+        },
         methods: {
+            // 邀请码校验
+            change(event) {
+                let val = event.target.value.trim()
+                // 数字、英文字母
+                if (/^[0-9A-Za-z]{0,8}$|^$/.test(val)) {
+                    this.inviteCode = val
+                } else {
+                    event.target.value = this.inviteCode
+                }
+            },
             submit() {
                 if (!this.inviteCode) {
                     return Toast('请输入邀请人昵称')

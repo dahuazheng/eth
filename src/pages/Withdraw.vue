@@ -104,7 +104,7 @@
             change(event) {
                 let val = event.target.value.trim()
                 // 只能是正整数或空,可根据需求修改正则
-                if (/^[1-9]\d{0,3}$|^$/.test(val)) {
+                if (/^[0-9]{0,4}$|^$/.test(val)) {
                     this.code = val
                 } else {
                     event.target.value = this.code
