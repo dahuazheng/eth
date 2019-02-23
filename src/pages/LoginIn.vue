@@ -15,7 +15,11 @@
             <span class="delete" @click="phone=''">×</span>
         </div>
         <div class="row">
-            <input type="number" v-model="code" placeholder="验证码">
+            <input type="text"
+                   @input="change"
+                   @change="change"
+                   :value="inpCode"
+                   placeholder="验证码">
             <button id="btn-get-captcha" :disabled="count < 60" @click="onBtnCaptchaClick">{{smsLabel}}</button>
         </div>
         <div class="btn-box">
@@ -63,6 +67,11 @@
                         textAlign: 'center'
                     }
                 ],
+            }
+        },
+        computed: {
+            inpCode() {
+                return this.code
             }
         },
         methods: {
@@ -138,10 +147,20 @@
                     type: 'login',
                     validate: this.imageCaptcha
                 }).then(res => {
-                    this.code = res
                     if (Number(res && res.status) !== 1) return
                     Toast('验证码已发送')
                 }).catch(err => console.log(err))
+            },
+
+            // 验证码校验
+            change(event) {
+                let val = event.target.value.trim()
+                // 只能是正整数或空,可根据需求修改正则
+                if (/^[1-9]\d{0,3}$|^$/.test(val)) {
+                    this.code = val
+                } else {
+                    event.target.value = this.code
+                }
             },
 
             login() {

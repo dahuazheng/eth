@@ -3,7 +3,13 @@
         <div class="popup" @click.stop>
             <PopupTitle title="短信验证" :back="close"/>
             <div class="input-box">
-                <input type="number" placeholder="请输入验证码" v-model="code">
+                <input
+                    type="text"
+                    @input="change"
+                    @change="change"
+                    :value="inpCode"
+                    placeholder="请输入验证码"
+                >
                 <button :disabled="count < 60" @click="getSmsCode">{{smsLabel}}</button>
             </div>
             <div class="btn-box">
@@ -29,7 +35,22 @@
                 code: null,
             }
         },
+        computed: {
+            inpCode() {
+                return this.code
+            }
+        },
         methods: {
+            // 验证码校验
+            change(event) {
+                let val = event.target.value.trim()
+                // 只能是正整数或空,可根据需求修改正则
+                if (/^[1-9]\d{0,3}$|^$/.test(val)) {
+                    this.code = val
+                } else {
+                    event.target.value = this.code
+                }
+            },
             countDown() {
                 this.count -= 1
 

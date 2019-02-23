@@ -26,7 +26,11 @@
                 <small>手续费：{{coinInfo.withdrawFeeAmount + ' ' + coin}}</small>
             </div>
             <div class="row">
-                <input type="text" placeholder="短信验证码" v-model="code">
+                <input type="text"
+                       @input="change"
+                       @change="change"
+                       :value="inpCode"
+                       placeholder="短信验证码">
                 <button class="code" :disabled="count < 60" @click="getSmsCode">{{smsLabel}}</button>
             </div>
             <div class="row">
@@ -82,6 +86,10 @@
             amount() {
                 if (!this.money) return `--${this.coin}`
                 return (parseFloat(this.money) - parseFloat(this.coinInfo.withdrawFeeAmount)).toFixed(this.coin === 'ETH' ? 4 : 2) + ' ' + this.coin
+            },
+
+            inpCode() {
+                return this.code
             }
         },
         methods: {
@@ -90,6 +98,17 @@
                     console.log(res)
                     this.coinInfo = res
                 })
+            },
+
+            // 验证码校验
+            change(event) {
+                let val = event.target.value.trim()
+                // 只能是正整数或空,可根据需求修改正则
+                if (/^[1-9]\d{0,3}$|^$/.test(val)) {
+                    this.code = val
+                } else {
+                    event.target.value = this.code
+                }
             },
 
             countDown() {
