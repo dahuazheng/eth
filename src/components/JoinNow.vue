@@ -2,7 +2,7 @@
     <div class="join-now">
         <div class="btn-box " :class="{gray: gameStatus === 2}" @click="join">
             <b></b>
-            <span>{{gameStatus === 2 ? '等待游戏开始' : '立即参与 1 EHT'}}</span>
+            <span>{{gameStatus === 2 ? '等待游戏开始' : '立即参与 1 ETH'}}</span>
             <img src="../assets/images/bg_eth.png">
         </div>
         <p>
