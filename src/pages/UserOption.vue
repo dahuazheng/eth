@@ -7,6 +7,7 @@
                     src="../assets/images/icon_eth_star.png" alt="">
                 </div>
                 <p>我的</p>
+
             </div>
 
             <div class="user-center__options">
