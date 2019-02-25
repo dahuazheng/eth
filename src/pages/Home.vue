@@ -134,6 +134,7 @@
         box-sizing: border-box;
         background: $clear-color;
         padding-bottom: 50px;
+        min-height: 100vh;
 
         ul {
             @include clearUl;

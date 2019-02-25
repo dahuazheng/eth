@@ -14,10 +14,11 @@
                         {{ item.addTime | formatDate}}
                     </td>
                     <td>{{ item.numGuess }}</td>
-                    <td>{{ item.numTrue }}</td>
+                    <td>{{ Number(item.numTrue) === 0 ? item.numTrue : '为开奖' }}</td>
                     <td>
                         {{ item.status | transformStatus }} <br>
-                        <small>+{{ item.eth }} ETH</small><br>
+                        <small>+{{ item.eth }} ETH</small>
+                        <br>
                         <small>+{{ item.inc }} INC</small>
                     </td>
                 </tr>
@@ -31,7 +32,7 @@
     import {GuessApi} from '../api'
     // import Cookies from 'js-cookie'
     import moment from 'moment'
-    import { ensureMilliseconds } from '../utils'
+    import {ensureMilliseconds} from '../utils'
     import {rewardLevels} from '../utils/options'
 
     export default {
