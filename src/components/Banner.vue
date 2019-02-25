@@ -235,21 +235,23 @@
             }
 
             .time-circle {
-                display: flex;
-                justify-content: center;
+                position: relative;
                 width: 100%;
                 margin-top: 26px;
+                transform: rotate(0deg);
 
                 .wave {
-                    position: relative;
                     @include px2rem('width', 120);
                     @include px2rem('height', 120);
+                    margin: 0 auto;
+                    position: relative;
                     background-color: #fff600;
                     border-radius: 50%;
                     border: 2px solid #fff41f;
                     box-shadow: 0 0 40px #b78330, 0 0 20px #b78330 inset;
                     overflow: hidden;
-                    z-index: 4;
+                    -webkit-appearance: none;
+                    transform: rotate(0deg);
 
                     &::before,
                     &::after {
@@ -264,7 +266,6 @@
                         border-radius: 40%;
                         transform: translate(-50%, -70%) rotate(0);
                         animation: rotate 10s linear infinite;
-                        z-index: 5;
                     }
 
                     &::after {
@@ -272,7 +273,6 @@
                         background-color: #7900ae;
                         transform: translate(-50%, -70%) rotate(0);
                         animation: rotate 7s linear -5s infinite;
-                        z-index: 5;
                     }
 
                     span {
@@ -281,8 +281,7 @@
                         left: 20%;
                         color: #fff;
                         @include px2rem('font-size', 20);
-                        z-index: 6;
-
+                        z-index: 1;
                     }
 
                     @keyframes rotate {
