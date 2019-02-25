@@ -293,47 +293,6 @@
                         }
                     }
                 }
-
-                /*> div {
-                    position: relative;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    @include px2rem('width', 120);
-                    @include px2rem('height', 120);
-                    border-radius: 50%;
-                    border: 2px solid #fff41f;
-                    box-shadow: 0 0 40px #b78330, 0 0 20px #b78330 inset;
-                    overflow: hidden;
-
-                    span {
-                        position: absolute;
-                        font-size: 18px;
-                        color: #fff;
-                        z-index: 10;
-                    }
-
-                    img {
-                        position: absolute;
-                        left: -10%;
-                        bottom: 0;
-                        width: 210px;
-                        height: auto;
-                        animation: mywave 3s infinite;
-
-                        @keyframes mywave
-                        {
-                            0% {left: 0%;}
-                            10% {left: -10%;}
-                            20% {left: -20%;}
-                            30% {left: -30%;}
-                            40% {left: -40%;}
-                            60% {left: -20%;}
-                            80% {left: -10%;}
-                            100% {left: 0;}
-                        }
-                    }
-                }*/
             }
         }
     }

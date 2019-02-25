@@ -1,6 +1,7 @@
 <template>
     <div class="inviter">
         <Banner
+            :reset="+new Date()"
             :startCountDown="startCountDown"
             :endCountDown="endCountDown"
             :gameStatus="gameStatus"
