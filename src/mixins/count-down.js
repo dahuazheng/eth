@@ -91,10 +91,10 @@ const countDownMixin = {
         }
     },
     mounted() {
-        this.getGameTime()
-        this.getStartCountDown()
-        this.getEndCountDown()
-        this.getGuessCountDown()
+        // this.getGameTime()
+        // this.getStartCountDown()
+        // this.getEndCountDown()
+        // this.getGuessCountDown()
 
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState == "hidden") {
@@ -108,10 +108,6 @@ const countDownMixin = {
                 this.getGuessCountDown()
             }
         }, false)
-    },
-    destroyed() {
-        document.removeEventListener('visibilitychange', () => {
-        })
     }
 }
 
