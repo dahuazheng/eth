@@ -83,28 +83,33 @@ const countDownMixin = {
 
                 if (this.gameStatus === 1) {
                     this.endTime = +new Date(ensureMilliseconds(res.data && res.data.time))
+                    this.getEndCountDown()
                 } else {
                     this.startTime = +new Date(ensureMilliseconds(res.data && res.data.time))
-                    console.log(moment(this.startTime).format('YYYY-MM-DD'))
+                    this.getStartCountDown()
+
                 }
             })
+        },
+        init(){
+            this.getGameTime()
+            this.getGuessCountDown()
         }
     },
     mounted() {
-        // this.getGameTime()
-        // this.getStartCountDown()
-        // this.getEndCountDown()
-        // this.getGuessCountDown()
+        this.init()
 
         document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState == "hidden") {
+            if (document.visibilityState == 'hidden') {
                 clearTimeout(this.startTimer)
                 clearTimeout(this.endTimer)
                 clearTimeout(this.guessTimer)
+                this.startTimer = null
+                this.endTimer = null
+                this.guessTimer = null
+
             } else {
                 this.getGameTime()
-                this.getStartCountDown()
-                this.getEndCountDown()
                 this.getGuessCountDown()
             }
         }, false)
