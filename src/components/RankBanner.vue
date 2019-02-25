@@ -8,7 +8,7 @@
             <p>24 H直推龙虎榜</p>
             <p>(奖金池 {{ ethAmount }} ETH/{{ incAmount }} INC)</p>
             <p>（0点更新）</p>
-            <div class='visit-num'><span>今日直推数</span> <br>{{ pushCount }}</div>
+            <div class='visit-num'><span>我的今日直推</span> <br>{{ pushCount }}</div>
         </div>
     </div>
 </template>
