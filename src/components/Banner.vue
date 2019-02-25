@@ -77,11 +77,11 @@
             },
             getGameBonus() {
                 MainApi.getGameBonus().then(res => {
-                    this.gameBonus = res;
+                    this.gameBonus = res || {};
                 });
             }
         },
-        created() {
+        mounted() {
             this.getGameBonus();
         }
     };

@@ -66,9 +66,21 @@ class RankApi {
             }).catch(err => console.log(err))
     }
 
+    // 我的全部直推
+    static getAllPushCount(query) {
+        return Requester.get(config.apiDomain + 'my_day_push_count', query)
+            .then(res => {
+                if (Number(res.status) !== 1) return 0
+
+                return res.data && res.data.push_count || 0     // 直推数
+            }).catch(err => {
+                console.error(err)
+            })
+    }
+
     // 我的今日直推
     static getMyDayPushCount(query) {
-        return Requester.get(config.apiDomain + 'my_day_push_count', query)
+        return Requester.get(config.apiDomain + 'my_current_day_push_count', query)
             .then(res => {
                 if (Number(res.status) !== 1) return 0
 

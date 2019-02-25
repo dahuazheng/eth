@@ -233,8 +233,8 @@
             },
 
             // 我的直推个数
-            getMyDayPushCount() {
-                RankApi.getMyDayPushCount().then(res => {
+            getAllPushCount() {
+                RankApi.getAllPushCount().then(res => {
                     this.pushCount = res
                 })
             },
@@ -259,7 +259,7 @@
             this.action === 'push' && this.getPushList()
             this.action === 'winner' && this.getWinnerList()
             this.action === 'guess' && this.getMyGuessList()
-            this.getMyDayPushCount()
+            this.getAllPushCount()
             this.getUserBonus()
             this.getOrderList()
             this.getUserInfo()

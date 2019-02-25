@@ -7,6 +7,7 @@
                     src="../assets/images/icon_eth_star.png" alt="">
                 </div>
                 <p>我的</p>
+
             </div>
 
             <div class="user-center__options">
@@ -78,7 +79,7 @@
             UserApi.logout().then(res => {
                 if (Number(res.status) !== 1) return
                 removeCookie('ETH.token')
-                this.$router.push('/')
+                this.$router.push('/login')
             }).catch(err => {
                 console.log(err)
             })
