@@ -114,6 +114,7 @@ class Requester {
     static post(url = '', data = {}, opts = {}) {
         const config = {
             headers: {
+                'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
             },
             transformRequest: [
