@@ -1,10 +1,10 @@
 export const rewardLevels = [
     {
         value: '-1',
-        label: '未开奖'
+        label: '未中奖'
     }, {
         value: '0',
-        label: '未中奖'
+        label: '未开奖'
     }, {
         value: '1',
         label: '一等奖'
