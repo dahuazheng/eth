@@ -63,7 +63,6 @@
             getMyGuessList() {
                 GuessApi.getMyGuessList().then(res => {
                     this.myAwardList = res
-                    console.log(this.myAwardList)
                 }).catch(err => {
                     console.error(err)
                 })
