@@ -73,7 +73,7 @@
 <script>
     import moment from "moment";
     import {ensureMilliseconds, encodeMobile} from "../utils";
-    import {rewardLevels} from '../utils/options'
+    import {rewardLevelsRank} from '../utils/options'
     import {RankApi} from "../api";
 
     export default {
@@ -100,7 +100,7 @@
 
             // 状态值转换中奖等级
             transformStatus(value) {
-                const option = rewardLevels.find(reward => reward.value === String(value));
+                const option = rewardLevelsRank.find(reward => reward.value === String(value));
                 return option && option.label || '未中奖'
             },
         },
