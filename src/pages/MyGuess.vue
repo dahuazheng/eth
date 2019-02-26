@@ -14,7 +14,7 @@
                         {{ item.addTime | formatDate}}
                     </td>
                     <td>{{ item.numGuess }}</td>
-                    <td>{{ Number(item.numTrue) === 0 ? item.numTrue : '为开奖' }}</td>
+                    <td>{{ Number(item.numTrue) === 0 ? item.numTrue : '未开奖' }}</td>
                     <td>
                         {{ item.status | transformStatus }} <br>
                         <small>+{{ item.eth }} ETH</small>
