@@ -100,7 +100,6 @@
             // 获取用户信息（参与次数、头衔）
             getUserInfo() {
                 UserApi.getUserInfo().then(res => {
-                    console.log(res)
                     this.joinCount = res && res.orderCount
                     this.level = res && res.level
                 }).catch(err => console.error(err))
@@ -109,7 +108,6 @@
         created() {
             // 判断是否绑定邀请码
             if (!UserApi.isBindInviter()) {
-                console.log(333)
                 UserApi.checkInviteBind().then(res => {
                     if (Number(res.status) === 1 && Number(res.data && res.data.is_bind) === 1) {
                         Cookies.set('ETH.bind_inviter', 'true', {expires: 1 / 24})

@@ -112,7 +112,7 @@
                         this.isCaptchaLocked = false
                     },
                     onVerify: (data) => {
-                        this.imageCaptcha = data.validate
+                        this.imageCaptcha = data && data.validate
                         this.startCountDown()
                         this.sendSms()
                     },
@@ -140,7 +140,6 @@
 
             // 发送验证码
             sendSms() {
-                console.log('imageCaptcha', this.imageCaptcha)
                 UserApi.sendSms({
                     phone: this.phone,
                     phone_prefix: this.prefix, //'86'

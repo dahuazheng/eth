@@ -30,7 +30,6 @@
         },
         methods: {
             toLogin() {
-                console.log(333)
                 //this.$router.push({name: 'home', query: {tab: 'join'}})
 
                 this.$router.push({path: '/login-in'})

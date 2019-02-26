@@ -95,7 +95,6 @@
         methods: {
             getCoinInfo() {
                 WalletApi.getCoinInfo({coin_code: this.coin}).then(res => {
-                    console.log(res)
                     this.coinInfo = res
                 })
             },
@@ -128,7 +127,6 @@
             getSmsCode() {
                 this.countDown()
                 UserApi.sendUserSms({type: 'withdraw'}).then(res => {
-                    console.log(res)
                 })
             },
 

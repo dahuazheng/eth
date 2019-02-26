@@ -60,7 +60,6 @@
             },
             // 转换状态值为色号
             transformColor(val) {
-                console.log(val)
                 switch(val){
                     case '1':
                         return ' ';

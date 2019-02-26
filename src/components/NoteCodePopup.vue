@@ -68,7 +68,6 @@
             getSmsCode() {
                 this.countDown()
                 UserApi.sendUserSms({type: 'order'}).then(res => {
-                    console.log(res)
                 })
             },
             submit() {

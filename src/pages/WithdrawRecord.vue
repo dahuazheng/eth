@@ -62,7 +62,6 @@
             },
             // 转换状态值为色号
             transformColor(val) {
-                console.log(val)
                 switch(val){
                     case '1':
                         return ' ';
@@ -85,13 +84,10 @@
         methods: {
             // 获取提现记录表
             getNewpayOrderList() {
-                console.log('提现')
                 WalletApi.getNewpayOrderList({
                     type: '2'   // 1充值 2提现
                 }).then(res => {
-                    // console.log(res[2], res[2].createdAt)
                     this.withdrawList = res
-                    // console.log('res', this.withdrawList[2].created_at)
                 }).catch(err => {
                     console.error(err)
                 })

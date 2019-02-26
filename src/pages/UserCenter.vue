@@ -216,7 +216,6 @@
             // 获取龙虎榜数据
             getWinnerList() {
                 RankApi.getWinnerList({}).then(res => {
-                    // console.log('res',res)
                     this.winnerList = res
                 }).catch(err => {
                     console.error(err)

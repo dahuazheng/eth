@@ -14,7 +14,6 @@
         methods: {
             uploadFile(event) {
                 const file = event.target.files[0]
-                console.log(file)
                 qrcode.decode(this.getObjectURL(file));
 
                 qrcode.callback = function (imgMsg) {
