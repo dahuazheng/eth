@@ -14,7 +14,7 @@
                         {{ item.addTime | formatDate}}
                     </td>
                     <td>{{ item.numGuess }}</td>
-                    <td>{{ Number(item.numTrue) === 0 ? item.numTrue : '为开奖' }}</td>
+                    <td>{{ Number(item.numTrue) === 0 ? '未开奖' : item.numTrue  }}</td>
                     <td>
                         {{ item.status | transformStatus }} <br>
                         <small>+{{ item.eth }} ETH</small>
@@ -63,6 +63,7 @@
             getMyGuessList() {
                 GuessApi.getMyGuessList().then(res => {
                     this.myAwardList = res
+                    console.log(this.myAwardList)
                 }).catch(err => {
                     console.error(err)
                 })
