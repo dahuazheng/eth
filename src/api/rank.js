@@ -100,7 +100,7 @@ class RankApi {
                     date: n.date || '',                              // 日期
                     eth: formatDecimal(n.eth, PRECISION.ETH) || 0,   // 奖励的eth
                     inc: formatDecimal(n.inc, PRECISION.INC) || 0,   // 奖励的inc
-                    rank: n.rank || '',                              // 中奖状态：0为未中奖,1-5为中奖等级
+                    rank: n.rank || '',                              // 中奖状态：0为未中奖,1-5为中奖等级 -1未开奖
                     pushCount: n.push_count || '',                   // 直推个数
                 }))
 
