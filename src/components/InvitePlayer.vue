@@ -6,9 +6,11 @@
         </div>
         <div class="item in-active">
             <label>您的专属邀请码为</label><br>
-            <span>
+            <span v-clipboard:copy="user.invite_code || ''"
+                  v-clipboard:success="onCopy"
+                  v-clipboard:error="onError">
                 {{user.invite_code || ''}}
-                <img src="../assets/images/icon_copy.png" @click="copyName">
+                <img src="../assets/images/icon_copy.png">
             </span>
         </div>
     </div>
@@ -41,6 +43,13 @@
                 }
                 Toast('复制成功')
                 document.body.removeChild(input)
+            },
+            onCopy() {
+                return Toast('复制成功')
+            },
+
+            onError() {
+                return Toast('请重新复制')
             }
         },
         mounted() {
